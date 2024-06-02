@@ -1,0 +1,37 @@
+-- identifico los menus principales
+select * from camocontrol.tb0020_opciones_control
+where char_length(f0020_codigo) = 4 order by f0020_codigo
+
+-- identifico los submenus
+select * from camocontrol.tb0020_opciones_control
+where f0020_codigo LIKE '010505%' and char_length(f0020_codigo) = 8 order by f0020_codigo;
+
+-- agrego el nuevo menu
+INSERT INTO camocontrol.tb0020_opciones_control(
+	f0020_codigo, f0020_menu_sn, 
+	f0020_descripcion, f0020_formulario, 
+	f0020_control, f0020_codigo_padre, f0020_contexto)
+	VALUES ('010505', 'S', 
+			'GESTION LOGISTICA', 'formulario_inicio', 
+			'mi_tarifas_transportadoras', '0105', '');
+
+INSERT INTO camocontrol.tb0020_opciones_control(
+	f0020_codigo, f0020_menu_sn, 
+	f0020_descripcion, f0020_formulario, 
+	f0020_control, f0020_codigo_padre, f0020_contexto)
+	VALUES ('01050501', 'N', 
+			'ACTUALIZAR FLETES TRANSPORTADORAS', 'fm_0800_perfil_transportadora', 
+			'bt_tarifas', '010505', '');
+
+INSERT INTO camocontrol.tb0020_opciones_control(
+	f0020_codigo, f0020_menu_sn, 
+	f0020_descripcion, f0020_formulario, 
+	f0020_control, f0020_codigo_padre, f0020_contexto)
+	VALUES ('01050502', 'N', 
+			'GENERAR LISTADO FLETES TRANSPORTADORAS', 'fm_0800_perfil_transportadora', 
+			'bt_listado_fletes', '010505', '');
+
+-- actualizo un menu
+UPDATE camocontrol.tb0020_opciones_control
+	SET f0020_menu_sn=?, f0020_descripcion=?, f0020_formulario=?, f0020_control=?, f0020_codigo_padre=?, f0020_contexto=?
+	WHERE f0020_codigo=?;

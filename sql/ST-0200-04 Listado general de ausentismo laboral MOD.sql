@@ -1,0 +1,41 @@
+﻿SELECT f0216_id_ausentismo as id,
+       tb_ausente.f0200_apellido1 || ' ' || tb_ausente.f0200_apellido2 || ' ' || tb_ausente.f0200_nombres as funcionario,
+       f0217_tipo as tipo,
+       to_char(f0216_fecha_inicio_tnl, 'YYYY-MM-DD HH12:MI AM') as f_inicial_tnl,
+       to_char(f0216_fecha_inicio_tnl, 'YYYY') as año_tnl,
+       f0216_nombre_mes_ini_tnl as mes_ini_tnl,
+       f0216_nombre_dia_ini_tnl as dia_ini_tnl,
+       to_char(f0216_fecha_fin_tnl, 'YYYY-MM-DD HH12:MI AM') as f_final_tnl, 
+       f0216_horas_tnl as horas_tnl,
+       f0215_codigo as codigo, f0215_causa as causa, 
+       f0214_descripcion_grupo as grupo, f0213_clase as clase, 
+       f0216_edad as edad, f0240_cargo as cargo, f0216_id_contrato as id_contrato, 
+       f0216_antiguedad_ini as ant_ini, 
+       f0216_antiguedad_act as ant_act,
+       f0216_dias_incap_inicial as d_inc_ini, 
+       f0216_dias_prorroga as d_prorroga,
+       planta.f0100_nombre as planta_prod, maquina.f0100_nombre as maquina
+  FROM $df001$.tb0216_ausentismo
+  left join $df001$.tb0215_causas_ausentismo
+     on f0216_id_causa = f0215_id_causa
+  left join $df001$.tb0240_cargos_compania
+     on f0216_id_cargo = f0240_id_cargo
+  left join $df001$.tb0214_grupos_ausentismo
+     on f0215_id_grupo = f0214_id_grupo
+  left join $df001$.tb0213_clasificacion_ausentismo
+     on f0213_id_clase = f0214_id_clase
+  left join $df001$.tb0200_terceros as tb_ausente
+          on f0216_id_tercero  = tb_ausente.f0200_id_tercero
+  join $df001$.tb0200_terceros as otb_tercero_registro
+     on f0216_usuario_crear = otb_tercero_registro.f0200_id_tercero
+  left join $df001$.tb0217_contratos_personal
+     on f0217_id_contrato =  f0216_id_contrato  
+  left join $df001$.tb0100_estructura_mantenimiento as planta
+     on planta.f0100_id_estructura = f0216_planta
+  left join $df001$.tb0100_estructura_mantenimiento as maquina
+     on maquina.f0100_id_estructura = f0216_maquina 
+  left join $df001$.tb0217_tipos_ausentismo
+     on f0217_id_tipo = f0216_id_tipo 
+  where f0216_id_cia = '$001$' and f0216_anulado = 'N'
+        and f0216_fecha_inicio_tnl BETWEEN '$002$' AND '$003$' 
+  order by f0216_id_ausentismo

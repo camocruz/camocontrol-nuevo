@@ -1,0 +1,2 @@
+﻿DELETE FROM camocontrol.tb0800_despachos_comercial;
+DELETE FROM camocontrol.tb0850_remisiones_cguno_encabezado;

@@ -1,0 +1,38 @@
+﻿SELECT 
+      case when f0310_id_bodega_destino = 0 then
+        tb_bodega.f0005_descripcion_bodega
+        else
+        tb_bodega.f0005_descripcion_bodega || ' <==> ' || tb_bod_destino.f0005_descripcion_bodega
+      end as bodega,
+       f0310_id_documento as id_doc_inv, f0310_id_documento_origen as docto_origen,
+       f0311_documento as tipo,
+       f0310_documento_contabilidad as docto_cg, f0310_fecha as fecha_docto,
+       f0310_fr as fecha_registro, 
+       tb_responsable.f0200_apellido1 || ' ' || tb_responsable.f0200_apellido2 || ' ' || tb_responsable.f0200_nombres as responsable,
+       case when f0310_anulado = 'S' then 'ANULADO' end as estado,
+       case when f0310_anulado = 'S' then
+         tb_anulo.f0200_apellido1 || ' ' || tb_anulo.f0200_apellido2 || ' ' || tb_anulo.f0200_nombres
+       end  as anula,
+       f0309_id_item as id_item, 
+       f0300_descripcion_item || ' (' || f0300_referencia || ') (' || f0300_contenido_x_empaque || ')' as item,
+       coalesce(f0309_entrada, 0) as entrada, coalesce(f0309_salida, 0) as salida, f0002_unidad_medicion as unidad,
+       f0002_sigla_unidad_medicion as sigla_unidad, f0309_id_mov_item as id_mov_item
+ FROM camocontrol.tb0310_documentos_movimientos_inventarios
+    join camocontrol.tb0309_items_movimientos
+      on f0310_id_documento = f0309_id_documento
+    join camocontrol.tb0300_items
+      on f0309_id_item = f0300_id_item
+    join camocontrol.tb0002_unidades_medicion
+      on f0300_id_unidad_medicion = f0002_id_unidad_medicion
+    join camocontrol.tb0005_bodegas as tb_bodega
+      on f0310_id_bodega = tb_bodega.f0005_id_bodega
+    left join camocontrol.tb0005_bodegas as tb_bod_destino
+      on f0310_id_bodega_destino = tb_bod_destino.f0005_id_bodega
+    join camocontrol.tb0200_terceros as tb_responsable
+      on f0310_usuario_crear = tb_responsable.f0200_id_tercero
+    left join camocontrol.tb0200_terceros as tb_anulo
+      on f0310_usuario_anular = tb_anulo.f0200_id_tercero
+    join camocontrol.tb0311_tipos_doc_mov_inventarios
+      on f0310_id_tipo_documento = f0311_id_tipo_doc
+ where f0310_id_cia = '00000001' and f0310_id_documento = 'TRI-00000229'
+ order by f0309_id_mov_docto
