@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="ds_sol_almacen" targetNamespace="http://tempuri.org/ds_sol_almacen.xsd" xmlns:mstns="http://tempuri.org/ds_sol_almacen.xsd" xmlns="http://tempuri.org/ds_sol_almacen.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections />
+        <Tables />
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="ds_sol_almacen" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="ds_sol_almacen" msprop:Generator_UserDSName="ds_sol_almacen">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="otb_encabezado" msprop:Generator_TableClassName="otb_encabezadoDataTable" msprop:Generator_TableVarName="tableotb_encabezado" msprop:Generator_TablePropName="otb_encabezado" msprop:Generator_RowDeletingName="otb_encabezadoRowDeleting" msprop:Generator_RowChangingName="otb_encabezadoRowChanging" msprop:Generator_RowEvHandlerName="otb_encabezadoRowChangeEventHandler" msprop:Generator_RowDeletedName="otb_encabezadoRowDeleted" msprop:Generator_UserTableName="otb_encabezado" msprop:Generator_RowChangedName="otb_encabezadoRowChanged" msprop:Generator_RowEvArgName="otb_encabezadoRowChangeEvent" msprop:Generator_RowClassName="otb_encabezadoRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="id_solicitud" msprop:Generator_ColumnVarNameInTable="columnid_solicitud" msprop:Generator_ColumnPropNameInRow="id_solicitud" msprop:Generator_ColumnPropNameInTable="id_solicitudColumn" msprop:Generator_UserColumnName="id_solicitud" type="xs:long" minOccurs="0" />
+              <xs:element name="bodega_solicitante" msprop:Generator_ColumnVarNameInTable="columnbodega_solicitante" msprop:Generator_ColumnPropNameInRow="bodega_solicitante" msprop:Generator_ColumnPropNameInTable="bodega_solicitanteColumn" msprop:Generator_UserColumnName="bodega_solicitante" type="xs:string" minOccurs="0" />
+              <xs:element name="usuario_solicita" msprop:Generator_ColumnVarNameInTable="columnusuario_solicita" msprop:Generator_ColumnPropNameInRow="usuario_solicita" msprop:Generator_ColumnPropNameInTable="usuario_solicitaColumn" msprop:Generator_UserColumnName="usuario_solicita" type="xs:string" minOccurs="0" />
+              <xs:element name="fecha_solicitud" msprop:Generator_ColumnVarNameInTable="columnfecha_solicitud" msprop:Generator_ColumnPropNameInRow="fecha_solicitud" msprop:Generator_ColumnPropNameInTable="fecha_solicitudColumn" msprop:Generator_UserColumnName="fecha_solicitud" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="id_accion" msprop:Generator_ColumnVarNameInTable="columnid_accion" msprop:Generator_ColumnPropNameInRow="id_accion" msprop:Generator_ColumnPropNameInTable="id_accionColumn" msprop:Generator_UserColumnName="id_accion" type="xs:long" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="otb_detalle" msprop:Generator_TableClassName="otb_detalleDataTable" msprop:Generator_TableVarName="tableotb_detalle" msprop:Generator_TablePropName="otb_detalle" msprop:Generator_RowDeletingName="otb_detalleRowDeleting" msprop:Generator_RowChangingName="otb_detalleRowChanging" msprop:Generator_RowEvHandlerName="otb_detalleRowChangeEventHandler" msprop:Generator_RowDeletedName="otb_detalleRowDeleted" msprop:Generator_UserTableName="otb_detalle" msprop:Generator_RowChangedName="otb_detalleRowChanged" msprop:Generator_RowEvArgName="otb_detalleRowChangeEvent" msprop:Generator_RowClassName="otb_detalleRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="id_item_sol" msprop:Generator_ColumnVarNameInTable="columnid_item_sol" msprop:Generator_ColumnPropNameInRow="id_item_sol" msprop:Generator_ColumnPropNameInTable="id_item_solColumn" msprop:Generator_UserColumnName="id_item_sol" type="xs:long" minOccurs="0" />
+              <xs:element name="id_solicitud" msprop:Generator_ColumnVarNameInTable="columnid_solicitud" msprop:Generator_ColumnPropNameInRow="id_solicitud" msprop:Generator_ColumnPropNameInTable="id_solicitudColumn" msprop:Generator_UserColumnName="id_solicitud" type="xs:long" minOccurs="0" />
+              <xs:element name="id_item" msprop:Generator_ColumnVarNameInTable="columnid_item" msprop:Generator_ColumnPropNameInRow="id_item" msprop:Generator_ColumnPropNameInTable="id_itemColumn" msprop:Generator_UserColumnName="id_item" type="xs:long" minOccurs="0" />
+              <xs:element name="descripcion" msprop:Generator_ColumnVarNameInTable="columndescripcion" msprop:Generator_ColumnPropNameInRow="descripcion" msprop:Generator_ColumnPropNameInTable="descripcionColumn" msprop:Generator_UserColumnName="descripcion" type="xs:string" minOccurs="0" />
+              <xs:element name="cant_solicitada" msprop:Generator_ColumnVarNameInTable="columncant_solicitada" msprop:Generator_ColumnPropNameInRow="cant_solicitada" msprop:Generator_ColumnPropNameInTable="cant_solicitadaColumn" msprop:Generator_UserColumnName="cant_solicitada" type="xs:decimal" minOccurs="0" />
+              <xs:element name="bodega_entrega" msprop:Generator_ColumnVarNameInTable="columnbodega_entrega" msprop:Generator_ColumnPropNameInRow="bodega_entrega" msprop:Generator_ColumnPropNameInTable="bodega_entregaColumn" msprop:Generator_UserColumnName="bodega_entrega" type="xs:string" minOccurs="0" />
+              <xs:element name="fecha_requerida" msprop:Generator_ColumnVarNameInTable="columnfecha_requerida" msprop:Generator_ColumnPropNameInRow="fecha_requerida" msprop:Generator_ColumnPropNameInTable="fecha_requeridaColumn" msprop:Generator_UserColumnName="fecha_requerida" type="xs:dateTime" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+  <xs:annotation>
+    <xs:appinfo>
+      <msdata:Relationship name="otb_encabezado_otb_detalle" msdata:parent="otb_encabezado" msdata:child="otb_detalle" msdata:parentkey="id_solicitud" msdata:childkey="id_solicitud" msprop:Generator_UserChildTable="otb_detalle" msprop:Generator_ChildPropName="Getotb_detalleRows" msprop:Generator_UserRelationName="otb_encabezado_otb_detalle" msprop:Generator_ParentPropName="otb_encabezadoRow" msprop:Generator_RelationVarName="relationotb_encabezado_otb_detalle" msprop:Generator_UserParentTable="otb_encabezado" />
+    </xs:appinfo>
+  </xs:annotation>
+</xs:schema>

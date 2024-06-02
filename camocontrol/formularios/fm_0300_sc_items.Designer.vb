@@ -1,0 +1,635 @@
+﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
+Partial Class fm_0300_sc_items
+    Inherits camocontrol.FM_PLANTILLA
+
+    'Form invalida a Dispose para limpiar la lista de componentes.
+    <System.Diagnostics.DebuggerNonUserCode()> _
+    Protected Overrides Sub Dispose(ByVal disposing As Boolean)
+        If disposing AndAlso components IsNot Nothing Then
+            components.Dispose()
+        End If
+        MyBase.Dispose(disposing)
+    End Sub
+
+    'Requerido por el Diseñador de Windows Forms
+    Private components As System.ComponentModel.IContainer
+
+    'NOTA: el Diseñador de Windows Forms necesita el siguiente procedimiento
+    'Se puede modificar usando el Diseñador de Windows Forms.  
+    'No lo modifique con el editor de código.
+    <System.Diagnostics.DebuggerStepThrough()> _
+    Private Sub InitializeComponent()
+        Me.tx_id_registro = New System.Windows.Forms.TextBox()
+        Me.Label8 = New System.Windows.Forms.Label()
+        Me.cm_descripcion = New System.Windows.Forms.ComboBox()
+        Me.tx_id_item = New System.Windows.Forms.TextBox()
+        Me.Label5 = New System.Windows.Forms.Label()
+        Me.tx_descripcion_manual = New System.Windows.Forms.TextBox()
+        Me.Label7 = New System.Windows.Forms.Label()
+        Me.tx_cantidad = New System.Windows.Forms.TextBox()
+        Me.Label1 = New System.Windows.Forms.Label()
+        Me.tx_cost_unit = New System.Windows.Forms.TextBox()
+        Me.Label2 = New System.Windows.Forms.Label()
+        Me.tx_cost_total_iva = New System.Windows.Forms.TextBox()
+        Me.Label3 = New System.Windows.Forms.Label()
+        Me.tx_observacion = New System.Windows.Forms.TextBox()
+        Me.Label6 = New System.Windows.Forms.Label()
+        Me.lb_unidad = New System.Windows.Forms.Label()
+        Me.dtp_fecha_requerido = New System.Windows.Forms.DateTimePicker()
+        Me.Label9 = New System.Windows.Forms.Label()
+        Me.tx_impuesto = New System.Windows.Forms.TextBox()
+        Me.Label12 = New System.Windows.Forms.Label()
+        Me.tx_descuento = New System.Windows.Forms.TextBox()
+        Me.Label13 = New System.Windows.Forms.Label()
+        Me.tx_cost_unit_iva = New System.Windows.Forms.TextBox()
+        Me.Label14 = New System.Windows.Forms.Label()
+        Me.tx_cost_total = New System.Windows.Forms.TextBox()
+        Me.Label15 = New System.Windows.Forms.Label()
+        Me.tx_id_fact_compras = New System.Windows.Forms.TextBox()
+        Me.Label16 = New System.Windows.Forms.Label()
+        Me.tx_id_item_sc = New System.Windows.Forms.TextBox()
+        Me.Label17 = New System.Windows.Forms.Label()
+        Me.tx_id_accion = New System.Windows.Forms.TextBox()
+        Me.Label18 = New System.Windows.Forms.Label()
+        Me.bt_cambiar_infraestructura = New System.Windows.Forms.Button()
+        Me.Label19 = New System.Windows.Forms.Label()
+        Me.tx_estructura = New System.Windows.Forms.TextBox()
+        Me.bt_listado_general_items = New System.Windows.Forms.Button()
+        Me.bt_actualizar_creando_accion = New System.Windows.Forms.Button()
+        Me.lb_var_costo_prom = New System.Windows.Forms.Label()
+        Me.bt_autorizar_variacion_costo = New System.Windows.Forms.Button()
+        Me.tx_inventario_total = New System.Windows.Forms.TextBox()
+        Me.Label4 = New System.Windows.Forms.Label()
+        Me.chk_inventario = New System.Windows.Forms.CheckBox()
+        Me.GroupBox1.SuspendLayout()
+        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.SuspendLayout()
+        '
+        'lb_fecha
+        '
+        Me.lb_fecha.Size = New System.Drawing.Size(72, 16)
+        Me.lb_fecha.Text = "2014/03/24"
+        '
+        'lb_titulo
+        '
+        Me.lb_titulo.Size = New System.Drawing.Size(319, 32)
+        Me.lb_titulo.Text = "Item solicitud de compra"
+        '
+        'GroupBox1
+        '
+        Me.GroupBox1.Location = New System.Drawing.Point(252, 480)
+        '
+        'bt_grabar
+        '
+        Me.bt_grabar.TabIndex = 0
+        '
+        'bt_anular
+        '
+        '
+        'lb_diseñador_programa
+        '
+        Me.lb_diseñador_programa.Location = New System.Drawing.Point(0, 540)
+        '
+        'tx_id_registro
+        '
+        Me.tx_id_registro.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.tx_id_registro.Location = New System.Drawing.Point(153, 61)
+        Me.tx_id_registro.Name = "tx_id_registro"
+        Me.tx_id_registro.Size = New System.Drawing.Size(79, 22)
+        Me.tx_id_registro.TabIndex = 0
+        '
+        'Label8
+        '
+        Me.Label8.AutoSize = True
+        Me.Label8.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label8.Location = New System.Drawing.Point(42, 64)
+        Me.Label8.Name = "Label8"
+        Me.Label8.Size = New System.Drawing.Size(32, 16)
+        Me.Label8.TabIndex = 129
+        Me.Label8.Text = "Id #:"
+        '
+        'cm_descripcion
+        '
+        Me.cm_descripcion.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cm_descripcion.FormattingEnabled = True
+        Me.cm_descripcion.Location = New System.Drawing.Point(238, 84)
+        Me.cm_descripcion.Name = "cm_descripcion"
+        Me.cm_descripcion.Size = New System.Drawing.Size(457, 24)
+        Me.cm_descripcion.TabIndex = 1
+        '
+        'tx_id_item
+        '
+        Me.tx_id_item.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.tx_id_item.Location = New System.Drawing.Point(153, 86)
+        Me.tx_id_item.Name = "tx_id_item"
+        Me.tx_id_item.Size = New System.Drawing.Size(79, 22)
+        Me.tx_id_item.TabIndex = 10
+        '
+        'Label5
+        '
+        Me.Label5.AutoSize = True
+        Me.Label5.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label5.Location = New System.Drawing.Point(42, 89)
+        Me.Label5.Name = "Label5"
+        Me.Label5.Size = New System.Drawing.Size(54, 16)
+        Me.Label5.TabIndex = 134
+        Me.Label5.Text = "Id_item:"
+        '
+        'tx_descripcion_manual
+        '
+        Me.tx_descripcion_manual.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
+        Me.tx_descripcion_manual.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.tx_descripcion_manual.Location = New System.Drawing.Point(153, 111)
+        Me.tx_descripcion_manual.Multiline = True
+        Me.tx_descripcion_manual.Name = "tx_descripcion_manual"
+        Me.tx_descripcion_manual.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
+        Me.tx_descripcion_manual.Size = New System.Drawing.Size(542, 56)
+        Me.tx_descripcion_manual.TabIndex = 2
+        '
+        'Label7
+        '
+        Me.Label7.AutoSize = True
+        Me.Label7.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label7.Location = New System.Drawing.Point(42, 108)
+        Me.Label7.Name = "Label7"
+        Me.Label7.Size = New System.Drawing.Size(83, 16)
+        Me.Label7.TabIndex = 143
+        Me.Label7.Text = "Descripcion:"
+        '
+        'tx_cantidad
+        '
+        Me.tx_cantidad.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.tx_cantidad.Location = New System.Drawing.Point(153, 214)
+        Me.tx_cantidad.Name = "tx_cantidad"
+        Me.tx_cantidad.Size = New System.Drawing.Size(116, 22)
+        Me.tx_cantidad.TabIndex = 3
+        '
+        'Label1
+        '
+        Me.Label1.AutoSize = True
+        Me.Label1.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label1.Location = New System.Drawing.Point(42, 217)
+        Me.Label1.Name = "Label1"
+        Me.Label1.Size = New System.Drawing.Size(65, 16)
+        Me.Label1.TabIndex = 145
+        Me.Label1.Text = "Cantidad:"
+        '
+        'tx_cost_unit
+        '
+        Me.tx_cost_unit.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.tx_cost_unit.Location = New System.Drawing.Point(153, 289)
+        Me.tx_cost_unit.Name = "tx_cost_unit"
+        Me.tx_cost_unit.Size = New System.Drawing.Size(115, 22)
+        Me.tx_cost_unit.TabIndex = 6
+        '
+        'Label2
+        '
+        Me.Label2.AutoSize = True
+        Me.Label2.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label2.Location = New System.Drawing.Point(42, 292)
+        Me.Label2.Name = "Label2"
+        Me.Label2.Size = New System.Drawing.Size(67, 16)
+        Me.Label2.TabIndex = 147
+        Me.Label2.Text = "$ Unitario:"
+        '
+        'tx_cost_total_iva
+        '
+        Me.tx_cost_total_iva.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.tx_cost_total_iva.Location = New System.Drawing.Point(153, 364)
+        Me.tx_cost_total_iva.Name = "tx_cost_total_iva"
+        Me.tx_cost_total_iva.Size = New System.Drawing.Size(115, 22)
+        Me.tx_cost_total_iva.TabIndex = 9
+        '
+        'Label3
+        '
+        Me.Label3.AutoSize = True
+        Me.Label3.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label3.Location = New System.Drawing.Point(42, 367)
+        Me.Label3.Name = "Label3"
+        Me.Label3.Size = New System.Drawing.Size(91, 16)
+        Me.Label3.TabIndex = 149
+        Me.Label3.Text = "$ Total (+IVA):"
+        '
+        'tx_observacion
+        '
+        Me.tx_observacion.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
+        Me.tx_observacion.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.tx_observacion.Location = New System.Drawing.Point(42, 435)
+        Me.tx_observacion.Multiline = True
+        Me.tx_observacion.Name = "tx_observacion"
+        Me.tx_observacion.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
+        Me.tx_observacion.Size = New System.Drawing.Size(667, 40)
+        Me.tx_observacion.TabIndex = 10
+        '
+        'Label6
+        '
+        Me.Label6.AutoSize = True
+        Me.Label6.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label6.Location = New System.Drawing.Point(42, 413)
+        Me.Label6.Name = "Label6"
+        Me.Label6.Size = New System.Drawing.Size(88, 16)
+        Me.Label6.TabIndex = 153
+        Me.Label6.Text = "Observacion:"
+        '
+        'lb_unidad
+        '
+        Me.lb_unidad.AutoSize = True
+        Me.lb_unidad.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lb_unidad.Location = New System.Drawing.Point(275, 220)
+        Me.lb_unidad.Name = "lb_unidad"
+        Me.lb_unidad.Size = New System.Drawing.Size(52, 16)
+        Me.lb_unidad.TabIndex = 155
+        Me.lb_unidad.Text = "Unidad"
+        '
+        'dtp_fecha_requerido
+        '
+        Me.dtp_fecha_requerido.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.dtp_fecha_requerido.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
+        Me.dtp_fecha_requerido.Location = New System.Drawing.Point(580, 264)
+        Me.dtp_fecha_requerido.Name = "dtp_fecha_requerido"
+        Me.dtp_fecha_requerido.Size = New System.Drawing.Size(115, 22)
+        Me.dtp_fecha_requerido.TabIndex = 13
+        '
+        'Label9
+        '
+        Me.Label9.AutoSize = True
+        Me.Label9.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label9.Location = New System.Drawing.Point(423, 267)
+        Me.Label9.Name = "Label9"
+        Me.Label9.Size = New System.Drawing.Size(116, 16)
+        Me.Label9.TabIndex = 156
+        Me.Label9.Text = "Fecha Requerido:"
+        '
+        'tx_impuesto
+        '
+        Me.tx_impuesto.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.tx_impuesto.Location = New System.Drawing.Point(153, 239)
+        Me.tx_impuesto.Name = "tx_impuesto"
+        Me.tx_impuesto.Size = New System.Drawing.Size(115, 22)
+        Me.tx_impuesto.TabIndex = 4
+        '
+        'Label12
+        '
+        Me.Label12.AutoSize = True
+        Me.Label12.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label12.Location = New System.Drawing.Point(42, 242)
+        Me.Label12.Name = "Label12"
+        Me.Label12.Size = New System.Drawing.Size(81, 16)
+        Me.Label12.TabIndex = 162
+        Me.Label12.Text = "% Impuesto:"
+        '
+        'tx_descuento
+        '
+        Me.tx_descuento.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.tx_descuento.Location = New System.Drawing.Point(153, 264)
+        Me.tx_descuento.Name = "tx_descuento"
+        Me.tx_descuento.Size = New System.Drawing.Size(115, 22)
+        Me.tx_descuento.TabIndex = 5
+        '
+        'Label13
+        '
+        Me.Label13.AutoSize = True
+        Me.Label13.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label13.Location = New System.Drawing.Point(42, 267)
+        Me.Label13.Name = "Label13"
+        Me.Label13.Size = New System.Drawing.Size(91, 16)
+        Me.Label13.TabIndex = 164
+        Me.Label13.Text = "% Descuento:"
+        '
+        'tx_cost_unit_iva
+        '
+        Me.tx_cost_unit_iva.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.tx_cost_unit_iva.Location = New System.Drawing.Point(153, 314)
+        Me.tx_cost_unit_iva.Name = "tx_cost_unit_iva"
+        Me.tx_cost_unit_iva.Size = New System.Drawing.Size(115, 22)
+        Me.tx_cost_unit_iva.TabIndex = 7
+        '
+        'Label14
+        '
+        Me.Label14.AutoSize = True
+        Me.Label14.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label14.Location = New System.Drawing.Point(42, 317)
+        Me.Label14.Name = "Label14"
+        Me.Label14.Size = New System.Drawing.Size(106, 16)
+        Me.Label14.TabIndex = 166
+        Me.Label14.Text = "$ Unitario (+IVA):"
+        '
+        'tx_cost_total
+        '
+        Me.tx_cost_total.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.tx_cost_total.Location = New System.Drawing.Point(153, 339)
+        Me.tx_cost_total.Name = "tx_cost_total"
+        Me.tx_cost_total.Size = New System.Drawing.Size(115, 22)
+        Me.tx_cost_total.TabIndex = 8
+        '
+        'Label15
+        '
+        Me.Label15.AutoSize = True
+        Me.Label15.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label15.Location = New System.Drawing.Point(42, 342)
+        Me.Label15.Name = "Label15"
+        Me.Label15.Size = New System.Drawing.Size(52, 16)
+        Me.Label15.TabIndex = 167
+        Me.Label15.Text = "$ Total:"
+        '
+        'tx_id_fact_compras
+        '
+        Me.tx_id_fact_compras.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.tx_id_fact_compras.Location = New System.Drawing.Point(580, 367)
+        Me.tx_id_fact_compras.Name = "tx_id_fact_compras"
+        Me.tx_id_fact_compras.Size = New System.Drawing.Size(115, 22)
+        Me.tx_id_fact_compras.TabIndex = 169
+        '
+        'Label16
+        '
+        Me.Label16.AutoSize = True
+        Me.Label16.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label16.Location = New System.Drawing.Point(423, 370)
+        Me.Label16.Name = "Label16"
+        Me.Label16.Size = New System.Drawing.Size(155, 16)
+        Me.Label16.TabIndex = 168
+        Me.Label16.Text = "Reg. Factura Proveedor:"
+        '
+        'tx_id_item_sc
+        '
+        Me.tx_id_item_sc.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.tx_id_item_sc.Location = New System.Drawing.Point(329, 61)
+        Me.tx_id_item_sc.Name = "tx_id_item_sc"
+        Me.tx_id_item_sc.Size = New System.Drawing.Size(79, 22)
+        Me.tx_id_item_sc.TabIndex = 170
+        '
+        'Label17
+        '
+        Me.Label17.AutoSize = True
+        Me.Label17.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label17.Location = New System.Drawing.Point(237, 64)
+        Me.Label17.Name = "Label17"
+        Me.Label17.Size = New System.Drawing.Size(86, 16)
+        Me.Label17.TabIndex = 171
+        Me.Label17.Text = "Id_item_SC#:"
+        '
+        'tx_id_accion
+        '
+        Me.tx_id_accion.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.tx_id_accion.Location = New System.Drawing.Point(495, 61)
+        Me.tx_id_accion.Name = "tx_id_accion"
+        Me.tx_id_accion.Size = New System.Drawing.Size(79, 22)
+        Me.tx_id_accion.TabIndex = 172
+        '
+        'Label18
+        '
+        Me.Label18.AutoSize = True
+        Me.Label18.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label18.Location = New System.Drawing.Point(429, 64)
+        Me.Label18.Name = "Label18"
+        Me.Label18.Size = New System.Drawing.Size(62, 16)
+        Me.Label18.TabIndex = 173
+        Me.Label18.Text = "Accion #:"
+        '
+        'bt_cambiar_infraestructura
+        '
+        Me.bt_cambiar_infraestructura.BackgroundImage = Global.camocontrol.My.Resources.Resources.cargarplano
+        Me.bt_cambiar_infraestructura.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
+        Me.bt_cambiar_infraestructura.Location = New System.Drawing.Point(699, 169)
+        Me.bt_cambiar_infraestructura.Name = "bt_cambiar_infraestructura"
+        Me.bt_cambiar_infraestructura.Size = New System.Drawing.Size(21, 22)
+        Me.bt_cambiar_infraestructura.TabIndex = 177
+        Me.bt_cambiar_infraestructura.UseVisualStyleBackColor = True
+        '
+        'Label19
+        '
+        Me.Label19.AutoSize = True
+        Me.Label19.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label19.Location = New System.Drawing.Point(42, 172)
+        Me.Label19.Name = "Label19"
+        Me.Label19.Size = New System.Drawing.Size(54, 16)
+        Me.Label19.TabIndex = 176
+        Me.Label19.Text = "Equipo:"
+        '
+        'tx_estructura
+        '
+        Me.tx_estructura.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
+        Me.tx_estructura.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.tx_estructura.Location = New System.Drawing.Point(153, 169)
+        Me.tx_estructura.Multiline = True
+        Me.tx_estructura.Name = "tx_estructura"
+        Me.tx_estructura.ReadOnly = True
+        Me.tx_estructura.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
+        Me.tx_estructura.Size = New System.Drawing.Size(542, 39)
+        Me.tx_estructura.TabIndex = 175
+        '
+        'bt_listado_general_items
+        '
+        Me.bt_listado_general_items.BackgroundImage = Global.camocontrol.My.Resources.Resources.icono_lupa
+        Me.bt_listado_general_items.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
+        Me.bt_listado_general_items.Location = New System.Drawing.Point(703, 76)
+        Me.bt_listado_general_items.Name = "bt_listado_general_items"
+        Me.bt_listado_general_items.Size = New System.Drawing.Size(38, 32)
+        Me.bt_listado_general_items.TabIndex = 178
+        Me.bt_listado_general_items.UseVisualStyleBackColor = True
+        '
+        'bt_actualizar_creando_accion
+        '
+        Me.bt_actualizar_creando_accion.Enabled = False
+        Me.bt_actualizar_creando_accion.Location = New System.Drawing.Point(195, 538)
+        Me.bt_actualizar_creando_accion.Name = "bt_actualizar_creando_accion"
+        Me.bt_actualizar_creando_accion.Size = New System.Drawing.Size(22, 16)
+        Me.bt_actualizar_creando_accion.TabIndex = 180
+        Me.bt_actualizar_creando_accion.Text = "B"
+        Me.bt_actualizar_creando_accion.UseVisualStyleBackColor = True
+        '
+        'lb_var_costo_prom
+        '
+        Me.lb_var_costo_prom.AutoSize = True
+        Me.lb_var_costo_prom.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lb_var_costo_prom.Location = New System.Drawing.Point(577, 298)
+        Me.lb_var_costo_prom.Name = "lb_var_costo_prom"
+        Me.lb_var_costo_prom.Size = New System.Drawing.Size(15, 16)
+        Me.lb_var_costo_prom.TabIndex = 181
+        Me.lb_var_costo_prom.Text = "0"
+        '
+        'bt_autorizar_variacion_costo
+        '
+        Me.bt_autorizar_variacion_costo.Location = New System.Drawing.Point(308, 342)
+        Me.bt_autorizar_variacion_costo.Name = "bt_autorizar_variacion_costo"
+        Me.bt_autorizar_variacion_costo.Size = New System.Drawing.Size(78, 47)
+        Me.bt_autorizar_variacion_costo.TabIndex = 182
+        Me.bt_autorizar_variacion_costo.Text = "Aut. Var Costo"
+        Me.bt_autorizar_variacion_costo.UseVisualStyleBackColor = True
+        '
+        'tx_inventario_total
+        '
+        Me.tx_inventario_total.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.tx_inventario_total.Location = New System.Drawing.Point(580, 214)
+        Me.tx_inventario_total.Name = "tx_inventario_total"
+        Me.tx_inventario_total.ReadOnly = True
+        Me.tx_inventario_total.Size = New System.Drawing.Size(115, 22)
+        Me.tx_inventario_total.TabIndex = 183
+        '
+        'Label4
+        '
+        Me.Label4.AutoSize = True
+        Me.Label4.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label4.Location = New System.Drawing.Point(423, 217)
+        Me.Label4.Name = "Label4"
+        Me.Label4.Size = New System.Drawing.Size(103, 16)
+        Me.Label4.TabIndex = 184
+        Me.Label4.Text = "Inventario Total:"
+        '
+        'chk_inventario
+        '
+        Me.chk_inventario.AutoSize = True
+        Me.chk_inventario.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.chk_inventario.Location = New System.Drawing.Point(153, 392)
+        Me.chk_inventario.Name = "chk_inventario"
+        Me.chk_inventario.Size = New System.Drawing.Size(134, 20)
+        Me.chk_inventario.TabIndex = 10
+        Me.chk_inventario.Text = "Destino Inventario"
+        Me.chk_inventario.UseVisualStyleBackColor = True
+        '
+        'fm_0300_sc_items
+        '
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
+        Me.ClientSize = New System.Drawing.Size(745, 554)
+        Me.Controls.Add(Me.chk_inventario)
+        Me.Controls.Add(Me.tx_inventario_total)
+        Me.Controls.Add(Me.Label4)
+        Me.Controls.Add(Me.bt_autorizar_variacion_costo)
+        Me.Controls.Add(Me.lb_var_costo_prom)
+        Me.Controls.Add(Me.bt_actualizar_creando_accion)
+        Me.Controls.Add(Me.bt_listado_general_items)
+        Me.Controls.Add(Me.bt_cambiar_infraestructura)
+        Me.Controls.Add(Me.Label19)
+        Me.Controls.Add(Me.tx_estructura)
+        Me.Controls.Add(Me.tx_id_accion)
+        Me.Controls.Add(Me.Label18)
+        Me.Controls.Add(Me.tx_id_item_sc)
+        Me.Controls.Add(Me.Label17)
+        Me.Controls.Add(Me.tx_id_fact_compras)
+        Me.Controls.Add(Me.Label16)
+        Me.Controls.Add(Me.tx_cost_total)
+        Me.Controls.Add(Me.Label15)
+        Me.Controls.Add(Me.tx_cost_unit_iva)
+        Me.Controls.Add(Me.Label14)
+        Me.Controls.Add(Me.tx_descuento)
+        Me.Controls.Add(Me.Label13)
+        Me.Controls.Add(Me.tx_impuesto)
+        Me.Controls.Add(Me.Label12)
+        Me.Controls.Add(Me.dtp_fecha_requerido)
+        Me.Controls.Add(Me.Label9)
+        Me.Controls.Add(Me.lb_unidad)
+        Me.Controls.Add(Me.tx_observacion)
+        Me.Controls.Add(Me.Label6)
+        Me.Controls.Add(Me.tx_cost_total_iva)
+        Me.Controls.Add(Me.Label3)
+        Me.Controls.Add(Me.tx_cost_unit)
+        Me.Controls.Add(Me.Label2)
+        Me.Controls.Add(Me.tx_cantidad)
+        Me.Controls.Add(Me.Label1)
+        Me.Controls.Add(Me.tx_descripcion_manual)
+        Me.Controls.Add(Me.Label7)
+        Me.Controls.Add(Me.cm_descripcion)
+        Me.Controls.Add(Me.tx_id_item)
+        Me.Controls.Add(Me.Label5)
+        Me.Controls.Add(Me.tx_id_registro)
+        Me.Controls.Add(Me.Label8)
+        Me.Name = "fm_0300_sc_items"
+        Me.Text = "Item solicitud de Compra"
+        Me.Controls.SetChildIndex(Me.lb_titulo, 0)
+        Me.Controls.SetChildIndex(Me.ll_linea1, 0)
+        Me.Controls.SetChildIndex(Me.lb_fecha, 0)
+        Me.Controls.SetChildIndex(Me.lb_mi_marca, 0)
+        Me.Controls.SetChildIndex(Me.PictureBox1, 0)
+        Me.Controls.SetChildIndex(Me.GroupBox1, 0)
+        Me.Controls.SetChildIndex(Me.lb_diseñador_programa, 0)
+        Me.Controls.SetChildIndex(Me.Label8, 0)
+        Me.Controls.SetChildIndex(Me.tx_id_registro, 0)
+        Me.Controls.SetChildIndex(Me.Label5, 0)
+        Me.Controls.SetChildIndex(Me.tx_id_item, 0)
+        Me.Controls.SetChildIndex(Me.cm_descripcion, 0)
+        Me.Controls.SetChildIndex(Me.Label7, 0)
+        Me.Controls.SetChildIndex(Me.tx_descripcion_manual, 0)
+        Me.Controls.SetChildIndex(Me.Label1, 0)
+        Me.Controls.SetChildIndex(Me.tx_cantidad, 0)
+        Me.Controls.SetChildIndex(Me.Label2, 0)
+        Me.Controls.SetChildIndex(Me.tx_cost_unit, 0)
+        Me.Controls.SetChildIndex(Me.Label3, 0)
+        Me.Controls.SetChildIndex(Me.tx_cost_total_iva, 0)
+        Me.Controls.SetChildIndex(Me.Label6, 0)
+        Me.Controls.SetChildIndex(Me.tx_observacion, 0)
+        Me.Controls.SetChildIndex(Me.lb_unidad, 0)
+        Me.Controls.SetChildIndex(Me.Label9, 0)
+        Me.Controls.SetChildIndex(Me.dtp_fecha_requerido, 0)
+        Me.Controls.SetChildIndex(Me.Label12, 0)
+        Me.Controls.SetChildIndex(Me.tx_impuesto, 0)
+        Me.Controls.SetChildIndex(Me.Label13, 0)
+        Me.Controls.SetChildIndex(Me.tx_descuento, 0)
+        Me.Controls.SetChildIndex(Me.Label14, 0)
+        Me.Controls.SetChildIndex(Me.tx_cost_unit_iva, 0)
+        Me.Controls.SetChildIndex(Me.Label15, 0)
+        Me.Controls.SetChildIndex(Me.tx_cost_total, 0)
+        Me.Controls.SetChildIndex(Me.Label16, 0)
+        Me.Controls.SetChildIndex(Me.tx_id_fact_compras, 0)
+        Me.Controls.SetChildIndex(Me.Label17, 0)
+        Me.Controls.SetChildIndex(Me.tx_id_item_sc, 0)
+        Me.Controls.SetChildIndex(Me.Label18, 0)
+        Me.Controls.SetChildIndex(Me.tx_id_accion, 0)
+        Me.Controls.SetChildIndex(Me.tx_estructura, 0)
+        Me.Controls.SetChildIndex(Me.Label19, 0)
+        Me.Controls.SetChildIndex(Me.bt_cambiar_infraestructura, 0)
+        Me.Controls.SetChildIndex(Me.bt_listado_general_items, 0)
+        Me.Controls.SetChildIndex(Me.bt_actualizar_creando_accion, 0)
+        Me.Controls.SetChildIndex(Me.lb_var_costo_prom, 0)
+        Me.Controls.SetChildIndex(Me.bt_autorizar_variacion_costo, 0)
+        Me.Controls.SetChildIndex(Me.Label4, 0)
+        Me.Controls.SetChildIndex(Me.tx_inventario_total, 0)
+        Me.Controls.SetChildIndex(Me.chk_inventario, 0)
+        Me.GroupBox1.ResumeLayout(False)
+        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.ResumeLayout(False)
+        Me.PerformLayout()
+
+    End Sub
+    Friend WithEvents tx_id_registro As System.Windows.Forms.TextBox
+    Friend WithEvents Label8 As System.Windows.Forms.Label
+    Friend WithEvents cm_descripcion As System.Windows.Forms.ComboBox
+    Friend WithEvents tx_id_item As System.Windows.Forms.TextBox
+    Friend WithEvents Label5 As System.Windows.Forms.Label
+    Friend WithEvents tx_descripcion_manual As System.Windows.Forms.TextBox
+    Friend WithEvents Label7 As System.Windows.Forms.Label
+    Friend WithEvents tx_cantidad As System.Windows.Forms.TextBox
+    Friend WithEvents Label1 As System.Windows.Forms.Label
+    Friend WithEvents tx_cost_unit As System.Windows.Forms.TextBox
+    Friend WithEvents Label2 As System.Windows.Forms.Label
+    Friend WithEvents tx_cost_total_iva As System.Windows.Forms.TextBox
+    Friend WithEvents Label3 As System.Windows.Forms.Label
+    Friend WithEvents tx_observacion As System.Windows.Forms.TextBox
+    Friend WithEvents Label6 As System.Windows.Forms.Label
+    Friend WithEvents lb_unidad As System.Windows.Forms.Label
+    Friend WithEvents dtp_fecha_requerido As System.Windows.Forms.DateTimePicker
+    Friend WithEvents Label9 As System.Windows.Forms.Label
+    Friend WithEvents tx_impuesto As System.Windows.Forms.TextBox
+    Friend WithEvents Label12 As System.Windows.Forms.Label
+    Friend WithEvents tx_descuento As System.Windows.Forms.TextBox
+    Friend WithEvents Label13 As System.Windows.Forms.Label
+    Friend WithEvents tx_cost_unit_iva As System.Windows.Forms.TextBox
+    Friend WithEvents Label14 As System.Windows.Forms.Label
+    Friend WithEvents tx_cost_total As System.Windows.Forms.TextBox
+    Friend WithEvents Label15 As System.Windows.Forms.Label
+    Friend WithEvents tx_id_fact_compras As System.Windows.Forms.TextBox
+    Friend WithEvents Label16 As System.Windows.Forms.Label
+    Friend WithEvents tx_id_item_sc As System.Windows.Forms.TextBox
+    Friend WithEvents Label17 As System.Windows.Forms.Label
+    Friend WithEvents tx_id_accion As System.Windows.Forms.TextBox
+    Friend WithEvents Label18 As System.Windows.Forms.Label
+    Friend WithEvents bt_cambiar_infraestructura As System.Windows.Forms.Button
+    Friend WithEvents Label19 As System.Windows.Forms.Label
+    Friend WithEvents tx_estructura As System.Windows.Forms.TextBox
+    Friend WithEvents bt_listado_general_items As Button
+    Friend WithEvents bt_actualizar_creando_accion As Button
+    Friend WithEvents lb_var_costo_prom As Label
+    Friend WithEvents bt_autorizar_variacion_costo As Button
+    Friend WithEvents tx_inventario_total As TextBox
+    Friend WithEvents Label4 As Label
+    Friend WithEvents chk_inventario As CheckBox
+End Class

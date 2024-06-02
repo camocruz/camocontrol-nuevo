@@ -1,0 +1,4 @@
+﻿Public Class fm_0300_asignacion_elemetos_personal_encabezado
+
+
+End Class
