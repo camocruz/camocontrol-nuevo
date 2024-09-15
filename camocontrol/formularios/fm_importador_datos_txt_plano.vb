@@ -105,6 +105,10 @@ Public Class fm_importador_datos_txt_plano
     End Sub
 
     Private Sub bt_probar_Click(sender As Object, e As EventArgs) Handles bt_probar.Click
+        If tx_definicion.Text = "" Then
+            MsgBox("Genere cadena de prueba", MsgBoxStyle.Critical)
+            Exit Sub
+        End If
         Dim info_busqueda As cl_importador_planos.info_busqueda_campo
         dgw_encontrados.Rows.Clear()
         definir_archivo()

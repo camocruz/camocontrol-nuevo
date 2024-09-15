@@ -11,13 +11,13 @@ select f0800_id_despacho as id_pdd, coalesce(f0005_cod_bodega, 'ND') as bodega,
       to_char(f0800_fr, 'YYYY-MM-DD HH12:MI AM') as fecha_pedido, 
 	  f0800_tot_cajas_aprobadas as ped, pistoleo, f0800_tot_cajas_despachadas as guia
 from camocontrol.tb0800_despachos_comercial
-     join camocontrol.tb0200_terceros as tb_asesor
+     left join camocontrol.tb0200_terceros as tb_asesor
         on f0800_vendedor = tb_asesor.f0200_id_tercero
      join camocontrol.tb0200_terceros as tb_cliente
         on f0800_cliente = tb_cliente.f0200_id_tercero
-     join camocontrol.tb0052_ciudades
+     left join camocontrol.tb0052_ciudades
         on tb0800_despachos_comercial.f0800_id_ciudad_destino = f0052_codigo_ciudad
-     join camocontrol.tb0051_departamentos
+     left join camocontrol.tb0051_departamentos
         on f0051_codigo_departamento = f0052_codigo_departamento
 	 left join camocontrol.tb0005_bodegas
 	 	on f0005_id_bodega = f0800_id_bodega

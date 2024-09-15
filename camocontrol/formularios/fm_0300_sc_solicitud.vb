@@ -1370,4 +1370,24 @@
         oform_factura_compra.vf_elemento_nuevo = "S"
         oform_factura_compra.Show()
     End Sub
+
+    Private Sub bt_orden_compra_Click(sender As Object, e As EventArgs) Handles bt_orden_compra.Click
+        If tx_solicitud.Text.Trim = "" Then
+            MsgBox("Solicitud fallida", MsgBoxStyle.Information, "Seleccionar")
+            Exit Sub
+        End If
+        'Instanciamos el formulario como un objeto de la clase fm_0100_estructura_mantenimiento
+        'Esto es necesario hacerlo cuando antes de mostrar el formulario debemos configurarle valores previos
+        Dim oform_orden_compra As New camocontrol.fm_0300_orden_compra With {
+            .vf_oform_padre = Me,
+            .vg_id_cia = vg_id_cia
+        }
+        'oform_factura_compra.vf_var_config_notas = "TN-FCP-001"
+        'oform_factura_compra.vf_var_config_archivos = "CD-FCC"
+        oform_orden_compra.tx_sol_compra.Text = id_solicitud_compra
+        'oform_factura_compra.id_factura_compras = dg_datos.CurrentCell.Value
+        oform_orden_compra.vg_usuario_autoriza = vg_usuario_autoriza
+        oform_orden_compra.vf_elemento_nuevo = "S"
+        oform_orden_compra.Show()
+    End Sub
 End Class

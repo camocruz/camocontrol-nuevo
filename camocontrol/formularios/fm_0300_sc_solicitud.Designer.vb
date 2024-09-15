@@ -70,6 +70,7 @@ Partial Class fm_0300_sc_solicitud
         Me.dgocell_nota = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.dgocell_id_fcc = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.dgocell_doc_inv = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.bt_orden_compra = New System.Windows.Forms.Button()
         Me.GroupBox1.SuspendLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.dg_listado, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -589,10 +590,22 @@ Partial Class fm_0300_sc_solicitud
         Me.dgocell_doc_inv.Name = "dgocell_doc_inv"
         Me.dgocell_doc_inv.Width = 5
         '
+        'bt_orden_compra
+        '
+        Me.bt_orden_compra.BackgroundImage = Global.camocontrol.My.Resources.Resources.icono_agenda_electronica
+        Me.bt_orden_compra.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
+        Me.bt_orden_compra.Location = New System.Drawing.Point(764, 155)
+        Me.bt_orden_compra.Name = "bt_orden_compra"
+        Me.bt_orden_compra.Size = New System.Drawing.Size(32, 34)
+        Me.bt_orden_compra.TabIndex = 252
+        Me.bt_orden_compra.Text = "OC"
+        Me.bt_orden_compra.UseVisualStyleBackColor = True
+        '
         'fm_0300_sc_solicitud
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.ClientSize = New System.Drawing.Size(822, 532)
+        Me.Controls.Add(Me.bt_orden_compra)
         Me.Controls.Add(Me.dg_listado)
         Me.Controls.Add(Me.lb_valor_subtotal)
         Me.Controls.Add(Me.Label19)
@@ -662,6 +675,7 @@ Partial Class fm_0300_sc_solicitud
         Me.Controls.SetChildIndex(Me.Label19, 0)
         Me.Controls.SetChildIndex(Me.lb_valor_subtotal, 0)
         Me.Controls.SetChildIndex(Me.dg_listado, 0)
+        Me.Controls.SetChildIndex(Me.bt_orden_compra, 0)
         Me.GroupBox1.ResumeLayout(False)
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.dg_listado, System.ComponentModel.ISupportInitialize).EndInit()
@@ -720,4 +734,5 @@ Partial Class fm_0300_sc_solicitud
     Friend WithEvents dgocell_nota As DataGridViewTextBoxColumn
     Friend WithEvents dgocell_id_fcc As DataGridViewTextBoxColumn
     Friend WithEvents dgocell_doc_inv As DataGridViewTextBoxColumn
+    Friend WithEvents bt_orden_compra As Button
 End Class

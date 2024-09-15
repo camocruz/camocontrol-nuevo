@@ -1113,6 +1113,21 @@ reinicio:
 
     End Sub
 
+    Private Sub mi_CargarInventarioDiario_Click(sender As Object, e As EventArgs) Handles mi_CargarInventarioDiario.Click
+        'Debido a fallo en seguridad revalido permiso para uso del menu.
+        Dim permitir As String = "N"
+        permitir = verificar_permisos_menu(sender)
+        If permitir = "N" Then
+            MsgBox("Fallo en permisos de uso menu", MsgBoxStyle.Information, "Info")
+            Exit Sub
+        End If
+        'Exporto los datos en los .CSV para analsis de los interesados
+        Dim csql As String
+        csql = "select * from " & database.obtener_esquema & ".fnc_850_02_cargar_inventarios_diarios()"
+        cl_utilidades_datatables.cargar_informacion_postgres(csql)
+        MsgBox("Actualizado", MsgBoxStyle.Information)
+    End Sub
+
 #End Region
 
 #End Region
@@ -1209,7 +1224,7 @@ reinicio:
         End If
         'Exporto los datos en los .CSV para analsis de los interesados
         Dim csql As String
-        csql = "select * from " & database.obtener_esquema & ".fnc_rh_asistencia_exportar_tablas()"
+        csql = "select * from " & database.obtener_esquema & ".fnc_200_01_cargar_exportar_horas_aceptadas_personal()"
         cl_utilidades_datatables.cargar_informacion_postgres(csql)
         MsgBox("Actualizado", MsgBoxStyle.Information)
     End Sub
@@ -2517,6 +2532,8 @@ reinicio:
         Dim otb_bodegas As DataTable = cl_utilidades_datatables.cargar_informacion_postgres(csql)
         MsgBox("Actualizado")
     End Sub
+
+
 
 
 
