@@ -260,6 +260,7 @@ aaa:
         Dim id_linea_leida As Integer
         Dim oencabezado() As String
         Dim odetalle() As String
+        Dim oPkadicionalesDetalle As String ' columnas que seran anexadas a la tabla detalles y registraran los valores actuales en la tabla de encabezado
         Dim otb_txt_ref As DataTable
         Dim otb_secciones As DataTable
         Dim criterios_n_linea() As String
@@ -291,8 +292,11 @@ aaa:
         For Each orow As DataRow In otb_secciones.Rows
             ds.Tables.Add(orow("f0013_name_datatable"))
             odetalle = orow("f0013_configuraciones").ToString.Split("┴")
-            ds = crear_tablas(ds, orow("f0013_name_datatable").ToString, odetalle, "S")
+            oPkadicionalesDetalle = orow("f0013_pk_multiple").ToString
+            ds = crear_tablas(ds, orow("f0013_name_datatable").ToString, odetalle, "S", oPkadicionalesDetalle, otb_encabezado)
         Next
+
+
 
         'creo la estructura de la tabla que contendra las coordenadas de los textos futuros definidos
         'en la lectura de lineas anteriores
@@ -303,6 +307,7 @@ aaa:
         otb_txt_ref.Columns.Add("ocampo", GetType(String))
         otb_txt_ref.Columns.Add("valor_referencial", GetType(String))
         otb_txt_ref.Columns.Add("orow", GetType(Integer))
+
 
         'Inicio el proceso de lectura del archivo
         Dim lector As New IO.StreamReader(path_file, System.Text.Encoding.UTF8)
@@ -466,7 +471,31 @@ aaa:
                             ds.Tables(otabla_name).Rows(ContRowsDtActual - 1)(1) = valor_referencial
                         End If
                         ds.Tables(otabla_name).Rows(ContRowsDtActual - 1)(index + 2) = valor_encontrado
+                        '' voy a buscar los valores del ultimo regsitro de la tabla encabezado para llenar
+                        '' los valores de los campos pk varios
+                        Dim orow_ultimo_encabezado As DataRow
+                        orow_ultimo_encabezado = otb_encabezado.Rows.Item(otb_encabezado.Rows.Count - 1)
+                        Dim NombreCampoOtbEncabezado As String
+                        Dim IndiceTablaDetalle As Integer
+                        Dim ValorCampoTablaEncabezado As String
 
+                        'SECCION PARA LLENAR EN TABLA DETALLES VALORES DESDE LA TABLA ENCABEZADO
+                        'Cuando requiero que aparezcen en la tabla detalles algunos valores tomados desde el ultimo datarow
+                        'de la tabla enbezado, esto es cuando el indentificador requiere que sean varios campos y no solo la columna 
+                        'referencial
+                        If oPkadicionalesDetalle <> "" Then
+                            Dim ocoladicionales() As String
+                            ocoladicionales = oPkadicionalesDetalle.ToString.Split(";")
+                            For index2 = 0 To ocoladicionales.GetUpperBound(0)
+                                NombreCampoOtbEncabezado = otb_encabezado.Columns.Item(CInt(ocoladicionales(index2)) - 1).ColumnName
+                                ValorCampoTablaEncabezado = orow_ultimo_encabezado(NombreCampoOtbEncabezado).ToString
+                                IndiceTablaDetalle = ds.Tables(otabla_name).Columns.Item(NombreCampoOtbEncabezado).Ordinal
+                                ds.Tables(otabla_name).Rows(ContRowsDtActual - 1)(IndiceTablaDetalle) = ValorCampoTablaEncabezado
+                                'MsgBox(NombreCampoOtbEncabezado)
+                                'MsgBox(otb_encabezado.Columns.Item(CInt(oPkadicionalesDetalle(index)) - 1).ColumnName)
+                                'MsgBox(otb_encabezado.Columns.Item(CInt(oPkadicionalesDetalle(index)) - 1).GetType.ToString)
+                            Next
+                        End If
 
                         'Busco los textos futuros
                         If texto_futuro = "S" Then
@@ -687,7 +716,10 @@ aaa:
         oconn_form.Close()
 
     End Sub
-    Public Shared Function crear_tablas(ByVal ds As DataSet, ByVal otabla As String, ByVal oarray() As String, Optional ByVal col_vinculante As String = "N")
+    Public Shared Function crear_tablas(ByVal ds As DataSet, ByVal otabla As String, ByVal oarray() As String,
+                                        Optional ByVal col_vinculante As String = "N",
+                                        Optional ByVal pkAdicionales As String = "",
+                                        Optional ByVal otb_encabezado As DataTable = Nothing)
         Dim odatatable = ds.Tables(otabla)
         'Dim odatatable As New DataTable
         'Creo la estructura que tendran las tablas que almacenaran los datos
@@ -717,6 +749,19 @@ aaa:
                     odatatable.Columns.Add(oconfigpartes(0).ToString, GetType(String))
             End Select
         Next
+
+        If pkAdicionales <> "" Then
+            'MsgBox(otb_encabezado.Rows.Count)
+            'Anexo las columnas pk de la tabla encabezado que seran usadas para relacionar tablas
+            Dim oPkadicionalesDetalle() As String
+            oPkadicionalesDetalle = pkAdicionales.ToString.Split(";")
+            For index = 0 To oPkadicionalesDetalle.GetUpperBound(0)
+                odatatable.Columns.Add(otb_encabezado.Columns.Item(CInt(oPkadicionalesDetalle(index)) - 1).ColumnName,
+                                       GetType(String))
+                'MsgBox(otb_encabezado.Columns.Item(CInt(oPkadicionalesDetalle(index)) - 1).ColumnName)
+                'MsgBox(otb_encabezado.Columns.Item(CInt(oPkadicionalesDetalle(index)) - 1).GetType.ToString)
+            Next
+        End If
 
         'MsgBox("columnas. " & odatatable.Columns.Count)
         Return ds
