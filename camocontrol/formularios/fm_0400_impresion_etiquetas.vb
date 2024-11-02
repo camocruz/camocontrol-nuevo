@@ -212,6 +212,7 @@ Public Class fm_0400_impresion_etiquetas
             ovence = Format(dtp_fecha_vence.Value, "yyyy-MM")
         End If
 
+
         If tx_op_ppal.Text = "" Then
             oop1 = "N/A"
         Else
@@ -244,7 +245,12 @@ Public Class fm_0400_impresion_etiquetas
         codigo_fuente_02 = Replace(codigo_fuente_02, "$$PRODUCTO$$", oproducto) 'Producto
         codigo_fuente_02 = Replace(codigo_fuente_02, "$$CONTENIDO$$", ocontenido) 'CONTENIDO
         codigo_fuente_02 = Replace(codigo_fuente_02, "$$LOTE$$", olote) ' LOTE Trim(num_tic_ini.ToString("F0")).PadLeft(8, "0"))
-        codigo_fuente_02 = Replace(codigo_fuente_02, "$$VENCE$$", ovence) 'VENCE
+        If chk_f_vence_manual.Checked = True Then
+            codigo_fuente_02 = Replace(codigo_fuente_02, "$$VENCE$$", tx_f_vence_digitada.Text.ToString.Trim) 'VENCE
+        Else
+            codigo_fuente_02 = Replace(codigo_fuente_02, "$$VENCE$$", ovence) 'VENCE
+        End If
+
         codigo_fuente_02 = Replace(codigo_fuente_02, "$$OP1$$", oop1) 'OP PRINCIPAL
         codigo_fuente_02 = Replace(codigo_fuente_02, "$$OP2$$", oop2) 'OP SECUNDARIA
         codigo_fuente_02 = Replace(codigo_fuente_02, "$$REFERENCIA$$", oreferencia) 'REFERENCIA DEL PRODUCTO

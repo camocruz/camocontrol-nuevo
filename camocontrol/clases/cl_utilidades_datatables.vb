@@ -477,7 +477,7 @@ Public Class cl_utilidades_datatables
 
         If saveFileDialog1.ShowDialog() = DialogResult.OK Then
             Using writer As StreamWriter = New StreamWriter(saveFileDialog1.FileName)
-                cl_utilidades_datatables.datatable_to_csv_path(sourceTable, writer, True, id_cia)
+                cl_utilidades_datatables.datatable_to_csv_path(sourceTable, writer, includeHeaders, id_cia)
             End Using
         End If
     End Sub

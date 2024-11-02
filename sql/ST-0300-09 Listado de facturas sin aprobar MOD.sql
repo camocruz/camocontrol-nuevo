@@ -20,5 +20,5 @@ FROM $df001$.tb0307_facturas_compras
          on f0307_id_factura_compras = id_factura
 where f0307_id_cia = '$001$' and f0307_anulado = 'N'
       and f0307_fecha_factura > '2020-01-01'
-      and (f0307_aprobada = 'N' or f0307_conta1 <> '')
+      and (f0307_aprobada = 'N')
 

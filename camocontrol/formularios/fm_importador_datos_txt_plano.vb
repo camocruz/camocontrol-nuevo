@@ -196,5 +196,21 @@ Public Class fm_importador_datos_txt_plano
         tx_definicion.Text = txt_arreglo
     End Sub
 
-
+    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+        Dim file_Plano As String = "UCIN3056"
+        Dim path_file As String = "\\192.168.0.90\pub_macdulces\camo\3056\UCIN3056-P1.rtf"
+        Dim otb1 As DataTable
+        Dim otb2 As DataTable
+        Dim ds As DataSet = cl_importador_planos.importador_planos_a_dataset(file_Plano, "N", vg_id_cia, vg_usuario_autoriza, path_file).copy()
+        otb1 = ds.Tables.Item("INFO_INVENTARIO").Copy()
+        ds.Clear()
+        path_file = "\\192.168.0.90\pub_macdulces\camo\3056\UCIN3056-P2.rtf"
+        ds = cl_importador_planos.importador_planos_a_dataset(file_Plano, "N", vg_id_cia, vg_usuario_autoriza, path_file).copy()
+        otb2 = ds.Tables.Item("INFO_INVENTARIO").Copy()
+        'MsgBox(otb1.Rows.Count)
+        'MsgBox(otb2.Rows.Count)
+        otb1.Merge(otb2, True)
+        'MsgBox(otb1.Rows.Count)
+        cl_utilidades_datatables.datatable_to_csv_filesavedialog(otb1, False, vg_id_cia)
+    End Sub
 End Class

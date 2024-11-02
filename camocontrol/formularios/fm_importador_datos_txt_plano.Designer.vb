@@ -49,6 +49,7 @@ Partial Class fm_importador_datos_txt_plano
         Me.cm_configuracion = New System.Windows.Forms.ComboBox()
         Me.tx_descripcion_archivo = New System.Windows.Forms.TextBox()
         Me.Label11 = New System.Windows.Forms.Label()
+        Me.Button1 = New System.Windows.Forms.Button()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.dgw_encontrados, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
@@ -322,10 +323,20 @@ Partial Class fm_importador_datos_txt_plano
         Me.Label11.TabIndex = 95
         Me.Label11.Text = "Configuracion:"
         '
+        'Button1
+        '
+        Me.Button1.Location = New System.Drawing.Point(490, 379)
+        Me.Button1.Name = "Button1"
+        Me.Button1.Size = New System.Drawing.Size(66, 29)
+        Me.Button1.TabIndex = 96
+        Me.Button1.Text = "Button1"
+        Me.Button1.UseVisualStyleBackColor = True
+        '
         'fm_importador_datos_txt_plano
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.ClientSize = New System.Drawing.Size(825, 458)
+        Me.Controls.Add(Me.Button1)
         Me.Controls.Add(Me.Label11)
         Me.Controls.Add(Me.tx_descripcion_archivo)
         Me.Controls.Add(Me.cm_configuracion)
@@ -390,6 +401,7 @@ Partial Class fm_importador_datos_txt_plano
         Me.Controls.SetChildIndex(Me.cm_configuracion, 0)
         Me.Controls.SetChildIndex(Me.tx_descripcion_archivo, 0)
         Me.Controls.SetChildIndex(Me.Label11, 0)
+        Me.Controls.SetChildIndex(Me.Button1, 0)
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.dgw_encontrados, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
@@ -427,4 +439,5 @@ Partial Class fm_importador_datos_txt_plano
     Friend WithEvents cm_configuracion As ComboBox
     Friend WithEvents tx_descripcion_archivo As TextBox
     Friend WithEvents Label11 As Label
+    Friend WithEvents Button1 As Button
 End Class

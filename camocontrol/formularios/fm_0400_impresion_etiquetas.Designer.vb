@@ -44,6 +44,8 @@ Partial Class fm_0400_impresion_etiquetas
         Me.bt_calcular_lote = New System.Windows.Forms.Button()
         Me.Label9 = New System.Windows.Forms.Label()
         Me.tx_id_item = New System.Windows.Forms.TextBox()
+        Me.tx_f_vence_digitada = New System.Windows.Forms.TextBox()
+        Me.chk_f_vence_manual = New System.Windows.Forms.CheckBox()
         Me.GroupBox1.SuspendLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.nud_cantidad, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -140,7 +142,7 @@ Partial Class fm_0400_impresion_etiquetas
         '
         Me.Label2.AutoSize = True
         Me.Label2.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label2.Location = New System.Drawing.Point(10, 250)
+        Me.Label2.Location = New System.Drawing.Point(10, 275)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(90, 16)
         Me.Label2.TabIndex = 156
@@ -150,7 +152,7 @@ Partial Class fm_0400_impresion_etiquetas
         '
         Me.cm_formato_etiqueta.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cm_formato_etiqueta.FormattingEnabled = True
-        Me.cm_formato_etiqueta.Location = New System.Drawing.Point(118, 275)
+        Me.cm_formato_etiqueta.Location = New System.Drawing.Point(118, 300)
         Me.cm_formato_etiqueta.Name = "cm_formato_etiqueta"
         Me.cm_formato_etiqueta.Size = New System.Drawing.Size(287, 24)
         Me.cm_formato_etiqueta.TabIndex = 159
@@ -159,7 +161,7 @@ Partial Class fm_0400_impresion_etiquetas
         '
         Me.Label3.AutoSize = True
         Me.Label3.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label3.Location = New System.Drawing.Point(9, 278)
+        Me.Label3.Location = New System.Drawing.Point(9, 303)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(61, 16)
         Me.Label3.TabIndex = 158
@@ -167,7 +169,7 @@ Partial Class fm_0400_impresion_etiquetas
         '
         'nud_cantidad
         '
-        Me.nud_cantidad.Location = New System.Drawing.Point(118, 250)
+        Me.nud_cantidad.Location = New System.Drawing.Point(118, 275)
         Me.nud_cantidad.Maximum = New Decimal(New Integer() {90, 0, 0, 0})
         Me.nud_cantidad.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
         Me.nud_cantidad.Name = "nud_cantidad"
@@ -316,10 +318,33 @@ Partial Class fm_0400_impresion_etiquetas
         Me.tx_id_item.Size = New System.Drawing.Size(71, 22)
         Me.tx_id_item.TabIndex = 174
         '
+        'tx_f_vence_digitada
+        '
+        Me.tx_f_vence_digitada.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(128, Byte), Integer))
+        Me.tx_f_vence_digitada.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
+        Me.tx_f_vence_digitada.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.tx_f_vence_digitada.Location = New System.Drawing.Point(118, 246)
+        Me.tx_f_vence_digitada.MaxLength = 30
+        Me.tx_f_vence_digitada.Name = "tx_f_vence_digitada"
+        Me.tx_f_vence_digitada.Size = New System.Drawing.Size(287, 22)
+        Me.tx_f_vence_digitada.TabIndex = 175
+        '
+        'chk_f_vence_manual
+        '
+        Me.chk_f_vence_manual.AutoSize = True
+        Me.chk_f_vence_manual.Location = New System.Drawing.Point(411, 250)
+        Me.chk_f_vence_manual.Name = "chk_f_vence_manual"
+        Me.chk_f_vence_manual.Size = New System.Drawing.Size(71, 17)
+        Me.chk_f_vence_manual.TabIndex = 176
+        Me.chk_f_vence_manual.Text = "MANUAL"
+        Me.chk_f_vence_manual.UseVisualStyleBackColor = True
+        '
         'fm_0400_impresion_etiquetas
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.ClientSize = New System.Drawing.Size(745, 415)
+        Me.Controls.Add(Me.chk_f_vence_manual)
+        Me.Controls.Add(Me.tx_f_vence_digitada)
         Me.Controls.Add(Me.tx_id_item)
         Me.Controls.Add(Me.Label9)
         Me.Controls.Add(Me.bt_calcular_lote)
@@ -373,6 +398,8 @@ Partial Class fm_0400_impresion_etiquetas
         Me.Controls.SetChildIndex(Me.bt_calcular_lote, 0)
         Me.Controls.SetChildIndex(Me.Label9, 0)
         Me.Controls.SetChildIndex(Me.tx_id_item, 0)
+        Me.Controls.SetChildIndex(Me.tx_f_vence_digitada, 0)
+        Me.Controls.SetChildIndex(Me.chk_f_vence_manual, 0)
         Me.GroupBox1.ResumeLayout(False)
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.nud_cantidad, System.ComponentModel.ISupportInitialize).EndInit()
@@ -408,4 +435,6 @@ Partial Class fm_0400_impresion_etiquetas
     Friend WithEvents bt_calcular_lote As System.Windows.Forms.Button
     Friend WithEvents Label9 As System.Windows.Forms.Label
     Friend WithEvents tx_id_item As TextBox
+    Friend WithEvents tx_f_vence_digitada As TextBox
+    Friend WithEvents chk_f_vence_manual As CheckBox
 End Class
