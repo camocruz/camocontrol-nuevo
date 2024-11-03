@@ -171,6 +171,7 @@ Partial Class formulario_inicio
         Me.StatusStrip = New System.Windows.Forms.StatusStrip()
         Me.ToolStripStatusLabel = New System.Windows.Forms.ToolStripStatusLabel()
         Me.ToolTip = New System.Windows.Forms.ToolTip(Me.components)
+        Me.mi_ActualizarArchivosPlanosManto = New System.Windows.Forms.ToolStripMenuItem()
         Me.MenuStrip.SuspendLayout()
         Me.StatusStrip.SuspendLayout()
         Me.SuspendLayout()
@@ -454,7 +455,7 @@ Partial Class formulario_inicio
         '
         'mi_mantenimiento
         '
-        Me.mi_mantenimiento.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mi_estructura_mantenimiento, Me.mi_listados_manto, Me.mi_reportar_seguimientos})
+        Me.mi_mantenimiento.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mi_estructura_mantenimiento, Me.mi_listados_manto, Me.mi_reportar_seguimientos, Me.mi_ActualizarArchivosPlanosManto})
         Me.mi_mantenimiento.Image = Global.camocontrol.My.Resources.Resources.chatarra2
         Me.mi_mantenimiento.Name = "mi_mantenimiento"
         Me.mi_mantenimiento.Size = New System.Drawing.Size(141, 28)
@@ -464,7 +465,7 @@ Partial Class formulario_inicio
         '
         Me.mi_estructura_mantenimiento.Image = Global.camocontrol.My.Resources.Resources.chatarra2
         Me.mi_estructura_mantenimiento.Name = "mi_estructura_mantenimiento"
-        Me.mi_estructura_mantenimiento.Size = New System.Drawing.Size(231, 30)
+        Me.mi_estructura_mantenimiento.Size = New System.Drawing.Size(259, 30)
         Me.mi_estructura_mantenimiento.Text = "Estructura"
         '
         'mi_listados_manto
@@ -472,7 +473,7 @@ Partial Class formulario_inicio
         Me.mi_listados_manto.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mi_listado_estructura_manto, Me.mi_t_improd_prod_mto})
         Me.mi_listados_manto.Image = Global.camocontrol.My.Resources.Resources.icono_lupa
         Me.mi_listados_manto.Name = "mi_listados_manto"
-        Me.mi_listados_manto.Size = New System.Drawing.Size(231, 30)
+        Me.mi_listados_manto.Size = New System.Drawing.Size(259, 30)
         Me.mi_listados_manto.Text = "Listados"
         '
         'mi_listado_estructura_manto
@@ -494,7 +495,7 @@ Partial Class formulario_inicio
         Me.mi_reportar_seguimientos.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mi_rep_seg_estandar, Me.mi_rep_seg_actividad})
         Me.mi_reportar_seguimientos.Image = Global.camocontrol.My.Resources.Resources.icono_agenda_electronica
         Me.mi_reportar_seguimientos.Name = "mi_reportar_seguimientos"
-        Me.mi_reportar_seguimientos.Size = New System.Drawing.Size(231, 30)
+        Me.mi_reportar_seguimientos.Size = New System.Drawing.Size(259, 30)
         Me.mi_reportar_seguimientos.Text = "Reporte Seguimientos"
         '
         'mi_rep_seg_estandar
@@ -1236,6 +1237,13 @@ Partial Class formulario_inicio
         Me.ToolStripStatusLabel.Size = New System.Drawing.Size(40, 17)
         Me.ToolStripStatusLabel.Text = "Estado"
         '
+        'mi_ActualizarArchivosPlanosManto
+        '
+        Me.mi_ActualizarArchivosPlanosManto.Image = Global.camocontrol.My.Resources.Resources.actualizar
+        Me.mi_ActualizarArchivosPlanosManto.Name = "mi_ActualizarArchivosPlanosManto"
+        Me.mi_ActualizarArchivosPlanosManto.Size = New System.Drawing.Size(259, 30)
+        Me.mi_ActualizarArchivosPlanosManto.Text = "Actualizar Archivos Planos"
+        '
         'formulario_inicio
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -1404,4 +1412,5 @@ Partial Class formulario_inicio
     Friend WithEvents mi_CargarCotizaciones As ToolStripMenuItem
     Friend WithEvents mi_AsignarFaltantesCotizaciones As ToolStripMenuItem
     Friend WithEvents mi_CargarInventarioDiario As ToolStripMenuItem
+    Friend WithEvents mi_ActualizarArchivosPlanosManto As ToolStripMenuItem
 End Class

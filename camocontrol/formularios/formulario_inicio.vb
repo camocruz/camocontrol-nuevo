@@ -720,6 +720,20 @@ reinicio:
         gestionar_seguimiento_acciones_segun_tipo(2)
     End Sub
 
+    Private Sub mi_ActualizarArchivosPlanosManto_Click(sender As Object, e As EventArgs) Handles mi_ActualizarArchivosPlanosManto.Click
+        'Debido a fallo en seguridad revalido permiso para uso del menu.
+        Dim permitir As String = "N"
+        permitir = verificar_permisos_menu(sender)
+        If permitir = "N" Then
+            MsgBox("Fallo en permisos de uso menu", MsgBoxStyle.Information, "Info")
+            Exit Sub
+        End If
+        Dim csql As String
+        csql = "select *" _
+            & " from " & database.obtener_esquema & ".fnc_100_02_exportar_info_acciones_estructura_manto()"
+        Dim otb_bodegas As DataTable = cl_utilidades_datatables.cargar_informacion_postgres(csql)
+        MsgBox("Actualizado")
+    End Sub
 
 
 #End Region
@@ -2532,6 +2546,8 @@ reinicio:
         Dim otb_bodegas As DataTable = cl_utilidades_datatables.cargar_informacion_postgres(csql)
         MsgBox("Actualizado")
     End Sub
+
+
 
 
 
