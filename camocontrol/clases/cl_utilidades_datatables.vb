@@ -217,7 +217,9 @@ Public Class cl_utilidades_datatables
                                              Optional name_colum_id As String = "",
                                              Optional id_tercero As String = "",
                                              Optional formulario_modal As String = "S",
-                                             Optional seleccion_multiple As String = "S")
+                                             Optional seleccion_multiple As String = "S",
+                                             Optional dv_filter As String = "")
+        '
         'arreglo de tablas (1)= tabla total de datos mostrados, (2) tabla datos seleccionados con el chk
         Dim otb_tablas_array(2) As DataTable
         Dim csql As String = ""
@@ -250,6 +252,7 @@ Public Class cl_utilidades_datatables
         oform_mostrar_datos.seleccionmultiple = seleccion_multiple
         oform_mostrar_datos.name_colum_id = name_colum_id
         oform_mostrar_datos.id_tercero = id_tercero
+        oform_mostrar_datos.dv_filter = dv_filter
         If formulario_modal = "S" Then
             oform_mostrar_datos.ShowDialog()
         Else

@@ -594,10 +594,8 @@ G:\Carlos\programas\camocontrol\camocontrol_R1\camocontrol\camocontrol\obj\x86\D
 G:\Carlos\programas\camocontrol\camocontrol_R1\camocontrol\camocontrol\obj\x86\Debug\camocontrol.xml
 G:\Carlos\programas\camocontrol\camocontrol_R1\camocontrol\camocontrol\obj\x86\Debug\camocontrol.pdb
 G:\Carlos\programas\camocontrol\camocontrol_R1\camocontrol\camocontrol\obj\x86\Debug\camocontrol.vbproj.AssemblyReference.cache
-C:\Repos\camocontrol\camocontrol\bin\Debug\camocontrol.exe.config
 C:\Repos\camocontrol\camocontrol\bin\Debug\camocontrol.exe
-C:\Repos\camocontrol\camocontrol\bin\Debug\camocontrol.pdb
-C:\Repos\camocontrol\camocontrol\bin\Debug\camocontrol.xml
+C:\Repos\camocontrol\camocontrol\bin\Debug\camocontrol.exe.config
 C:\Repos\camocontrol\camocontrol\bin\Debug\CrystalDecisions.CrystalReports.Design.dll
 C:\Repos\camocontrol\camocontrol\bin\Debug\CrystalDecisions.CrystalReports.Engine.dll
 C:\Repos\camocontrol\camocontrol\bin\Debug\CrystalDecisions.ReportSource.dll
@@ -619,8 +617,6 @@ C:\Repos\camocontrol\camocontrol\bin\Debug\CrystalDecisions.ReportAppServer.Comm
 C:\Repos\camocontrol\camocontrol\bin\Debug\CrystalDecisions.ReportAppServer.ObjectFactory.dll
 C:\Repos\camocontrol\camocontrol\bin\Debug\CrystalDecisions.ReportAppServer.CommonControls.dll
 C:\Repos\camocontrol\camocontrol\bin\Debug\stdole.dll
-C:\Repos\camocontrol\camocontrol\bin\Debug\Interop.AcroPDFLib.dll
-C:\Repos\camocontrol\camocontrol\bin\Debug\AxInterop.AcroPDFLib.dll
 C:\Repos\camocontrol\camocontrol\obj\x86\Debug\camocontrol.vbproj.AssemblyReference.cache
 C:\Repos\camocontrol\camocontrol\obj\x86\Debug\Interop.AcroPDFLib.dll
 C:\Repos\camocontrol\camocontrol\obj\x86\Debug\Interop.PAGEOBJECTMODELLib.dll
@@ -727,3 +723,7 @@ C:\Repos\camocontrol\camocontrol\obj\x86\Debug\camocontrol.vbproj.CopyComplete
 C:\Repos\camocontrol\camocontrol\obj\x86\Debug\camocontrol.exe
 C:\Repos\camocontrol\camocontrol\obj\x86\Debug\camocontrol.xml
 C:\Repos\camocontrol\camocontrol\obj\x86\Debug\camocontrol.pdb
+C:\Repos\camocontrol\camocontrol\bin\Debug\camocontrol.pdb
+C:\Repos\camocontrol\camocontrol\bin\Debug\camocontrol.xml
+C:\Repos\camocontrol\camocontrol\bin\Debug\Interop.AcroPDFLib.dll
+C:\Repos\camocontrol\camocontrol\bin\Debug\AxInterop.AcroPDFLib.dll

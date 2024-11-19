@@ -70,29 +70,31 @@
 
         tx_solicitud.Enabled = False
         tx_estructura.ReadOnly = True
-        cm_usuario.Enabled = False
+        tx_emisor.Enabled = False
         'bt_anular.Enabled = False
         bt_editar.Enabled = False
         Formatear_grilla()
 
-        csql = "select f0200_id_tercero, f0200_apellido1 || ' ' || f0200_apellido2 || ' ' || f0200_nombres as nombre" _
-            & " from " & database.obtener_esquema & ".tb0200_terceros" _
-            & " where f0200_id_cia = '" & vg_id_cia & "'" _
-            & " order by nombre"
-        otb_info_personal = cl_utilidades_datatables.cargar_informacion_postgres(csql)
+        'PARA REDUCIR EL TIEMPO DE APERTURA DEL FORMULARIO UTILIZO MEJOR UN TEXTBOX, 
+        'ASI SE DEMORA MAS Y LOS USUARIOS SE QUEJAN.
+        'csql = "select f0200_id_tercero, f0200_apellido1 || ' ' || f0200_apellido2 || ' ' || f0200_nombres as nombre" _
+        '    & " from " & database.obtener_esquema & ".tb0200_terceros" _
+        '    & " where f0200_id_cia = '" & vg_id_cia & "'" _
+        '    & " order by nombre"
+        'otb_info_personal = cl_utilidades_datatables.cargar_informacion_postgres(csql)
 
-        With cm_usuario
-            'Valor que se muestra al usuario
-            .DisplayMember = "nombre"
-            'Valor interno que almacena el objeto
-            .ValueMember = "f0200_id_tercero"
-            'Origen de Datos del ComboBox
-            .DataSource = otb_info_personal
-            .DropDownStyle = ComboBoxStyle.DropDown
-            .AutoCompleteMode = AutoCompleteMode.Suggest
-            .AutoCompleteSource = AutoCompleteSource.ListItems
-            .SelectedValue = vg_usuario_autoriza
-        End With
+        'With cm_usuario
+        '    'Valor que se muestra al usuario
+        '    .DisplayMember = "nombre"
+        '    'Valor interno que almacena el objeto
+        '    .ValueMember = "f0200_id_tercero"
+        '    'Origen de Datos del ComboBox
+        '    .DataSource = otb_info_personal
+        '    .DropDownStyle = ComboBoxStyle.DropDown
+        '    .AutoCompleteMode = AutoCompleteMode.Suggest
+        '    .AutoCompleteSource = AutoCompleteSource.ListItems
+        '    .SelectedValue = vg_usuario_autoriza
+        'End With
 
         csql = "select * from " & database.obtener_esquema & ".tb0306_estados_compras"
         csql += " where f0306_anulado = 'N'"
@@ -149,7 +151,7 @@
                 cm_estado.SelectedValue = orow("f0304_id_estado")
                 cm_centro_costo.SelectedValue = orow("f0304_id_centro_costo")
                 tx_anotacion.Text = orow("f0304_anotacion")
-                cm_usuario.SelectedValue = orow("f0304_usuario_crear")
+                tx_emisor.Text = orow("nombre")
                 dtp_fecha_solicitud.Value = orow("f0304_fr")
                 id_estructura = orow("f0304_id_estructura")
                 id_accion = orow("f0304_id_accion")
@@ -236,6 +238,16 @@
                     id_accion = dg_listado.CurrentCell.Value
                     'ajecutamos clase que abre el formulario adecuado segun el tipo de actividad
                     cl_utilidades_gestion_acciones.abrir_actividad(id_accion, vg_usuario_autoriza, vg_id_cia)
+                End If
+            Case "dgocell_id_oc"
+                If dg_listado.CurrentCell.Value.ToString.Trim <> "" Then
+                    Dim oform_agregar_solicitud As New camocontrol.fm_0300_orden_compra
+                    oform_agregar_solicitud.vf_oform_padre = Me
+                    oform_agregar_solicitud.vg_id_cia = vg_id_cia
+                    oform_agregar_solicitud.id_orden_compra = dg_listado.CurrentCell.Value
+                    oform_agregar_solicitud.vg_usuario_autoriza = vg_usuario_autoriza
+                    oform_agregar_solicitud.vf_elemento_nuevo = "N"
+                    oform_agregar_solicitud.ShowDialog()
                 End If
             Case "dgocell_id_fcc"
                 'Instanciamos el formulario como un objeto de la clase fm_0100_estructura_mantenimiento
@@ -362,8 +374,9 @@
         dg_listado.CurrentRow.Cells("dgocell_costo_total").Value = valores(2)
         dg_listado.CurrentRow.Cells("dgocell_costo_unit_iva").Value = valores(3)
         dg_listado.CurrentRow.Cells("dgocell_costo_total_iva").Value = valores(4)
+
         'busco y valido el cambio solicitado
-        Buscar_info_item_solicitado(dg_listado.CurrentRow.Cells("dgocell_id_sc_item").Value)
+        validar_info_item_solicitado(dg_listado.CurrentRow.Cells("dgocell_id_sc_item").Value)
         'lb_valor_factura.Text = "Actualizar"
         'lb_valor_subtotal.Text = "Actualizar"
         If verror_requisitos = "N" Then
@@ -435,7 +448,7 @@
         ocmd.Parameters.Add("@f0305_fm", NpgsqlDbType.Timestamp).Value = comunes.g_fechahora
     End Sub
 
-    Private Sub Buscar_info_item_solicitado(ByVal id_sc_item As Integer)
+    Private Sub validar_info_item_solicitado(ByVal id_sc_item As Integer, Optional validar_costos As String = "S")
         csql = "select * from " & database.obtener_esquema & ".tb0305_items_solicitados" _
             & " join " & database.obtener_esquema & ".tb0300_items" _
             & " on f0300_id_item = f0305_id_item" _
@@ -446,6 +459,11 @@
         For Each orow As DataRow In otb_info_item_sc.Rows
             costo_promedio_actual = orow("f0300_costo_promedio")
             id_tipo_item = orow("f0300_id_tipo_item")
+            '
+            If orow("f0305_id_oc").ToString <> "" And permitir_var_costo = "N" Then
+                verror_requisitos = "S"
+                vmensaje_requisitos = "Este Item esta registrado en una Orden de Compra!"
+            End If
             If orow("f0305_factura_c_aprov") = "S" And permitir_var_costo = "N" Then
                 verror_requisitos = "S"
                 vmensaje_requisitos = "Este Item esta registrado en una factura Aprobada!"
@@ -459,25 +477,26 @@
                 vmensaje_requisitos = "Este Item esta registrado en una Solicitud Aprobada!"
             End If
         Next
-
-        'calculo la desviacion del valor respecto al costo promedio actual
-        If costo_promedio_actual > 0 Then
-            var_costo_promedio_actual = ((valores(1) - costo_promedio_actual) / costo_promedio_actual)
-            dg_listado.CurrentRow.Cells("dgocell_var_costo").Value = Math.Round(var_costo_promedio_actual * 100, 1)
-        Else
-            var_costo_promedio_actual = 0
-            dg_listado.CurrentRow.Cells("dgocell_var_costo").Value = 0
-        End If
-        If Math.Abs(var_costo_promedio_actual) > 999.999 Then
-            var_costo_promedio_actual = 999.9999
-        End If
-        'valido la variacion de costo 
-        Dim ovar_costo_aceptable As Decimal
-        ovar_costo_aceptable = comunes.suministrar_valor_variable_configuracion("CONFIG-0300-06", vg_id_cia) / 100
-        If (Math.Abs(var_costo_promedio_actual) > 0.15 And Math.Abs(var_costo_promedio_actual) <> 1) And (id_tipo_item = 1 Or id_tipo_item = 2) Then
-            If permitir_var_costo = "N" Then
-                verror_requisitos = "S"
-                vmensaje_requisitos = "Variacion de costo exagerada, requiere AUTORIZACION."
+        If validar_costos = "S" Then
+            'calculo la desviacion del valor respecto al costo promedio actual
+            If costo_promedio_actual > 0 Then
+                var_costo_promedio_actual = ((valores(1) - costo_promedio_actual) / costo_promedio_actual)
+                dg_listado.CurrentRow.Cells("dgocell_var_costo").Value = Math.Round(var_costo_promedio_actual * 100, 1)
+            Else
+                var_costo_promedio_actual = 0
+                dg_listado.CurrentRow.Cells("dgocell_var_costo").Value = 0
+            End If
+            If Math.Abs(var_costo_promedio_actual) > 999.999 Then
+                var_costo_promedio_actual = 999.9999
+            End If
+            'valido la variacion de costo 
+            Dim ovar_costo_aceptable As Decimal
+            ovar_costo_aceptable = comunes.suministrar_valor_variable_configuracion("CONFIG-0300-06", vg_id_cia) / 100
+            If (Math.Abs(var_costo_promedio_actual) > 0.15 And Math.Abs(var_costo_promedio_actual) <> 1) And (id_tipo_item = 1 Or id_tipo_item = 2) Then
+                If permitir_var_costo = "N" Then
+                    verror_requisitos = "S"
+                    vmensaje_requisitos = "Variacion de costo exagerada, requiere AUTORIZACION."
+                End If
             End If
         End If
     End Sub
@@ -501,15 +520,19 @@
                                                                vf_var_config_archivos)
     End Sub
     Private Sub Cargar_datatables()
-        'carga informacion del ecabezado de las solicitudes de compra
-        csql = "select *" _
+        'carga informacion del encabezado de las solicitudes de compra
+        csql = "select tb0304_solicitud_compra.*, f0200_id_tercero, f0200_apellido1 || ' ' || f0200_apellido2 || ' ' || f0200_nombres as nombre" _
             & " from " & database.obtener_esquema & ".tb0304_solicitud_compra" _
+            & " left join " & database.obtener_esquema & ".tb0200_terceros" _
+            & " on f0304_usuario_crear = f0200_id_tercero" _
             & " Where f0304_id_solicitud = '" & id_solicitud_compra & "' and f0304_anulado = 'N'"
         otb_solicitudes = cl_utilidades_datatables.cargar_informacion_postgres(csql)
 
+
         'carga informacion de los items en las solictudes
         'carga informacion de los items en las solictudes
-        csql = "select tb0305_items_solicitados.*, f0300_id_item, f0300_codigo_cguno," _
+        csql = "select tb0305_items_solicitados.*," _
+            & " f0300_id_item, f0300_codigo_cguno," _
             & " f0300_descripcion_item || ' - ' || f0300_referencia || ' - ' || f0300_contenido_x_empaque as descripcion," _
             & " f0305_ampliacion_item as descripcion_comp," _
             & " f0002_sigla_unidad_medicion," _
@@ -737,6 +760,22 @@
         'otextgrid.MaxInputLength = 100
         'Agrega columna al objeto fila
         orowgrid.Cells.Add(otextgrid)
+        '
+        'crea columna 14
+        otextgrid = New DataGridViewTextBoxCell With {
+            .Value = orow.Item("f0305_id_oc").ToString
+        }
+        'otextgrid.MaxInputLength = 100
+        'Agrega columna al objeto fila
+        orowgrid.Cells.Add(otextgrid)
+
+        'crea columna 14
+        otextgrid = New DataGridViewTextBoxCell With {
+            .Value = orow.Item("f0305_oc_aprov").ToString
+        }
+        'otextgrid.MaxInputLength = 100
+        'Agrega columna al objeto fila
+        orowgrid.Cells.Add(otextgrid)
 
         'crea columna 14
         otextgrid = New DataGridViewTextBoxCell With {
@@ -911,8 +950,8 @@
         ocmd.Parameters.Add("@f0304_id_estructura", NpgsqlDbType.Integer).Value = id_estructura
         ocmd.Parameters.Add("@f0304_id_centro_costo", NpgsqlDbType.Integer).Value = cm_centro_costo.SelectedValue
         ocmd.Parameters.Add("@f0304_anotacion", NpgsqlDbType.Varchar).Value = tx_anotacion.Text.ToString
-        ocmd.Parameters.Add("@f0304_usuario_modificar", NpgsqlDbType.Varchar).Value = cm_usuario.SelectedValue
-        ocmd.Parameters.Add("@f0304_usuario_crear", NpgsqlDbType.Varchar).Value = cm_usuario.SelectedValue
+        ocmd.Parameters.Add("@f0304_usuario_modificar", NpgsqlDbType.Varchar).Value = vg_usuario_autoriza
+        ocmd.Parameters.Add("@f0304_usuario_crear", NpgsqlDbType.Varchar).Value = vg_usuario_autoriza
         ocmd.Parameters.Add("@f0304_fm", NpgsqlDbType.Timestamp).Value = comunes.g_fechahora
     End Sub
     Private Sub ValidarAccion()
@@ -933,7 +972,7 @@
             verror_requisitos = "S"
         End If
     End Sub
-    Private Sub Validar_aprobaciones()
+    Private Sub Validar_aprobacion_sc()
         Dim otb_oc As DataTable
         csql = "select * from " & database.obtener_esquema & ".tb0304_solicitud_compra" _
             & " where f0304_id_solicitud = '" & id_solicitud_compra & "'"
@@ -962,7 +1001,7 @@
         End If
 
         verror_requisitos = "N"
-        Validar_aprobaciones()
+        Validar_aprobacion_sc()
         If verror_requisitos = "S" Then
             MsgBox(vmensaje_requisitos, MsgBoxStyle.Exclamation, "Error")
             Exit Sub
@@ -993,9 +1032,9 @@
                 verror_requisitos = "S"
                 vmensaje_requisitos = info & " Esta registrado en una factura con Recepcion Aprobada!"
             End If
-            If orow("f0305_estado") <> "P" Then
-                'verror_requisitos = "S"
-                'vmensaje_requisitos = "Este Item esta registrado en una Solicitud Aprobada!"
+            If orow("f0305_id_oc").ToString <> "" Then
+                verror_requisitos = "S"
+                vmensaje_requisitos = info & " Esta registrado en una Orden de Compra!"
             End If
         Next
     End Sub
@@ -1030,7 +1069,7 @@
         'End If
         verror_requisitos = "N"
         Validar_item_aprobaciones()
-        Validar_aprobaciones()
+        Validar_aprobacion_sc()
         If verror_requisitos = "S" Then
             MsgBox(vmensaje_requisitos, MsgBoxStyle.Critical, "Error")
             Exit Sub
@@ -1139,7 +1178,7 @@
 
     Private Sub Bt_cambiar_infraestructura_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles bt_cambiar_infraestructura.Click
         verror_requisitos = "N"
-        Validar_aprobaciones()
+        Validar_aprobacion_sc()
         If verror_requisitos = "S" Then
             MsgBox(vmensaje_requisitos, MsgBoxStyle.Critical, "Error")
             Exit Sub
@@ -1316,7 +1355,7 @@
     Private Sub Bt_agregar_item_Click(sender As Object, e As EventArgs) Handles bt_agregar_item.Click
 
         verror_requisitos = "N"
-        Validar_aprobaciones()
+        Validar_aprobacion_sc()
         If verror_requisitos = "S" Then
             MsgBox(vmensaje_requisitos, MsgBoxStyle.Exclamation, "Error")
             Exit Sub
@@ -1389,5 +1428,23 @@
         oform_orden_compra.vg_usuario_autoriza = vg_usuario_autoriza
         oform_orden_compra.vf_elemento_nuevo = "S"
         oform_orden_compra.Show()
+    End Sub
+
+    Private Sub dg_listado_KeyDown(sender As Object, e As KeyEventArgs) Handles dg_listado.KeyDown
+        If e.KeyCode = Keys.Delete Then
+            'busco y valido el cambio solicitado
+            'MsgBox(dg_listado.CurrentRow.Cells("dgocell_id_sc_item").Value)
+            validar_info_item_solicitado(dg_listado.CurrentRow.Cells("dgocell_id_sc_item").Value, "N")
+            'lb_valor_factura.Text = "Actualizar"
+            'lb_valor_subtotal.Text = "Actualizar"
+            If verror_requisitos = "N" Then
+                Anular_un_solo_item_sc(dg_listado.CurrentRow.Cells("dgocell_id_sc_item").Value)
+                Cargar_datatables()
+                Llenar_items_solicitados()
+            Else
+                MsgBox(vmensaje_requisitos, MsgBoxStyle.Information, "Info")
+            End If
+
+        End If
     End Sub
 End Class

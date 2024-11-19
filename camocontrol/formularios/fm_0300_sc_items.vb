@@ -40,6 +40,7 @@
     Private id_tipo_item As Integer
     Private cantidad As Decimal = 0 'cantidad requerida
     Private cantidad_inicial As Decimal = 0
+    Private inventario As Integer = 0
     'Private cantidad_stock As Decimal = 0 'cantidad requerida
     Private costo_promedio_actual As Decimal = 0 'costo promedio actual del item
     Private var_costo_promedio_registro As Decimal = 0 'variacion del costo grabada en el registro
@@ -70,18 +71,18 @@
             & " FROM " & database.obtener_esquema & ".tb0300_items" _
             & " where f0300_id_cia = '" & vg_id_cia & "' and f0300_anulado = 'N'"
         otb_items = cl_utilidades_datatables.cargar_informacion_postgres(csql)
-        With cm_descripcion
-            'Valor que se muestra al usuario
-            .DisplayMember = "descripcion_larga"
-            'Valor interno que almacena el objeto
-            .ValueMember = "f0300_id_item"
-            'Origen de Datos del ComboBox
-            .DataSource = otb_items
-            .DropDownStyle = ComboBoxStyle.DropDown
-            .AutoCompleteMode = AutoCompleteMode.Suggest
-            .AutoCompleteSource = AutoCompleteSource.ListItems
-            .SelectedIndex = -1
-        End With
+        'With cm_descripcion
+        '    'Valor que se muestra al usuario
+        '    .DisplayMember = "descripcion_larga"
+        '    'Valor interno que almacena el objeto
+        '    .ValueMember = "f0300_id_item"
+        '    'Origen de Datos del ComboBox
+        '    .DataSource = otb_items
+        '    .DropDownStyle = ComboBoxStyle.DropDown
+        '    .AutoCompleteMode = AutoCompleteMode.Suggest
+        '    .AutoCompleteSource = AutoCompleteSource.ListItems
+        '    .SelectedIndex = -1
+        'End With
 
         If id_accion <> 0 Then
             tx_id_accion.Text = id_accion
@@ -97,7 +98,8 @@
         tx_id_accion.Enabled = False
         tx_id_item.Text = ""
         tx_id_item_sc.Enabled = False
-        cm_descripcion.SelectedIndex = -1
+        'cm_descripcion.SelectedIndex = -1
+        tx_item_descripcion.Text = ""
         tx_id_registro.Enabled = False
         tx_id_registro.Text = ""
         tx_descripcion_manual.Text = ""
@@ -112,13 +114,22 @@
         tx_cost_total_iva.Text = "0"
         cost_tot_r = 0
         tx_cost_unit.Text = "0"
-        cm_descripcion.Focus()
-        tx_id_fact_compras.Text = ""
-        tx_id_fact_compras.Enabled = False
+        'cm_descripcion.Focus()
+        tx_id_item.Focus()
+        'tx_id_fact_compras.Text = ""
+        'tx_id_fact_compras.Enabled = False
+        lb_oc.Text = "O.C: "
+        lb_id_fcc.Text = "id_fcc: "
+        lb_doc_inv.Text = "Doc-Inv: "
         tx_observacion.Text = ""
+        lb_costo_promedio.Text = "0"
+        lb_var_costo_prom.Text = "0"
     End Sub
     Private Sub Cargar_informacion_item_programado()
-        csql = "select * from " & database.obtener_esquema & ".tb0305_items_solicitados" _
+        csql = "select tb0305_items_solicitados.*, f0300_descripcion_item" _
+            & " from " & database.obtener_esquema & ".tb0305_items_solicitados" _
+            & " left join " & database.obtener_esquema & ".tb0300_items" _
+            & " on f0300_id_item = f0305_id_item" _
             & " where f0305_id_item_solicitud = '" & id_item_solicitud.ToString & "'"
         otb_item_programado = cl_utilidades_datatables.cargar_informacion_postgres(csql)
         For Each orow As DataRow In otb_item_programado.Rows
@@ -128,12 +139,14 @@
             factura_c_aprov = orow("f0305_factura_c_aprov")
             id_solicitud_compra = orow("f0305_id_solicitud_compra")
             tx_id_registro.Text = orow("f0305_id_item_solicitud")
-            cm_descripcion.SelectedValue = orow("f0305_id_item")
+            'cm_descripcion.SelectedValue = orow("f0305_id_item")
             tx_id_item.Text = orow("f0305_id_item")
+            tx_item_descripcion.Text = orow("f0300_descripcion_item")
             tx_descripcion_manual.Text = orow("f0305_ampliacion_item")
             cost_tot_p = orow("f0305_costo_total_planificado")
             tx_cantidad.Text = orow("f0305_cantidad")
-            tx_inventario_total.Text = orow("f0305_inventario")
+            inventario = orow("f0305_inventario")
+            lb_inventario.Text = "Inventario Tot: " & Math.Round(orow("f0305_inventario"), 2)
             cantidad = orow("f0305_cantidad")
             cantidad_inicial = cantidad
             If orow("f0305_chkinventario") = "N" Then
@@ -157,13 +170,18 @@
             tx_cost_total.Text = ocosto.ToString("C2")
             dtp_fecha_requerido.Value = orow("f0305_fecha_requerido")
             tx_observacion.Text = orow("f0305_anotacion_item")
-            tx_id_fact_compras.Text = orow("f0305_id_factura_compras").ToString
+            'tx_id_fact_compras.Text = orow("f0305_id_factura_compras").ToString
+            lb_oc.Text = "O.C: " & orow("f0305_id_oc").ToString
+            lb_id_fcc.Text = "id_fcc: " & orow("f0305_id_factura_compras").ToString
+            lb_doc_inv.Text = "Doc-Inv: " & orow("f0305_docto_mov_inventario").ToString
             var_costo_promedio_registro = orow("f0305_var_cost_prom")
-            lb_var_costo_prom.Text = Math.Round(orow("f0305_var_cost_prom") * 100, 1)
+            costo_promedio_actual = orow("f0305_costo_unitario_planificado") / (1 + orow("f0305_var_cost_prom"))
+            lb_var_costo_prom.Text = "Variacion Costo: " & Math.Round(orow("f0305_var_cost_prom") * 100, 1) & "%"
+            lb_costo_promedio.Text = "Costo Prom Actual: $" & Math.Round(costo_promedio_actual, 0)
             'bloquea cambios cuando es una solicitud aprobada
             If orow("f0305_estado") = "A" Then
                 tx_id_item.ReadOnly = True
-                cm_descripcion.Enabled = False
+                'cm_descripcion.Enabled = False
                 sc_aprobada = "S"
                 'tx_cantidad.Enabled = False
             End If
@@ -198,26 +216,28 @@
     End Sub
 
     Private Sub Tx_id_item_Validating(ByVal sender As Object, ByVal e As System.ComponentModel.CancelEventArgs) Handles tx_id_item.Validating
-        If IsNumeric(tx_id_item.Text) = False Or tx_id_item.Text.Trim = "" Then
+        'If IsNumeric(tx_id_item.Text) = False Or tx_id_item.Text.Trim = "" Then
+        If IsNumeric(tx_id_item.Text) = False And tx_id_item.Text.Trim <> "" Then
             MsgBox("El valor debe ser numerico", MsgBoxStyle.Critical, "Error")
             tx_id_item.Text = ""
             Exit Sub
         End If
-        cm_descripcion.Focus()
-        cm_descripcion.SelectedValue = CInt(tx_id_item.Text)
+        Cargar_informacion_item()
+        'cm_descripcion.Focus()
+        'cm_descripcion.SelectedValue = CInt(tx_id_item.Text)
     End Sub
-    Private Sub Cm_descripcion_Validating(ByVal sender As Object, ByVal e As System.ComponentModel.CancelEventArgs) Handles cm_descripcion.Validating
-        If cm_descripcion.SelectedIndex = -1 Then
-            If cm_descripcion.Text.ToString.Trim <> "" Then
-                MsgBox("El Item no existe", MsgBoxStyle.Information, "Error")
-            End If
-            cm_descripcion.Text = ""
-            tx_id_item.Text = ""
-        Else
-            tx_id_item.Text = CInt(cm_descripcion.SelectedValue)
-            Cargar_informacion_item()
-        End If
-    End Sub
+    'Private Sub Cm_descripcion_Validating(ByVal sender As Object, ByVal e As System.ComponentModel.CancelEventArgs)
+    '    If cm_descripcion.SelectedIndex = -1 Then
+    '        If cm_descripcion.Text.ToString.Trim <> "" Then
+    '            MsgBox("El Item no existe", MsgBoxStyle.Information, "Error")
+    '        End If
+    '        cm_descripcion.Text = ""
+    '        tx_id_item.Text = ""
+    '    Else
+    '        tx_id_item.Text = CInt(cm_descripcion.SelectedValue)
+    '        Cargar_informacion_item()
+    '    End If
+    'End Sub
 
     Private Sub Validar_item()
         If tx_id_item.Text.ToString = "" Then
@@ -256,10 +276,12 @@
         'calculo la desviacion del valor respecto al costo promedio actual
         If costo_promedio_actual > 0 Then
             var_costo_promedio_actual = ((tx_cost_unit.Text - costo_promedio_actual) / costo_promedio_actual)
-            lb_var_costo_prom.Text = Math.Round(var_costo_promedio_actual * 100, 1)
+            lb_var_costo_prom.Text = "Variacion Costo: " & Math.Round(var_costo_promedio_actual * 100, 1) & "%"
+            lb_costo_promedio.Text = "Costo Prom Actual: $" & Math.Round(costo_promedio_actual, 0)
         Else
             var_costo_promedio_actual = 0
-            lb_var_costo_prom.Text = 0
+            lb_var_costo_prom.Text = "0"
+            lb_costo_promedio.Text = "0"
         End If
         If Math.Abs(var_costo_promedio_actual) > 999.999 Then
             var_costo_promedio_actual = 999.9999
@@ -359,15 +381,21 @@
     End Sub
     Private Sub Cargar_informacion_item()
         'Identificamos informacion de la estructura seleccionada.
-
+        If tx_id_item.Text.Trim = "" Then
+            Exit Sub
+        End If
         Dim rowprod As DataRow() = otb_items.Select("f0300_id_item ='" & tx_id_item.Text & "'")
         For Each orow As DataRow In rowprod
+            tx_item_descripcion.Text = orow("f0300_descripcion_item").ToString.Trim
             id_unidad_medicion = orow("f0300_id_unidad_medicion").ToString.Trim
             Cargar_informacion_unidades_medicion()
             habilita_descripcion = orow("f0300_descripcion_usuario").ToString.Trim
             costo_promedio_actual = orow("f0300_costo_promedio")
             id_tipo_item = orow("f0300_id_tipo_item")
-            tx_inventario_total.Text = cl_utilidades_gestion_compras.suministrar_inventario_item_compania(tx_id_item.Text, vg_id_cia)
+            Dim inventario As Integer = 0
+            inventario = cl_utilidades_gestion_compras.suministrar_inventario_item_compania(tx_id_item.Text, vg_id_cia)
+            lb_inventario.Text = "Inventario Tot: " & Math.Round(inventario, 2)
+
             If habilita_descripcion = "N" Then
                 tx_descripcion_manual.Enabled = False
                 tx_descripcion_manual.Text = ""
@@ -470,13 +498,13 @@
         csql = "INSERT INTO " & database.obtener_esquema & ".tb0305_items_solicitados" _
                 & " (f0305_id_cia, f0305_id_solicitud_compra, f0305_id_accion, f0305_id_item, f0305_ampliacion_item, f0305_anotacion_item," _
                 & " f0305_cantidad, f0305_chkinventario, f0305_iva, f0305_descuento, f0305_inventario," _
-                & " f0305_costo_unitario_planificado, f0305_costo_total_planificado, f0305_fecha_requerido, f0305_id_factura_compras," _
+                & " f0305_costo_unitario_planificado, f0305_costo_total_planificado, f0305_fecha_requerido," _
                 & " f0305_id_estructura, f0305_var_cost_prom," _
                 & " f0305_usuario_modificar, f0305_usuario_crear, f0305_fm)" _
                 & " VALUES" _
                 & " (@f0305_id_cia, @f0305_id_solicitud_compra, @f0305_id_accion, @f0305_id_item, @f0305_ampliacion_item, @f0305_anotacion_item," _
                 & " @f0305_cantidad, @f0305_chkinventario, @f0305_iva, @f0305_descuento, @f0305_inventario," _
-                & " @f0305_costo_unitario_planificado, @f0305_costo_total_planificado, @f0305_fecha_requerido, @f0305_id_factura_compras," _
+                & " @f0305_costo_unitario_planificado, @f0305_costo_total_planificado, @f0305_fecha_requerido," _
                 & " @f0305_id_estructura, @f0305_var_cost_prom," _
                 & " @f0305_usuario_modificar, @f0305_usuario_crear, @f0305_fm)"
 
@@ -522,7 +550,7 @@
         csql += "f0305_costo_unitario_planificado = @f0305_costo_unitario_planificado,"
         csql += "f0305_costo_total_planificado = @f0305_costo_total_planificado,"
         csql += "f0305_fecha_requerido = @f0305_fecha_requerido,"
-        csql += "f0305_id_factura_compras = @f0305_id_factura_compras,"
+        'csql += "f0305_id_factura_compras = @f0305_id_factura_compras,"
         csql += "f0305_id_estructura = @f0305_id_estructura,"
         csql += "f0305_var_cost_prom = @f0305_var_cost_prom,"
         csql += "f0305_fm = @f0305_fm,"
@@ -576,7 +604,7 @@
 
         ocmd.Parameters.Add("@f0305_iva", NpgsqlDbType.Numeric).Value = tx_impuesto.Text / 100
         ocmd.Parameters.Add("@f0305_descuento", NpgsqlDbType.Numeric).Value = tx_descuento.Text / 100
-        ocmd.Parameters.Add("@f0305_inventario", NpgsqlDbType.Numeric).Value = tx_inventario_total.Text
+        ocmd.Parameters.Add("@f0305_inventario", NpgsqlDbType.Numeric).Value = inventario
         If v_var_costo = "S" Then
             ocmd.Parameters.Add("@f0305_var_cost_prom", NpgsqlDbType.Numeric).Value = var_costo_promedio_actual
         Else
@@ -585,11 +613,11 @@
         ocmd.Parameters.Add("@f0305_costo_unitario_planificado", NpgsqlDbType.Numeric).Value = cost_unit_p
         ocmd.Parameters.Add("@f0305_costo_total_planificado", NpgsqlDbType.Numeric).Value = cost_tot_p
         ocmd.Parameters.Add("@f0305_fecha_requerido", NpgsqlDbType.Timestamp).Value = dtp_fecha_requerido.Value
-        If tx_id_fact_compras.Text.Trim = "" Then
-            ocmd.Parameters.Add("@f0305_id_factura_compras", NpgsqlDbType.Integer).Value = DBNull.Value
-        Else
-            ocmd.Parameters.Add("@f0305_id_factura_compras", NpgsqlDbType.Integer).Value = tx_id_fact_compras.Text.ToString.Trim
-        End If
+        'If tx_id_fact_compras.Text.Trim = "" Then
+        '    ocmd.Parameters.Add("@f0305_id_factura_compras", NpgsqlDbType.Integer).Value = DBNull.Value
+        'Else
+        '    ocmd.Parameters.Add("@f0305_id_factura_compras", NpgsqlDbType.Integer).Value = tx_id_fact_compras.Text.ToString.Trim
+        'End If
         ocmd.Parameters.Add("@f0305_id_estructura", NpgsqlDbType.Integer).Value = id_estructura
         ocmd.Parameters.Add("@f0305_usuario_modificar", NpgsqlDbType.Varchar).Value = vg_usuario_autoriza
         ocmd.Parameters.Add("@f0305_usuario_crear", NpgsqlDbType.Varchar).Value = vg_usuario_autoriza
@@ -753,7 +781,7 @@
         End If
         ocmd.Parameters.Add("@f0308_id_cia", NpgsqlDbType.Varchar).Value = vg_id_cia
         ocmd.Parameters.Add("@f0308_id_item_solicitud", NpgsqlDbType.Integer).Value = tx_id_item_sc.Text
-        ocmd.Parameters.Add("@f0308_id_factura_compras", NpgsqlDbType.Integer).Value = tx_id_fact_compras.Text.ToString.Trim
+        ocmd.Parameters.Add("@f0308_id_factura_compras", NpgsqlDbType.Integer).Value = "" 'tx_id_fact_compras.Text.ToString.Trim
         'ocmd.Parameters.Add("@f0305_id_item", NpgsqlDbType.Integer).Value = CInt(tx_id_item.Text.ToString)
         ocmd.Parameters.Add("@f0308_observacion", NpgsqlDbType.Varchar).Value = tx_observacion.Text.ToString
         ocmd.Parameters.Add("@f0308_cantidad", NpgsqlDbType.Numeric).Value = tx_cantidad.Text
@@ -775,6 +803,11 @@
         Return path_estructura
     End Function
     Private Sub Bt_cambiar_infraestructura_Click(sender As Object, e As EventArgs) Handles bt_cambiar_infraestructura.Click
+        ' COLOQUE ESTE BOTON EN ESTADO INVISIBLE
+        ' Porque decidi que el id_estructura para toda la solicitud deberia ser la misma,
+        ' coloque un disparador en la base de datos para la tabla tb0304_solicitud_compra para que
+        ' cuando se cambie la estructura en la solictud se cambie tanbien en todos los items de la misma
+
         verror_requisitos = "N"
         'validar_cambios_solo_creador()
         If verror_requisitos = "S" Then
@@ -803,8 +836,24 @@
     End Sub
 
     Private Sub Bt_listado_general_items_Click(sender As Object, e As EventArgs) Handles bt_listado_general_items.Click
-        cl_utilidades_datatables.visualizar_datos_visor("ST-0300-34", vg_id_cia, vg_usuario_autoriza,
-                                                            "Listado General de Items", {vg_id_cia})
+        'cl_utilidades_datatables.visualizar_datos_visor("ST-0300-34", vg_id_cia, vg_usuario_autoriza,
+        '                                                    "Listado General de Items", {vg_id_cia})
+        Dim filtro As String = ""
+        If tx_item_descripcion.Text <> "" Then
+            filtro = "descripcion_larga LIKE '%" & tx_item_descripcion.Text.Trim & "%'"
+        End If
+        tx_item_descripcion.Text = ""
+
+        Dim id_it As Integer = comunes.Buscador_item(vg_id_cia, vg_usuario_autoriza, filtro)
+        If id_it = 0 Then
+            tx_id_item.Text = ""
+        Else
+            tx_id_item.Text = id_it
+            tx_id_item.Focus()
+            tx_cantidad.Focus()
+        End If
+
+
     End Sub
     Private Sub Bt_actualizar_creando_accion_Click(sender As Object, e As EventArgs) Handles bt_actualizar_creando_accion.Click
         If vf_elemento_nuevo = "S" Then
@@ -853,4 +902,32 @@
         End If
         permitir_var_costo = "S"
     End Sub
+
+    Private Sub bt_historico_compras_Click(sender As Object, e As EventArgs) Handles bt_historico_compras.Click
+        If tx_id_item.Text = "" Then
+            MsgBox("Seleccione un item para consultar", MsgBoxStyle.Information, "Info")
+            Exit Sub
+        End If
+        cl_utilidades_gestion_compras.movimientos_compras_item(tx_id_item.Text, vg_usuario_autoriza, vg_id_cia)
+    End Sub
+
+    Private Sub bt_info_item_Click(sender As Object, e As EventArgs) Handles bt_info_item.Click
+        verror_requisitos = "N"
+        Validar_item()
+        If verror_requisitos = "S" Then
+            MsgBox(vmensaje_requisitos, MsgBoxStyle.Exclamation, "Error")
+            Exit Sub
+        End If
+        Dim oform_item As New fm_0300_gestion_items With {
+                    .vf_oform_padre = Me,
+                    .vg_id_cia = vg_id_cia,
+                    .cerrar_al_actualizar = "S",
+                    .id_item = tx_id_item.Text.Trim,
+                    .vg_usuario_autoriza = vg_usuario_autoriza,
+                    .vf_elemento_nuevo = "N"
+                }
+        oform_item.ShowDialog()
+    End Sub
+
+
 End Class

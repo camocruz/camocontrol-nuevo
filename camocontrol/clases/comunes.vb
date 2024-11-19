@@ -41,6 +41,30 @@ Public Class comunes
         oform_visor_texto.ShowDialog()
         oform_visor_texto.Dispose()
     End Sub
+    Public Shared Function Buscador_item(vg_id_cia As String, vg_usuario_autoriza As String, Optional filtro As String = "")
+        Dim otb_items_selected As DataTable = Nothing
+        Dim otb_tablas_array() As DataTable = Nothing
+        Dim id_item As Integer = 0
+        otb_tablas_array = cl_utilidades_datatables.visualizar_datos_visor("ST-0300-34", vg_id_cia, vg_usuario_autoriza,
+                                                        "Listado de Items",
+                                                        {vg_id_cia},
+                                                            , "Items",,, "S", "id_item",, "S", "N", filtro)
+
+        If IsNothing(otb_tablas_array(2)) = False Then
+            otb_items_selected = otb_tablas_array(2)
+        Else
+            Exit Function
+        End If
+        'agrego el tercero seleccionado
+        For Each orow As DataRow In otb_items_selected.Rows
+            'Actualizo el item
+            'MsgBox(orow("id_sc_item"))
+            id_item = orow("id_item")
+        Next
+        Return id_item
+    End Function
+
+
     Public Shared Function formulario_fecha_hora(ByVal fecha_ini As Date, Optional show_hora As String = "S")
         Dim a As String
         Dim oform_fecha As New camocontrol.fm_gestion_fechas

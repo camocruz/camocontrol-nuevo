@@ -34,7 +34,8 @@ Public Class fm_visor_datos
 
     Public otb_datos As DataTable 'Los datos que mostrara el formulario
     Private dw_datos As DataView
-    Private dv_filter As String = ""
+    Public dv_filter As String = ""
+    Private filtro_inicial As String = "N"
     Private conta_filtros As Integer = 0
     Private txt_operador As String = ""
     Private otb_datos_desplegados As New DataTable
@@ -109,6 +110,12 @@ Public Class fm_visor_datos
                 End If
             Next
         End If
+        ' Para cuando los datos que se cargaran ya tienen un filtro inicial
+        If dv_filter <> "" Then
+            filtro_inicial = "S"
+            filtrar_datos()
+        End If
+
 
     End Sub
     Public Sub recargar_datos()
@@ -218,7 +225,7 @@ Public Class fm_visor_datos
     End Sub
     Private Sub dg_datos_MouseClick(sender As Object, e As MouseEventArgs) Handles dg_datos.MouseClick
 
-        'Para realizar acciones dependiendo del contecto del formulario.
+        'Para realizar acciones dependiendo del contecto del formulario..
         Select Case ocontexto_form
             Case "salida de insumos de almacen desde una actividad"
                 Dim nombre_columna As String = dg_datos.Columns(dg_datos.CurrentCell.ColumnIndex).Name
@@ -282,6 +289,9 @@ Public Class fm_visor_datos
     End Sub
 
     Private Sub dg_datos_CellEnter(sender As Object, e As DataGridViewCellEventArgs) Handles dg_datos.CellEnter
+        If dg_datos.Columns(dg_datos.CurrentCell.ColumnIndex).Name = "dgocell_checkbox" Then
+            Exit Sub
+        End If
         Try
             tx_valor_campo.Text = dg_datos.CurrentCell.Value.ToString.Trim
         Catch ex As Exception
@@ -297,9 +307,14 @@ Public Class fm_visor_datos
         If e.KeyCode = Keys.Enter Or e.KeyCode = Keys.Return Then
             ejecutar_accion()
         End If
-        'If (e.KeyCode = Keys.F AndAlso e.Modifiers = Keys.Control) Then
-        'cm_operadores_filtro.Select()
-        'End If
+        If (e.KeyCode = Keys.S AndAlso e.Modifiers = Keys.Control) Then
+            'PARA USAR CUANDO EL FORMULARIO ES PARA SELECCIONAR UN DATO
+            'MsgBox(dg_datos.CurrentRow.Cells("id_sc").Value)
+        End If
+        If e.KeyCode = Keys.Tab Then
+            'No uso este porque al usar la tecla enter tambien se interpreta como tab ????
+            'MsgBox("Tab")
+        End If
         If (e.KeyCode = Keys.F2) Then
             cm_operadores_filtro.Select()
         End If
@@ -309,8 +324,10 @@ Public Class fm_visor_datos
 
     End Sub
     Private Sub dg_datos_KeyPress(sender As Object, e As KeyPressEventArgs) Handles dg_datos.KeyPress
+        'ESTOY USANDO MEJOR EL EVENTO KEYDOWN PARA SABER QUE TECLA PRESIONE. EL EVENTO KEYPRESS EMPIEZA  A SER OBSOLETO
         'If e.KeyChar = Microsoft.VisualBasic.ChrW(Keys.Enter) Then
         'ejecutar_accion()
+        'MsgBox("Tecla enter" & " " & dg_datos.Columns(dg_datos.CurrentCell.ColumnIndex).Name)
         'End If
     End Sub
 
@@ -819,6 +836,10 @@ Public Class fm_visor_datos
     End Sub
     Private Sub filtrar_datos()
         Dim dv_datos As New DataView(otb_datos)
+        If filtro_inicial = "S" Then
+            filtro_inicial = "N"
+            GoTo filtro_ini
+        End If
         If tx_valor_campo.Text = "" And cm_operadores_filtro.Text <> "Valor = Nulo" Then
             MsgBox("Fallo")
             Exit Sub
@@ -878,7 +899,7 @@ Public Class fm_visor_datos
                     dv_filter += " and " & tx_nombre_campo.Text & " " & txt_operador & " '" & tx_valor_campo.Text & "'"
                 End If
         End Select
-
+filtro_ini:
         conta_filtros += 1
         MsgBox(UCase(dv_filter), MsgBoxStyle.Information, "Filtro")
         Try

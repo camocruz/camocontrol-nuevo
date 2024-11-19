@@ -1,9 +1,9 @@
-﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
+﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class fm_0300_sc_solicitud
     Inherits camocontrol.FM_PLANTILLA
 
     'Form invalida a Dispose para limpiar la lista de componentes.
-    <System.Diagnostics.DebuggerNonUserCode()> _
+    <System.Diagnostics.DebuggerNonUserCode()>
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
         If disposing AndAlso components IsNot Nothing Then
             components.Dispose()
@@ -17,7 +17,7 @@ Partial Class fm_0300_sc_solicitud
     'NOTA: el Diseñador de Windows Forms necesita el siguiente procedimiento
     'Se puede modificar usando el Diseñador de Windows Forms.  
     'No lo modifique con el editor de código.
-    <System.Diagnostics.DebuggerStepThrough()> _
+    <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.tx_solicitud = New System.Windows.Forms.TextBox()
         Me.Label8 = New System.Windows.Forms.Label()
@@ -28,7 +28,6 @@ Partial Class fm_0300_sc_solicitud
         Me.tx_anotacion = New System.Windows.Forms.TextBox()
         Me.Label3 = New System.Windows.Forms.Label()
         Me.Label4 = New System.Windows.Forms.Label()
-        Me.cm_usuario = New System.Windows.Forms.ComboBox()
         Me.Label5 = New System.Windows.Forms.Label()
         Me.dtp_fecha_solicitud = New System.Windows.Forms.DateTimePicker()
         Me.Label6 = New System.Windows.Forms.Label()
@@ -68,9 +67,12 @@ Partial Class fm_0300_sc_solicitud
         Me.dgocell_descripcion_estructura = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.dgocell_id_accion = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.dgocell_nota = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.dgocell_id_oc = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.dgocell_oc_aprobada = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.dgocell_id_fcc = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.dgocell_doc_inv = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.bt_orden_compra = New System.Windows.Forms.Button()
+        Me.tx_emisor = New System.Windows.Forms.TextBox()
         Me.GroupBox1.SuspendLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.dg_listado, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -180,7 +182,7 @@ Partial Class fm_0300_sc_solicitud
         Me.tx_anotacion.Location = New System.Drawing.Point(17, 207)
         Me.tx_anotacion.Multiline = True
         Me.tx_anotacion.Name = "tx_anotacion"
-        Me.tx_anotacion.Size = New System.Drawing.Size(710, 58)
+        Me.tx_anotacion.Size = New System.Drawing.Size(797, 58)
         Me.tx_anotacion.TabIndex = 141
         '
         'Label3
@@ -202,15 +204,6 @@ Partial Class fm_0300_sc_solicitud
         Me.Label4.Size = New System.Drawing.Size(111, 16)
         Me.Label4.TabIndex = 143
         Me.Label4.Text = "Items solicitados:"
-        '
-        'cm_usuario
-        '
-        Me.cm_usuario.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.cm_usuario.FormattingEnabled = True
-        Me.cm_usuario.Location = New System.Drawing.Point(446, 89)
-        Me.cm_usuario.Name = "cm_usuario"
-        Me.cm_usuario.Size = New System.Drawing.Size(287, 24)
-        Me.cm_usuario.TabIndex = 145
         '
         'Label5
         '
@@ -292,14 +285,14 @@ Partial Class fm_0300_sc_solicitud
         Me.tx_estructura.Multiline = True
         Me.tx_estructura.Name = "tx_estructura"
         Me.tx_estructura.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
-        Me.tx_estructura.Size = New System.Drawing.Size(508, 52)
+        Me.tx_estructura.Size = New System.Drawing.Size(659, 52)
         Me.tx_estructura.TabIndex = 163
         '
         'bt_cambiar_infraestructura
         '
         Me.bt_cambiar_infraestructura.BackgroundImage = Global.camocontrol.My.Resources.Resources.cargarplano
         Me.bt_cambiar_infraestructura.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
-        Me.bt_cambiar_infraestructura.Location = New System.Drawing.Point(636, 149)
+        Me.bt_cambiar_infraestructura.Location = New System.Drawing.Point(787, 147)
         Me.bt_cambiar_infraestructura.Name = "bt_cambiar_infraestructura"
         Me.bt_cambiar_infraestructura.Size = New System.Drawing.Size(21, 22)
         Me.bt_cambiar_infraestructura.TabIndex = 162
@@ -316,11 +309,10 @@ Partial Class fm_0300_sc_solicitud
         '
         'bt_agregar_item
         '
-        Me.bt_agregar_item.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.bt_agregar_item.Image = Global.camocontrol.My.Resources.Resources.Full_shopping_cart_Icon_32
-        Me.bt_agregar_item.Location = New System.Drawing.Point(741, 205)
+        Me.bt_agregar_item.BackgroundImage = Global.camocontrol.My.Resources.Resources.Full_shopping_cart_Icon_32
+        Me.bt_agregar_item.Location = New System.Drawing.Point(146, 268)
         Me.bt_agregar_item.Name = "bt_agregar_item"
-        Me.bt_agregar_item.Size = New System.Drawing.Size(73, 60)
+        Me.bt_agregar_item.Size = New System.Drawing.Size(55, 35)
         Me.bt_agregar_item.TabIndex = 166
         Me.bt_agregar_item.Text = "Add"
         Me.bt_agregar_item.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
@@ -330,7 +322,7 @@ Partial Class fm_0300_sc_solicitud
         '
         Me.bt_historico_compras.BackgroundImage = Global.camocontrol.My.Resources.Resources.nuevo2
         Me.bt_historico_compras.Image = Global.camocontrol.My.Resources.Resources.icono_estadisticas
-        Me.bt_historico_compras.Location = New System.Drawing.Point(726, 155)
+        Me.bt_historico_compras.Location = New System.Drawing.Point(326, 267)
         Me.bt_historico_compras.Name = "bt_historico_compras"
         Me.bt_historico_compras.Size = New System.Drawing.Size(32, 34)
         Me.bt_historico_compras.TabIndex = 202
@@ -339,7 +331,7 @@ Partial Class fm_0300_sc_solicitud
         'tx_id_item_cons_mov
         '
         Me.tx_id_item_cons_mov.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.tx_id_item_cons_mov.Location = New System.Drawing.Point(667, 166)
+        Me.tx_id_item_cons_mov.Location = New System.Drawing.Point(267, 278)
         Me.tx_id_item_cons_mov.Name = "tx_id_item_cons_mov"
         Me.tx_id_item_cons_mov.ReadOnly = True
         Me.tx_id_item_cons_mov.Size = New System.Drawing.Size(57, 22)
@@ -349,7 +341,7 @@ Partial Class fm_0300_sc_solicitud
         '
         Me.Label9.AutoSize = True
         Me.Label9.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label9.Location = New System.Drawing.Point(664, 147)
+        Me.Label9.Location = New System.Drawing.Point(207, 281)
         Me.Label9.Name = "Label9"
         Me.Label9.Size = New System.Drawing.Size(54, 16)
         Me.Label9.TabIndex = 200
@@ -357,12 +349,11 @@ Partial Class fm_0300_sc_solicitud
         '
         'bt_generar_recepcion
         '
-        Me.bt_generar_recepcion.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.bt_generar_recepcion.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center
         Me.bt_generar_recepcion.Image = Global.camocontrol.My.Resources.Resources.dinero01
-        Me.bt_generar_recepcion.Location = New System.Drawing.Point(754, 89)
+        Me.bt_generar_recepcion.Location = New System.Drawing.Point(402, 268)
         Me.bt_generar_recepcion.Name = "bt_generar_recepcion"
-        Me.bt_generar_recepcion.Size = New System.Drawing.Size(56, 52)
+        Me.bt_generar_recepcion.Size = New System.Drawing.Size(36, 34)
         Me.bt_generar_recepcion.TabIndex = 203
         Me.bt_generar_recepcion.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.bt_generar_recepcion.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage
@@ -372,7 +363,7 @@ Partial Class fm_0300_sc_solicitud
         '
         Me.lb_valor_subtotal.AutoSize = True
         Me.lb_valor_subtotal.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lb_valor_subtotal.Location = New System.Drawing.Point(315, 268)
+        Me.lb_valor_subtotal.Location = New System.Drawing.Point(571, 268)
         Me.lb_valor_subtotal.Name = "lb_valor_subtotal"
         Me.lb_valor_subtotal.Size = New System.Drawing.Size(16, 18)
         Me.lb_valor_subtotal.TabIndex = 250
@@ -382,7 +373,7 @@ Partial Class fm_0300_sc_solicitud
         '
         Me.Label19.AutoSize = True
         Me.Label19.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label19.Location = New System.Drawing.Point(214, 268)
+        Me.Label19.Location = New System.Drawing.Point(470, 268)
         Me.Label19.Name = "Label19"
         Me.Label19.Size = New System.Drawing.Size(104, 18)
         Me.Label19.TabIndex = 249
@@ -392,7 +383,7 @@ Partial Class fm_0300_sc_solicitud
         '
         Me.lb_valor_factura.AutoSize = True
         Me.lb_valor_factura.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lb_valor_factura.Location = New System.Drawing.Point(315, 283)
+        Me.lb_valor_factura.Location = New System.Drawing.Point(571, 283)
         Me.lb_valor_factura.Name = "lb_valor_factura"
         Me.lb_valor_factura.Size = New System.Drawing.Size(16, 18)
         Me.lb_valor_factura.TabIndex = 248
@@ -402,7 +393,7 @@ Partial Class fm_0300_sc_solicitud
         '
         Me.Label10.AutoSize = True
         Me.Label10.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label10.Location = New System.Drawing.Point(214, 283)
+        Me.Label10.Location = New System.Drawing.Point(470, 283)
         Me.Label10.Name = "Label10"
         Me.Label10.Size = New System.Drawing.Size(100, 18)
         Me.Label10.TabIndex = 247
@@ -417,7 +408,7 @@ Partial Class fm_0300_sc_solicitud
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.dg_listado.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dg_listado.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.dgocell_id_sc_item, Me.dgocell_item, Me.dgocell_cod_uno, Me.dgocell_descripcion_item, Me.dgocell_descripcion_complementaria, Me.dgocell_cantidad_solicitada, Me.dgocell_chk_inventario, Me.dgocell_inventario_total, Me.dgocell_unidad, Me.dgocell_var_costo, Me.dgocell_costo_unitario, Me.dgocell_descuento, Me.dgocell_costo_total, Me.dgocell_iva, Me.dgocell_costo_unit_iva, Me.dgocell_costo_total_iva, Me.dgocell_descripcion_estructura, Me.dgocell_id_accion, Me.dgocell_nota, Me.dgocell_id_fcc, Me.dgocell_doc_inv})
+        Me.dg_listado.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.dgocell_id_sc_item, Me.dgocell_item, Me.dgocell_cod_uno, Me.dgocell_descripcion_item, Me.dgocell_descripcion_complementaria, Me.dgocell_cantidad_solicitada, Me.dgocell_chk_inventario, Me.dgocell_inventario_total, Me.dgocell_unidad, Me.dgocell_var_costo, Me.dgocell_costo_unitario, Me.dgocell_descuento, Me.dgocell_costo_total, Me.dgocell_iva, Me.dgocell_costo_unit_iva, Me.dgocell_costo_total_iva, Me.dgocell_descripcion_estructura, Me.dgocell_id_accion, Me.dgocell_nota, Me.dgocell_id_oc, Me.dgocell_oc_aprobada, Me.dgocell_id_fcc, Me.dgocell_doc_inv})
         Me.dg_listado.Location = New System.Drawing.Point(17, 304)
         Me.dg_listado.Name = "dg_listado"
         Me.dg_listado.Size = New System.Drawing.Size(797, 148)
@@ -559,7 +550,7 @@ Partial Class fm_0300_sc_solicitud
         Me.dgocell_descripcion_estructura.HeaderText = "Estructura"
         Me.dgocell_descripcion_estructura.Name = "dgocell_descripcion_estructura"
         Me.dgocell_descripcion_estructura.ReadOnly = True
-        Me.dgocell_descripcion_estructura.Width = 5
+        Me.dgocell_descripcion_estructura.Visible = False
         '
         'dgocell_id_accion
         '
@@ -575,6 +566,21 @@ Partial Class fm_0300_sc_solicitud
         Me.dgocell_nota.Name = "dgocell_nota"
         Me.dgocell_nota.ReadOnly = True
         Me.dgocell_nota.Width = 150
+        '
+        'dgocell_id_oc
+        '
+        Me.dgocell_id_oc.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None
+        Me.dgocell_id_oc.HeaderText = "O.C"
+        Me.dgocell_id_oc.Name = "dgocell_id_oc"
+        Me.dgocell_id_oc.Width = 40
+        '
+        'dgocell_oc_aprobada
+        '
+        Me.dgocell_oc_aprobada.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCellsExceptHeader
+        Me.dgocell_oc_aprobada.HeaderText = "Ap."
+        Me.dgocell_oc_aprobada.MinimumWidth = 2
+        Me.dgocell_oc_aprobada.Name = "dgocell_oc_aprobada"
+        Me.dgocell_oc_aprobada.Width = 2
         '
         'dgocell_id_fcc
         '
@@ -594,17 +600,27 @@ Partial Class fm_0300_sc_solicitud
         '
         Me.bt_orden_compra.BackgroundImage = Global.camocontrol.My.Resources.Resources.icono_agenda_electronica
         Me.bt_orden_compra.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
-        Me.bt_orden_compra.Location = New System.Drawing.Point(764, 155)
+        Me.bt_orden_compra.Location = New System.Drawing.Point(364, 267)
         Me.bt_orden_compra.Name = "bt_orden_compra"
         Me.bt_orden_compra.Size = New System.Drawing.Size(32, 34)
         Me.bt_orden_compra.TabIndex = 252
         Me.bt_orden_compra.Text = "OC"
         Me.bt_orden_compra.UseVisualStyleBackColor = True
         '
+        'tx_emisor
+        '
+        Me.tx_emisor.Enabled = False
+        Me.tx_emisor.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.tx_emisor.Location = New System.Drawing.Point(446, 91)
+        Me.tx_emisor.Name = "tx_emisor"
+        Me.tx_emisor.Size = New System.Drawing.Size(287, 22)
+        Me.tx_emisor.TabIndex = 253
+        '
         'fm_0300_sc_solicitud
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.ClientSize = New System.Drawing.Size(822, 532)
+        Me.Controls.Add(Me.tx_emisor)
         Me.Controls.Add(Me.bt_orden_compra)
         Me.Controls.Add(Me.dg_listado)
         Me.Controls.Add(Me.lb_valor_subtotal)
@@ -625,7 +641,6 @@ Partial Class fm_0300_sc_solicitud
         Me.Controls.Add(Me.Label7)
         Me.Controls.Add(Me.dtp_fecha_solicitud)
         Me.Controls.Add(Me.Label6)
-        Me.Controls.Add(Me.cm_usuario)
         Me.Controls.Add(Me.Label5)
         Me.Controls.Add(Me.Label4)
         Me.Controls.Add(Me.tx_anotacion)
@@ -655,7 +670,6 @@ Partial Class fm_0300_sc_solicitud
         Me.Controls.SetChildIndex(Me.tx_anotacion, 0)
         Me.Controls.SetChildIndex(Me.Label4, 0)
         Me.Controls.SetChildIndex(Me.Label5, 0)
-        Me.Controls.SetChildIndex(Me.cm_usuario, 0)
         Me.Controls.SetChildIndex(Me.Label6, 0)
         Me.Controls.SetChildIndex(Me.dtp_fecha_solicitud, 0)
         Me.Controls.SetChildIndex(Me.Label7, 0)
@@ -676,6 +690,7 @@ Partial Class fm_0300_sc_solicitud
         Me.Controls.SetChildIndex(Me.lb_valor_subtotal, 0)
         Me.Controls.SetChildIndex(Me.dg_listado, 0)
         Me.Controls.SetChildIndex(Me.bt_orden_compra, 0)
+        Me.Controls.SetChildIndex(Me.tx_emisor, 0)
         Me.GroupBox1.ResumeLayout(False)
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.dg_listado, System.ComponentModel.ISupportInitialize).EndInit()
@@ -692,7 +707,6 @@ Partial Class fm_0300_sc_solicitud
     Friend WithEvents tx_anotacion As System.Windows.Forms.TextBox
     Friend WithEvents Label3 As System.Windows.Forms.Label
     Friend WithEvents Label4 As System.Windows.Forms.Label
-    Friend WithEvents cm_usuario As System.Windows.Forms.ComboBox
     Friend WithEvents Label5 As System.Windows.Forms.Label
     Friend WithEvents dtp_fecha_solicitud As System.Windows.Forms.DateTimePicker
     Friend WithEvents Label6 As System.Windows.Forms.Label
@@ -713,6 +727,7 @@ Partial Class fm_0300_sc_solicitud
     Friend WithEvents lb_valor_factura As Label
     Friend WithEvents Label10 As Label
     Friend WithEvents dg_listado As DataGridView
+    Friend WithEvents bt_orden_compra As Button
     Friend WithEvents dgocell_id_sc_item As DataGridViewTextBoxColumn
     Friend WithEvents dgocell_item As DataGridViewTextBoxColumn
     Friend WithEvents dgocell_cod_uno As DataGridViewTextBoxColumn
@@ -732,7 +747,9 @@ Partial Class fm_0300_sc_solicitud
     Friend WithEvents dgocell_descripcion_estructura As DataGridViewTextBoxColumn
     Friend WithEvents dgocell_id_accion As DataGridViewTextBoxColumn
     Friend WithEvents dgocell_nota As DataGridViewTextBoxColumn
+    Friend WithEvents dgocell_id_oc As DataGridViewTextBoxColumn
+    Friend WithEvents dgocell_oc_aprobada As DataGridViewTextBoxColumn
     Friend WithEvents dgocell_id_fcc As DataGridViewTextBoxColumn
     Friend WithEvents dgocell_doc_inv As DataGridViewTextBoxColumn
-    Friend WithEvents bt_orden_compra As Button
+    Friend WithEvents tx_emisor As TextBox
 End Class

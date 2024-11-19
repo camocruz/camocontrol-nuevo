@@ -1,5 +1,6 @@
 SELECT f0307_id_factura_compras as id_fcc, 
        f0307_numero_factura as num_fact,
+	   to_char(f0307_fr, 'YYYY-MM-DD HH12:MI AM') as fecha_registro,
        trim(both ' ' from f0200_nombres || ' ' || f0200_apellido1 || ' ' || f0200_apellido2) as razon_social, f0200_id as nit,
        to_char( total ,'FM999,999,999') as valor_tot, cant_sop, f0307_doc_entrada as id_doc_inv,
 	   f0307_aprobada as aprobada, f0307_conta1 as contab
