@@ -6,7 +6,8 @@ Public Class cl_utilidades_gestion_documentos
                                                         ByVal vg_id_cia As String,
                                                         ByVal vg_usuario_autoriza As String,
                                                         ByVal c_automatico As String,
-                                                        Optional path_inicio As String = "")
+                                                        Optional path_inicio As String = "",
+                                                        Optional CargueDesdePortapapeles As String = "N")
         Dim path_file_complete(2) As String  'Retorna un arreglo con el path completo del archivo creado
         path_file_complete(0) = "" 'id_file, id del registro en la tabla de archivos asociados
         path_file_complete(1) = "" 'Path completo del archivo creado
@@ -125,6 +126,8 @@ Public Class cl_utilidades_gestion_documentos
                 Return path_file_complete
                 Exit Function
             End If
+
+
             'identifico todos los archivos en el directorio
             orow_file_names = Directory.GetFiles(vg_path_carg_aut)
             'para borrar los archivos fuente copiados.
@@ -147,8 +150,8 @@ Public Class cl_utilidades_gestion_documentos
                 Exit Function
             End If
         End If
-            'proceso los archivos
-            For Each path_file In orow_file_names
+        'proceso los archivos
+        For Each path_file In orow_file_names
             Dim infoReader As System.IO.FileInfo
             Dim oextension As String
             Dim old_file_name As String = ""
@@ -233,6 +236,70 @@ Public Class cl_utilidades_gestion_documentos
         'MsgBox(path_file_complete(0) & "---" & path_file_complete(1))
         Return path_file_complete
     End Function
+
+    ' Función para determinar si un archivo es una imagen
+    Public Shared Function IsImageFile(filePath As String) As Boolean
+        Try
+            ' Intentar cargar el archivo como una imagen
+            Using img As Image = Image.FromFile(filePath)
+                Return True
+            End Using
+        Catch ex As OutOfMemoryException
+            ' No es una imagen si ocurre esta excepción
+            Return False
+        Catch ex As Exception
+            ' Otros errores también indican que no es una imagen
+            Return False
+        End Try
+    End Function
+
+    Public Shared Sub copiar_desde_portapapeles()
+        ' Verificar si el portapapeles contiene datos de tipo archivo
+        If Clipboard.ContainsFileDropList() Then
+            ' Obtener la lista de archivos desde el portapapeles
+            Dim files = Clipboard.GetFileDropList()
+
+            ' Directorio donde se guardarán los archivos ZIP
+            Dim destinationDirectory As String = "C:\Ruta\Destino\"
+
+            ' Asegurarse de que el directorio de destino exista
+            If Not Directory.Exists(destinationDirectory) Then
+                Directory.CreateDirectory(destinationDirectory)
+            End If
+
+            Try
+                ' Procesar cada archivo en la lista del portapapeles
+                For Each sourceFile As String In files
+                    ' Verificar si el archivo es una imagen
+                    Dim isImage As Boolean = IsImageFile(sourceFile)
+                    ' Obtener el nombre del archivo sin la ruta
+                    Dim fileName As String = Path.GetFileNameWithoutExtension(sourceFile)
+
+                    ' Crear el nombre del archivo ZIP de destino
+                    Dim zipFilePath As String = Path.Combine(destinationDirectory, fileName & ".zip")
+
+                    ' Crear un archivo ZIP que contiene el archivo original
+                    Using zipStream As FileStream = New FileStream(zipFilePath, FileMode.Create)
+                        Using zipArchive As ZipArchive = New ZipArchive(zipStream, ZipArchiveMode.Create)
+                            ' Agregar el archivo al ZIP
+                            Dim zipEntry As ZipArchiveEntry = zipArchive.CreateEntry(Path.GetFileName(sourceFile))
+                            Using originalFileStream As FileStream = New FileStream(sourceFile, FileMode.Open, FileAccess.Read)
+                                Using zipEntryStream As Stream = zipEntry.Open()
+                                    originalFileStream.CopyTo(zipEntryStream)
+                                End Using
+                            End Using
+                        End Using
+                    End Using
+
+                    Console.WriteLine("Archivo comprimido exitosamente: " & zipFilePath)
+                Next
+            Catch ex As Exception
+                Console.WriteLine("Ocurrió un error: " & ex.Message)
+            End Try
+        Else
+            Console.WriteLine("El portapapeles no contiene archivos.")
+        End If
+    End Sub
     Public Shared Sub grabar_bd_nuevo_documento_soporte(codigo_docto As String, consecutivo As String, extension As String, path_file As String,
                                                      descripcion As String, ocomprimido As String, tamano As Single,
                                                      tipo_archivo As Integer, nombre_original As String, vg_id_cia As String, usuario As String)
@@ -383,7 +450,7 @@ Public Class cl_utilidades_gestion_documentos
 
         'generamos vista previa si es una imagen
         Select Case oextension
-            Case ".jpg", ".png", ".bmp", ".gif" ', ".tif" lo quito porque es multipagina y se dañaria al disminuirlo
+            Case ".jpg", ".jpeg", ".png", ".bmp", ".gif" ', ".tif" lo quito porque es multipagina y se dañaria al disminuirlo
                 tipo_arch = 1
             Case ".pdf"
                 tipo_arch = 2
@@ -424,9 +491,9 @@ Public Class cl_utilidades_gestion_documentos
                 oform_imagen.Text = path_file
                 oform_imagen.ShowDialog()
             Case Else
-                MsgBox("Este archivo no puede ser visualizado con este software", MsgBoxStyle.Exclamation, "Error")
+                MsgBox("Este archivo no puede ser visualizado con este software.", MsgBoxStyle.Exclamation, "Error")
         End Select
-        
+
     End Sub
     Public Shared Function calcular_cantidad_archivos_asociados(codigo_config As String, id_documento As String, vg_id_cia As String)
         'Identificamos cuantos archivos estan asociados al documento

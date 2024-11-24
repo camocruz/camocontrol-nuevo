@@ -720,7 +720,7 @@ Public Class fm_visor_datos
                                 oform_imagen.Text = "Soporte"
                                 oform_imagen.Show()
                             End If
-                        Case 2 'Archivo de imagen
+                        Case 2 'Archivo pdf
 
                             verror = cl_utilidades_gestion_documentos.suministrar_archivo(ofile, file_temp, ocomprimido)
                             If verror = "N" Then
