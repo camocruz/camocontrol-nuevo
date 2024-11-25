@@ -77,7 +77,7 @@ Partial Class fm_0600_gestion_tareas
         Me.bt_sol_almacen = New System.Windows.Forms.Button()
         Me.bt_seg_reporte_act = New System.Windows.Forms.Button()
         Me.bt_seg_estandar = New System.Windows.Forms.Button()
-        Me.Button1 = New System.Windows.Forms.Button()
+        Me.bt_CargarImagenClipboard = New System.Windows.Forms.Button()
         Me.PictureBox2 = New System.Windows.Forms.PictureBox()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.grb_tipo_tarea.SuspendLayout()
@@ -681,20 +681,20 @@ Partial Class fm_0600_gestion_tareas
         Me.bt_seg_estandar.TabIndex = 187
         Me.bt_seg_estandar.UseVisualStyleBackColor = True
         '
-        'Button1
+        'bt_CargarImagenClipboard
         '
-        Me.Button1.Location = New System.Drawing.Point(725, 453)
-        Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(71, 47)
-        Me.Button1.TabIndex = 188
-        Me.Button1.Text = "Button1"
-        Me.Button1.UseVisualStyleBackColor = True
+        Me.bt_CargarImagenClipboard.Location = New System.Drawing.Point(713, 454)
+        Me.bt_CargarImagenClipboard.Name = "bt_CargarImagenClipboard"
+        Me.bt_CargarImagenClipboard.Size = New System.Drawing.Size(71, 47)
+        Me.bt_CargarImagenClipboard.TabIndex = 188
+        Me.bt_CargarImagenClipboard.Text = "Pegar Imagen"
+        Me.bt_CargarImagenClipboard.UseVisualStyleBackColor = True
         '
         'PictureBox2
         '
-        Me.PictureBox2.Location = New System.Drawing.Point(800, 404)
+        Me.PictureBox2.Location = New System.Drawing.Point(790, 366)
         Me.PictureBox2.Name = "PictureBox2"
-        Me.PictureBox2.Size = New System.Drawing.Size(108, 97)
+        Me.PictureBox2.Size = New System.Drawing.Size(116, 135)
         Me.PictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
         Me.PictureBox2.TabIndex = 189
         Me.PictureBox2.TabStop = False
@@ -704,7 +704,7 @@ Partial Class fm_0600_gestion_tareas
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.ClientSize = New System.Drawing.Size(913, 514)
         Me.Controls.Add(Me.PictureBox2)
-        Me.Controls.Add(Me.Button1)
+        Me.Controls.Add(Me.bt_CargarImagenClipboard)
         Me.Controls.Add(Me.bt_seg_estandar)
         Me.Controls.Add(Me.bt_seg_reporte_act)
         Me.Controls.Add(Me.bt_sol_almacen)
@@ -816,7 +816,7 @@ Partial Class fm_0600_gestion_tareas
         Me.Controls.SetChildIndex(Me.bt_sol_almacen, 0)
         Me.Controls.SetChildIndex(Me.bt_seg_reporte_act, 0)
         Me.Controls.SetChildIndex(Me.bt_seg_estandar, 0)
-        Me.Controls.SetChildIndex(Me.Button1, 0)
+        Me.Controls.SetChildIndex(Me.bt_CargarImagenClipboard, 0)
         Me.Controls.SetChildIndex(Me.PictureBox2, 0)
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.grb_tipo_tarea.ResumeLayout(False)
@@ -886,6 +886,6 @@ Partial Class fm_0600_gestion_tareas
     Friend WithEvents bt_sol_almacen As Button
     Friend WithEvents bt_seg_reporte_act As Button
     Friend WithEvents bt_seg_estandar As Button
-    Friend WithEvents Button1 As Button
+    Friend WithEvents bt_CargarImagenClipboard As Button
     Friend WithEvents PictureBox2 As PictureBox
 End Class

@@ -727,3 +727,4 @@ C:\Repos\camocontrol\camocontrol\obj\x86\Debug\camocontrol.vbproj.CopyComplete
 C:\Repos\camocontrol\camocontrol\obj\x86\Debug\camocontrol.exe
 C:\Repos\camocontrol\camocontrol\obj\x86\Debug\camocontrol.xml
 C:\Repos\camocontrol\camocontrol\obj\x86\Debug\camocontrol.pdb
+C:\Repos\camocontrol\camocontrol\bin\Debug\System.IO.Compression.dll

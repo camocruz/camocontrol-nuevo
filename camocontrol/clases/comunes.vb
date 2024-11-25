@@ -92,11 +92,21 @@ Public Class comunes
                                                       Optional ODisplayMember As String = "",
                                                       Optional OValueMember As String = "",
                                                       Optional Oselectedvalue As String = "",
-                                                      Optional Oselectedtext As String = "")
+                                                      Optional Oselectedtext As String = "",
+                                                      Optional ImagenPortapapeles As String = "N")
         'Retorna una valor de texto definido por el usuario
         Dim ocancelar As String = "S" 'Si se preciona el boton salir, significa que se cancela toda la operacion.
         Dim otexto As String = ""
         Dim oform_texto As New camocontrol.fm_parametro_texto
+
+        If ImagenPortapapeles = "S" Then
+            'verifico que el portapapeles si tenga una imagen
+            If My.Computer.Clipboard.ContainsImage() Then
+                'MsgBox("Clipboard contains an image.")
+                oform_texto.PictureBox2.Image = My.Computer.Clipboard.GetImage
+            End If
+        End If
+
         If multilinea = True Then
             oform_texto.tx_texto.Multiline = True
             oform_texto.tx_texto.MaxLength = 1000

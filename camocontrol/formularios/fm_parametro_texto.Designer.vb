@@ -22,8 +22,10 @@ Partial Class fm_parametro_texto
         Me.lb_texto = New System.Windows.Forms.Label()
         Me.tx_texto = New System.Windows.Forms.TextBox()
         Me.cm_combo = New System.Windows.Forms.ComboBox()
+        Me.PictureBox2 = New System.Windows.Forms.PictureBox()
         Me.GroupBox1.SuspendLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.PictureBox2, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'lb_fecha
@@ -38,7 +40,7 @@ Partial Class fm_parametro_texto
         '
         'GroupBox1
         '
-        Me.GroupBox1.Location = New System.Drawing.Point(210, 175)
+        Me.GroupBox1.Location = New System.Drawing.Point(210, 210)
         '
         'bt_salir
         '
@@ -50,7 +52,7 @@ Partial Class fm_parametro_texto
         '
         'lb_diseñador_programa
         '
-        Me.lb_diseñador_programa.Location = New System.Drawing.Point(0, 235)
+        Me.lb_diseñador_programa.Location = New System.Drawing.Point(0, 270)
         '
         'lb_texto
         '
@@ -80,10 +82,20 @@ Partial Class fm_parametro_texto
         Me.cm_combo.Size = New System.Drawing.Size(715, 28)
         Me.cm_combo.TabIndex = 1
         '
+        'PictureBox2
+        '
+        Me.PictureBox2.Location = New System.Drawing.Point(16, 133)
+        Me.PictureBox2.Name = "PictureBox2"
+        Me.PictureBox2.Size = New System.Drawing.Size(139, 134)
+        Me.PictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
+        Me.PictureBox2.TabIndex = 66
+        Me.PictureBox2.TabStop = False
+        '
         'fm_parametro_texto
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
-        Me.ClientSize = New System.Drawing.Size(745, 249)
+        Me.ClientSize = New System.Drawing.Size(745, 284)
+        Me.Controls.Add(Me.PictureBox2)
         Me.Controls.Add(Me.cm_combo)
         Me.Controls.Add(Me.lb_texto)
         Me.Controls.Add(Me.tx_texto)
@@ -98,8 +110,10 @@ Partial Class fm_parametro_texto
         Me.Controls.SetChildIndex(Me.tx_texto, 0)
         Me.Controls.SetChildIndex(Me.lb_texto, 0)
         Me.Controls.SetChildIndex(Me.cm_combo, 0)
+        Me.Controls.SetChildIndex(Me.PictureBox2, 0)
         Me.GroupBox1.ResumeLayout(False)
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.PictureBox2, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -107,4 +121,5 @@ Partial Class fm_parametro_texto
     Friend WithEvents lb_texto As System.Windows.Forms.Label
     Friend WithEvents tx_texto As System.Windows.Forms.TextBox
     Friend WithEvents cm_combo As System.Windows.Forms.ComboBox
+    Friend WithEvents PictureBox2 As PictureBox
 End Class

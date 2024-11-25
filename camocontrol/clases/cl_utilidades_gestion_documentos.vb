@@ -7,7 +7,7 @@ Public Class cl_utilidades_gestion_documentos
                                                         ByVal vg_usuario_autoriza As String,
                                                         ByVal c_automatico As String,
                                                         Optional path_inicio As String = "",
-                                                        Optional CargueDesdePortapapeles As String = "N")
+                                                        Optional CargueImagenDesdePortapapeles As String = "N")
         Dim path_file_complete(2) As String  'Retorna un arreglo con el path completo del archivo creado
         path_file_complete(0) = "" 'id_file, id del registro en la tabla de archivos asociados
         path_file_complete(1) = "" 'Path completo del archivo creado
@@ -40,7 +40,7 @@ Public Class cl_utilidades_gestion_documentos
                     new_path_file = orow("f0007_valor_variable")
                 Case "003" 'Indica la descripcion del archivo por defecto
                     If c_automatico = "N" Then
-                        odescripcion = comunes.formulario_parametro_texto(orow("f0007_valor_variable"), "Descripcion del Archivo")
+                        odescripcion = comunes.formulario_parametro_texto(orow("f0007_valor_variable"), "Descripcion del Archivo",,,,,,, "S")
                     Else
                         odescripcion = orow("f0007_valor_variable")
                     End If
@@ -76,10 +76,13 @@ Public Class cl_utilidades_gestion_documentos
         oconsecutivo = (otb_archivos.Rows.Count + 1).ToString.PadLeft(3, "0")
 
         Dim path_file As String
-        Dim orow_file_names As String() = Nothing
+        'cambio la definicion de esta variable debido a que cuando manejo el clipboar crea un 
+        'tipo Error BC30311	El valor de tipo 'StringCollection' no se puede convertir en 'String()'.	
+        'Dim orow_file_names As String() = Nothing
+        Dim orow_file_names As Object = Nothing
         Dim borrar_archivo As String = "N"
 
-        If c_automatico = "N" Then
+        If c_automatico = "N" And CargueImagenDesdePortapapeles = "N" Then
             Dim OpenFileDialog1 As New OpenFileDialog
             'OpenFileDialog1.InitialDirectory = "e:\"
             'OpenFileDialog1.Filter = "Imágenes JPG (*.jpg)|*.jpg|" +
@@ -112,24 +115,35 @@ Public Class cl_utilidades_gestion_documentos
                 Exit Function
             End If
         Else
-            Dim vg_path_carg_aut As String = ""
-            'cargo el path de cargue automatico
-            vg_path_carg_aut = formulario_inicio.vg_path_carg_aut
-            If vg_path_carg_aut = "" Then
-                MsgBox("No ha definido el Directorio de Cargue Automatico", MsgBoxStyle.Information, "Info")
-                Return path_file_complete
-                Exit Function
-            End If
-            'Verifico que el directorio sea valido
-            If Directory.Exists(vg_path_carg_aut) = False Then
-                MsgBox("El Directorio de Cargue Automatico no es valido", MsgBoxStyle.Information, "Info")
-                Return path_file_complete
-                Exit Function
+            If CargueImagenDesdePortapapeles = "N" Then
+                'Voy a cargar automatico todos los archivos que se encuentren en un directorio
+                Dim vg_path_carg_aut As String = ""
+                'cargo el path de cargue automatico
+                vg_path_carg_aut = formulario_inicio.vg_path_carg_aut
+                If vg_path_carg_aut = "" Then
+                    MsgBox("No ha definido el Directorio de Cargue Automatico", MsgBoxStyle.Information, "Info")
+                    Return path_file_complete
+                    Exit Function
+                End If
+                'Verifico que el directorio sea valido
+                If Directory.Exists(vg_path_carg_aut) = False Then
+                    MsgBox("El Directorio de Cargue Automatico no es valido", MsgBoxStyle.Information, "Info")
+                    Return path_file_complete
+                    Exit Function
+                End If
+                'identifico todos los archivos en el directorio
+                orow_file_names = Directory.GetFiles(vg_path_carg_aut)
+            Else
+                'Voy a cargar desde el portapapeles
+                '-------------------
+                'CUANDO LOS ARCHIVOS LOS TOMO DESDE EL PORTAPALELES LOS TRATO IGUAL QUE CARGUE AUTOMATICO
+                ' Verificar si el portapapeles contiene datos de tipo archivo
+                If Clipboard.ContainsFileDropList() Then
+                    ' Obtener la lista de archivos desde el portapapeles
+                    orow_file_names = Clipboard.GetFileDropList()
+                End If
             End If
 
-
-            'identifico todos los archivos en el directorio
-            orow_file_names = Directory.GetFiles(vg_path_carg_aut)
             'para borrar los archivos fuente copiados.
             borrar_archivo = "S"
             'Pregunto si desea cargar todos los archivos
@@ -144,7 +158,15 @@ Public Class cl_utilidades_gestion_documentos
                 Return path_file_complete
                 Exit Function
             End If
-            Dim respuesta As String = comunes.g_mensaje_YesNo("Cargue Automatico", vmensaje)
+            'Pregunto si quiero cargar un archivo mostrando el path
+            'Pero si estoy cargando una imagen desde el portapales no deberia preguntar
+            Dim respuesta As String = "N"
+            If CargueImagenDesdePortapapeles = "N" Then
+                respuesta = comunes.g_mensaje_YesNo("Cargue Automatico", vmensaje)
+            Else
+                respuesta = "S"
+            End If
+
             If respuesta = "N" Then
                 Return path_file_complete
                 Exit Function
