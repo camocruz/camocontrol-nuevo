@@ -22,7 +22,6 @@ Partial Class fm_0300_suministrar_item_cant
         Me.lb_unidad_medicion = New System.Windows.Forms.Label()
         Me.tx_cantidad = New System.Windows.Forms.TextBox()
         Me.Label6 = New System.Windows.Forms.Label()
-        Me.cm_descripcion = New System.Windows.Forms.ComboBox()
         Me.tx_id_item = New System.Windows.Forms.TextBox()
         Me.Label5 = New System.Windows.Forms.Label()
         Me.cm_clasificador = New System.Windows.Forms.ComboBox()
@@ -36,7 +35,9 @@ Partial Class fm_0300_suministrar_item_cant
         Me.dgocell_info_trazabilidad = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Label3 = New System.Windows.Forms.Label()
         Me.bt_buscar_trazabilidad = New System.Windows.Forms.Button()
+        Me.Label4 = New System.Windows.Forms.Label()
         Me.bt_listado_general_items = New System.Windows.Forms.Button()
+        Me.tx_item_descripcion = New System.Windows.Forms.TextBox()
         Me.GroupBox1.SuspendLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.gb_tipo_movimiento.SuspendLayout()
@@ -100,15 +101,6 @@ Partial Class fm_0300_suministrar_item_cant
         Me.Label6.Size = New System.Drawing.Size(65, 16)
         Me.Label6.TabIndex = 149
         Me.Label6.Text = "Cantidad:"
-        '
-        'cm_descripcion
-        '
-        Me.cm_descripcion.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.cm_descripcion.FormattingEnabled = True
-        Me.cm_descripcion.Location = New System.Drawing.Point(180, 73)
-        Me.cm_descripcion.Name = "cm_descripcion"
-        Me.cm_descripcion.Size = New System.Drawing.Size(553, 24)
-        Me.cm_descripcion.TabIndex = 148
         '
         'tx_id_item
         '
@@ -235,20 +227,41 @@ Partial Class fm_0300_suministrar_item_cant
         Me.bt_buscar_trazabilidad.TabIndex = 159
         Me.bt_buscar_trazabilidad.UseVisualStyleBackColor = True
         '
+        'Label4
+        '
+        Me.Label4.AutoSize = True
+        Me.Label4.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label4.Location = New System.Drawing.Point(735, 98)
+        Me.Label4.Name = "Label4"
+        Me.Label4.Size = New System.Drawing.Size(35, 13)
+        Me.Label4.TabIndex = 213
+        Me.Label4.Text = "Ctrl+B"
+        '
         'bt_listado_general_items
         '
         Me.bt_listado_general_items.BackgroundImage = Global.camocontrol.My.Resources.Resources.icono_lupa
         Me.bt_listado_general_items.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
-        Me.bt_listado_general_items.Location = New System.Drawing.Point(739, 68)
+        Me.bt_listado_general_items.Location = New System.Drawing.Point(731, 63)
         Me.bt_listado_general_items.Name = "bt_listado_general_items"
-        Me.bt_listado_general_items.Size = New System.Drawing.Size(38, 32)
-        Me.bt_listado_general_items.TabIndex = 179
+        Me.bt_listado_general_items.Size = New System.Drawing.Size(38, 36)
+        Me.bt_listado_general_items.TabIndex = 211
+        Me.bt_listado_general_items.TextAlign = System.Drawing.ContentAlignment.BottomCenter
         Me.bt_listado_general_items.UseVisualStyleBackColor = True
+        '
+        'tx_item_descripcion
+        '
+        Me.tx_item_descripcion.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.tx_item_descripcion.Location = New System.Drawing.Point(180, 75)
+        Me.tx_item_descripcion.Name = "tx_item_descripcion"
+        Me.tx_item_descripcion.Size = New System.Drawing.Size(545, 22)
+        Me.tx_item_descripcion.TabIndex = 1
         '
         'fm_0300_suministrar_item_cant
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.ClientSize = New System.Drawing.Size(780, 346)
+        Me.Controls.Add(Me.tx_item_descripcion)
+        Me.Controls.Add(Me.Label4)
         Me.Controls.Add(Me.bt_listado_general_items)
         Me.Controls.Add(Me.bt_buscar_trazabilidad)
         Me.Controls.Add(Me.Label3)
@@ -261,7 +274,6 @@ Partial Class fm_0300_suministrar_item_cant
         Me.Controls.Add(Me.lb_unidad_medicion)
         Me.Controls.Add(Me.tx_cantidad)
         Me.Controls.Add(Me.Label6)
-        Me.Controls.Add(Me.cm_descripcion)
         Me.Controls.Add(Me.tx_id_item)
         Me.Controls.Add(Me.Label5)
         Me.Name = "fm_0300_suministrar_item_cant"
@@ -275,7 +287,6 @@ Partial Class fm_0300_suministrar_item_cant
         Me.Controls.SetChildIndex(Me.lb_diseñador_programa, 0)
         Me.Controls.SetChildIndex(Me.Label5, 0)
         Me.Controls.SetChildIndex(Me.tx_id_item, 0)
-        Me.Controls.SetChildIndex(Me.cm_descripcion, 0)
         Me.Controls.SetChildIndex(Me.Label6, 0)
         Me.Controls.SetChildIndex(Me.tx_cantidad, 0)
         Me.Controls.SetChildIndex(Me.lb_unidad_medicion, 0)
@@ -288,6 +299,8 @@ Partial Class fm_0300_suministrar_item_cant
         Me.Controls.SetChildIndex(Me.Label3, 0)
         Me.Controls.SetChildIndex(Me.bt_buscar_trazabilidad, 0)
         Me.Controls.SetChildIndex(Me.bt_listado_general_items, 0)
+        Me.Controls.SetChildIndex(Me.Label4, 0)
+        Me.Controls.SetChildIndex(Me.tx_item_descripcion, 0)
         Me.GroupBox1.ResumeLayout(False)
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.gb_tipo_movimiento.ResumeLayout(False)
@@ -300,7 +313,6 @@ Partial Class fm_0300_suministrar_item_cant
     Friend WithEvents lb_unidad_medicion As System.Windows.Forms.Label
     Friend WithEvents tx_cantidad As System.Windows.Forms.TextBox
     Friend WithEvents Label6 As System.Windows.Forms.Label
-    Friend WithEvents cm_descripcion As System.Windows.Forms.ComboBox
     Friend WithEvents tx_id_item As System.Windows.Forms.TextBox
     Friend WithEvents Label5 As System.Windows.Forms.Label
     Friend WithEvents cm_clasificador As System.Windows.Forms.ComboBox
@@ -314,5 +326,7 @@ Partial Class fm_0300_suministrar_item_cant
     Friend WithEvents dgocell_info_trazabilidad As DataGridViewTextBoxColumn
     Friend WithEvents Label3 As Label
     Friend WithEvents bt_buscar_trazabilidad As Button
+    Friend WithEvents Label4 As Label
     Friend WithEvents bt_listado_general_items As Button
+    Friend WithEvents tx_item_descripcion As TextBox
 End Class

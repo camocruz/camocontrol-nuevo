@@ -1513,24 +1513,11 @@ Public Class fm_0600_gestion_tareas
         gestionar_seguimiento_acciones_segun_tipo(1)
     End Sub
 
-    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles bt_CargarImagenClipboard.Click
+    Private Sub bt_CargarImagenClipboard_Click(sender As Object, e As EventArgs) Handles bt_CargarImagenClipboard.Click
         If My.Computer.Clipboard.ContainsImage() Then
             'MsgBox("Clipboard contains an image.")
             PictureBox2.Image = My.Computer.Clipboard.GetImage
 
-
-            Dim aa As Object
-            aa = My.Computer.Clipboard.GetImage
-            If My.Computer.Clipboard.ContainsFileDropList Then
-                Dim filelist = My.Computer.Clipboard.GetFileDropList()
-                Dim fname As String = ""
-                Dim pathf() As String
-                For Each filePath In filelist
-                    pathf = Split(filePath, "\")
-                    'MsgBox(pathf(pathf.Length - 1))
-                    'MsgBox(filePath)
-                Next
-            End If
             Dim archivocopi(2) As String
             archivocopi = cl_utilidades_gestion_documentos.capturar_archivos_segun_tipo("CD-ACC", tx_id_tarea.Text, vg_id_cia, vg_usuario_autoriza, "N", "", "S")
             'Cuando archivocopi esta vacio entonces no debe haber nada en el picturebox

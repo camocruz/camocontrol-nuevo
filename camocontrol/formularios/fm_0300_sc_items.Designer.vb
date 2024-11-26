@@ -64,6 +64,7 @@ Partial Class fm_0300_sc_items
         Me.lb_oc = New System.Windows.Forms.Label()
         Me.lb_doc_inv = New System.Windows.Forms.Label()
         Me.lb_id_fcc = New System.Windows.Forms.Label()
+        Me.Label4 = New System.Windows.Forms.Label()
         Me.GroupBox1.SuspendLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
@@ -401,8 +402,9 @@ Partial Class fm_0300_sc_items
         Me.bt_listado_general_items.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
         Me.bt_listado_general_items.Location = New System.Drawing.Point(703, 76)
         Me.bt_listado_general_items.Name = "bt_listado_general_items"
-        Me.bt_listado_general_items.Size = New System.Drawing.Size(38, 32)
+        Me.bt_listado_general_items.Size = New System.Drawing.Size(38, 36)
         Me.bt_listado_general_items.TabIndex = 178
+        Me.bt_listado_general_items.TextAlign = System.Drawing.ContentAlignment.BottomCenter
         Me.bt_listado_general_items.UseVisualStyleBackColor = True
         '
         'bt_actualizar_creando_accion
@@ -524,10 +526,21 @@ Partial Class fm_0300_sc_items
         Me.lb_id_fcc.TabIndex = 207
         Me.lb_id_fcc.Text = "0"
         '
+        'Label4
+        '
+        Me.Label4.AutoSize = True
+        Me.Label4.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label4.Location = New System.Drawing.Point(707, 111)
+        Me.Label4.Name = "Label4"
+        Me.Label4.Size = New System.Drawing.Size(35, 13)
+        Me.Label4.TabIndex = 210
+        Me.Label4.Text = "Ctrl+B"
+        '
         'fm_0300_sc_items
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.ClientSize = New System.Drawing.Size(745, 554)
+        Me.Controls.Add(Me.Label4)
         Me.Controls.Add(Me.lb_oc)
         Me.Controls.Add(Me.lb_doc_inv)
         Me.Controls.Add(Me.lb_id_fcc)
@@ -627,6 +640,7 @@ Partial Class fm_0300_sc_items
         Me.Controls.SetChildIndex(Me.lb_id_fcc, 0)
         Me.Controls.SetChildIndex(Me.lb_doc_inv, 0)
         Me.Controls.SetChildIndex(Me.lb_oc, 0)
+        Me.Controls.SetChildIndex(Me.Label4, 0)
         Me.GroupBox1.ResumeLayout(False)
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
@@ -678,4 +692,5 @@ Partial Class fm_0300_sc_items
     Friend WithEvents lb_oc As Label
     Friend WithEvents lb_doc_inv As Label
     Friend WithEvents lb_id_fcc As Label
+    Friend WithEvents Label4 As Label
 End Class

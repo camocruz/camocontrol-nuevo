@@ -951,6 +951,12 @@
         basado_sol_alm = "N"
         generar_nuevo_movimiento()
     End Sub
+    Private Sub dg_items_KeyDown(sender As Object, e As KeyEventArgs) Handles dg_items.KeyDown
+        If (e.KeyCode = Keys.A AndAlso e.Modifiers = Keys.Control) Then
+            basado_sol_alm = "N"
+            generar_nuevo_movimiento()
+        End If
+    End Sub
 
     Private Sub bt_genmov_apartir_solalm_Click(sender As Object, e As EventArgs) Handles bt_genmov_apartir_solalm.Click
         basado_sol_alm = "S"
@@ -1016,5 +1022,6 @@
     Private Sub bt_generar_informe_Click(sender As Object, e As EventArgs) Handles bt_generar_informe.Click
         cl_informes_comunes.reporte_doc_mov_inventario(vg_id_cia, lb_cod_documento.Text)
     End Sub
+
 
 End Class

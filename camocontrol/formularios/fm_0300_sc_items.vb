@@ -835,9 +835,21 @@
         End If
     End Sub
 
+#Region "ControlaBusquedaItems"
     Private Sub Bt_listado_general_items_Click(sender As Object, e As EventArgs) Handles bt_listado_general_items.Click
         'cl_utilidades_datatables.visualizar_datos_visor("ST-0300-34", vg_id_cia, vg_usuario_autoriza,
         '                                                    "Listado General de Items", {vg_id_cia})
+        Buscar_item()
+    End Sub
+    Private Sub tx_item_descripcion_KeyDown(sender As Object, e As KeyEventArgs) Handles tx_item_descripcion.KeyDown
+        If (e.KeyCode = Keys.B AndAlso e.Modifiers = Keys.Control) Then
+            'PARA USAR CUANDO EL FORMULARIO ES PARA SELECCIONAR UN DATO
+            'MsgBox(dg_datos.CurrentRow.Cells("id_sc").Value)
+            Buscar_item()
+        End If
+    End Sub
+
+    Private Sub Buscar_item()
         Dim filtro As String = ""
         If tx_item_descripcion.Text <> "" Then
             filtro = "descripcion_larga LIKE '%" & tx_item_descripcion.Text.Trim & "%'"
@@ -852,9 +864,9 @@
             tx_id_item.Focus()
             tx_cantidad.Focus()
         End If
-
-
     End Sub
+#End Region
+
     Private Sub Bt_actualizar_creando_accion_Click(sender As Object, e As EventArgs) Handles bt_actualizar_creando_accion.Click
         If vf_elemento_nuevo = "S" Then
             MsgBox("Solo para elementos existentes creando accion", MsgBoxStyle.Information, "Info")

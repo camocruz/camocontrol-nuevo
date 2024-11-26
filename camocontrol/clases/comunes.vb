@@ -53,6 +53,7 @@ Public Class comunes
         If IsNothing(otb_tablas_array(2)) = False Then
             otb_items_selected = otb_tablas_array(2)
         Else
+            Return id_item
             Exit Function
         End If
         'agrego el tercero seleccionado

@@ -19,8 +19,8 @@ Partial Class fm_0300_doc_movimientos_inventarios
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
-        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.dg_items = New System.Windows.Forms.DataGridView()
         Me.dgocell_ident_doc = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.dgocell_tipo_mov = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -63,6 +63,7 @@ Partial Class fm_0300_doc_movimientos_inventarios
         Me.Label9 = New System.Windows.Forms.Label()
         Me.lb_costo_total = New System.Windows.Forms.Label()
         Me.lb_costo_absoluto = New System.Windows.Forms.Label()
+        Me.Label10 = New System.Windows.Forms.Label()
         Me.GroupBox1.SuspendLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.dg_items, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -90,7 +91,17 @@ Partial Class fm_0300_doc_movimientos_inventarios
         '
         'GroupBox1
         '
+        Me.GroupBox1.Controls.Add(Me.Label10)
         Me.GroupBox1.Location = New System.Drawing.Point(210, 451)
+        Me.GroupBox1.Controls.SetChildIndex(Me.bt_anular, 0)
+        Me.GroupBox1.Controls.SetChildIndex(Me.bt_salir, 0)
+        Me.GroupBox1.Controls.SetChildIndex(Me.bt_grabar, 0)
+        Me.GroupBox1.Controls.SetChildIndex(Me.bt_nuevo, 0)
+        Me.GroupBox1.Controls.SetChildIndex(Me.bt_editar, 0)
+        Me.GroupBox1.Controls.SetChildIndex(Me.bt_generar_informe, 0)
+        Me.GroupBox1.Controls.SetChildIndex(Me.bt_g_notas, 0)
+        Me.GroupBox1.Controls.SetChildIndex(Me.bt_g_archivos, 0)
+        Me.GroupBox1.Controls.SetChildIndex(Me.Label10, 0)
         '
         'bt_anular
         '
@@ -162,10 +173,10 @@ Partial Class fm_0300_doc_movimientos_inventarios
         'dgocell_cant_movimiento
         '
         Me.dgocell_cant_movimiento.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        DataGridViewCellStyle1.Format = "N4"
-        DataGridViewCellStyle1.NullValue = Nothing
-        Me.dgocell_cant_movimiento.DefaultCellStyle = DataGridViewCellStyle1
+        DataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        DataGridViewCellStyle5.Format = "N4"
+        DataGridViewCellStyle5.NullValue = Nothing
+        Me.dgocell_cant_movimiento.DefaultCellStyle = DataGridViewCellStyle5
         Me.dgocell_cant_movimiento.HeaderText = "Cantidad"
         Me.dgocell_cant_movimiento.Name = "dgocell_cant_movimiento"
         Me.dgocell_cant_movimiento.ReadOnly = True
@@ -174,10 +185,10 @@ Partial Class fm_0300_doc_movimientos_inventarios
         'dgocell_cant_teorica
         '
         Me.dgocell_cant_teorica.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCellsExceptHeader
-        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        DataGridViewCellStyle2.Format = "N4"
-        DataGridViewCellStyle2.NullValue = Nothing
-        Me.dgocell_cant_teorica.DefaultCellStyle = DataGridViewCellStyle2
+        DataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        DataGridViewCellStyle6.Format = "N4"
+        DataGridViewCellStyle6.NullValue = Nothing
+        Me.dgocell_cant_teorica.DefaultCellStyle = DataGridViewCellStyle6
         Me.dgocell_cant_teorica.HeaderText = "C. Ref"
         Me.dgocell_cant_teorica.Name = "dgocell_cant_teorica"
         Me.dgocell_cant_teorica.ReadOnly = True
@@ -508,6 +519,16 @@ Partial Class fm_0300_doc_movimientos_inventarios
         Me.lb_costo_absoluto.TabIndex = 250
         Me.lb_costo_absoluto.Text = "$ 0"
         '
+        'Label10
+        '
+        Me.Label10.AutoSize = True
+        Me.Label10.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label10.Location = New System.Drawing.Point(69, 0)
+        Me.Label10.Name = "Label10"
+        Me.Label10.Size = New System.Drawing.Size(35, 13)
+        Me.Label10.TabIndex = 252
+        Me.Label10.Text = "Ctrl+A"
+        '
         'fm_0300_doc_movimientos_inventarios
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -574,6 +595,7 @@ Partial Class fm_0300_doc_movimientos_inventarios
         Me.Controls.SetChildIndex(Me.lb_costo_absoluto, 0)
         Me.Controls.SetChildIndex(Me.lb_costo_total, 0)
         Me.GroupBox1.ResumeLayout(False)
+        Me.GroupBox1.PerformLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.dg_items, System.ComponentModel.ISupportInitialize).EndInit()
         Me.GroupBox2.ResumeLayout(False)
@@ -624,4 +646,5 @@ Partial Class fm_0300_doc_movimientos_inventarios
     Friend WithEvents Label9 As Label
     Friend WithEvents lb_costo_total As Label
     Friend WithEvents lb_costo_absoluto As Label
+    Friend WithEvents Label10 As Label
 End Class

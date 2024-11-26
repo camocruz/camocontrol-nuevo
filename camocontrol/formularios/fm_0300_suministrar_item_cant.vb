@@ -110,9 +110,11 @@
         End If
         If m_edit_item = "N" Then
             tx_id_item.ReadOnly = True
-            cm_descripcion.Enabled = False
+            tx_item_descripcion.Enabled = False
         End If
         cargar_informacion_items()
+        tx_item_descripcion.Focus()
+        tx_item_descripcion.SelectedText = "BUSCAR:"
     End Sub
     Private Sub cargar_informacion_items()
         csql = "SELECT tb0300_items.*," _
@@ -127,25 +129,12 @@
         Dim dataviewitems As New DataView
         dataviewitems = New DataView(otb_items, filtro_items, "", DataViewRowState.CurrentRows)
 
-        With cm_descripcion
-            'Valor que se muestra al usuario
-            .DisplayMember = "descripcion_larga"
-            'Valor interno que almacena el objeto
-            .ValueMember = "f0300_id_item"
-            'Origen de Datos del ComboBox
-            .DataSource = dataviewitems
-            .DropDownStyle = ComboBoxStyle.DropDown
-            .AutoCompleteMode = AutoCompleteMode.Suggest
-            .AutoCompleteSource = AutoCompleteSource.ListItems
-            '.SelectedIndex = -1
-        End With
         If id_item <> 0 Then
             tx_id_item.Text = id_item
             tx_cantidad.Text = cant_item
-            cm_descripcion.SelectedValue = id_item
             buscar_info_item(id_item)
         Else
-            cm_descripcion.SelectedIndex = -1
+            'cm_descripcion.SelectedIndex = -1
         End If
 
     End Sub
@@ -155,32 +144,51 @@
             tx_id_item.Text = ""
             Exit Sub
         End If
-        cm_descripcion.Focus()
-        cm_descripcion.SelectedValue = CInt(tx_id_item.Text)
+        'cm_descripcion.Focus()
+        'cm_descripcion.SelectedValue = CInt(tx_id_item.Text)
         tx_inventario.Text = cl_utilidades_gestion_compras.suministrar_inventario_item_bodega_fecha(id_bodega, tx_id_item.Text, fecha_cort_inventario)
         id_item = CInt(tx_id_item.Text)
+        buscar_info_item(id_item)
     End Sub
 
-    Private Sub cm_descripcion_Validating(ByVal sender As Object, ByVal e As System.ComponentModel.CancelEventArgs) Handles cm_descripcion.Validating
-        If cm_descripcion.SelectedIndex = -1 Then
-            cm_descripcion.Text = ""
-            tx_id_item.Text = ""
-        Else
-            tx_id_item.Text = cm_descripcion.SelectedValue
-            buscar_info_item(cm_descripcion.SelectedValue)
-            'bt_grabar.Enabled = False
-            'bt_editar.Enabled = True
-            tx_inventario.Text = cl_utilidades_gestion_compras.suministrar_inventario_item_bodega_fecha(id_bodega, tx_id_item.Text, fecha_cort_inventario)
-            cl_gestion_permisos.activar_control_si_tiene_permiso(vf_otabla_permisos, Me.Name, bt_editar, "")
-            id_item = cm_descripcion.SelectedValue
+#Region "ControlaBusquedaItems"
+    Private Sub Bt_listado_general_items_Click(sender As Object, e As EventArgs) Handles bt_listado_general_items.Click
+        'cl_utilidades_datatables.visualizar_datos_visor("ST-0300-34", vg_id_cia, vg_usuario_autoriza,
+        '                                                    "Listado General de Items", {vg_id_cia})
+        Buscar_item()
+    End Sub
+    Private Sub tx_item_descripcion_KeyDown(sender As Object, e As KeyEventArgs) Handles tx_item_descripcion.KeyDown
+        If (e.KeyCode = Keys.B AndAlso e.Modifiers = Keys.Control) Then
+            'PARA USAR CUANDO EL FORMULARIO ES PARA SELECCIONAR UN DATO
+            'MsgBox(dg_datos.CurrentRow.Cells("id_sc").Value)
+            Buscar_item()
         End If
     End Sub
+
+    Private Sub Buscar_item()
+        Dim filtro As String = ""
+        If tx_item_descripcion.Text <> "" Then
+            filtro = "descripcion_larga LIKE '%" & tx_item_descripcion.Text.Trim & "%'"
+        End If
+        tx_item_descripcion.Text = ""
+
+        Dim id_it As Integer = comunes.Buscador_item(vg_id_cia, vg_usuario_autoriza, filtro)
+        If id_it = 0 Then
+            tx_id_item.Text = ""
+        Else
+            tx_id_item.Text = id_it
+            tx_id_item.Focus()
+            tx_cantidad.Focus()
+        End If
+    End Sub
+#End Region
 
     Private Sub buscar_info_item(id_oitem As Integer)
         Dim orow_item() As DataRow
         orow_item = otb_items.Select("f0300_id_item = '" & id_oitem & "'")
         For Each orow As DataRow In orow_item
             lb_unidad_medicion.Text = orow("f0002_unidad_medicion")
+            tx_item_descripcion.Text = orow("f0300_descripcion_item")
         Next
     End Sub
 
@@ -197,7 +205,7 @@
     End Sub
 
     Private Sub validar_item()
-        If cm_descripcion.SelectedIndex = -1 Then
+        If tx_id_item.Text = "" Then
             verror_requisitos = "S"
             vmensaje_requisitos = "Debe seleccionar un Item."
         End If
@@ -218,8 +226,16 @@
             End If
         End If
     End Sub
-
+#Region "Operacion de Grabar"
     Private Sub bt_grabar_Click(sender As Object, e As EventArgs) Handles bt_grabar.Click
+        grabar()
+    End Sub
+    Private Sub tx_cantidad_KeyDown(sender As Object, e As KeyEventArgs) Handles tx_cantidad.KeyDown
+        If (e.KeyCode = Keys.Enter) Then
+            grabar()
+        End If
+    End Sub
+    Private Sub grabar()
         If tx_id_item.Text = "0" Then
             Exit Sub
         End If
@@ -259,7 +275,7 @@
         Me.Hide()
 
     End Sub
-
+#End Region
     Private Sub validar_y_llenar_info_trazabilidad()
         If dg_trazabilidad.Enabled = False Then
             Exit Sub
@@ -298,8 +314,5 @@
         End If
     End Sub
 
-    Private Sub bt_listado_general_items_Click(sender As Object, e As EventArgs) Handles bt_listado_general_items.Click
-        cl_utilidades_datatables.visualizar_datos_visor("ST-0300-34", vg_id_cia, vg_usuario_autoriza,
-                                                    "Listado General de Items", {vg_id_cia})
-    End Sub
+
 End Class
