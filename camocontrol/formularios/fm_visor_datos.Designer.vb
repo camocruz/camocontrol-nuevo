@@ -35,6 +35,7 @@ Partial Class fm_visor_datos
         Me.bt_exportar_excel = New System.Windows.Forms.Button()
         Me.bt_exportar_csv = New System.Windows.Forms.Button()
         Me.bt_checkbox = New System.Windows.Forms.Button()
+        Me.Label1 = New System.Windows.Forms.Label()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.dg_datos, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
@@ -201,10 +202,21 @@ Partial Class fm_visor_datos
         Me.bt_checkbox.TabIndex = 92
         Me.bt_checkbox.UseVisualStyleBackColor = True
         '
+        'Label1
+        '
+        Me.Label1.AutoSize = True
+        Me.Label1.Font = New System.Drawing.Font("Microsoft Sans Serif", 6.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label1.Location = New System.Drawing.Point(335, 92)
+        Me.Label1.Name = "Label1"
+        Me.Label1.Size = New System.Drawing.Size(65, 12)
+        Me.Label1.TabIndex = 93
+        Me.Label1.Text = "Buscar: Ctrl+B"
+        '
         'fm_visor_datos
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.ClientSize = New System.Drawing.Size(742, 458)
+        Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.bt_checkbox)
         Me.Controls.Add(Me.bt_exportar_csv)
         Me.Controls.Add(Me.bt_exportar_excel)
@@ -244,6 +256,7 @@ Partial Class fm_visor_datos
         Me.Controls.SetChildIndex(Me.bt_exportar_excel, 0)
         Me.Controls.SetChildIndex(Me.bt_exportar_csv, 0)
         Me.Controls.SetChildIndex(Me.bt_checkbox, 0)
+        Me.Controls.SetChildIndex(Me.Label1, 0)
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.dg_datos, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
@@ -265,4 +278,5 @@ Partial Class fm_visor_datos
     Friend WithEvents bt_exportar_excel As System.Windows.Forms.Button
     Friend WithEvents bt_exportar_csv As Button
     Friend WithEvents bt_checkbox As Button
+    Friend WithEvents Label1 As Label
 End Class

@@ -1,4 +1,6 @@
-﻿Public Class fm_0300_orden_compra
+﻿Imports System.ComponentModel
+
+Public Class fm_0300_orden_compra
     'Objetos publicos que reciben valores desde el Formulario padre
     'Public vf_oform_padre As Object
     Public ocontexto_form As String = ""
@@ -38,6 +40,7 @@
     Private otb_info_item_sc As DataTable 'para buscar la informacion actualizada del item que se esta editando
     Private otb_doc_mov_invent_relacionados As DataTable 'documentos de movimientos de inventario relacionados
 
+    Private id_tercero As String = ""
     Private id_tipo_item As Integer
     Private permitir_var_costo As String = "N"
     Private var_costo_promedio_actual As Decimal = 0 'variacion del valor actual con respecto al costo promedio actual
@@ -84,16 +87,16 @@
         bt_generar_informe.Enabled = False
         bt_aprobar.Enabled = False
         bt_desaprobar_oc.Enabled = False
-        cargar_proveedores()
+        'cargar_proveedores()
         csql = "SELECT *" _
             & " FROM " & database.obtener_esquema & ".tb0005_bodegas"
         Dim otb_bodega_consumos As DataTable
         otb_bodega_consumos = cl_utilidades_datatables.cargar_informacion_postgres(csql)
         If vf_elemento_nuevo = "S" Then
-            tx_estado.Text = "Nuevo"
-            cm_nit.SelectedIndex = -1
-            cm_proveedor.SelectedIndex = -1
+            inicializar_campos()
         Else
+            Tx_Nit.Enabled = False
+            Tx_Nombre_Tercero.Enabled = False
             cargar_elemento_existente()
             llenar_items_solicitados()
 
@@ -176,6 +179,13 @@
                 abrir_form_info_item(dg_listado.CurrentCell.Value)
                 llenar_items_solicitados()
             Case "dgocell_id_accion"
+                If dg_listado.CurrentCell.Value.ToString <> "0" And dg_listado.CurrentCell.Value.ToString.Trim <> "" Then
+                    Dim id_accion As Integer
+                    id_accion = dg_listado.CurrentCell.Value
+                    'ajecutamos clase que abre el formulario adecuado segun el tipo de actividad
+                    cl_utilidades_gestion_acciones.abrir_actividad(id_accion, vg_usuario_autoriza, vg_id_cia)
+                End If
+            Case "dgocell_id_accion_raiz"
                 If dg_listado.CurrentCell.Value.ToString <> "0" And dg_listado.CurrentCell.Value.ToString.Trim <> "" Then
                     Dim id_accion As Integer
                     id_accion = dg_listado.CurrentCell.Value
@@ -446,11 +456,11 @@
         End Select
     End Sub
     Private Sub inicializar_campos()
-        tx_id_orden_compra.Text = ""
-        tx_estado.Text = "Sin Aprobar"
+
+        tx_estado.Text = "Nuevo"
         'cm_proveedor.SelectedIndex = -1
         'cm_nit.SelectedIndex = -1
-        tx_id_orden_compra.Focus()
+        'tx_id_orden_compra.Focus()
         tx_oc_uno.Text = ""
         tx_id_orden_compra.Text = ""
         tx_id_item_sc.Text = ""
@@ -462,13 +472,17 @@
         lb_valor_subtotal.Text = "$0.00"
         dtp_fecha.Value = comunes.g_fechahora
         vf_id_notas_archivos = ""
-        cm_proveedor.SelectedIndex = -1
-        cm_nit.SelectedIndex = -1
-        cm_proveedor.Text = ""
-        cm_nit.Text = ""
+        Tx_Nit.Enabled = True
+        Tx_Nombre_Tercero.Enabled = True
+        Tx_Nit.Text = ""
+
         cl_gestion_permisos.gestionar_permisos_botones_basicos(vg_id_cia, vf_otabla_permisos, vf_elemento_nuevo,
                                                                vg_usuario_autoriza, Me,
                                                                vf_id_notas_archivos, vf_otipo_nota, vf_var_config_archivos)
+
+        Tx_Nombre_Tercero.Text = ""
+        Tx_Nombre_Tercero.SelectedText = "--BUSCAR--"
+        Tx_Nombre_Tercero.Focus()
     End Sub
     Private Sub cargar_elemento_existente()
         csql = "SELECT *" _
@@ -492,8 +506,10 @@
                 lb_titulo.Text = "Orden de Compra (ANULADA)"
                 oanulada = "S"
             End If
-            cm_proveedor.SelectedValue = orow("f0319_id_tercero")
-            cm_nit.SelectedValue = orow("f0319_id_tercero")
+            'cargo la informacion del tercero-
+            id_tercero = orow("f0319_id_tercero")
+            cargar_info_tercero()
+
             tx_oc_uno.Text = orow("f0319_oc_uno").ToString
             Dim val_fact As Decimal = orow("f0319_valor_factura")
             lb_valor_aprobado.Text = val_fact.ToString("C2")
@@ -502,40 +518,63 @@
             activar_botones_aprobaciones()
         Next
     End Sub
-    Private Sub cargar_proveedores()
-        csql = "select *, trim(both ' ' from f0200_nombres || ' ' || f0200_apellido1 || ' ' || f0200_apellido2 || ' - ' || f0200_id) as razon_social" _
+    Private Sub cargar_info_tercero()
+        csql = "select f0200_id_tercero, f0200_id || '-' ||f0200_dig_ver_nit as nit," _
+            & "trim(both ' ' from f0200_nombres || ' ' || f0200_apellido1 || ' ' || f0200_apellido2 || ' - ' || f0200_id) as razon_social" _
             & " FROM " & database.obtener_esquema & ".tb0200_terceros" _
-            & " where f0200_ind_principal = 'S'"
+            & " where f0200_ind_principal = 'S' and f0200_id_tercero = '" & id_tercero & "'"
         '& " and f0200_id_cia ='" & vg_id_cia & "'"
         otb_proveedores = cl_utilidades_datatables.cargar_informacion_postgres(csql)
-        With cm_proveedor
-            'Valor que se muestra al usuario
-            .DisplayMember = "razon_social"
-            'Valor interno que almacena el objeto
-            .ValueMember = "f0200_id_tercero"
-            'Origen de Datos del ComboBox
-            .DataSource = otb_proveedores
-            .DropDownStyle = ComboBoxStyle.DropDown
-            .AutoCompleteMode = AutoCompleteMode.Suggest
-            .AutoCompleteSource = AutoCompleteSource.ListItems
-            '.Text = ""
-        End With
-        With cm_nit
-            'Valor que se muestra al usuario
-            .DisplayMember = "f0200_id"
-            'Valor interno que almacena el objeto
-            .ValueMember = "f0200_id_tercero"
-            'Origen de Datos del ComboBox
-            .DataSource = otb_proveedores
-            .DropDownStyle = ComboBoxStyle.DropDown
-            .AutoCompleteMode = AutoCompleteMode.Suggest
-            .AutoCompleteSource = AutoCompleteSource.ListItems
-            '.Text = ""
-        End With
+        For Each orow As DataRow In otb_proveedores.Rows
+            tx_id_tercero.Text = orow("f0200_id_tercero")
+            Tx_Nit.Text = orow("nit")
+            Tx_Nombre_Tercero.Text = orow("razon_social")
+        Next
+
     End Sub
+    Private Sub Tx_Nombre_Tercero_KeyDown(sender As Object, e As KeyEventArgs) Handles Tx_Nombre_Tercero.KeyDown
+        If (e.KeyCode = Keys.B AndAlso e.Modifiers = Keys.Control) Then
+            'PARA USAR CUANDO EL FORMULARIO ES PARA SELECCIONAR UN DATO
+            'MsgBox(dg_datos.CurrentRow.Cells("id_sc").Value)
+            Buscar_tercero(1)
+        End If
+    End Sub
+    Private Sub Tx_Nit_KeyDown(sender As Object, e As KeyEventArgs) Handles Tx_Nit.KeyDown
+        If (e.KeyCode = Keys.B AndAlso e.Modifiers = Keys.Control) Then
+            'PARA USAR CUANDO EL FORMULARIO ES PARA SELECCIONAR UN DATO
+            'MsgBox(dg_datos.CurrentRow.Cells("id_sc").Value)
+            MsgBox("hola")
+            Buscar_tercero(2)
+        End If
+    End Sub
+    Private Sub Buscar_tercero(ByVal tipofiltro As Integer)
+        Dim filtro As String = ""
+
+        If Tx_Nombre_Tercero.Text <> "" And tipofiltro = 1 Then
+            filtro = "razon_social LIKE '%" & Tx_Nombre_Tercero.Text.Trim & "%'"
+        End If
+        If Tx_Nit.Text <> "" And tipofiltro = 2 Then
+            filtro = "nit LIKE '%" & Tx_Nit.Text.Trim & "%'"
+        End If
+
+        Tx_Nombre_Tercero.Text = ""
+        Tx_Nit.Text = ""
+
+        Dim id_ter As String = comunes.Buscador_Terceros(vg_id_cia, vg_usuario_autoriza, filtro)
+        If id_ter = "0" Then
+            tx_id_tercero.Text = ""
+            Tx_Nit.Text = ""
+            Tx_Nombre_Tercero.Text = ""
+        Else
+            id_tercero = id_ter
+            cargar_info_tercero()
+            'tx_cantidad.Focus()
+        End If
+    End Sub
+
     Private Sub llenar_items_solicitados()
         dg_listado.Rows.Clear()
-        csql = "select tb0305_items_solicitados.*, f0300_id_item, f0300_codigo_cguno," _
+        csql = "select tb0305_items_solicitados.*, f0304_id_estado, f0300_id_item, f0300_codigo_cguno," _
             & " f0300_descripcion_item || ' - ' || f0300_referencia || ' - ' || f0300_contenido_x_empaque as descripcion," _
             & " f0305_ampliacion_item as descripcion_comp," _
             & " f0002_sigla_unidad_medicion," _
@@ -548,7 +587,8 @@
             & " COALESCE(otb_estructura_madre.f0100_codigo || ' -- { ' || otb_estructura_madre.f0100_nombre || ' }'," _
                     & " otb_estructura_referida.f0100_codigo || ' -- { ' || otb_estructura_referida.f0100_nombre || ' }')" _
                     & " as descripcion_codigo," _
-            & " f0305_id_accion" _
+            & " f0305_id_accion," _
+            & " coalesce(f0600_id_accion_principal,0) as acc_raiz" _
             & " from " & database.obtener_esquema & ".tb0305_items_solicitados" _
             & " join " & database.obtener_esquema & ".tb0300_items" _
                 & " on f0305_id_item = f0300_id_item" _
@@ -560,6 +600,8 @@
                 & " on f0305_id_estructura = otb_estructura_referida.f0100_id_estructura" _
             & " left join " & database.obtener_esquema & ".tb0100_estructura_mantenimiento as otb_estructura_madre" _
                 & " on otb_estructura_referida.f0100_id_maquina_padre = otb_estructura_madre.f0100_id_estructura" _
+            & " left join " & database.obtener_esquema & " .tb0600_acciones" _
+                & " on f0305_id_accion = f0600_id_accion" _
             & " where f0305_id_oc = '" & tx_id_orden_compra.Text.ToString.Trim & "'"
         otb_items_programados = cl_utilidades_datatables.cargar_informacion_postgres(csql)
         ocosto = 0
@@ -724,6 +766,14 @@
         orowgrid.Cells.Add(otextgrid)
 
         'crea columna 14
+        otextgrid = New DataGridViewTextBoxCell With {
+            .Value = orow.Item("acc_raiz").ToString
+        }
+        'otextgrid.MaxInputLength = 100
+        'Agrega columna al objeto fila
+        orowgrid.Cells.Add(otextgrid)
+
+        'crea columna 14
         otextgrid = New DataGridViewTextBoxCell
         otextgrid.Value = orow.Item("f0305_anotacion_item").ToString
         'otextgrid.MaxInputLength = 100
@@ -762,32 +812,17 @@
         End If
     End Sub
     Private Sub validar_proveedor()
-        If cm_nit.SelectedIndex = -1 Or cm_proveedor.SelectedIndex = -1 Then
+        If tx_id_tercero.Text = "" Then
             vmensaje_requisitos = "Seleccione un proveedor"
             verror_requisitos = "S"
-            cm_nit.Text = ""
-            cm_proveedor.Text = ""
+            Tx_Nombre_Tercero.Text = ""
+            Tx_Nit.Text = ""
         End If
     End Sub
     Private Sub validaciones()
         validar_proveedor()
     End Sub
-    Private Sub cm_nit_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles cm_nit.Validating
-        If cm_nit.SelectedIndex <> -1 Then
-            cm_proveedor.SelectedValue = cm_nit.SelectedValue
-        Else
-            cm_nit.Text = ""
-            cm_proveedor.Text = ""
-        End If
-    End Sub
-    Private Sub cm_proveedor_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles cm_proveedor.Validating
-        If cm_proveedor.SelectedIndex <> -1 Then
-            cm_nit.SelectedValue = cm_proveedor.SelectedValue
-        Else
-            cm_nit.Text = ""
-            cm_proveedor.Text = ""
-        End If
-    End Sub
+
     Private Sub grabar_nueva_oc()
         'Instancia la conexión que estará vigente para todas las operaciones CRUD
         oconn_form = database.obtener_conexion()
@@ -843,7 +878,7 @@
             ocmd.Parameters.Add("@f0319_id_oc", NpgsqlDbType.Integer).Value = tx_id_orden_compra.Text.ToString
         End If
         ocmd.Parameters.Add("@f0319_id_cia", NpgsqlDbType.Varchar).Value = vg_id_cia
-        ocmd.Parameters.Add("@f0319_id_tercero", NpgsqlDbType.Varchar).Value = cm_nit.SelectedValue
+        ocmd.Parameters.Add("@f0319_id_tercero", NpgsqlDbType.Varchar).Value = tx_id_tercero.Text
         ocmd.Parameters.Add("@f0319_usuario_modificar", NpgsqlDbType.Varchar).Value = vg_usuario_autoriza
         ocmd.Parameters.Add("@f0319_usuario_crear", NpgsqlDbType.Varchar).Value = vg_usuario_autoriza
         ocmd.Parameters.Add("@f0319_fm", NpgsqlDbType.Timestamp).Value = comunes.g_fechahora
@@ -1145,7 +1180,7 @@
         oform_catalogo_terceros.vg_id_cia = vg_id_cia
         'oform_catalogo_terceros.vf_elemento_nuevo = "N"
         oform_catalogo_terceros.ShowDialog()
-        cargar_proveedores()
+        'cargar_proveedores()
     End Sub
 
     Private Sub bt_nuevo_Click(sender As System.Object, e As System.EventArgs) Handles bt_nuevo.Click
@@ -1627,4 +1662,6 @@
             cargar_un_item_solicitud_compra()
         End If
     End Sub
+
+
 End Class

@@ -183,6 +183,12 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ds_sol_almacen.xsd</DependentUpon>
     </Compile>
+    <Compile Include="formularios\fm_0300_facturas_compras.Designer.vb">
+      <DependentUpon>fm_0300_facturas_compras.vb</DependentUpon>
+    </Compile>
+    <Compile Include="formularios\fm_0300_facturas_compras.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="formularios\fm_0800_cargar_faltantes_cotizaciones.Designer.vb">
       <DependentUpon>fm_0800_cargar_faltantes_cotizaciones.vb</DependentUpon>
     </Compile>
@@ -501,12 +507,6 @@
     <Compile Include="formularios\fm_0008_importar_plano_bancos.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="formularios\fm_0300_facturas_compras.Designer.vb">
-      <DependentUpon>fm_0300_facturas_compras.vb</DependentUpon>
-    </Compile>
-    <Compile Include="formularios\fm_0300_facturas_compras.vb">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="formularios\fm_0500_dialog_suministro_documento.Designer.vb">
       <DependentUpon>fm_0500_dialog_suministro_documento.vb</DependentUpon>
     </Compile>
@@ -802,6 +802,7 @@
       <DependentUpon>cr_0600_rep_actividad_simple.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Modulos\Extenciones.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>
@@ -826,6 +827,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="CustomControls\DropDownCheckedListBox.resx">
       <DependentUpon>DropDownCheckedListBox.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="formularios\fm_0300_facturas_compras.resx">
+      <DependentUpon>fm_0300_facturas_compras.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="formularios\fm_0800_cargar_faltantes_cotizaciones.resx">
       <DependentUpon>fm_0800_cargar_faltantes_cotizaciones.vb</DependentUpon>
@@ -982,9 +986,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="formularios\fm_0008_importar_plano_bancos.resx">
       <DependentUpon>fm_0008_importar_plano_bancos.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="formularios\fm_0300_facturas_compras.resx">
-      <DependentUpon>fm_0300_facturas_compras.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="formularios\fm_0500_dialog_suministro_documento.resx">
       <DependentUpon>fm_0500_dialog_suministro_documento.vb</DependentUpon>

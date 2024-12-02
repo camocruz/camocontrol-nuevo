@@ -1,6 +1,4 @@
-﻿Imports System.ComponentModel
-
-Public Class fm_0300_facturas_compras
+﻿Public Class fm_0300_facturas_compras
     'Objetos publicos que reciben valores desde el Formulario padre
     'Public vf_oform_padre As Object
     Public ocontexto_form As String = ""
@@ -43,6 +41,7 @@ Public Class fm_0300_facturas_compras
     Private otb_info_item_sc As DataTable 'para buscar la informacion actualizada del item que se esta editando
     Private otb_doc_mov_invent_relacionados As DataTable 'documentos de movimientos de inventario relacionados
 
+    Private id_tercero As String = ""
     Private id_tipo_item As Integer
     Private permitir_var_costo As String = "N"
     Private var_costo_promedio_actual As Decimal = 0 'variacion del valor actual con respecto al costo promedio actual
@@ -89,7 +88,7 @@ Public Class fm_0300_facturas_compras
         bt_generar_informe.Enabled = False
         bt_aprobar.Enabled = True
         cl_gestion_permisos.activar_control_si_tiene_permiso(vf_otabla_permisos, Me.Name, bt_aprobar_recepcion, "")
-        Cargar_proveedores()
+
         csql = "SELECT *" _
             & " FROM " & database.obtener_esquema & ".tb0005_bodegas"
         Dim otb_bodega_consumos As DataTable
@@ -108,9 +107,10 @@ Public Class fm_0300_facturas_compras
         End With
         If vf_elemento_nuevo = "S" Then
             tx_estado.Text = "Nuevo"
-            cm_nit.SelectedIndex = -1
-            cm_proveedor.SelectedIndex = -1
+
         Else
+            Tx_Nit.Enabled = False
+            Tx_Nombre_Tercero.Enabled = False
             Cargar_elemento_existente()
             Llenar_items_solicitados()
 
@@ -148,6 +148,7 @@ Public Class fm_0300_facturas_compras
         tx_sol_compra.Text = dg_listado.CurrentRow.Cells("dgocell_id_sc").Value
         tx_id_item_sc.Text = dg_listado.CurrentRow.Cells("dgocell_id_sc_item").Value
         tx_id_item_cons_mov.Text = dg_listado.CurrentRow.Cells("dgocell_item").Value
+        'tx_id_oc.Text = dg_listado.CurrentRow.Cells("dgocell_id_oc").Value
         lb_doc_entrada.Text = dg_listado.CurrentRow.Cells("dgocell_DocEntrada").Value
         Dim nombre_columna As String = dg_listado.Columns(dg_listado.CurrentCell.ColumnIndex).Name
         Select Case nombre_columna
@@ -183,6 +184,16 @@ Public Class fm_0300_facturas_compras
                 tx_id_item_sc.Text = dg_listado.CurrentRow.Cells("dgocell_id_sc_item").Value
                 Abrir_form_info_item(dg_listado.CurrentCell.Value)
                 Llenar_items_solicitados()
+            Case "dgocell_id_oc"
+                Dim oform_OC As New camocontrol.fm_0300_orden_compra With {
+                    .vf_oform_padre = Me,
+                    .vg_id_cia = vg_id_cia,
+                    .id_orden_compra = dg_listado.CurrentRow.Cells("dgocell_id_oc").Value,
+                    .vg_usuario_autoriza = vg_usuario_autoriza,
+                    .vf_elemento_nuevo = "N"
+                }
+
+                oform_OC.ShowDialog()
             Case "dgocell_id_accion"
                 If dg_listado.CurrentCell.Value.ToString <> "0" And dg_listado.CurrentCell.Value.ToString.Trim <> "" Then
                     Dim id_accion As Integer
@@ -454,13 +465,15 @@ Public Class fm_0300_facturas_compras
         dtp_fecha_factura.Value = comunes.g_fechahora
         dtp_vencimiento_factura.Value = comunes.g_fechahora
         vf_id_notas_archivos = ""
-        cm_proveedor.SelectedIndex = -1
-        cm_nit.SelectedIndex = -1
-        cm_proveedor.Text = ""
-        cm_nit.Text = ""
+        Tx_Nit.Enabled = True
+        Tx_Nombre_Tercero.Enabled = True
+        Tx_Nit.Text = ""
         cl_gestion_permisos.gestionar_permisos_botones_basicos(vg_id_cia, vf_otabla_permisos, vf_elemento_nuevo,
                                                                vg_usuario_autoriza, Me,
                                                                vf_id_notas_archivos, vf_otipo_nota, vf_var_config_archivos)
+        Tx_Nombre_Tercero.Text = ""
+        Tx_Nombre_Tercero.SelectedText = "--BUSCAR--"
+        Tx_Nombre_Tercero.Focus()
     End Sub
     Private Sub Cargar_elemento_existente()
         csql = "SELECT *" _
@@ -494,9 +507,13 @@ Public Class fm_0300_facturas_compras
                 tx_estado.Text = "Aprobada"
             Else
                 tx_estado.Text = "Sin Aprobar Factura"
+                Tx_Nit.Enabled = True
+                Tx_Nombre_Tercero.Enabled = True
             End If
-            cm_proveedor.SelectedValue = orow("f0307_id_tercero")
-            cm_nit.SelectedValue = orow("f0307_id_tercero")
+            'cargo la informacion del tercero
+            id_tercero = orow("f0307_id_tercero")
+            cargar_info_tercero()
+
             tx_oc_uno.Text = orow("f0307_oc_uno").ToString
             tx_factura_proveedor.Text = orow("f0307_numero_factura")
             tx_remision_proveedor.Text = orow("f0307_remision_proveedor")
@@ -514,37 +531,60 @@ Public Class fm_0300_facturas_compras
             Activar_botones_aprobaciones()
         Next
     End Sub
-    Private Sub Cargar_proveedores()
-        csql = "select *, trim(both ' ' from f0200_nombres || ' ' || f0200_apellido1 || ' ' || f0200_apellido2 || ' - ' || f0200_id) as razon_social" _
+    Private Sub cargar_info_tercero()
+        csql = "select f0200_id_tercero, f0200_id || '-' ||f0200_dig_ver_nit as nit," _
+            & "trim(both ' ' from f0200_nombres || ' ' || f0200_apellido1 || ' ' || f0200_apellido2 || ' - ' || f0200_id) as razon_social" _
             & " FROM " & database.obtener_esquema & ".tb0200_terceros" _
-            & " where f0200_ind_principal = 'S'"
+            & " where f0200_ind_principal = 'S' and f0200_id_tercero = '" & id_tercero & "'"
         '& " and f0200_id_cia ='" & vg_id_cia & "'"
         otb_proveedores = cl_utilidades_datatables.cargar_informacion_postgres(csql)
-        With cm_proveedor
-            'Valor que se muestra al usuario
-            .DisplayMember = "razon_social"
-            'Valor interno que almacena el objeto
-            .ValueMember = "f0200_id_tercero"
-            'Origen de Datos del ComboBox
-            .DataSource = otb_proveedores
-            .DropDownStyle = ComboBoxStyle.DropDown
-            .AutoCompleteMode = AutoCompleteMode.Suggest
-            .AutoCompleteSource = AutoCompleteSource.ListItems
-            '.Text = ""
-        End With
-        With cm_nit
-            'Valor que se muestra al usuario
-            .DisplayMember = "f0200_id"
-            'Valor interno que almacena el objeto
-            .ValueMember = "f0200_id_tercero"
-            'Origen de Datos del ComboBox
-            .DataSource = otb_proveedores
-            .DropDownStyle = ComboBoxStyle.DropDown
-            .AutoCompleteMode = AutoCompleteMode.Suggest
-            .AutoCompleteSource = AutoCompleteSource.ListItems
-            '.Text = ""
-        End With
+        For Each orow As DataRow In otb_proveedores.Rows
+            tx_id_tercero.Text = orow("f0200_id_tercero")
+            Tx_Nit.Text = orow("nit")
+            Tx_Nombre_Tercero.Text = orow("razon_social")
+        Next
+
     End Sub
+    Private Sub Tx_Nombre_Tercero_KeyDown(sender As Object, e As KeyEventArgs) Handles Tx_Nombre_Tercero.KeyDown
+        If (e.KeyCode = Keys.B AndAlso e.Modifiers = Keys.Control) Then
+            'PARA USAR CUANDO EL FORMULARIO ES PARA SELECCIONAR UN DATO
+            'MsgBox(dg_datos.CurrentRow.Cells("id_sc").Value)
+            Buscar_tercero(1)
+        End If
+    End Sub
+    Private Sub Tx_Nit_KeyDown(sender As Object, e As KeyEventArgs) Handles Tx_Nit.KeyDown
+        If (e.KeyCode = Keys.B AndAlso e.Modifiers = Keys.Control) Then
+            'PARA USAR CUANDO EL FORMULARIO ES PARA SELECCIONAR UN DATO
+            'MsgBox(dg_datos.CurrentRow.Cells("id_sc").Value)
+            MsgBox("hola")
+            Buscar_tercero(2)
+        End If
+    End Sub
+    Private Sub Buscar_tercero(ByVal tipofiltro As Integer)
+        Dim filtro As String = ""
+
+        If Tx_Nombre_Tercero.Text <> "" And tipofiltro = 1 Then
+            filtro = "razon_social LIKE '%" & Tx_Nombre_Tercero.Text.Trim & "%'"
+        End If
+        If Tx_Nit.Text <> "" And tipofiltro = 2 Then
+            filtro = "nit LIKE '%" & Tx_Nit.Text.Trim & "%'"
+        End If
+
+        Tx_Nombre_Tercero.Text = ""
+        Tx_Nit.Text = ""
+
+        Dim id_ter As String = comunes.Buscador_Terceros(vg_id_cia, vg_usuario_autoriza, filtro)
+        If id_ter = "0" Then
+            tx_id_tercero.Text = ""
+            Tx_Nit.Text = ""
+            Tx_Nombre_Tercero.Text = ""
+        Else
+            id_tercero = id_ter
+            cargar_info_tercero()
+            'tx_cantidad.Focus()
+        End If
+    End Sub
+
     Private Sub CargarItemsSinEntrada()
         csql = "select * from " & database.obtener_esquema & ".tb0305_items_solicitados" _
             & " where f0305_id_factura_compras = '" & id_factura_compras & "'" _
@@ -619,6 +659,16 @@ Public Class fm_0300_facturas_compras
         'Agrega columna al objeto fila
         orowgrid.Cells.Add(otextgrid)
 
+        'Crea columna 7
+        ochkgrid = New DataGridViewCheckBoxCell
+        If orow.Item("f0305_estado") = "A" Then
+            ochkgrid.Value = -1
+        Else
+            ochkgrid.Value = 0
+        End If
+        orowgrid.Cells.Add(ochkgrid)
+
+
         'Crea columna 2
         otextgrid = New DataGridViewTextBoxCell With {
             .Value = orow.Item("f0305_id_item_solicitud").ToString
@@ -634,6 +684,15 @@ Public Class fm_0300_facturas_compras
         'otextgrid.MaxInputLength = 100
         'Agrega columna al objeto fila
         orowgrid.Cells.Add(otextgrid)
+
+        'Crea columna 7
+        ochkgrid = New DataGridViewCheckBoxCell
+        If orow.Item("f0305_oc_aprov") = "S" Then
+            ochkgrid.Value = -1
+        Else
+            ochkgrid.Value = 0
+        End If
+        orowgrid.Cells.Add(ochkgrid)
 
         'Crea columna 3
         otextgrid = New DataGridViewTextBoxCell With {
@@ -708,14 +767,6 @@ Public Class fm_0300_facturas_compras
         'Agrega columna al objeto fila 
         orowgrid.Cells.Add(otextgrid)
 
-        'Crea columna 7
-        ochkgrid = New DataGridViewCheckBoxCell
-        If orow.Item("f0305_estado") = "A" Then
-            ochkgrid.Value = -1
-        Else
-            ochkgrid.Value = 0
-        End If
-        orowgrid.Cells.Add(ochkgrid)
 
         'crea columna 9
         otextgrid = New DataGridViewTextBoxCell With {
@@ -833,11 +884,11 @@ Public Class fm_0300_facturas_compras
         End If
     End Sub
     Private Sub Validar_proveedor()
-        If cm_nit.SelectedIndex = -1 Or cm_proveedor.SelectedIndex = -1 Then
+        If tx_id_tercero.Text = "" Then
             vmensaje_requisitos = "Seleccione un proveedor"
             verror_requisitos = "S"
-            cm_nit.Text = ""
-            cm_proveedor.Text = ""
+            Tx_Nombre_Tercero.Text = ""
+            Tx_Nit.Text = ""
         End If
     End Sub
     Private Sub Validar_factura_cliente()
@@ -859,22 +910,7 @@ Public Class fm_0300_facturas_compras
         Validar_factura_cliente()
         Validar_fecha_factura()
     End Sub
-    Private Sub Cm_nit_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles cm_nit.Validating
-        If cm_nit.SelectedIndex <> -1 Then
-            cm_proveedor.SelectedValue = cm_nit.SelectedValue
-        Else
-            cm_nit.Text = ""
-            cm_proveedor.Text = ""
-        End If
-    End Sub
-    Private Sub Cm_proveedor_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles cm_proveedor.Validating
-        If cm_proveedor.SelectedIndex <> -1 Then
-            cm_nit.SelectedValue = cm_proveedor.SelectedValue
-        Else
-            cm_nit.Text = ""
-            cm_proveedor.Text = ""
-        End If
-    End Sub
+
     Private Sub Grabar_nueva_factura()
         Dim id_creado As Integer
         'Instancia la conexión que estará vigente para todas las operaciones CRUD
@@ -934,7 +970,7 @@ Public Class fm_0300_facturas_compras
             ocmd.Parameters.Add("@f0307_id_factura_compras", NpgsqlDbType.Integer).Value = tx_id_factura.Text.ToString
         End If
         ocmd.Parameters.Add("@f0307_id_cia", NpgsqlDbType.Varchar).Value = vg_id_cia
-        ocmd.Parameters.Add("@f0307_id_tercero", NpgsqlDbType.Varchar).Value = cm_nit.SelectedValue
+        ocmd.Parameters.Add("@f0307_id_tercero", NpgsqlDbType.Varchar).Value = tx_id_tercero.Text
         ocmd.Parameters.Add("@f0307_numero_factura", NpgsqlDbType.Varchar).Value = tx_factura_proveedor.Text
         ocmd.Parameters.Add("@f0307_remision_proveedor", NpgsqlDbType.Varchar).Value = tx_remision_proveedor.Text.ToString.Trim
         ocmd.Parameters.Add("@f0307_fecha_factura", NpgsqlDbType.Timestamp).Value = dtp_fecha_factura.Value
@@ -1625,7 +1661,6 @@ Public Class fm_0300_facturas_compras
         }
         'oform_catalogo_terceros.vf_elemento_nuevo = "N"
         oform_catalogo_terceros.ShowDialog()
-        Cargar_proveedores()
     End Sub
 
     Private Sub Bt_nuevo_Click(sender As System.Object, e As System.EventArgs) Handles bt_nuevo.Click
@@ -2127,4 +2162,6 @@ Public Class fm_0300_facturas_compras
         ocmd = Nothing
         oconn_form.Close()
     End Sub
+
+
 End Class

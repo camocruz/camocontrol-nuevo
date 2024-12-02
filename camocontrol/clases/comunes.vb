@@ -1,4 +1,6 @@
 Imports System.Globalization
+Imports System.Net
+Imports camocontrol.MisExtensiones
 Public Class comunes
     Public Shared vuser_email As String = ""
     Public Shared vpassword_email As String = ""
@@ -11,6 +13,40 @@ Public Class comunes
     Public Shared vrespuesta_correo As String = ""
     Public Shared csql As String = ""
     Public Shared odr As NpgsqlDataReader
+
+    Public Shared Function IdentificarIpEquipo()
+        Dim DirIp As String = ""
+        Try
+            ' Obtener el nombre del host
+            Dim hostName As String = Dns.GetHostName()
+            Console.WriteLine("Nombre del host: " & hostName)
+            ' Filtrar las direcciones IPv4 válidas (excluyendo loopback)
+            'Para que corra esto tubre que crear la carpeta modulos y dentro cree Extenciones.vb
+            'APRENDER ESTO COMO SE COME
+            ' Obtener las direcciones IP asociadas al host
+            Dim hostAddresses As IPAddress() = Dns.GetHostAddresses(hostName)
+            Dim validIPs As IEnumerable(Of IPAddress)
+            validIPs = hostAddresses.Where(Function(ip) ip.AddressFamily = Net.Sockets.AddressFamily.InterNetwork AndAlso Not ip.IsLoopback())
+
+            If validIPs.Any() Then
+                Console.WriteLine("Direcciones IP:")
+                For Each ip In validIPs
+                    Console.WriteLine("- " & ip.ToString())
+                    DirIp = ip.ToString()
+                Next
+            Else
+                Console.WriteLine("No se encontraron direcciones IPv4 válidas.")
+            End If
+        Catch ex As Exception
+            Console.WriteLine("Error al obtener la dirección IP: " & ex.Message)
+        End Try
+        'MsgBox("HOLA")
+        Console.WriteLine("Presione una tecla para salir...")
+        'Console.ReadKey()
+        Console.Read()
+        Return DirIp
+    End Function
+
 
     Public Shared Function suministrar_valor_variable_configuracion(variable As String, vg_id_cia As String)
         Dim otb_info_variables_configuracion As DataTable
@@ -65,6 +101,29 @@ Public Class comunes
         Return id_item
     End Function
 
+    Public Shared Function Buscador_Terceros(vg_id_cia As String, vg_usuario_autoriza As String, Optional filtro As String = "")
+        Dim otb_items_selected As DataTable = Nothing
+        Dim otb_tablas_array() As DataTable = Nothing
+        Dim id_tercero As String = ""
+        otb_tablas_array = cl_utilidades_datatables.visualizar_datos_visor("ST-0210-01", vg_id_cia, vg_usuario_autoriza,
+                                                        "Listado de Terceros",
+                                                        {vg_id_cia},
+                                                            , "Terceros",,, "S", "id_tercero",, "S", "N", filtro)
+
+        If IsNothing(otb_tablas_array(2)) = False Then
+            otb_items_selected = otb_tablas_array(2)
+        Else
+            Return id_tercero
+            Exit Function
+        End If
+        'agrego el tercero seleccionado
+        For Each orow As DataRow In otb_items_selected.Rows
+            'Actualizo el item
+            'MsgBox(orow("id_sc_item"))
+            id_tercero = orow("id_tercero")
+        Next
+        Return id_tercero
+    End Function
 
     Public Shared Function formulario_fecha_hora(ByVal fecha_ini As Date, Optional show_hora As String = "S")
         Dim a As String
@@ -406,17 +465,17 @@ Public Class comunes
         vtipo = vtip
 
         If vtipo = "1" Then  ' tipo ERROR
-            MessageBox.Show(vmensaje, "Error", MessageBoxButtons.OK, _
+            MessageBox.Show(vmensaje, "Error", MessageBoxButtons.OK,
             MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1)
         End If
 
         If vtipo = "2" Then  ' Exito en el proceso
-            MessageBox.Show(vmensaje, "Proceso OK", MessageBoxButtons.OK, _
+            MessageBox.Show(vmensaje, "Proceso OK", MessageBoxButtons.OK,
             MessageBoxIcon.Information, MessageBoxDefaultButton.Button1)
         End If
 
         If vtipo = "3" Then  ' Advertencia en el proceso
-            MessageBox.Show(vmensaje, "Advertencia", MessageBoxButtons.OK, _
+            MessageBox.Show(vmensaje, "Advertencia", MessageBoxButtons.OK,
             MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button1)
         End If
         Return True

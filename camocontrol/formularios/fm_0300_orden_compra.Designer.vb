@@ -43,20 +43,12 @@ Partial Class fm_0300_orden_compra
         Me.Label7 = New System.Windows.Forms.Label()
         Me.tx_oc_uno = New System.Windows.Forms.TextBox()
         Me.Label6 = New System.Windows.Forms.Label()
-        Me.cm_nit = New System.Windows.Forms.ComboBox()
         Me.bt_eliminar_item = New System.Windows.Forms.Button()
         Me.bt_add_item = New System.Windows.Forms.Button()
         Me.tx_id_item_sc = New System.Windows.Forms.TextBox()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.Label4 = New System.Windows.Forms.Label()
         Me.dg_listado = New System.Windows.Forms.DataGridView()
-        Me.lb_identificacion = New System.Windows.Forms.Label()
-        Me.cm_proveedor = New System.Windows.Forms.ComboBox()
-        Me.Label5 = New System.Windows.Forms.Label()
-        Me.tx_id_orden_compra = New System.Windows.Forms.TextBox()
-        Me.Label8 = New System.Windows.Forms.Label()
-        Me.bt_listado_items_pend = New System.Windows.Forms.Button()
-        Me.bt_desaprobar_oc = New System.Windows.Forms.Button()
         Me.dgocell_id_sc = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.dgocell_id_sc_item = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.dgocell_item = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -77,9 +69,22 @@ Partial Class fm_0300_orden_compra
         Me.dgocell_costo_total_iva = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.dgocell_descripcion_estructura = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.dgocell_id_accion = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.dgocell_id_accion_raiz = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.dgocell_nota = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.dgocell_id_fcc = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.dgocell_id_doc_inv = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.lb_identificacion = New System.Windows.Forms.Label()
+        Me.Label5 = New System.Windows.Forms.Label()
+        Me.tx_id_orden_compra = New System.Windows.Forms.TextBox()
+        Me.Label8 = New System.Windows.Forms.Label()
+        Me.bt_listado_items_pend = New System.Windows.Forms.Button()
+        Me.bt_desaprobar_oc = New System.Windows.Forms.Button()
+        Me.Tx_Nombre_Tercero = New System.Windows.Forms.TextBox()
+        Me.Tx_Nit = New System.Windows.Forms.TextBox()
+        Me.tx_id_tercero = New System.Windows.Forms.TextBox()
+        Me.Label2 = New System.Windows.Forms.Label()
+        Me.Label9 = New System.Windows.Forms.Label()
+        Me.Label14 = New System.Windows.Forms.Label()
         Me.GroupBox1.SuspendLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.dg_listado, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -208,7 +213,7 @@ Partial Class fm_0300_orden_compra
         '
         Me.Label13.AutoSize = True
         Me.Label13.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label13.Location = New System.Drawing.Point(765, 65)
+        Me.Label13.Location = New System.Drawing.Point(757, 67)
         Me.Label13.Name = "Label13"
         Me.Label13.Size = New System.Drawing.Size(49, 16)
         Me.Label13.TabIndex = 282
@@ -218,9 +223,9 @@ Partial Class fm_0300_orden_compra
         '
         Me.dtp_fecha.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.dtp_fecha.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
-        Me.dtp_fecha.Location = New System.Drawing.Point(819, 60)
+        Me.dtp_fecha.Location = New System.Drawing.Point(809, 62)
         Me.dtp_fecha.Name = "dtp_fecha"
-        Me.dtp_fecha.Size = New System.Drawing.Size(123, 22)
+        Me.dtp_fecha.Size = New System.Drawing.Size(148, 22)
         Me.dtp_fecha.TabIndex = 280
         '
         'bt_solicitud_compra
@@ -238,7 +243,7 @@ Partial Class fm_0300_orden_compra
         Me.tx_sol_compra.Location = New System.Drawing.Point(77, 211)
         Me.tx_sol_compra.Name = "tx_sol_compra"
         Me.tx_sol_compra.Size = New System.Drawing.Size(79, 22)
-        Me.tx_sol_compra.TabIndex = 278
+        Me.tx_sol_compra.TabIndex = 2
         '
         'Label11
         '
@@ -364,15 +369,6 @@ Partial Class fm_0300_orden_compra
         Me.Label6.TabIndex = 262
         Me.Label6.Text = "OC UNO #:"
         '
-        'cm_nit
-        '
-        Me.cm_nit.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.cm_nit.FormattingEnabled = True
-        Me.cm_nit.Location = New System.Drawing.Point(647, 94)
-        Me.cm_nit.Name = "cm_nit"
-        Me.cm_nit.Size = New System.Drawing.Size(187, 24)
-        Me.cm_nit.TabIndex = 261
-        '
         'bt_eliminar_item
         '
         Me.bt_eliminar_item.BackgroundImage = Global.camocontrol.My.Resources.Resources.eliminar
@@ -398,7 +394,7 @@ Partial Class fm_0300_orden_compra
         Me.tx_id_item_sc.Location = New System.Drawing.Point(358, 211)
         Me.tx_id_item_sc.Name = "tx_id_item_sc"
         Me.tx_id_item_sc.Size = New System.Drawing.Size(79, 22)
-        Me.tx_id_item_sc.TabIndex = 258
+        Me.tx_id_item_sc.TabIndex = 3
         '
         'Label1
         '
@@ -429,80 +425,11 @@ Partial Class fm_0300_orden_compra
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.dg_listado.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dg_listado.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.dgocell_id_sc, Me.dgocell_id_sc_item, Me.dgocell_item, Me.dgocell_cod_uno, Me.dgocell_descripcion_item, Me.dgocell_descripcion_complementaria, Me.dgocell_cantidad_solicitada, Me.dgocell_inventario_total, Me.dgocell_unidad, Me.dgocell_chk_item_aprobado, Me.dgcocell_chk_item_recepcionado, Me.dgocell_var_costo, Me.dgocell_costo_unitario, Me.dgocell_descuento, Me.dgocell_costo_total, Me.dgocell_iva, Me.dgocell_costo_unit_iva, Me.dgocell_costo_total_iva, Me.dgocell_descripcion_estructura, Me.dgocell_id_accion, Me.dgocell_nota, Me.dgocell_id_fcc, Me.dgocell_id_doc_inv})
+        Me.dg_listado.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.dgocell_id_sc, Me.dgocell_id_sc_item, Me.dgocell_item, Me.dgocell_cod_uno, Me.dgocell_descripcion_item, Me.dgocell_descripcion_complementaria, Me.dgocell_cantidad_solicitada, Me.dgocell_inventario_total, Me.dgocell_unidad, Me.dgocell_chk_item_aprobado, Me.dgcocell_chk_item_recepcionado, Me.dgocell_var_costo, Me.dgocell_costo_unitario, Me.dgocell_descuento, Me.dgocell_costo_total, Me.dgocell_iva, Me.dgocell_costo_unit_iva, Me.dgocell_costo_total_iva, Me.dgocell_descripcion_estructura, Me.dgocell_id_accion, Me.dgocell_id_accion_raiz, Me.dgocell_nota, Me.dgocell_id_fcc, Me.dgocell_id_doc_inv})
         Me.dg_listado.Location = New System.Drawing.Point(28, 261)
         Me.dg_listado.Name = "dg_listado"
         Me.dg_listado.Size = New System.Drawing.Size(929, 144)
         Me.dg_listado.TabIndex = 255
-        '
-        'lb_identificacion
-        '
-        Me.lb_identificacion.AutoSize = True
-        Me.lb_identificacion.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lb_identificacion.Location = New System.Drawing.Point(517, 100)
-        Me.lb_identificacion.Name = "lb_identificacion"
-        Me.lb_identificacion.Size = New System.Drawing.Size(124, 16)
-        Me.lb_identificacion.TabIndex = 254
-        Me.lb_identificacion.Text = "Identificación / NIT :"
-        '
-        'cm_proveedor
-        '
-        Me.cm_proveedor.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.cm_proveedor.FormattingEnabled = True
-        Me.cm_proveedor.Location = New System.Drawing.Point(116, 94)
-        Me.cm_proveedor.Name = "cm_proveedor"
-        Me.cm_proveedor.Size = New System.Drawing.Size(395, 24)
-        Me.cm_proveedor.TabIndex = 253
-        '
-        'Label5
-        '
-        Me.Label5.AutoSize = True
-        Me.Label5.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label5.Location = New System.Drawing.Point(25, 97)
-        Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(75, 16)
-        Me.Label5.TabIndex = 252
-        Me.Label5.Text = "Proveedor:"
-        '
-        'tx_id_orden_compra
-        '
-        Me.tx_id_orden_compra.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.tx_id_orden_compra.Location = New System.Drawing.Point(116, 62)
-        Me.tx_id_orden_compra.Name = "tx_id_orden_compra"
-        Me.tx_id_orden_compra.Size = New System.Drawing.Size(201, 29)
-        Me.tx_id_orden_compra.TabIndex = 251
-        '
-        'Label8
-        '
-        Me.Label8.AutoSize = True
-        Me.Label8.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label8.Location = New System.Drawing.Point(25, 65)
-        Me.Label8.Name = "Label8"
-        Me.Label8.Size = New System.Drawing.Size(40, 16)
-        Me.Label8.TabIndex = 250
-        Me.Label8.Text = "OC #:"
-        '
-        'bt_listado_items_pend
-        '
-        Me.bt_listado_items_pend.BackgroundImage = Global.camocontrol.My.Resources.Resources.Full_shopping_cart_Icon_32
-        Me.bt_listado_items_pend.Image = Global.camocontrol.My.Resources.Resources.nuevo
-        Me.bt_listado_items_pend.Location = New System.Drawing.Point(519, 211)
-        Me.bt_listado_items_pend.Name = "bt_listado_items_pend"
-        Me.bt_listado_items_pend.Size = New System.Drawing.Size(32, 34)
-        Me.bt_listado_items_pend.TabIndex = 295
-        Me.bt_listado_items_pend.UseVisualStyleBackColor = True
-        '
-        'bt_desaprobar_oc
-        '
-        Me.bt_desaprobar_oc.BackColor = System.Drawing.Color.Gainsboro
-        Me.bt_desaprobar_oc.Image = Global.camocontrol.My.Resources.Resources.dinero01
-        Me.bt_desaprobar_oc.Location = New System.Drawing.Point(686, 199)
-        Me.bt_desaprobar_oc.Name = "bt_desaprobar_oc"
-        Me.bt_desaprobar_oc.Size = New System.Drawing.Size(117, 39)
-        Me.bt_desaprobar_oc.TabIndex = 296
-        Me.bt_desaprobar_oc.Text = "Desaprobar OC"
-        Me.bt_desaprobar_oc.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage
-        Me.bt_desaprobar_oc.UseVisualStyleBackColor = False
         '
         'dgocell_id_sc
         '
@@ -661,6 +588,13 @@ Partial Class fm_0300_orden_compra
         Me.dgocell_id_accion.ReadOnly = True
         Me.dgocell_id_accion.Width = 45
         '
+        'dgocell_id_accion_raiz
+        '
+        Me.dgocell_id_accion_raiz.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCellsExceptHeader
+        Me.dgocell_id_accion_raiz.HeaderText = "Raiz"
+        Me.dgocell_id_accion_raiz.Name = "dgocell_id_accion_raiz"
+        Me.dgocell_id_accion_raiz.Width = 5
+        '
         'dgocell_nota
         '
         Me.dgocell_nota.HeaderText = "Nota"
@@ -681,10 +615,131 @@ Partial Class fm_0300_orden_compra
         Me.dgocell_id_doc_inv.Name = "dgocell_id_doc_inv"
         Me.dgocell_id_doc_inv.ReadOnly = True
         '
+        'lb_identificacion
+        '
+        Me.lb_identificacion.AutoSize = True
+        Me.lb_identificacion.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lb_identificacion.Location = New System.Drawing.Point(517, 100)
+        Me.lb_identificacion.Name = "lb_identificacion"
+        Me.lb_identificacion.Size = New System.Drawing.Size(124, 16)
+        Me.lb_identificacion.TabIndex = 254
+        Me.lb_identificacion.Text = "Identificación / NIT :"
+        '
+        'Label5
+        '
+        Me.Label5.AutoSize = True
+        Me.Label5.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label5.Location = New System.Drawing.Point(25, 97)
+        Me.Label5.Name = "Label5"
+        Me.Label5.Size = New System.Drawing.Size(75, 16)
+        Me.Label5.TabIndex = 252
+        Me.Label5.Text = "Proveedor:"
+        '
+        'tx_id_orden_compra
+        '
+        Me.tx_id_orden_compra.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.tx_id_orden_compra.Location = New System.Drawing.Point(116, 62)
+        Me.tx_id_orden_compra.Name = "tx_id_orden_compra"
+        Me.tx_id_orden_compra.Size = New System.Drawing.Size(201, 29)
+        Me.tx_id_orden_compra.TabIndex = 251
+        '
+        'Label8
+        '
+        Me.Label8.AutoSize = True
+        Me.Label8.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label8.Location = New System.Drawing.Point(25, 65)
+        Me.Label8.Name = "Label8"
+        Me.Label8.Size = New System.Drawing.Size(40, 16)
+        Me.Label8.TabIndex = 250
+        Me.Label8.Text = "OC #:"
+        '
+        'bt_listado_items_pend
+        '
+        Me.bt_listado_items_pend.BackgroundImage = Global.camocontrol.My.Resources.Resources.Full_shopping_cart_Icon_32
+        Me.bt_listado_items_pend.Image = Global.camocontrol.My.Resources.Resources.nuevo
+        Me.bt_listado_items_pend.Location = New System.Drawing.Point(519, 211)
+        Me.bt_listado_items_pend.Name = "bt_listado_items_pend"
+        Me.bt_listado_items_pend.Size = New System.Drawing.Size(32, 34)
+        Me.bt_listado_items_pend.TabIndex = 295
+        Me.bt_listado_items_pend.UseVisualStyleBackColor = True
+        '
+        'bt_desaprobar_oc
+        '
+        Me.bt_desaprobar_oc.BackColor = System.Drawing.Color.Gainsboro
+        Me.bt_desaprobar_oc.Image = Global.camocontrol.My.Resources.Resources.dinero01
+        Me.bt_desaprobar_oc.Location = New System.Drawing.Point(686, 199)
+        Me.bt_desaprobar_oc.Name = "bt_desaprobar_oc"
+        Me.bt_desaprobar_oc.Size = New System.Drawing.Size(117, 39)
+        Me.bt_desaprobar_oc.TabIndex = 296
+        Me.bt_desaprobar_oc.Text = "Desaprobar OC"
+        Me.bt_desaprobar_oc.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage
+        Me.bt_desaprobar_oc.UseVisualStyleBackColor = False
+        '
+        'Tx_Nombre_Tercero
+        '
+        Me.Tx_Nombre_Tercero.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Tx_Nombre_Tercero.Location = New System.Drawing.Point(116, 94)
+        Me.Tx_Nombre_Tercero.Name = "Tx_Nombre_Tercero"
+        Me.Tx_Nombre_Tercero.Size = New System.Drawing.Size(397, 22)
+        Me.Tx_Nombre_Tercero.TabIndex = 0
+        '
+        'Tx_Nit
+        '
+        Me.Tx_Nit.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Tx_Nit.Location = New System.Drawing.Point(658, 94)
+        Me.Tx_Nit.Name = "Tx_Nit"
+        Me.Tx_Nit.Size = New System.Drawing.Size(156, 22)
+        Me.Tx_Nit.TabIndex = 1
+        '
+        'tx_id_tercero
+        '
+        Me.tx_id_tercero.Enabled = False
+        Me.tx_id_tercero.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.tx_id_tercero.Location = New System.Drawing.Point(846, 94)
+        Me.tx_id_tercero.Name = "tx_id_tercero"
+        Me.tx_id_tercero.Size = New System.Drawing.Size(111, 22)
+        Me.tx_id_tercero.TabIndex = 299
+        '
+        'Label2
+        '
+        Me.Label2.AutoSize = True
+        Me.Label2.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label2.Location = New System.Drawing.Point(820, 100)
+        Me.Label2.Name = "Label2"
+        Me.Label2.Size = New System.Drawing.Size(25, 16)
+        Me.Label2.TabIndex = 300
+        Me.Label2.Text = "Id :"
+        '
+        'Label9
+        '
+        Me.Label9.AutoSize = True
+        Me.Label9.Font = New System.Drawing.Font("Microsoft Sans Serif", 6.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label9.Location = New System.Drawing.Point(114, 116)
+        Me.Label9.Name = "Label9"
+        Me.Label9.Size = New System.Drawing.Size(31, 12)
+        Me.Label9.TabIndex = 301
+        Me.Label9.Text = "Ctrl+B"
+        '
+        'Label14
+        '
+        Me.Label14.AutoSize = True
+        Me.Label14.Font = New System.Drawing.Font("Microsoft Sans Serif", 6.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label14.Location = New System.Drawing.Point(656, 117)
+        Me.Label14.Name = "Label14"
+        Me.Label14.Size = New System.Drawing.Size(31, 12)
+        Me.Label14.TabIndex = 302
+        Me.Label14.Text = "Ctrl+B"
+        '
         'fm_0300_orden_compra
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.ClientSize = New System.Drawing.Size(983, 530)
+        Me.Controls.Add(Me.Label14)
+        Me.Controls.Add(Me.Label9)
+        Me.Controls.Add(Me.Label2)
+        Me.Controls.Add(Me.tx_id_tercero)
+        Me.Controls.Add(Me.Tx_Nit)
+        Me.Controls.Add(Me.Tx_Nombre_Tercero)
         Me.Controls.Add(Me.bt_desaprobar_oc)
         Me.Controls.Add(Me.bt_listado_items_pend)
         Me.Controls.Add(Me.bt_nueva_sc)
@@ -711,7 +766,6 @@ Partial Class fm_0300_orden_compra
         Me.Controls.Add(Me.Label7)
         Me.Controls.Add(Me.tx_oc_uno)
         Me.Controls.Add(Me.Label6)
-        Me.Controls.Add(Me.cm_nit)
         Me.Controls.Add(Me.bt_eliminar_item)
         Me.Controls.Add(Me.bt_add_item)
         Me.Controls.Add(Me.tx_id_item_sc)
@@ -719,7 +773,6 @@ Partial Class fm_0300_orden_compra
         Me.Controls.Add(Me.Label4)
         Me.Controls.Add(Me.dg_listado)
         Me.Controls.Add(Me.lb_identificacion)
-        Me.Controls.Add(Me.cm_proveedor)
         Me.Controls.Add(Me.Label5)
         Me.Controls.Add(Me.tx_id_orden_compra)
         Me.Controls.Add(Me.Label8)
@@ -734,7 +787,6 @@ Partial Class fm_0300_orden_compra
         Me.Controls.SetChildIndex(Me.Label8, 0)
         Me.Controls.SetChildIndex(Me.tx_id_orden_compra, 0)
         Me.Controls.SetChildIndex(Me.Label5, 0)
-        Me.Controls.SetChildIndex(Me.cm_proveedor, 0)
         Me.Controls.SetChildIndex(Me.lb_identificacion, 0)
         Me.Controls.SetChildIndex(Me.dg_listado, 0)
         Me.Controls.SetChildIndex(Me.Label4, 0)
@@ -742,7 +794,6 @@ Partial Class fm_0300_orden_compra
         Me.Controls.SetChildIndex(Me.tx_id_item_sc, 0)
         Me.Controls.SetChildIndex(Me.bt_add_item, 0)
         Me.Controls.SetChildIndex(Me.bt_eliminar_item, 0)
-        Me.Controls.SetChildIndex(Me.cm_nit, 0)
         Me.Controls.SetChildIndex(Me.Label6, 0)
         Me.Controls.SetChildIndex(Me.tx_oc_uno, 0)
         Me.Controls.SetChildIndex(Me.Label7, 0)
@@ -769,6 +820,12 @@ Partial Class fm_0300_orden_compra
         Me.Controls.SetChildIndex(Me.bt_nueva_sc, 0)
         Me.Controls.SetChildIndex(Me.bt_listado_items_pend, 0)
         Me.Controls.SetChildIndex(Me.bt_desaprobar_oc, 0)
+        Me.Controls.SetChildIndex(Me.Tx_Nombre_Tercero, 0)
+        Me.Controls.SetChildIndex(Me.Tx_Nit, 0)
+        Me.Controls.SetChildIndex(Me.tx_id_tercero, 0)
+        Me.Controls.SetChildIndex(Me.Label2, 0)
+        Me.Controls.SetChildIndex(Me.Label9, 0)
+        Me.Controls.SetChildIndex(Me.Label14, 0)
         Me.GroupBox1.ResumeLayout(False)
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.dg_listado, System.ComponentModel.ISupportInitialize).EndInit()
@@ -801,7 +858,6 @@ Partial Class fm_0300_orden_compra
     Friend WithEvents Label7 As Label
     Friend WithEvents tx_oc_uno As TextBox
     Friend WithEvents Label6 As Label
-    Friend WithEvents cm_nit As ComboBox
     Friend WithEvents bt_eliminar_item As Button
     Friend WithEvents bt_add_item As Button
     Friend WithEvents tx_id_item_sc As TextBox
@@ -809,7 +865,6 @@ Partial Class fm_0300_orden_compra
     Friend WithEvents Label4 As Label
     Friend WithEvents dg_listado As DataGridView
     Friend WithEvents lb_identificacion As Label
-    Friend WithEvents cm_proveedor As ComboBox
     Friend WithEvents Label5 As Label
     Friend WithEvents tx_id_orden_compra As TextBox
     Friend WithEvents Label8 As Label
@@ -835,7 +890,14 @@ Partial Class fm_0300_orden_compra
     Friend WithEvents dgocell_costo_total_iva As DataGridViewTextBoxColumn
     Friend WithEvents dgocell_descripcion_estructura As DataGridViewTextBoxColumn
     Friend WithEvents dgocell_id_accion As DataGridViewTextBoxColumn
+    Friend WithEvents dgocell_id_accion_raiz As DataGridViewTextBoxColumn
     Friend WithEvents dgocell_nota As DataGridViewTextBoxColumn
     Friend WithEvents dgocell_id_fcc As DataGridViewTextBoxColumn
     Friend WithEvents dgocell_id_doc_inv As DataGridViewTextBoxColumn
+    Friend WithEvents Tx_Nombre_Tercero As TextBox
+    Friend WithEvents Tx_Nit As TextBox
+    Friend WithEvents tx_id_tercero As TextBox
+    Friend WithEvents Label2 As Label
+    Friend WithEvents Label9 As Label
+    Friend WithEvents Label14 As Label
 End Class

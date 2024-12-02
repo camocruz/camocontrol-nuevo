@@ -98,6 +98,28 @@ Public Class formulario_inicio
         'cl_utilidades_datatables.visualizar_datos_visor("", "", "", "Controles Controlados", {}, otb_controles_controlados)
         'cl_utilidades_datatables.visualizar_datos_visor("", "", "", "Permisos Usuario", {}, vf_otabla_permisos)
 
+        'SECCION PARA CONTROLAR LA VERSION DEL PROGRAMA
+        Dim rutaVersionLocal As String = "C:\dsfc\EJ\Release\camocontrol.log"
+        Dim rutaVersionServidor As String = "\\srv01\dsfc\EJ\Release\camocontrol.log"
+        'Primero Valido que no se este ejecutando el programa directamente en el servidor, pues estaria en otra localizacion
+        If "192.168.0.90" <> comunes.IdentificarIpEquipo() Then
+            ' Paso 1: Leer la versión actual
+            Dim versionLocal As String = LeerVersion(rutaVersionLocal)
+            Dim versionRemota As String = LeerVersion(rutaVersionServidor)
+            'MsgBox(versionLocal & " - " & versionRemota)
+            Dim mensaje As String = "DEBE ACTUALIZAR EL SOFTWARE, VERSION NUEVA DISPONIBLE"
+            mensaje = mensaje & vbCrLf & "Error: " & versionLocal & versionRemota
+            If versionLocal <> versionRemota Then
+                MsgBox("DEBE ACTUALIZAR EL SOFTWARE, VERSION NUEVA DISPONIBLE", MsgBoxStyle.Critical)
+                'salgo de la aplicacion
+                vcerrar = "S"
+                Me.Close()
+            Else
+                Console.WriteLine("La aplicación ya está actualizada.")
+            End If
+        End If
+        MenuStrip.Focus()
+
         'informar_actividades()
         'informar_mensajes_sin_gestionar()
         'estadisticas_usuario_acciones()
@@ -113,6 +135,19 @@ Public Class formulario_inicio
         'Me.mi_vehiculos.Visible = False
         'Me.lb_usuario.Text = "USUARIO: " + UCase(vlogin)
     End Sub
+
+    'Para mantener activo el menu y trabajar mas rapido con las teclas
+    Private Sub formulario_inicio_KeyDown(sender As Object, e As KeyEventArgs) Handles MyBase.KeyDown
+        MenuStrip.Focus()
+    End Sub
+
+    'PARA LEER EL ARCHIVO QUE CONTINE LA VERSION DEL APLICATIVO
+    Private Function LeerVersion(ByVal ruta As String) As String
+        If File.Exists(ruta) Then
+            Return File.ReadAllText(ruta).Trim()
+        End If
+        Return "0" ' Versión predeterminada si no existe
+    End Function
     Private Sub ExitToolsStripMenuItem_Click(ByVal sender As Object, ByVal e As EventArgs)
         Me.Close()
     End Sub
@@ -2546,6 +2581,7 @@ reinicio:
         Dim otb_bodegas As DataTable = cl_utilidades_datatables.cargar_informacion_postgres(csql)
         MsgBox("Actualizado")
     End Sub
+
 
 
 

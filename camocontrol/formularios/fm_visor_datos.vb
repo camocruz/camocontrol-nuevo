@@ -73,6 +73,7 @@ Public Class fm_visor_datos
         End If
 
         dg_datos.DataSource = otb_datos
+        dg_datos.Focus()
         lb_titulo.Text = titulo_formulario
         cm_operadores_filtro.SelectedIndex = 0
         lb_total_registros.Text = dg_datos.Rows.Count
@@ -315,7 +316,9 @@ Public Class fm_visor_datos
             'No uso este porque al usar la tecla enter tambien se interpreta como tab ????
             'MsgBox("Tab")
         End If
-        If (e.KeyCode = Keys.F2) Then
+        If (e.KeyCode = Keys.B AndAlso e.Modifiers = Keys.Control) Then
+            'PARA USAR CUANDO EL FORMULARIO ES PARA SELECCIONAR UN DATO
+            'MsgBox(dg_datos.CurrentRow.Cells("id_sc").Value)
             cm_operadores_filtro.Select()
         End If
         If (e.KeyCode = Keys.F10) Then
@@ -540,6 +543,16 @@ Public Class fm_visor_datos
                 agregar_dato_desplegado(nombre_columna) 'Agrega el datos a otabla para que sea desplegado.
                 'Instanciamos el formulario como un objeto de la clase fm_0100_estructura_mantenimiento
                 'Esto es necesario hacerlo cuando antes de mostrar el formulario debemos configurarle valores previos
+
+                'PARA NO ABRIR OC ANULADAS
+                Dim csql As String = "select f0319_id_oc from " & database.obtener_esquema & ".tb0319_ordenes_compra"
+                csql += " where f0319_id_oc = '" & dg_datos.CurrentCell.Value & "' and f0319_anulado = 'N'"
+                Dim otb_fc As DataTable = cl_utilidades_datatables.cargar_informacion_postgres(csql)
+                If otb_fc.Rows.Count = 0 Then
+                    MsgBox("OC ANULADA!", MsgBoxStyle.Information, "Info")
+                    Exit Sub
+                End If
+
                 Dim oform_agregar_solicitud As New camocontrol.fm_0300_orden_compra
                 oform_agregar_solicitud.vf_oform_padre = Me
                 oform_agregar_solicitud.vg_id_cia = vg_id_cia

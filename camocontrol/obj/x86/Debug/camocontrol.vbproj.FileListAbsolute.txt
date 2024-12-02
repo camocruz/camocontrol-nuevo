@@ -605,6 +605,7 @@ C:\Repos\camocontrol\camocontrol\bin\Debug\CrystalDecisions.Shared.dll
 C:\Repos\camocontrol\camocontrol\bin\Debug\CrystalDecisions.Windows.Forms.dll
 C:\Repos\camocontrol\camocontrol\bin\Debug\Mono.Security.dll
 C:\Repos\camocontrol\camocontrol\bin\Debug\Npgsql.dll
+C:\Repos\camocontrol\camocontrol\bin\Debug\System.IO.Compression.dll
 C:\Repos\camocontrol\camocontrol\bin\Debug\CrystalDecisions.Web.dll
 C:\Repos\camocontrol\camocontrol\bin\Debug\CrystalDecisions.ReportAppServer.DataDefModel.dll
 C:\Repos\camocontrol\camocontrol\bin\Debug\CrystalDecisions.ReportAppServer.ClientDoc.dll
@@ -727,4 +728,3 @@ C:\Repos\camocontrol\camocontrol\obj\x86\Debug\camocontrol.vbproj.CopyComplete
 C:\Repos\camocontrol\camocontrol\obj\x86\Debug\camocontrol.exe
 C:\Repos\camocontrol\camocontrol\obj\x86\Debug\camocontrol.xml
 C:\Repos\camocontrol\camocontrol\obj\x86\Debug\camocontrol.pdb
-C:\Repos\camocontrol\camocontrol\bin\Debug\System.IO.Compression.dll

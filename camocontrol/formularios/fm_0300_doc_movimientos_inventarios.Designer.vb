@@ -19,8 +19,8 @@ Partial Class fm_0300_doc_movimientos_inventarios
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
-        Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.dg_items = New System.Windows.Forms.DataGridView()
         Me.dgocell_ident_doc = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.dgocell_tipo_mov = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -173,10 +173,10 @@ Partial Class fm_0300_doc_movimientos_inventarios
         'dgocell_cant_movimiento
         '
         Me.dgocell_cant_movimiento.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        DataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        DataGridViewCellStyle5.Format = "N4"
-        DataGridViewCellStyle5.NullValue = Nothing
-        Me.dgocell_cant_movimiento.DefaultCellStyle = DataGridViewCellStyle5
+        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        DataGridViewCellStyle1.Format = "N4"
+        DataGridViewCellStyle1.NullValue = Nothing
+        Me.dgocell_cant_movimiento.DefaultCellStyle = DataGridViewCellStyle1
         Me.dgocell_cant_movimiento.HeaderText = "Cantidad"
         Me.dgocell_cant_movimiento.Name = "dgocell_cant_movimiento"
         Me.dgocell_cant_movimiento.ReadOnly = True
@@ -185,10 +185,10 @@ Partial Class fm_0300_doc_movimientos_inventarios
         'dgocell_cant_teorica
         '
         Me.dgocell_cant_teorica.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCellsExceptHeader
-        DataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        DataGridViewCellStyle6.Format = "N4"
-        DataGridViewCellStyle6.NullValue = Nothing
-        Me.dgocell_cant_teorica.DefaultCellStyle = DataGridViewCellStyle6
+        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        DataGridViewCellStyle2.Format = "N4"
+        DataGridViewCellStyle2.NullValue = Nothing
+        Me.dgocell_cant_teorica.DefaultCellStyle = DataGridViewCellStyle2
         Me.dgocell_cant_teorica.HeaderText = "C. Ref"
         Me.dgocell_cant_teorica.Name = "dgocell_cant_teorica"
         Me.dgocell_cant_teorica.ReadOnly = True

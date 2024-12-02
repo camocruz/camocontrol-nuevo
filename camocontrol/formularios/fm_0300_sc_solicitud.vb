@@ -239,6 +239,13 @@
                     'ajecutamos clase que abre el formulario adecuado segun el tipo de actividad
                     cl_utilidades_gestion_acciones.abrir_actividad(id_accion, vg_usuario_autoriza, vg_id_cia)
                 End If
+            Case "dgocell_id_accion_raiz"
+                If dg_listado.CurrentCell.Value.ToString <> "0" And dg_listado.CurrentCell.Value.ToString.Trim <> "" Then
+                    Dim id_accion As Integer
+                    id_accion = dg_listado.CurrentCell.Value
+                    'ajecutamos clase que abre el formulario adecuado segun el tipo de actividad
+                    cl_utilidades_gestion_acciones.abrir_actividad(id_accion, vg_usuario_autoriza, vg_id_cia)
+                End If
             Case "dgocell_id_oc"
                 If dg_listado.CurrentCell.Value.ToString.Trim <> "" Then
                     Dim oform_agregar_solicitud As New camocontrol.fm_0300_orden_compra
@@ -545,7 +552,8 @@
             & " COALESCE(otb_estructura_madre.f0100_codigo || ' -- { ' || otb_estructura_madre.f0100_nombre || ' }'," _
                     & " otb_estructura_referida.f0100_codigo || ' -- { ' || otb_estructura_referida.f0100_nombre || ' }')" _
                     & " as descripcion_codigo," _
-            & " f0305_id_accion" _
+            & " f0305_id_accion," _
+            & " coalesce(f0600_id_accion_principal,0) as acc_raiz" _
             & " from " & database.obtener_esquema & ".tb0305_items_solicitados" _
             & " join " & database.obtener_esquema & ".tb0300_items" _
                 & " on f0305_id_item = f0300_id_item" _
@@ -557,6 +565,8 @@
                 & " on f0305_id_estructura = otb_estructura_referida.f0100_id_estructura" _
             & " left join " & database.obtener_esquema & ".tb0100_estructura_mantenimiento as otb_estructura_madre" _
                 & " on otb_estructura_referida.f0100_id_maquina_padre = otb_estructura_madre.f0100_id_estructura" _
+            & " left join " & database.obtener_esquema & " .tb0600_acciones" _
+                & " on f0305_id_accion = f0600_id_accion" _
             & " where f0305_id_solicitud_compra = '" & id_solicitud_compra & "' and f0305_anulado = 'N'"
         otb_recursos = cl_utilidades_datatables.cargar_informacion_postgres(csql)
         Calcular_costos_totales()
@@ -748,6 +758,14 @@
         'crea columna 14
         otextgrid = New DataGridViewTextBoxCell With {
             .Value = orow.Item("f0305_id_accion").ToString
+        }
+        'otextgrid.MaxInputLength = 100
+        'Agrega columna al objeto fila
+        orowgrid.Cells.Add(otextgrid)
+
+        'crea columna 14
+        otextgrid = New DataGridViewTextBoxCell With {
+            .Value = orow.Item("acc_raiz").ToString
         }
         'otextgrid.MaxInputLength = 100
         'Agrega columna al objeto fila

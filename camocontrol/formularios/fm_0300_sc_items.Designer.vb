@@ -118,7 +118,7 @@ Partial Class fm_0300_sc_items
         Me.tx_id_item.Location = New System.Drawing.Point(153, 86)
         Me.tx_id_item.Name = "tx_id_item"
         Me.tx_id_item.Size = New System.Drawing.Size(79, 22)
-        Me.tx_id_item.TabIndex = 10
+        Me.tx_id_item.TabIndex = 0
         '
         'Label5
         '
@@ -464,7 +464,7 @@ Partial Class fm_0300_sc_items
         Me.tx_item_descripcion.Location = New System.Drawing.Point(238, 86)
         Me.tx_item_descripcion.Name = "tx_item_descripcion"
         Me.tx_item_descripcion.Size = New System.Drawing.Size(457, 22)
-        Me.tx_item_descripcion.TabIndex = 185
+        Me.tx_item_descripcion.TabIndex = 1
         '
         'bt_historico_compras
         '

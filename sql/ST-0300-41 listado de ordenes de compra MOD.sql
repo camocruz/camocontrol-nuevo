@@ -1,7 +1,7 @@
 ﻿select f0319_id_oc as id_oc, f0319_cumplida as cumpl,
        trim(both ' ' from tb_proveedor.f0200_nombres || ' ' || tb_proveedor.f0200_apellido1 || ' ' || tb_proveedor.f0200_apellido2) as razon_social, 
        tb_proveedor.f0200_id as nit,
-       f0319_fecha_oc as fecha_oc,
+       to_char(f0319_fecha_oc, 'YYYY-MM-DD HH12:MI AM') as fecha_oc,
        case when f0319_aprobada = 'S' 
             then tb_aprobado.f0200_apellido1 || ' ' || substring(tb_aprobado.f0200_nombres from 1 for 8)
             else 'SIN APROBAR!!!!'

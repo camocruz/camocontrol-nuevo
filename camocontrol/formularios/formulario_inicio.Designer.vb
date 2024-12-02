@@ -70,6 +70,7 @@ Partial Class formulario_inicio
         Me.mi_reportar_seguimientos = New System.Windows.Forms.ToolStripMenuItem()
         Me.mi_rep_seg_estandar = New System.Windows.Forms.ToolStripMenuItem()
         Me.mi_rep_seg_actividad = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mi_ActualizarArchivosPlanosManto = New System.Windows.Forms.ToolStripMenuItem()
         Me.mi_compras = New System.Windows.Forms.ToolStripMenuItem()
         Me.mi_solicitudes_compra = New System.Windows.Forms.ToolStripMenuItem()
         Me.mi_consultar_sol_compra_listados = New System.Windows.Forms.ToolStripMenuItem()
@@ -83,9 +84,9 @@ Partial Class formulario_inicio
         Me.mi_consultar_solicitud_compra = New System.Windows.Forms.ToolStripMenuItem()
         Me.mi_menu_ordenes_compra = New System.Windows.Forms.ToolStripMenuItem()
         Me.mi_generar_OC = New System.Windows.Forms.ToolStripMenuItem()
-        Me.mi_consultar_OC = New System.Windows.Forms.ToolStripMenuItem()
         Me.mi_listado_items_sin_OC = New System.Windows.Forms.ToolStripMenuItem()
         Me.mi_listado_ocs = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mi_consultar_OC = New System.Windows.Forms.ToolStripMenuItem()
         Me.mi_recepcion_mp_menu = New System.Windows.Forms.ToolStripMenuItem()
         Me.mi_recepcion = New System.Windows.Forms.ToolStripMenuItem()
         Me.mi_sc_pend_aprob_recepcion = New System.Windows.Forms.ToolStripMenuItem()
@@ -171,7 +172,6 @@ Partial Class formulario_inicio
         Me.StatusStrip = New System.Windows.Forms.StatusStrip()
         Me.ToolStripStatusLabel = New System.Windows.Forms.ToolStripStatusLabel()
         Me.ToolTip = New System.Windows.Forms.ToolTip(Me.components)
-        Me.mi_ActualizarArchivosPlanosManto = New System.Windows.Forms.ToolStripMenuItem()
         Me.MenuStrip.SuspendLayout()
         Me.StatusStrip.SuspendLayout()
         Me.SuspendLayout()
@@ -512,6 +512,13 @@ Partial Class formulario_inicio
         Me.mi_rep_seg_actividad.Size = New System.Drawing.Size(315, 30)
         Me.mi_rep_seg_actividad.Text = "Reporte de Actividad o Intervencion"
         '
+        'mi_ActualizarArchivosPlanosManto
+        '
+        Me.mi_ActualizarArchivosPlanosManto.Image = Global.camocontrol.My.Resources.Resources.actualizar
+        Me.mi_ActualizarArchivosPlanosManto.Name = "mi_ActualizarArchivosPlanosManto"
+        Me.mi_ActualizarArchivosPlanosManto.Size = New System.Drawing.Size(259, 30)
+        Me.mi_ActualizarArchivosPlanosManto.Text = "Actualizar Archivos Planos"
+        '
         'mi_compras
         '
         Me.mi_compras.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mi_solicitudes_compra, Me.mi_menu_ordenes_compra, Me.mi_recepcion_mp_menu, Me.mi_aprobacion_facturas_menu, Me.mi_historico_compras_item, Me.mi_listado_compras_consolidado, Me.mi_gestion_inventarios, Me.mi_listado_general_items, Me.mi_trazabilidad_lotes_compras, Me.mi_asignaciones_personal})
@@ -595,7 +602,7 @@ Partial Class formulario_inicio
         '
         'mi_menu_ordenes_compra
         '
-        Me.mi_menu_ordenes_compra.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mi_generar_OC, Me.mi_consultar_OC, Me.mi_listado_items_sin_OC, Me.mi_listado_ocs})
+        Me.mi_menu_ordenes_compra.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mi_generar_OC, Me.mi_listado_items_sin_OC, Me.mi_listado_ocs, Me.mi_consultar_OC})
         Me.mi_menu_ordenes_compra.Image = Global.camocontrol.My.Resources.Resources.articles
         Me.mi_menu_ordenes_compra.Name = "mi_menu_ordenes_compra"
         Me.mi_menu_ordenes_compra.Size = New System.Drawing.Size(289, 30)
@@ -605,29 +612,29 @@ Partial Class formulario_inicio
         '
         Me.mi_generar_OC.Image = Global.camocontrol.My.Resources.Resources.articles
         Me.mi_generar_OC.Name = "mi_generar_OC"
-        Me.mi_generar_OC.Size = New System.Drawing.Size(230, 30)
+        Me.mi_generar_OC.Size = New System.Drawing.Size(246, 30)
         Me.mi_generar_OC.Text = "Generar OC"
-        '
-        'mi_consultar_OC
-        '
-        Me.mi_consultar_OC.Image = Global.camocontrol.My.Resources.Resources.articles
-        Me.mi_consultar_OC.Name = "mi_consultar_OC"
-        Me.mi_consultar_OC.Size = New System.Drawing.Size(230, 30)
-        Me.mi_consultar_OC.Text = "Consultar Documento"
         '
         'mi_listado_items_sin_OC
         '
         Me.mi_listado_items_sin_OC.Image = Global.camocontrol.My.Resources.Resources.icono_lupa
         Me.mi_listado_items_sin_OC.Name = "mi_listado_items_sin_OC"
-        Me.mi_listado_items_sin_OC.Size = New System.Drawing.Size(230, 30)
+        Me.mi_listado_items_sin_OC.Size = New System.Drawing.Size(246, 30)
         Me.mi_listado_items_sin_OC.Text = "Listado Items sin OC"
         '
         'mi_listado_ocs
         '
         Me.mi_listado_ocs.Image = Global.camocontrol.My.Resources.Resources.icono_lupa
         Me.mi_listado_ocs.Name = "mi_listado_ocs"
-        Me.mi_listado_ocs.Size = New System.Drawing.Size(230, 30)
-        Me.mi_listado_ocs.Text = "Listado de OC's"
+        Me.mi_listado_ocs.Size = New System.Drawing.Size(246, 30)
+        Me.mi_listado_ocs.Text = "Listado General de OC's"
+        '
+        'mi_consultar_OC
+        '
+        Me.mi_consultar_OC.Image = Global.camocontrol.My.Resources.Resources.articles
+        Me.mi_consultar_OC.Name = "mi_consultar_OC"
+        Me.mi_consultar_OC.Size = New System.Drawing.Size(246, 30)
+        Me.mi_consultar_OC.Text = "Consultar Documento"
         '
         'mi_recepcion_mp_menu
         '
@@ -1236,13 +1243,6 @@ Partial Class formulario_inicio
         Me.ToolStripStatusLabel.Name = "ToolStripStatusLabel"
         Me.ToolStripStatusLabel.Size = New System.Drawing.Size(40, 17)
         Me.ToolStripStatusLabel.Text = "Estado"
-        '
-        'mi_ActualizarArchivosPlanosManto
-        '
-        Me.mi_ActualizarArchivosPlanosManto.Image = Global.camocontrol.My.Resources.Resources.actualizar
-        Me.mi_ActualizarArchivosPlanosManto.Name = "mi_ActualizarArchivosPlanosManto"
-        Me.mi_ActualizarArchivosPlanosManto.Size = New System.Drawing.Size(259, 30)
-        Me.mi_ActualizarArchivosPlanosManto.Text = "Actualizar Archivos Planos"
         '
         'formulario_inicio
         '

@@ -66,6 +66,7 @@ Partial Class fm_0300_sc_solicitud
         Me.dgocell_costo_total_iva = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.dgocell_descripcion_estructura = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.dgocell_id_accion = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.dgocell_id_accion_raiz = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.dgocell_nota = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.dgocell_id_oc = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.dgocell_oc_aprobada = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -408,7 +409,7 @@ Partial Class fm_0300_sc_solicitud
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.dg_listado.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dg_listado.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.dgocell_id_sc_item, Me.dgocell_item, Me.dgocell_cod_uno, Me.dgocell_descripcion_item, Me.dgocell_descripcion_complementaria, Me.dgocell_cantidad_solicitada, Me.dgocell_chk_inventario, Me.dgocell_inventario_total, Me.dgocell_unidad, Me.dgocell_var_costo, Me.dgocell_costo_unitario, Me.dgocell_descuento, Me.dgocell_costo_total, Me.dgocell_iva, Me.dgocell_costo_unit_iva, Me.dgocell_costo_total_iva, Me.dgocell_descripcion_estructura, Me.dgocell_id_accion, Me.dgocell_nota, Me.dgocell_id_oc, Me.dgocell_oc_aprobada, Me.dgocell_id_fcc, Me.dgocell_doc_inv})
+        Me.dg_listado.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.dgocell_id_sc_item, Me.dgocell_item, Me.dgocell_cod_uno, Me.dgocell_descripcion_item, Me.dgocell_descripcion_complementaria, Me.dgocell_cantidad_solicitada, Me.dgocell_chk_inventario, Me.dgocell_inventario_total, Me.dgocell_unidad, Me.dgocell_var_costo, Me.dgocell_costo_unitario, Me.dgocell_descuento, Me.dgocell_costo_total, Me.dgocell_iva, Me.dgocell_costo_unit_iva, Me.dgocell_costo_total_iva, Me.dgocell_descripcion_estructura, Me.dgocell_id_accion, Me.dgocell_id_accion_raiz, Me.dgocell_nota, Me.dgocell_id_oc, Me.dgocell_oc_aprobada, Me.dgocell_id_fcc, Me.dgocell_doc_inv})
         Me.dg_listado.Location = New System.Drawing.Point(17, 304)
         Me.dg_listado.Name = "dg_listado"
         Me.dg_listado.Size = New System.Drawing.Size(797, 148)
@@ -559,6 +560,13 @@ Partial Class fm_0300_sc_solicitud
         Me.dgocell_id_accion.Name = "dgocell_id_accion"
         Me.dgocell_id_accion.ReadOnly = True
         Me.dgocell_id_accion.Width = 45
+        '
+        'dgocell_id_accion_raiz
+        '
+        Me.dgocell_id_accion_raiz.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCellsExceptHeader
+        Me.dgocell_id_accion_raiz.HeaderText = "Raiz"
+        Me.dgocell_id_accion_raiz.Name = "dgocell_id_accion_raiz"
+        Me.dgocell_id_accion_raiz.Width = 5
         '
         'dgocell_nota
         '
@@ -728,6 +736,7 @@ Partial Class fm_0300_sc_solicitud
     Friend WithEvents Label10 As Label
     Friend WithEvents dg_listado As DataGridView
     Friend WithEvents bt_orden_compra As Button
+    Friend WithEvents tx_emisor As TextBox
     Friend WithEvents dgocell_id_sc_item As DataGridViewTextBoxColumn
     Friend WithEvents dgocell_item As DataGridViewTextBoxColumn
     Friend WithEvents dgocell_cod_uno As DataGridViewTextBoxColumn
@@ -746,10 +755,10 @@ Partial Class fm_0300_sc_solicitud
     Friend WithEvents dgocell_costo_total_iva As DataGridViewTextBoxColumn
     Friend WithEvents dgocell_descripcion_estructura As DataGridViewTextBoxColumn
     Friend WithEvents dgocell_id_accion As DataGridViewTextBoxColumn
+    Friend WithEvents dgocell_id_accion_raiz As DataGridViewTextBoxColumn
     Friend WithEvents dgocell_nota As DataGridViewTextBoxColumn
     Friend WithEvents dgocell_id_oc As DataGridViewTextBoxColumn
     Friend WithEvents dgocell_oc_aprobada As DataGridViewTextBoxColumn
     Friend WithEvents dgocell_id_fcc As DataGridViewTextBoxColumn
     Friend WithEvents dgocell_doc_inv As DataGridViewTextBoxColumn
-    Friend WithEvents tx_emisor As TextBox
 End Class
