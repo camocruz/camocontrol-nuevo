@@ -852,7 +852,8 @@
     Private Sub Buscar_item()
         Dim filtro As String = ""
         If tx_item_descripcion.Text <> "" Then
-            filtro = "descripcion_larga LIKE '%" & tx_item_descripcion.Text.Trim & "%'"
+            'filtro = "descripcion_larga LIKE '%" & tx_item_descripcion.Text.Trim & "%'"
+            filtro = comunes.generador_filtro_like("descripcion_larga", tx_item_descripcion.Text.Trim)
         End If
         tx_item_descripcion.Text = ""
 
@@ -941,5 +942,15 @@
         oform_item.ShowDialog()
     End Sub
 
+    Private Sub Label4_Click(sender As Object, e As EventArgs) Handles Label4.Click
 
+    End Sub
+
+    Private Sub tx_item_descripcion_TextChanged(sender As Object, e As EventArgs) Handles tx_item_descripcion.TextChanged
+
+    End Sub
+
+    Private Sub Label5_Click(sender As Object, e As EventArgs) Handles Label5.Click
+
+    End Sub
 End Class

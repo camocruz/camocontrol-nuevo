@@ -68,11 +68,24 @@ Public Class fm_visor_datos
         End If
 
 
+
         If csql <> "" Then
             otb_datos = cl_utilidades_datatables.cargar_informacion_postgres(csql)
         End If
+        ' Para cuando los datos que se cargaran ya tienen un filtro inicial
+        If dv_filter <> "" Then
+            filtro_inicial = "S"
+            filtrar_datos()
+            'Para que la columna salga mas ancha
+            Dim ColAncha As String = Split(dv_filter, " ")(0)
+            'MsgBox(ColAncha)
+            dg_datos.Columns.Item(ColAncha).Width = 400
+        Else
+            dg_datos.DataSource = otb_datos
+        End If
 
-        dg_datos.DataSource = otb_datos
+
+
         dg_datos.Focus()
         lb_titulo.Text = titulo_formulario
         cm_operadores_filtro.SelectedIndex = 0
@@ -111,13 +124,6 @@ Public Class fm_visor_datos
                 End If
             Next
         End If
-        ' Para cuando los datos que se cargaran ya tienen un filtro inicial
-        If dv_filter <> "" Then
-            filtro_inicial = "S"
-            filtrar_datos()
-        End If
-
-
     End Sub
     Public Sub recargar_datos()
         Dim oldColumn As DataGridViewColumn = dg_datos.SortedColumn
@@ -886,22 +892,26 @@ Public Class fm_visor_datos
         Select Case txt_operador
             Case "TOP1"
                 If conta_filtros = 0 Then
-                    dv_filter = tx_nombre_campo.Text & " " & "LIKE" & " '%" & tx_valor_campo.Text & "%'"
-                    MsgBox(dv_filter)
+                    dv_filter = comunes.generador_filtro_like(tx_nombre_campo.Text, tx_valor_campo.Text)
+                    'dv_filter = tx_nombre_campo.Text & " " & "LIKE" & " '%" & tx_valor_campo.Text & "%'"
+                    'MsgBox(dv_filter)
                 Else
-                    dv_filter += " and " & tx_nombre_campo.Text & " " & "LIKE" & " '%" & tx_valor_campo.Text & "%'"
+                    'dv_filter += " and " & tx_nombre_campo.Text & " " & "LIKE" & " '%" & tx_valor_campo.Text & "%'"
+                    dv_filter += " and " & comunes.generador_filtro_like(tx_nombre_campo.Text, tx_valor_campo.Text)
                 End If
             Case "LIKE"
                 If conta_filtros = 0 Then
-                    dv_filter = tx_nombre_campo.Text & " " & txt_operador & " '" & tx_valor_campo.Text & "%'"
-                    MsgBox(dv_filter)
+                    dv_filter = comunes.generador_filtro_like(tx_nombre_campo.Text, tx_valor_campo.Text)
+                    'dv_filter = tx_nombre_campo.Text & " " & txt_operador & " '" & tx_valor_campo.Text & "%'"
+                    'MsgBox(dv_filter)
                 Else
-                    dv_filter += " and " & tx_nombre_campo.Text & " " & txt_operador & " '" & tx_valor_campo.Text & "%'"
+                    'dv_filter += " and " & tx_nombre_campo.Text & " " & txt_operador & " '" & tx_valor_campo.Text & "%'"
+                    dv_filter += " and " & comunes.generador_filtro_like(tx_nombre_campo.Text, tx_valor_campo.Text)
                 End If
             Case "NULO" 'este filtro hay que probarlo en columnas tipo numeric, texto y date.
                 If conta_filtros = 0 Then
                     dv_filter = tx_nombre_campo.Text & " IS NULL or " & tx_nombre_campo.Text & " = ''" ' & "%'"  "A IS NOT NULL AND A <> ''"
-                    MsgBox(dv_filter)
+                    'MsgBox(dv_filter)
                 Else
                     dv_filter += " and " & tx_nombre_campo.Text & " IS NULL or " & tx_nombre_campo.Text & " = ''" '& "%'"
                 End If
@@ -914,7 +924,7 @@ Public Class fm_visor_datos
         End Select
 filtro_ini:
         conta_filtros += 1
-        MsgBox(UCase(dv_filter), MsgBoxStyle.Information, "Filtro")
+        'MsgBox(UCase(dv_filter), MsgBoxStyle.Information, "Filtro")
         Try
             dv_datos.RowFilter = dv_filter
         Catch ex As Exception
@@ -934,6 +944,7 @@ filtro_ini:
             dg_datos.Rows(0).Cells(0).Selected = True
         End If
     End Sub
+
     Private Sub bt_quitar_filtro_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles bt_quitar_filtro.Click
         dg_datos.DataSource = otb_datos
         dv_filter = ""
@@ -1222,6 +1233,5 @@ filtro_ini:
     Private Sub cm_operadores_filtro_GotFocus(sender As Object, e As EventArgs) Handles cm_operadores_filtro.GotFocus
         cm_operadores_filtro.DroppedDown = True
     End Sub
-
 
 End Class

@@ -168,7 +168,8 @@
     Private Sub Buscar_item()
         Dim filtro As String = ""
         If tx_item_descripcion.Text <> "" Then
-            filtro = "descripcion_larga LIKE '%" & tx_item_descripcion.Text.Trim & "%'"
+            'filtro = "descripcion_larga LIKE '%" & tx_item_descripcion.Text.Trim & "%'"
+            filtro = comunes.generador_filtro_like("descripcion_larga", tx_item_descripcion.Text.Trim)
         End If
         tx_item_descripcion.Text = ""
 

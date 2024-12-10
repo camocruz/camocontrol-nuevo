@@ -77,6 +77,22 @@ Public Class comunes
         oform_visor_texto.ShowDialog()
         oform_visor_texto.Dispose()
     End Sub
+    Public Shared Function generador_filtro_like(ByVal tx_nombre_campo As String, ByVal txtfiltro As String)
+        Dim olist As String()
+        olist = Split(txtfiltro, " ")
+        Dim ittx As Integer = olist.Length
+        Dim filtrin As String = tx_nombre_campo & " "
+        Dim i As Integer = 1
+        For Each a As String In olist
+            If i = 1 Then
+                filtrin += "like '%" & a & "%'"
+            Else
+                filtrin += " and " & tx_nombre_campo & " " & "like '%" & a & "%'"
+            End If
+            i += 1
+        Next
+        Return filtrin
+    End Function
     Public Shared Function Buscador_item(vg_id_cia As String, vg_usuario_autoriza As String, Optional filtro As String = "")
         Dim otb_items_selected As DataTable = Nothing
         Dim otb_tablas_array() As DataTable = Nothing

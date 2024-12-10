@@ -152,9 +152,6 @@ Partial Class fm_0300_facturas_compras
         '
         Me.lb_diseñador_programa.Location = New System.Drawing.Point(0, 574)
         '
-        'bt_editar
-        '
-        '
         'chk_cmena
         '
         Me.chk_cmena.AutoSize = True
