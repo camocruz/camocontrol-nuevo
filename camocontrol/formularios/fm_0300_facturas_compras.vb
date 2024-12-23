@@ -641,7 +641,7 @@
         For Each orow As DataRow In otb_items_programados.Rows
             Agregar_fila_items(orow)
             ocosto += orow("f0305_costo_total_planificado")
-            subtotal += orow("f0305_cantidad") * orow("f0305_costo_unitario_planificado") * (1 - orow("f0305_descuento"))
+            subtotal += orow("f0305_cantidad") * orow("f0305_costo_unitario_planificado")
         Next
         lb_valor_factura.Text = ocosto.ToString("C2")
         lb_valor_subtotal.Text = subtotal.ToString("C2")

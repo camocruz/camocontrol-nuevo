@@ -28,10 +28,10 @@
        f0305_cantidad_stock as stock, 
        f0002_sigla_unidad_medicion as unid,
 
-       f0305_costo_unitario_planificado as costo_unit,
+       f0305_costo_unitario_planificado / (1 - f0305_descuento) as costo_unit,
        f0305_iva as iva,
        f0305_descuento as descuento,
-       f0305_costo_unitario_planificado * (1 - f0305_descuento) * f0305_cantidad as subtotal,
+       f0305_costo_unitario_planificado * f0305_cantidad as subtotal,
 
        
        f0305_costo_total_planificado as costo_total,

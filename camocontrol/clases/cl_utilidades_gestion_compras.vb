@@ -6,51 +6,46 @@
         Dim otb_info_item As DataTable = cl_utilidades_datatables.cargar_informacion_postgres(csql)
         Return otb_info_item
     End Function
-    Public Shared Function calcular_costos_compra(ByVal tipo_calculo As Integer, ByVal cantidad As Decimal,
+
+
+    Public Shared Function calcular_costos_compra(ByVal tipo_calculo As Integer,
+                                                  ByVal cantidad As Decimal,
                                                   ByVal costo_unit As Decimal,
-                                                  ByVal impuesto As Decimal, ByVal descuento As Decimal,
+                                                  ByVal impuesto As Decimal,
+                                                  ByVal descuento As Decimal,
                                                   ByVal costo_total As Decimal,
                                                   ByVal costo_unit_iva As Decimal,
                                                   ByVal costo_total_iva As Decimal)
-        Dim valores(5) As Decimal
-        'valores(1) = costo unitario
-        'valores(2) = costo total
-        'valores(3) = costo unitario + iva
-        'valores(4) = costo total + iva
 
+        Dim valores(6) As Decimal
         If cantidad = 0 Then
             valores(1) = 0
             valores(2) = 0
             valores(3) = 0
             valores(4) = 0
+            valores(5) = 0
             MsgBox("La cantidad no puede ser 0", MsgBoxStyle.Critical, "Error")
             Return valores
             Exit Function
         End If
         Select Case tipo_calculo
-            'tipo calculo 1 = tengo: cantidad, costo_unitario, impuesto, descuento
+            'TODO ESTE CASE CALCULA UNICAMENTE EL CostoUnitConDescuento
             Case 1
-                'Tengo todo lo necesario para calcular
                 costo_unit = costo_unit * (1 - (descuento / 100))
             Case 2
-                'tipo calculo 2 = tengo: cantidad, costo_unitario + iva, impuesto, descuento
-                'calculo el costo unitario
                 costo_unit = costo_unit_iva / (1 + (impuesto / 100))
             Case 3
-                'tipo calculo 3 = tengo: cantidad, costo_total + iva, impuesto, descuento
-                'calculo el costo unitario
                 costo_unit = costo_total_iva / ((1 + (impuesto / 100)) * cantidad)
-                'MsgBox(costo_unit)
             Case 4
-                'tipo calculo 4 = tengo: cantidad, costo_total, impuesto, descuento
-                'calculo el costo unitario
                 costo_unit = costo_total / cantidad
         End Select
-        'Dim cost_unit_descuento As Decimal = costo_unit * (1 - (descuento / 100))
-        valores(1) = costo_unit
-        valores(2) = cantidad * costo_unit
-        valores(3) = costo_unit * (1 + (impuesto / 100))
-        valores(4) = cantidad * valores(3)
+        'Apartir del costo unitario calculado recalculo los otros valores TENIENDO COMO VALORES FIJOS LA CANTIDAD - IMPUESTO - DESCUENTO
+        valores(1) = costo_unit                             'costo unitario Con descuento sin IVA. BASE DE TODOS LOS CALCULOS SIGUIENTES
+        valores(2) = cantidad * costo_unit                  'Subtotal SinIVA
+        valores(3) = costo_unit * (1 + (impuesto / 100))    'Costo unitario con IVA
+        valores(4) = cantidad * valores(3)                  'Subtotal ConIVA
+        valores(5) = costo_unit / (1 - (descuento / 100))   'Costo unitario SinDescuento y SinIVA
+
         'MsgBox(valores(1) & " - " & valores(2) & " - " & valores(3) & " - " & valores(4))
         Return valores
     End Function

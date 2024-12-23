@@ -46,6 +46,7 @@
     Private var_costo_promedio_registro As Decimal = 0 'variacion del costo grabada en el registro
     Private var_costo_promedio_actual As Decimal = 0 'variacion del valor actual con respecto al costo promedio actual
     Private v_var_costo As String = "N" 'variable que identifica si se recalculo la variacion de costo
+    Private costo_unitADescuento As Decimal = 0 'Costo unitario antes del descuento
     Private cost_unit_p As Decimal = 0 'costo unitario planificado
     Private cost_tot_p As Decimal = 0 'costo total planificado
     Private cost_tot_r As Decimal = 0 'costo total real
@@ -144,6 +145,7 @@
             tx_item_descripcion.Text = orow("f0300_descripcion_item")
             tx_descripcion_manual.Text = orow("f0305_ampliacion_item")
             cost_tot_p = orow("f0305_costo_total_planificado")
+
             tx_cantidad.Text = orow("f0305_cantidad")
             inventario = orow("f0305_inventario")
             lb_inventario.Text = "Inventario Tot: " & Math.Round(orow("f0305_inventario"), 2)
@@ -159,8 +161,14 @@
             tx_descuento.Text = orow("f0305_descuento") * 100
             Dim ocosto As Decimal = 0
             'MsgBox(orow("f0305_costo_unitario_planificado") & " -- " & 1 - orow("f0305_descuento"))
-            ocosto = orow("f0305_costo_unitario_planificado") / (1 - orow("f0305_descuento"))
+            ocosto = orow("f0305_costo_unitario_planificado")
+            tx_cost_unit_planificado.Text = ocosto.ToString("C2")
+
+            ocosto = orow("f0305_costo_unitario_planificado")
+            tx_cost_unit_planificado.Text = ocosto.ToString("C2") 'Costo menos el descuento, es el valor con el calculo costos de manto
+            ocosto = orow("f0305_costo_unitario_planificado") / (1 - orow("f0305_descuento")) 'Costo antes del descuento - para referencia del usuario
             tx_cost_unit.Text = ocosto.ToString("C2")
+
             cost_unit_p = orow("f0305_costo_unitario_planificado")
             ocosto = orow("f0305_costo_total_planificado")
             tx_cost_total_iva.Text = ocosto.ToString("C2")
@@ -253,25 +261,6 @@
         End If
     End Sub
 
-    Private Sub Tx_cantidad_Validating(ByVal sender As Object, ByVal e As System.ComponentModel.CancelEventArgs) Handles tx_cantidad.Validating
-        If tx_cantidad.Text.ToString = "" Or IsNumeric(tx_cantidad.Text.ToString) = False Then
-            tx_cantidad.Text = "0"
-        End If
-        If sc_aprobada = "S" Then
-            If tx_cantidad.Text > cantidad_inicial Or tx_cantidad.Text < 0 Then
-                MsgBox("La cantidad maxima aprobada es: " & cantidad_inicial, MsgBoxStyle.Exclamation, "Error")
-                tx_cantidad.Text = cantidad_inicial
-            End If
-        End If
-        tx_cost_unit_iva.Text = (tx_cost_unit.Text * (1 + (tx_impuesto.Text / 100))).ToString("C4")
-        tx_cost_total.Text = (tx_cantidad.Text * (tx_cost_unit.Text * (1 - (tx_descuento.Text / 100)))).ToString("C4")
-        tx_cost_total_iva.Text = (tx_cantidad.Text * (tx_cost_unit.Text * (1 - (tx_descuento.Text / 100)) * (1 + (tx_impuesto.Text / 100)))).ToString("C4")
-    End Sub
-    'Private Sub tx_cantidad_stock_Validating(ByVal sender As Object, ByVal e As System.ComponentModel.CancelEventArgs)
-    '    If tx_cantidad_stock.Text.ToString = "" Or IsNumeric(tx_cantidad_stock.Text.ToString) = False Then
-    '        tx_cantidad_stock.Text = "0"
-    '    End If
-    'End Sub
     Private Sub Calcular_variacion_costo()
         'calculo la desviacion del valor respecto al costo promedio actual
         If costo_promedio_actual > 0 Then
@@ -299,15 +288,32 @@
             End If
         End If
     End Sub
-    Private Sub Tx_costo_unit_planificado_Validating(ByVal sender As Object, ByVal e As System.ComponentModel.CancelEventArgs) Handles tx_cost_unit.Validating
+
+
+
+    Private Sub Tx_cantidad_Validating(ByVal sender As Object, ByVal e As System.ComponentModel.CancelEventArgs) Handles tx_cantidad.Validating
+        If tx_cantidad.Text.ToString = "" Or IsNumeric(tx_cantidad.Text.ToString) = False Then
+            tx_cantidad.Text = "0"
+        End If
+        If sc_aprobada = "S" Then
+            If tx_cantidad.Text > cantidad_inicial Or tx_cantidad.Text < 0 Then
+                MsgBox("La cantidad maxima aprobada es: " & cantidad_inicial, MsgBoxStyle.Exclamation, "Error")
+                tx_cantidad.Text = cantidad_inicial
+            End If
+        End If
+        Calcular_valores_1(1)
+    End Sub
+    Private Sub Tx_costo_unit_planificado_Validating(ByVal sender As Object, ByVal e As System.ComponentModel.CancelEventArgs) Handles tx_cost_unit_planificado.Validating
+        If tx_cost_unit_planificado.Text.ToString = "" Or IsNumeric(tx_cost_unit_planificado.Text.ToString) = False Then
+            tx_cost_unit_planificado.Text = "0"
+        End If
+        Calcular_valores_1(1)
+    End Sub
+    Private Sub Tx_cost_unit_Validating(ByVal sender As Object, ByVal e As System.ComponentModel.CancelEventArgs) Handles tx_cost_unit.Validating
         If tx_cost_unit.Text.ToString = "" Or IsNumeric(tx_cost_unit.Text.ToString) = False Then
             tx_cost_unit.Text = "0"
         End If
-        cost_unit_p = tx_cost_unit.Text
-        tx_cost_unit.Text = cost_unit_p.ToString("C4")
         Calcular_valores_1(1)
-        'calculo la desviacion del valor respecto al costo promedio actual
-        Calcular_variacion_costo()
     End Sub
     Private Sub Tx_impuesto_Validating(ByVal sender As Object, ByVal e As System.ComponentModel.CancelEventArgs) Handles tx_impuesto.Validating
         If tx_impuesto.Text.ToString = "" Or IsNumeric(tx_impuesto.Text.ToString) = False Then
@@ -320,64 +326,46 @@
             tx_descuento.Text = "0"
         End If
         Calcular_valores_1(1)
-        'calculo la desviacion del valor respecto al costo promedio actual
-        Calcular_variacion_costo()
     End Sub
     Private Sub Tx_cost_unit_iva_Validating(ByVal sender As Object, ByVal e As System.ComponentModel.CancelEventArgs) Handles tx_cost_unit_iva.Validating
         If tx_cost_unit_iva.Text.ToString = "" Or IsNumeric(tx_cost_unit_iva.Text.ToString) = False Then
             tx_cost_unit_iva.Text = "0"
         End If
-        'tx_cost_unit.Text = (tx_cost_unit_iva.Text / (1 + (tx_impuesto.Text / 100))).ToString("C4")
         Calcular_valores_1(2)
-        'calculo la desviacion del valor respecto al costo promedio actual
-        Calcular_variacion_costo()
     End Sub
 
     Private Sub Tx_cost_total_iva_Validating(ByVal sender As Object, ByVal e As System.ComponentModel.CancelEventArgs) Handles tx_cost_total_iva.Validating
         If tx_cost_total_iva.Text.ToString = "" Or IsNumeric(tx_cost_total_iva.Text.ToString) = False Then
             tx_cost_total_iva.Text = "0"
         End If
-        'tx_cost_unit.Text = (tx_cost_total_iva.Text / (tx_cantidad.Text * (1 + (tx_impuesto.Text / 100)))).ToString("C4")
         Calcular_valores_1(3)
-        'calculo la desviacion del valor respecto al costo promedio actual
-        Calcular_variacion_costo()
     End Sub
 
     Private Sub Tx_cost_total_Validating(ByVal sender As Object, ByVal e As System.ComponentModel.CancelEventArgs) Handles tx_cost_total.Validating
         If tx_cost_total.Text.ToString = "" Or IsNumeric(tx_cost_total.Text.ToString) = False Then
             tx_cost_total.Text = "0"
         End If
-        'tx_cost_unit.Text = (tx_cost_total.Text / tx_cantidad.Text).ToString("C4")
         Calcular_valores_1(4)
-        'calculo la desviacion del valor respecto al costo promedio actual
-        Calcular_variacion_costo()
     End Sub
     Private Sub Calcular_valores_1(ByVal tipo_calculo As Integer)
-        'tx_cost_unit_iva.Text = (tx_cost_unit.Text * (1 + (tx_impuesto.Text / 100))).ToString("C4")
-        'tx_cost_total.Text = (tx_cantidad.Text * (tx_cost_unit.Text * (1 - (tx_descuento.Text / 100)))).ToString("C4")
-        'tx_cost_total_iva.Text = (tx_cantidad.Text * (tx_cost_unit.Text * (1 - (tx_descuento.Text / 100)) * (1 + (tx_impuesto.Text / 100)))).ToString("C4")
-
         Dim valores() As Decimal
         valores = cl_utilidades_gestion_compras.calcular_costos_compra(tipo_calculo, tx_cantidad.Text,
                                                                        tx_cost_unit.Text, tx_impuesto.Text,
                                                                        tx_descuento.Text, tx_cost_total.Text,
                                                                        tx_cost_unit_iva.Text, tx_cost_total_iva.Text)
-        'valores(1) = costo unitario
-        'valores(2) = costo total
-        'valores(3) = costo unitario + iva
-        'valores(4) = costo total + iva
+        'valores(1) = costo unitario Con descuento sin IVA. BASE DE TODOS LOS CALCULOS SIGUIENTES
+        'valores(2) = Subtotal SinIVA
+        'valores(3) = Costo unitario con IVA
+        'valores(4) = Subtotal ConIVA
+        'valores(5) = Costo unitario SinDescuento y SinIVA
 
-        tx_cost_unit.Text = (valores(1) / (1 - tx_descuento.Text / 100)).ToString("C4")
+        tx_cost_unit_planificado.Text = valores(1).ToString("C4")
+        tx_cost_unit.Text = valores(5).ToString("C4")
         tx_cost_total.Text = valores(2).ToString("C4")
         tx_cost_unit_iva.Text = valores(3).ToString("C4")
         tx_cost_total_iva.Text = valores(4).ToString("C4")
-
-        'Dim tx As String = ""
-        'tx += "costo unit: " & valores(1) & vbCrLf
-        'tx += "costo total: " & valores(2) & vbCrLf
-        'tx += "costo unit iva: " & valores(3) & vbCrLf
-        'tx += "costo total iva: " & valores(4) & vbCrLf
-        'MsgBox(tx)
+        cost_unit_p = valores(1)
+        Calcular_variacion_costo()
     End Sub
     Private Sub Cargar_informacion_item()
         'Identificamos informacion de la estructura seleccionada.
@@ -448,7 +436,7 @@
 
         cantidad = tx_cantidad.Text
         'cantidad_stock = tx_cantidad_stock.Text
-        cost_unit_p = tx_cost_unit.Text
+        cost_unit_p = tx_cost_unit_planificado.Text
         cost_tot_p = tx_cost_total_iva.Text
 
         If tx_id_registro.Text.ToString = "" Then
@@ -942,15 +930,4 @@
         oform_item.ShowDialog()
     End Sub
 
-    Private Sub Label4_Click(sender As Object, e As EventArgs) Handles Label4.Click
-
-    End Sub
-
-    Private Sub tx_item_descripcion_TextChanged(sender As Object, e As EventArgs) Handles tx_item_descripcion.TextChanged
-
-    End Sub
-
-    Private Sub Label5_Click(sender As Object, e As EventArgs) Handles Label5.Click
-
-    End Sub
 End Class

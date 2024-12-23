@@ -377,7 +377,8 @@
                                                                                ocosto_unit_iva,
                                                                                ocosto_total_iva)
         End Select
-        dg_listado.CurrentRow.Cells("dgocell_costo_unitario").Value = valores(1) / (1 - dg_listado.CurrentRow.Cells("dgocell_descuento").Value / 100)
+        'dg_listado.CurrentRow.Cells("dgocell_costo_unitario").Value = valores(1) / (1 - dg_listado.CurrentRow.Cells("dgocell_descuento").Value / 100)
+        dg_listado.CurrentRow.Cells("dgocell_costo_unitario").Value = valores(5)
         dg_listado.CurrentRow.Cells("dgocell_costo_total").Value = valores(2)
         dg_listado.CurrentRow.Cells("dgocell_costo_unit_iva").Value = valores(3)
         dg_listado.CurrentRow.Cells("dgocell_costo_total_iva").Value = valores(4)
@@ -543,7 +544,7 @@
             & " f0300_descripcion_item || ' - ' || f0300_referencia || ' - ' || f0300_contenido_x_empaque as descripcion," _
             & " f0305_ampliacion_item as descripcion_comp," _
             & " f0002_sigla_unidad_medicion," _
-            & " f0305_costo_unitario_planificado as costo_unitario," _
+            & " f0305_costo_unitario_planificado / (1 - f0305_descuento) as costo_unitario," _
             & " f0305_costo_unitario_planificado * f0305_cantidad as costo_subtotal," _
             & " f0305_costo_total_planificado / f0305_cantidad as costo_unit_iva," _
             & " f0305_costo_total_planificado as costo_total," _
@@ -698,8 +699,9 @@
         orowgrid.Cells.Add(otextgrid)
 
         'crea columna 9
+        '.Value = orow.Item("costo_unitario") / (1 - orow.Item("f0305_descuento"))
         otextgrid = New DataGridViewTextBoxCell With {
-            .Value = orow.Item("costo_unitario") / (1 - orow.Item("f0305_descuento"))
+            .Value = orow.Item("costo_unitario")
         }
         'otextgrid.MaxInputLength = 100
         'Agrega columna al objeto fila
@@ -1425,7 +1427,9 @@
         'oform_factura_compra.id_factura_compras = dg_datos.CurrentCell.Value
         oform_factura_compra.vg_usuario_autoriza = vg_usuario_autoriza
         oform_factura_compra.vf_elemento_nuevo = "S"
-        oform_factura_compra.Show()
+        oform_factura_compra.ShowDialog()
+        Cargar_datatables()
+        Llenar_items_solicitados()
     End Sub
 
     Private Sub bt_orden_compra_Click(sender As Object, e As EventArgs) Handles bt_orden_compra.Click
@@ -1445,7 +1449,9 @@
         'oform_factura_compra.id_factura_compras = dg_datos.CurrentCell.Value
         oform_orden_compra.vg_usuario_autoriza = vg_usuario_autoriza
         oform_orden_compra.vf_elemento_nuevo = "S"
-        oform_orden_compra.Show()
+        oform_orden_compra.ShowDialog()
+        Cargar_datatables()
+        Llenar_items_solicitados()
     End Sub
 
     Private Sub dg_listado_KeyDown(sender As Object, e As KeyEventArgs) Handles dg_listado.KeyDown

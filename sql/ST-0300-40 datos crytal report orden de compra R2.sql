@@ -13,7 +13,7 @@ select 'OC-' || to_char(f0319_id_oc, 'FM099999MI') as id_oc, 'NIT: ' || tb_prove
        f0305_cantidad as cantidad, 
        f0002_sigla_unidad_medicion as unid,
 
-       f0305_costo_unitario_planificado / (1-f0305_descuento) as costo_unit,
+       f0305_costo_unitario_planificado / (1 - f0305_descuento) as costo_unit,
        ROUND(f0305_iva * 100,1) || '%' as iva,
        ROUND(f0305_descuento * 100 ,1) || '%' as descuento,
        f0305_costo_unitario_planificado * f0305_cantidad as subtotal,
