@@ -638,13 +638,23 @@
         otb_items_programados = cl_utilidades_datatables.cargar_informacion_postgres(csql)
         ocosto = 0
         Dim subtotal As Decimal = 0
+        Dim cumplerequisitos As String = "S"
         For Each orow As DataRow In otb_items_programados.Rows
             Agregar_fila_items(orow)
             ocosto += orow("f0305_costo_total_planificado")
             subtotal += orow("f0305_cantidad") * orow("f0305_costo_unitario_planificado")
+            If orow("f0305_oc_aprov") = "N" Or orow("f0305_estado") <> "A" Then
+                cumplerequisitos = "N"
+            End If
         Next
         lb_valor_factura.Text = ocosto.ToString("C2")
         lb_valor_subtotal.Text = subtotal.ToString("C2")
+
+        If cumplerequisitos = "N" Then
+            lb_IncumpleRequisitos.Text = "No cumple con Aprobaciones de SC u OC"
+        Else
+            lb_IncumpleRequisitos.Text = "..."
+        End If
     End Sub
     Private Sub Agregar_fila_items(ByVal orow As DataRow)
 

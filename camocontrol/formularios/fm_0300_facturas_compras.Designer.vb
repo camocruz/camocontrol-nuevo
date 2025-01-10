@@ -110,6 +110,7 @@ Partial Class fm_0300_facturas_compras
         Me.tx_id_tercero = New System.Windows.Forms.TextBox()
         Me.Tx_Nit = New System.Windows.Forms.TextBox()
         Me.lb_identificacion = New System.Windows.Forms.Label()
+        Me.lb_IncumpleRequisitos = New System.Windows.Forms.Label()
         Me.GroupBox1.SuspendLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox2.SuspendLayout()
@@ -155,7 +156,7 @@ Partial Class fm_0300_facturas_compras
         'chk_cmena
         '
         Me.chk_cmena.AutoSize = True
-        Me.chk_cmena.Location = New System.Drawing.Point(676, 308)
+        Me.chk_cmena.Location = New System.Drawing.Point(676, 290)
         Me.chk_cmena.Name = "chk_cmena"
         Me.chk_cmena.Size = New System.Drawing.Size(57, 17)
         Me.chk_cmena.TabIndex = 350
@@ -165,7 +166,7 @@ Partial Class fm_0300_facturas_compras
         'bt_contabilizacion
         '
         Me.bt_contabilizacion.BackgroundImage = Global.camocontrol.My.Resources.Resources.chatarra2
-        Me.bt_contabilizacion.Location = New System.Drawing.Point(746, 275)
+        Me.bt_contabilizacion.Location = New System.Drawing.Point(746, 257)
         Me.bt_contabilizacion.Name = "bt_contabilizacion"
         Me.bt_contabilizacion.Size = New System.Drawing.Size(48, 46)
         Me.bt_contabilizacion.TabIndex = 349
@@ -174,7 +175,7 @@ Partial Class fm_0300_facturas_compras
         'tx_contabilizacion
         '
         Me.tx_contabilizacion.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.tx_contabilizacion.Location = New System.Drawing.Point(676, 284)
+        Me.tx_contabilizacion.Location = New System.Drawing.Point(676, 266)
         Me.tx_contabilizacion.Name = "tx_contabilizacion"
         Me.tx_contabilizacion.Size = New System.Drawing.Size(64, 22)
         Me.tx_contabilizacion.TabIndex = 348
@@ -183,7 +184,7 @@ Partial Class fm_0300_facturas_compras
         '
         Me.Label12.AutoSize = True
         Me.Label12.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label12.Location = New System.Drawing.Point(673, 267)
+        Me.Label12.Location = New System.Drawing.Point(673, 249)
         Me.Label12.Name = "Label12"
         Me.Label12.Size = New System.Drawing.Size(51, 16)
         Me.Label12.TabIndex = 347
@@ -261,7 +262,7 @@ Partial Class fm_0300_facturas_compras
         '
         Me.lb_valor_subtotal.AutoSize = True
         Me.lb_valor_subtotal.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lb_valor_subtotal.Location = New System.Drawing.Point(365, 273)
+        Me.lb_valor_subtotal.Location = New System.Drawing.Point(365, 263)
         Me.lb_valor_subtotal.Name = "lb_valor_subtotal"
         Me.lb_valor_subtotal.Size = New System.Drawing.Size(18, 20)
         Me.lb_valor_subtotal.TabIndex = 339
@@ -271,7 +272,7 @@ Partial Class fm_0300_facturas_compras
         '
         Me.Label19.AutoSize = True
         Me.Label19.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label19.Location = New System.Drawing.Point(286, 273)
+        Me.Label19.Location = New System.Drawing.Point(286, 263)
         Me.Label19.Name = "Label19"
         Me.Label19.Size = New System.Drawing.Size(73, 20)
         Me.Label19.TabIndex = 338
@@ -523,7 +524,7 @@ Partial Class fm_0300_facturas_compras
         '
         Me.lb_valor_factura.AutoSize = True
         Me.lb_valor_factura.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lb_valor_factura.Location = New System.Drawing.Point(365, 293)
+        Me.lb_valor_factura.Location = New System.Drawing.Point(365, 283)
         Me.lb_valor_factura.Name = "lb_valor_factura"
         Me.lb_valor_factura.Size = New System.Drawing.Size(18, 20)
         Me.lb_valor_factura.TabIndex = 325
@@ -533,7 +534,7 @@ Partial Class fm_0300_facturas_compras
         '
         Me.Label10.AutoSize = True
         Me.Label10.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label10.Location = New System.Drawing.Point(286, 293)
+        Me.Label10.Location = New System.Drawing.Point(286, 283)
         Me.Label10.Name = "Label10"
         Me.Label10.Size = New System.Drawing.Size(48, 20)
         Me.Label10.TabIndex = 324
@@ -561,7 +562,7 @@ Partial Class fm_0300_facturas_compras
         '
         Me.bt_aprobar.BackColor = System.Drawing.Color.Gainsboro
         Me.bt_aprobar.Image = Global.camocontrol.My.Resources.Resources.dinero01
-        Me.bt_aprobar.Location = New System.Drawing.Point(509, 267)
+        Me.bt_aprobar.Location = New System.Drawing.Point(509, 249)
         Me.bt_aprobar.Name = "bt_aprobar"
         Me.bt_aprobar.Size = New System.Drawing.Size(117, 39)
         Me.bt_aprobar.TabIndex = 321
@@ -953,7 +954,7 @@ Partial Class fm_0300_facturas_compras
         '
         Me.lb_fecha_aprob.AutoSize = True
         Me.lb_fecha_aprob.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lb_fecha_aprob.Location = New System.Drawing.Point(511, 307)
+        Me.lb_fecha_aprob.Location = New System.Drawing.Point(511, 289)
         Me.lb_fecha_aprob.Name = "lb_fecha_aprob"
         Me.lb_fecha_aprob.Size = New System.Drawing.Size(17, 16)
         Me.lb_fecha_aprob.TabIndex = 356
@@ -1024,10 +1025,21 @@ Partial Class fm_0300_facturas_compras
         Me.lb_identificacion.TabIndex = 360
         Me.lb_identificacion.Text = "NIT :"
         '
+        'lb_IncumpleRequisitos
+        '
+        Me.lb_IncumpleRequisitos.AutoSize = True
+        Me.lb_IncumpleRequisitos.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lb_IncumpleRequisitos.Location = New System.Drawing.Point(286, 309)
+        Me.lb_IncumpleRequisitos.Name = "lb_IncumpleRequisitos"
+        Me.lb_IncumpleRequisitos.Size = New System.Drawing.Size(21, 20)
+        Me.lb_IncumpleRequisitos.TabIndex = 364
+        Me.lb_IncumpleRequisitos.Text = "..."
+        '
         'fm_0300_facturas_compras
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.ClientSize = New System.Drawing.Size(941, 588)
+        Me.Controls.Add(Me.lb_IncumpleRequisitos)
         Me.Controls.Add(Me.Label21)
         Me.Controls.Add(Me.Label22)
         Me.Controls.Add(Me.tx_id_tercero)
@@ -1147,6 +1159,7 @@ Partial Class fm_0300_facturas_compras
         Me.Controls.SetChildIndex(Me.tx_id_tercero, 0)
         Me.Controls.SetChildIndex(Me.Label22, 0)
         Me.Controls.SetChildIndex(Me.Label21, 0)
+        Me.Controls.SetChildIndex(Me.lb_IncumpleRequisitos, 0)
         Me.GroupBox1.ResumeLayout(False)
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.GroupBox2.ResumeLayout(False)
@@ -1248,4 +1261,5 @@ Partial Class fm_0300_facturas_compras
     Friend WithEvents tx_id_tercero As TextBox
     Friend WithEvents Tx_Nit As TextBox
     Friend WithEvents lb_identificacion As Label
+    Friend WithEvents lb_IncumpleRequisitos As Label
 End Class

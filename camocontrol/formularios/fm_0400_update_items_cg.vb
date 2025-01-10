@@ -80,6 +80,7 @@
         tx_factor_empaque.Text = otb_item(0)("f0408_factor_empaque").ToString
         tx_factor_cobertura.Text = otb_item(0)("f0408_factor_cobertura").ToString
         tx_tipo_venta.Text = otb_item(0)("f0408_tip_venta").ToString
+        tx_corrugado.Text = otb_item(0)("f0408_id_caja_corrugado").ToString
     End Sub
     Private Sub reset_campos()
         tx_referencia.Text = ""
@@ -94,6 +95,7 @@
         tx_factor_cobertura.Text = ""
         tx_tipo_venta.Text = ""
         tx_referencia.Select()
+        tx_corrugado.Text = ""
     End Sub
     Private Sub actualizar_item()
         'Instancia la conexión que estará vigente para todas las operaciones CRUD
@@ -108,7 +110,8 @@
         csql += "f0408_factor_empaque = @f0408_factor_empaque,"
         csql += "f0408_factor_cobertura = @f0408_factor_cobertura,"
         csql += "f0408_peso = @f0408_peso,"
-        csql += "f0408_tip_venta = @f0408_tip_venta"
+        csql += "f0408_tip_venta = @f0408_tip_venta,"
+        csql += "f0408_id_caja_corrugado = @f0408_id_caja_corrugado"
         csql += " where f0408_referencia = @f0408_referencia"
 
         ocmd = database.obtener_comando(oconn_form)
@@ -144,6 +147,7 @@
         ocmd.Parameters.Add("@f0408_unid_medida", NpgsqlDbType.Varchar).Value = UCase(tx_unidad_medida.Text.ToString.Trim)
         ocmd.Parameters.Add("@f0408_factor_empaque", NpgsqlDbType.Numeric).Value = tx_factor_empaque.Text
         ocmd.Parameters.Add("@f0408_factor_cobertura", NpgsqlDbType.Numeric).Value = tx_factor_cobertura.Text
+
         'f0408_tip_venta
         Dim tventa As String = String.Empty
         If tx_tipo_venta.Text.ToString.Trim = "" Then
@@ -152,6 +156,14 @@
             tventa = UCase(tx_tipo_venta.Text.ToString.Trim)
         End If
         ocmd.Parameters.Add("@f0408_tip_venta", NpgsqlDbType.Varchar).Value = tventa
+
+        Dim caja As Integer
+        If tx_corrugado.Text.ToString.Trim = "" Then
+            caja = vbNull
+        Else
+            caja = CInt(tx_corrugado.Text.ToString.Trim)
+        End If
+        ocmd.Parameters.Add("@f0408_id_caja_corrugado", NpgsqlDbType.Integer).Value = caja
     End Sub
 
     Private Sub bt_actualizar_Click(sender As Object, e As EventArgs) Handles bt_actualizar.Click
@@ -186,8 +198,8 @@
         End If
         actualizar_item()
         Dim otb As DataTable
-        csql = "select * from " & database.obtener_esquema & ".fnc_ip_cguno_exportar_tablas_csv();"
-        otb = cl_utilidades_datatables.cargar_informacion_postgres(csql)
+        'csql = "select * from " & database.obtener_esquema & ".fnc_ip_cguno_exportar_tablas_csv();"
+        'otb = cl_utilidades_datatables.cargar_informacion_postgres(csql)
         reset_campos()
     End Sub
 
@@ -210,6 +222,15 @@
             tx_peso_unitario.Text = 1
         End If
         tx_peso_unitario.Text = CDec(tx_peso_unitario.Text)
+    End Sub
+    Private Sub tx_corrugado_KeyPress(sender As Object, e As KeyPressEventArgs) Handles tx_corrugado.KeyPress
+        If Not IsNumeric(e.KeyChar) Then
+            e.Handled = True
+        End If
+        If e.KeyChar = Microsoft.VisualBasic.ChrW(Keys.Back) Then
+            e.Handled = False
+        End If
+
     End Sub
     Private Sub tx_factor_empaque_KeyPress(sender As Object, e As KeyPressEventArgs) Handles tx_factor_empaque.KeyPress
         If Not IsNumeric(e.KeyChar) Then

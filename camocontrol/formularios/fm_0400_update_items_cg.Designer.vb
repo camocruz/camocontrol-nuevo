@@ -41,6 +41,8 @@ Partial Class fm_0400_update_items_cg
         Me.Label8 = New System.Windows.Forms.Label()
         Me.tx_tipo_venta = New System.Windows.Forms.TextBox()
         Me.Label9 = New System.Windows.Forms.Label()
+        Me.tx_corrugado = New System.Windows.Forms.TextBox()
+        Me.Label10 = New System.Windows.Forms.Label()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
@@ -165,9 +167,9 @@ Partial Class fm_0400_update_items_cg
         '
         'bt_actualizar
         '
-        Me.bt_actualizar.Location = New System.Drawing.Point(580, 239)
+        Me.bt_actualizar.Location = New System.Drawing.Point(593, 259)
         Me.bt_actualizar.Name = "bt_actualizar"
-        Me.bt_actualizar.Size = New System.Drawing.Size(86, 58)
+        Me.bt_actualizar.Size = New System.Drawing.Size(73, 37)
         Me.bt_actualizar.TabIndex = 8
         Me.bt_actualizar.Text = "Actualizar"
         Me.bt_actualizar.UseVisualStyleBackColor = True
@@ -273,10 +275,30 @@ Partial Class fm_0400_update_items_cg
         Me.Label9.TabIndex = 169
         Me.Label9.Text = "Tipo Venta:"
         '
+        'tx_corrugado
+        '
+        Me.tx_corrugado.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.tx_corrugado.Location = New System.Drawing.Point(580, 231)
+        Me.tx_corrugado.Name = "tx_corrugado"
+        Me.tx_corrugado.Size = New System.Drawing.Size(86, 22)
+        Me.tx_corrugado.TabIndex = 170
+        '
+        'Label10
+        '
+        Me.Label10.AutoSize = True
+        Me.Label10.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label10.Location = New System.Drawing.Point(462, 237)
+        Me.Label10.Name = "Label10"
+        Me.Label10.Size = New System.Drawing.Size(85, 16)
+        Me.Label10.TabIndex = 171
+        Me.Label10.Text = "# Corrugado:"
+        '
         'fm_0400_update_items_cg
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.ClientSize = New System.Drawing.Size(684, 305)
+        Me.Controls.Add(Me.tx_corrugado)
+        Me.Controls.Add(Me.Label10)
         Me.Controls.Add(Me.tx_tipo_venta)
         Me.Controls.Add(Me.Label9)
         Me.Controls.Add(Me.tx_factor_cobertura)
@@ -330,6 +352,8 @@ Partial Class fm_0400_update_items_cg
         Me.Controls.SetChildIndex(Me.tx_factor_cobertura, 0)
         Me.Controls.SetChildIndex(Me.Label9, 0)
         Me.Controls.SetChildIndex(Me.tx_tipo_venta, 0)
+        Me.Controls.SetChildIndex(Me.Label10, 0)
+        Me.Controls.SetChildIndex(Me.tx_corrugado, 0)
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
@@ -357,4 +381,6 @@ Partial Class fm_0400_update_items_cg
     Friend WithEvents Label8 As Label
     Friend WithEvents tx_tipo_venta As TextBox
     Friend WithEvents Label9 As Label
+    Friend WithEvents tx_corrugado As TextBox
+    Friend WithEvents Label10 As Label
 End Class

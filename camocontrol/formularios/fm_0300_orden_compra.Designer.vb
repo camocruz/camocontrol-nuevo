@@ -85,6 +85,8 @@ Partial Class fm_0300_orden_compra
         Me.Label2 = New System.Windows.Forms.Label()
         Me.Label9 = New System.Windows.Forms.Label()
         Me.Label14 = New System.Windows.Forms.Label()
+        Me.lb_fecha_aprob = New System.Windows.Forms.Label()
+        Me.lb_IncumpleRequisitos = New System.Windows.Forms.Label()
         Me.GroupBox1.SuspendLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.dg_listado, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -730,10 +732,32 @@ Partial Class fm_0300_orden_compra
         Me.Label14.TabIndex = 302
         Me.Label14.Text = "Ctrl+B"
         '
+        'lb_fecha_aprob
+        '
+        Me.lb_fecha_aprob.AutoSize = True
+        Me.lb_fecha_aprob.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lb_fecha_aprob.Location = New System.Drawing.Point(560, 195)
+        Me.lb_fecha_aprob.Name = "lb_fecha_aprob"
+        Me.lb_fecha_aprob.Size = New System.Drawing.Size(17, 16)
+        Me.lb_fecha_aprob.TabIndex = 357
+        Me.lb_fecha_aprob.Text = "..."
+        '
+        'lb_IncumpleRequisitos
+        '
+        Me.lb_IncumpleRequisitos.AutoSize = True
+        Me.lb_IncumpleRequisitos.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lb_IncumpleRequisitos.Location = New System.Drawing.Point(559, 238)
+        Me.lb_IncumpleRequisitos.Name = "lb_IncumpleRequisitos"
+        Me.lb_IncumpleRequisitos.Size = New System.Drawing.Size(21, 20)
+        Me.lb_IncumpleRequisitos.TabIndex = 365
+        Me.lb_IncumpleRequisitos.Text = "..."
+        '
         'fm_0300_orden_compra
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.ClientSize = New System.Drawing.Size(983, 530)
+        Me.Controls.Add(Me.lb_IncumpleRequisitos)
+        Me.Controls.Add(Me.lb_fecha_aprob)
         Me.Controls.Add(Me.Label14)
         Me.Controls.Add(Me.Label9)
         Me.Controls.Add(Me.Label2)
@@ -777,6 +801,7 @@ Partial Class fm_0300_orden_compra
         Me.Controls.Add(Me.tx_id_orden_compra)
         Me.Controls.Add(Me.Label8)
         Me.Name = "fm_0300_orden_compra"
+        Me.WindowState = System.Windows.Forms.FormWindowState.Maximized
         Me.Controls.SetChildIndex(Me.lb_titulo, 0)
         Me.Controls.SetChildIndex(Me.ll_linea1, 0)
         Me.Controls.SetChildIndex(Me.lb_fecha, 0)
@@ -826,6 +851,8 @@ Partial Class fm_0300_orden_compra
         Me.Controls.SetChildIndex(Me.Label2, 0)
         Me.Controls.SetChildIndex(Me.Label9, 0)
         Me.Controls.SetChildIndex(Me.Label14, 0)
+        Me.Controls.SetChildIndex(Me.lb_fecha_aprob, 0)
+        Me.Controls.SetChildIndex(Me.lb_IncumpleRequisitos, 0)
         Me.GroupBox1.ResumeLayout(False)
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.dg_listado, System.ComponentModel.ISupportInitialize).EndInit()
@@ -900,4 +927,6 @@ Partial Class fm_0300_orden_compra
     Friend WithEvents Label2 As Label
     Friend WithEvents Label9 As Label
     Friend WithEvents Label14 As Label
+    Friend WithEvents lb_fecha_aprob As Label
+    Friend WithEvents lb_IncumpleRequisitos As Label
 End Class
