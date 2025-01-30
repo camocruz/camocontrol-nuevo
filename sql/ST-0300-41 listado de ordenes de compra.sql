@@ -7,6 +7,7 @@
             else 'SIN APROBAR!!!!'
        end as aprobo,
        to_char(f0319_fecha_aprobacion, 'YYYY-MM-DD HH12:MI AM') as f_aprobacion,
+	   f0319_oc_uno as oc_uno,
        case when f0319_anulado = 'S' then 'ANULADO' end as inf
 from camocontrol.tb0319_ordenes_compra
     left join camocontrol.tb0200_terceros as tb_aprobado

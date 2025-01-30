@@ -42,7 +42,6 @@ Partial Class fm_0300_orden_compra
         Me.tx_estado = New System.Windows.Forms.TextBox()
         Me.Label7 = New System.Windows.Forms.Label()
         Me.tx_oc_uno = New System.Windows.Forms.TextBox()
-        Me.Label6 = New System.Windows.Forms.Label()
         Me.bt_eliminar_item = New System.Windows.Forms.Button()
         Me.bt_add_item = New System.Windows.Forms.Button()
         Me.tx_id_item_sc = New System.Windows.Forms.TextBox()
@@ -87,6 +86,9 @@ Partial Class fm_0300_orden_compra
         Me.Label14 = New System.Windows.Forms.Label()
         Me.lb_fecha_aprob = New System.Windows.Forms.Label()
         Me.lb_IncumpleRequisitos = New System.Windows.Forms.Label()
+        Me.Label15 = New System.Windows.Forms.Label()
+        Me.bt_gen_plano_oc_uno = New System.Windows.Forms.Button()
+        Me.bt_actualizar_info_oc_siesa = New System.Windows.Forms.Button()
         Me.GroupBox1.SuspendLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.dg_listado, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -281,7 +283,7 @@ Partial Class fm_0300_orden_compra
         '
         Me.bt_gestionar_tercero.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center
         Me.bt_gestionar_tercero.Image = Global.camocontrol.My.Resources.Resources.terceros
-        Me.bt_gestionar_tercero.Location = New System.Drawing.Point(686, 153)
+        Me.bt_gestionar_tercero.Location = New System.Drawing.Point(679, 195)
         Me.bt_gestionar_tercero.Name = "bt_gestionar_tercero"
         Me.bt_gestionar_tercero.Size = New System.Drawing.Size(117, 39)
         Me.bt_gestionar_tercero.TabIndex = 274
@@ -294,7 +296,7 @@ Partial Class fm_0300_orden_compra
         '
         Me.bt_catalago_items.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center
         Me.bt_catalago_items.Image = Global.camocontrol.My.Resources.Resources.icono_herramientas
-        Me.bt_catalago_items.Location = New System.Drawing.Point(809, 153)
+        Me.bt_catalago_items.Location = New System.Drawing.Point(802, 195)
         Me.bt_catalago_items.Name = "bt_catalago_items"
         Me.bt_catalago_items.Size = New System.Drawing.Size(117, 39)
         Me.bt_catalago_items.TabIndex = 273
@@ -356,20 +358,10 @@ Partial Class fm_0300_orden_compra
         'tx_oc_uno
         '
         Me.tx_oc_uno.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.tx_oc_uno.Location = New System.Drawing.Point(658, 61)
+        Me.tx_oc_uno.Location = New System.Drawing.Point(831, 169)
         Me.tx_oc_uno.Name = "tx_oc_uno"
-        Me.tx_oc_uno.Size = New System.Drawing.Size(64, 22)
+        Me.tx_oc_uno.Size = New System.Drawing.Size(67, 22)
         Me.tx_oc_uno.TabIndex = 263
-        '
-        'Label6
-        '
-        Me.Label6.AutoSize = True
-        Me.Label6.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label6.Location = New System.Drawing.Point(567, 64)
-        Me.Label6.Name = "Label6"
-        Me.Label6.Size = New System.Drawing.Size(73, 16)
-        Me.Label6.TabIndex = 262
-        Me.Label6.Text = "OC UNO #:"
         '
         'bt_eliminar_item
         '
@@ -669,7 +661,7 @@ Partial Class fm_0300_orden_compra
         '
         Me.bt_desaprobar_oc.BackColor = System.Drawing.Color.Gainsboro
         Me.bt_desaprobar_oc.Image = Global.camocontrol.My.Resources.Resources.dinero01
-        Me.bt_desaprobar_oc.Location = New System.Drawing.Point(686, 199)
+        Me.bt_desaprobar_oc.Location = New System.Drawing.Point(712, 155)
         Me.bt_desaprobar_oc.Name = "bt_desaprobar_oc"
         Me.bt_desaprobar_oc.Size = New System.Drawing.Size(117, 39)
         Me.bt_desaprobar_oc.TabIndex = 296
@@ -752,10 +744,41 @@ Partial Class fm_0300_orden_compra
         Me.lb_IncumpleRequisitos.TabIndex = 365
         Me.lb_IncumpleRequisitos.Text = "..."
         '
+        'Label15
+        '
+        Me.Label15.AutoSize = True
+        Me.Label15.Font = New System.Drawing.Font("Microsoft Sans Serif", 6.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label15.Location = New System.Drawing.Point(833, 152)
+        Me.Label15.Name = "Label15"
+        Me.Label15.Size = New System.Drawing.Size(55, 12)
+        Me.Label15.TabIndex = 367
+        Me.Label15.Text = "OC-SIESA :"
+        '
+        'bt_gen_plano_oc_uno
+        '
+        Me.bt_gen_plano_oc_uno.BackgroundImage = Global.camocontrol.My.Resources.Resources.chatarra2
+        Me.bt_gen_plano_oc_uno.Location = New System.Drawing.Point(680, 155)
+        Me.bt_gen_plano_oc_uno.Name = "bt_gen_plano_oc_uno"
+        Me.bt_gen_plano_oc_uno.Size = New System.Drawing.Size(32, 34)
+        Me.bt_gen_plano_oc_uno.TabIndex = 368
+        Me.bt_gen_plano_oc_uno.UseVisualStyleBackColor = True
+        '
+        'bt_actualizar_info_oc_siesa
+        '
+        Me.bt_actualizar_info_oc_siesa.BackgroundImage = Global.camocontrol.My.Resources.Resources.chatarra2
+        Me.bt_actualizar_info_oc_siesa.Location = New System.Drawing.Point(898, 158)
+        Me.bt_actualizar_info_oc_siesa.Name = "bt_actualizar_info_oc_siesa"
+        Me.bt_actualizar_info_oc_siesa.Size = New System.Drawing.Size(32, 34)
+        Me.bt_actualizar_info_oc_siesa.TabIndex = 369
+        Me.bt_actualizar_info_oc_siesa.UseVisualStyleBackColor = True
+        '
         'fm_0300_orden_compra
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.ClientSize = New System.Drawing.Size(983, 530)
+        Me.Controls.Add(Me.bt_actualizar_info_oc_siesa)
+        Me.Controls.Add(Me.bt_gen_plano_oc_uno)
+        Me.Controls.Add(Me.Label15)
         Me.Controls.Add(Me.lb_IncumpleRequisitos)
         Me.Controls.Add(Me.lb_fecha_aprob)
         Me.Controls.Add(Me.Label14)
@@ -789,7 +812,6 @@ Partial Class fm_0300_orden_compra
         Me.Controls.Add(Me.tx_estado)
         Me.Controls.Add(Me.Label7)
         Me.Controls.Add(Me.tx_oc_uno)
-        Me.Controls.Add(Me.Label6)
         Me.Controls.Add(Me.bt_eliminar_item)
         Me.Controls.Add(Me.bt_add_item)
         Me.Controls.Add(Me.tx_id_item_sc)
@@ -819,7 +841,6 @@ Partial Class fm_0300_orden_compra
         Me.Controls.SetChildIndex(Me.tx_id_item_sc, 0)
         Me.Controls.SetChildIndex(Me.bt_add_item, 0)
         Me.Controls.SetChildIndex(Me.bt_eliminar_item, 0)
-        Me.Controls.SetChildIndex(Me.Label6, 0)
         Me.Controls.SetChildIndex(Me.tx_oc_uno, 0)
         Me.Controls.SetChildIndex(Me.Label7, 0)
         Me.Controls.SetChildIndex(Me.tx_estado, 0)
@@ -853,6 +874,9 @@ Partial Class fm_0300_orden_compra
         Me.Controls.SetChildIndex(Me.Label14, 0)
         Me.Controls.SetChildIndex(Me.lb_fecha_aprob, 0)
         Me.Controls.SetChildIndex(Me.lb_IncumpleRequisitos, 0)
+        Me.Controls.SetChildIndex(Me.Label15, 0)
+        Me.Controls.SetChildIndex(Me.bt_gen_plano_oc_uno, 0)
+        Me.Controls.SetChildIndex(Me.bt_actualizar_info_oc_siesa, 0)
         Me.GroupBox1.ResumeLayout(False)
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.dg_listado, System.ComponentModel.ISupportInitialize).EndInit()
@@ -884,7 +908,6 @@ Partial Class fm_0300_orden_compra
     Friend WithEvents tx_estado As TextBox
     Friend WithEvents Label7 As Label
     Friend WithEvents tx_oc_uno As TextBox
-    Friend WithEvents Label6 As Label
     Friend WithEvents bt_eliminar_item As Button
     Friend WithEvents bt_add_item As Button
     Friend WithEvents tx_id_item_sc As TextBox
@@ -929,4 +952,7 @@ Partial Class fm_0300_orden_compra
     Friend WithEvents Label14 As Label
     Friend WithEvents lb_fecha_aprob As Label
     Friend WithEvents lb_IncumpleRequisitos As Label
+    Friend WithEvents Label15 As Label
+    Friend WithEvents bt_gen_plano_oc_uno As Button
+    Friend WithEvents bt_actualizar_info_oc_siesa As Button
 End Class

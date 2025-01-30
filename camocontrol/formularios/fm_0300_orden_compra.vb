@@ -1675,5 +1675,93 @@ Public Class fm_0300_orden_compra
         End If
     End Sub
 
+    Private Sub bt_gen_plano_oc_uno_Click(sender As Object, e As EventArgs) Handles bt_gen_plano_oc_uno.Click
+        If tx_estado.Text <> "Aprobada" Then
+            MsgBox("La OC debe estar aprobada", MsgBoxStyle.Information)
+            Exit Sub
+        End If
+        csql = comunes.suministrar_valor_variable_configuracion("ST-0300-45", vg_id_cia)
+        csql = Replace(csql, "$df001$", database.obtener_esquema)
+        csql = Replace(csql, "$001$", vg_id_cia)
+        csql = Replace(csql, "$002$", id_orden_compra)
+        Dim path1 As String = comunes.suministrar_valor_variable_configuracion("ST-0300-46", vg_id_cia)
+        csql = Replace(csql, "$003$", path1)
+        cl_utilidades_datatables.cargar_informacion_postgres(csql)
+        Dim path2 As String = comunes.suministrar_valor_variable_configuracion("ST-0300-47", vg_id_cia)
+        'Se debe usar path3 debido a que hay que garantizar que la aplicacion funcione cuendo el camo esta instalado
+        'localmente, el path1 se debe usar pues la instruccion SQL se corre local en el servidor.
+        Dim path3 As String = comunes.suministrar_valor_variable_configuracion("ST-0300-48", vg_id_cia)
+        FileCopy(path3, path2)
+        MsgBox("Ejecute cargar plano en SIESA", MsgBoxStyle.Information)
+    End Sub
+    Private Sub actualizar_oc_siesa_encabezado_oc()
+        'Instancia la conexión que estará vigente para todas las operaciones CRUD
+        oconn_form = database.obtener_conexion()
+        'actualizacion parametrizada
+        csql = "update " + database.obtener_esquema + ".tb0319_ordenes_compra set "
+        csql += "f0319_oc_uno = '" & "OC-" & tx_oc_uno.Text.ToString & "'"
+        csql += " where f0319_id_oc = '" & tx_id_orden_compra.Text.ToString & "' and f0319_anulado = 'N'"
 
+        ocmd = database.obtener_comando(oconn_form)
+        ocmd.CommandText = csql
+        'crear_parametros_aprobar_facturas(ocmd)
+
+        verror = "N"
+        Try
+            ocmd.ExecuteNonQuery()
+        Catch ex As Exception
+            verror = "S"
+            MsgBox("Hubo un error al Actualizar ! ") ' + vbCrLf + ex.ToString)
+        End Try
+        ocmd = Nothing
+        oconn_form.Close()
+    End Sub
+    Private Sub actualizar_oc_siesa_items()
+        'Instancia la conexión que estará vigente para todas las operaciones CRUD
+        oconn_form = database.obtener_conexion()
+        'actualizacion parametrizada
+        csql = "update " + database.obtener_esquema + ".tb0305_items_solicitados set "
+        csql += "f0305_oc_uno = '" & "OC-" & tx_oc_uno.Text.ToString & "'"
+        csql += " where f0305_id_oc = '" & tx_id_orden_compra.Text.ToString & "' and f0305_anulado = 'N'"
+
+        ocmd = database.obtener_comando(oconn_form)
+        ocmd.CommandText = csql
+        'crear_parametros_aprobar_facturas(ocmd)
+
+        verror = "N"
+        Try
+            ocmd.ExecuteNonQuery()
+        Catch ex As Exception
+            verror = "S"
+            MsgBox("Hubo un error al Actualizar ! ") ' + vbCrLf + ex.ToString)
+        End Try
+        ocmd = Nothing
+        oconn_form.Close()
+    End Sub
+
+    Private Sub tx_oc_uno_KeyPress(sender As Object, e As KeyPressEventArgs) Handles tx_oc_uno.KeyPress
+        If Not IsNumeric(e.KeyChar) Then
+            e.Handled = True
+        End If
+        If e.KeyChar = Microsoft.VisualBasic.ChrW(Keys.Back) Then
+            e.Handled = False
+        End If
+        If e.KeyChar = "." Or e.KeyChar = "," Then
+            e.Handled = True
+        End If
+    End Sub
+
+    Private Sub bt_actualizar_info_oc_siesa_Click(sender As Object, e As EventArgs) Handles bt_actualizar_info_oc_siesa.Click
+        If tx_oc_uno.Text = "" Then
+            Exit Sub
+        End If
+        If IsNumeric(tx_oc_uno.Text) = False Then
+            MsgBox("Solo valores numericos", MsgBoxStyle.Critical)
+            Exit Sub
+        End If
+        actualizar_oc_siesa_encabezado_oc()
+        actualizar_oc_siesa_items()
+        tx_oc_uno.Text = "OC-" & tx_oc_uno.Text
+        'MsgBox("Actualizado", MsgBoxStyle.Information)
+    End Sub
 End Class
