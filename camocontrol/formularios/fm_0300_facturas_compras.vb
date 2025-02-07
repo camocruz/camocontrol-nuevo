@@ -678,7 +678,6 @@
         End If
         orowgrid.Cells.Add(ochkgrid)
 
-
         'Crea columna 2
         otextgrid = New DataGridViewTextBoxCell With {
             .Value = orow.Item("f0305_id_item_solicitud").ToString
@@ -703,6 +702,14 @@
             ochkgrid.Value = 0
         End If
         orowgrid.Cells.Add(ochkgrid)
+
+        'Crea columna orden de compra siesa
+        otextgrid = New DataGridViewTextBoxCell With {
+            .Value = orow.Item("f0305_oc_uno").ToString
+        }
+        'otextgrid.MaxInputLength = 100
+        'Agrega columna al objeto fila
+        orowgrid.Cells.Add(otextgrid)
 
         'Crea columna 3
         otextgrid = New DataGridViewTextBoxCell With {

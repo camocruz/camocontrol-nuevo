@@ -1,5 +1,6 @@
 ﻿select f0305_id_item_solicitud as id_sc_item, 
        f0305_id_solicitud_compra as id_sc,
+	   f0305_oc_uno as oc_uno,
        f0300_descripcion_item || ' ' || f0300_referencia as descripcion,
        f0302_descripcion_tipo_item as tipo_item,
        f0300_id_item as id_item,

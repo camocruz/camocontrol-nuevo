@@ -12,6 +12,7 @@ select f0305_id_item_solicitud as id_sc_item,
        coalesce(tb_aprobado.f0200_apellido1 || ' ' || substring(tb_aprobado.f0200_nombres from 1 for 8), 'SIN APROBAR') as aprobo,
        to_char(f0319_fecha_aprobacion, 'YYYY-MM-DD HH12:MI AM') as f_aprobacion,
        coalesce(f0305_id_oc, 0) as id_oc,
+	   f0305_oc_uno as oc_uno,
        case coalesce(f0305_id_factura_compras, 0)
           when 0 then trim( both ' ' from coalesce(tb_tercero_oc.f0200_apellido1 || ' ' || tb_tercero_oc.f0200_nombres, 'ND'))
           else

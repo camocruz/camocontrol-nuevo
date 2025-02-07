@@ -1,4 +1,4 @@
-﻿select 'OC-' || to_char(f0319_id_oc, 'FM099999MI') as id_oc, 'NIT: ' || tb_proveedor.f0200_id || ' - ' || 
+﻿select 'RS-' || to_char(f0319_id_oc, 'FM099999MI') as id_oc, 'NIT: ' || tb_proveedor.f0200_id || ' - ' || 
        trim(both ' ' from tb_proveedor.f0200_nombres || ' ' || tb_proveedor.f0200_apellido1 || ' ' || tb_proveedor.f0200_apellido2) as razon_social, 
        tb_proveedor.f0200_id as nit,
        f0305_id_solicitud_compra as id_solicitud,

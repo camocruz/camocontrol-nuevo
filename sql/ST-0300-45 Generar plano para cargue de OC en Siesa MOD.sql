@@ -12,8 +12,8 @@ select
                    || 'CAMO'
                    || rpad('',10, ' ')
                    || 'CAMO ' || 'OC-' || f0305_id_oc || ' ' --DETALLE 1 DEL DOCUMENTO
-                   || 'AMPLIACIONES DE ESPECIFICACIONES EN EL' || ' ' -- DETALLE 2 DE OC
-                   || 'DOCUMENTO ANEXO SC-' || f0305_id_solicitud_compra  -- DETALLE 3 DE OC
+                   || 'AMPLIACIONES DE ESPECIFICACIONES EN LOS DOCUMENTOS ANEXOS A ESTA OC ' -- DETALLE 2 DE OC
+                   || 'REFERIDOS EN LA SECCION (PARA USAR) DE CADA REFERENCIA'  -- DETALLE 3 DE OC
                    || rpad('',263, ' ')
                 ,265) 
 		        || 'I'

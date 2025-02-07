@@ -79,6 +79,7 @@ Partial Class fm_0300_facturas_compras
         Me.dgocell_id_sc_item = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.dgocell_id_oc = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.dgocell_chk_oc_aprobada = New System.Windows.Forms.DataGridViewCheckBoxColumn()
+        Me.dgocell_oc_siesa = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.dgocell_item = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.dgocell_DocEntrada = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.dgocell_descripcion_item = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -698,7 +699,7 @@ Partial Class fm_0300_facturas_compras
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.dg_listado.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dg_listado.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.dgocell_id_sc, Me.dgocell_chk_item_aprobado, Me.dgocell_id_sc_item, Me.dgocell_id_oc, Me.dgocell_chk_oc_aprobada, Me.dgocell_item, Me.dgocell_DocEntrada, Me.dgocell_descripcion_item, Me.dgocell_descripcion_complementaria, Me.dgocell_cantidad_solicitada, Me.dgocell_chk_inventario, Me.dgocell_inventario_total, Me.dgocell_unidad, Me.dgocell_var_costo, Me.dgocell_costo_unitario, Me.dgocell_descuento, Me.dgocell_costo_total, Me.dgocell_iva, Me.dgocell_costo_unit_iva, Me.dgocell_costo_total_iva, Me.dgocell_descripcion_estructura, Me.dgocell_id_accion, Me.dgocell_id_accion_raiz, Me.dgocell_nota, Me.dgocell_planta})
+        Me.dg_listado.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.dgocell_id_sc, Me.dgocell_chk_item_aprobado, Me.dgocell_id_sc_item, Me.dgocell_id_oc, Me.dgocell_chk_oc_aprobada, Me.dgocell_oc_siesa, Me.dgocell_item, Me.dgocell_DocEntrada, Me.dgocell_descripcion_item, Me.dgocell_descripcion_complementaria, Me.dgocell_cantidad_solicitada, Me.dgocell_chk_inventario, Me.dgocell_inventario_total, Me.dgocell_unidad, Me.dgocell_var_costo, Me.dgocell_costo_unitario, Me.dgocell_descuento, Me.dgocell_costo_total, Me.dgocell_iva, Me.dgocell_costo_unit_iva, Me.dgocell_costo_total_iva, Me.dgocell_descripcion_estructura, Me.dgocell_id_accion, Me.dgocell_id_accion_raiz, Me.dgocell_nota, Me.dgocell_planta})
         Me.dg_listado.Location = New System.Drawing.Point(10, 331)
         Me.dg_listado.Name = "dg_listado"
         Me.dg_listado.RowHeadersWidth = 62
@@ -746,6 +747,14 @@ Partial Class fm_0300_facturas_compras
         Me.dgocell_chk_oc_aprobada.HeaderText = "Ap"
         Me.dgocell_chk_oc_aprobada.Name = "dgocell_chk_oc_aprobada"
         Me.dgocell_chk_oc_aprobada.Width = 30
+        '
+        'dgocell_oc_siesa
+        '
+        Me.dgocell_oc_siesa.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCellsExceptHeader
+        Me.dgocell_oc_siesa.HeaderText = "OC-UNO"
+        Me.dgocell_oc_siesa.Name = "dgocell_oc_siesa"
+        Me.dgocell_oc_siesa.ReadOnly = True
+        Me.dgocell_oc_siesa.Width = 5
         '
         'dgocell_item
         '
@@ -1229,11 +1238,20 @@ Partial Class fm_0300_facturas_compras
     Friend WithEvents tx_id_item_cons_mov As TextBox
     Friend WithEvents Label3 As Label
     Friend WithEvents lb_fecha_aprob As Label
+    Friend WithEvents Tx_Nombre_Tercero As TextBox
+    Friend WithEvents Label5 As Label
+    Friend WithEvents Label21 As Label
+    Friend WithEvents Label22 As Label
+    Friend WithEvents tx_id_tercero As TextBox
+    Friend WithEvents Tx_Nit As TextBox
+    Friend WithEvents lb_identificacion As Label
+    Friend WithEvents lb_IncumpleRequisitos As Label
     Friend WithEvents dgocell_id_sc As DataGridViewTextBoxColumn
     Friend WithEvents dgocell_chk_item_aprobado As DataGridViewCheckBoxColumn
     Friend WithEvents dgocell_id_sc_item As DataGridViewTextBoxColumn
     Friend WithEvents dgocell_id_oc As DataGridViewTextBoxColumn
     Friend WithEvents dgocell_chk_oc_aprobada As DataGridViewCheckBoxColumn
+    Friend WithEvents dgocell_oc_siesa As DataGridViewTextBoxColumn
     Friend WithEvents dgocell_item As DataGridViewTextBoxColumn
     Friend WithEvents dgocell_DocEntrada As DataGridViewTextBoxColumn
     Friend WithEvents dgocell_descripcion_item As DataGridViewTextBoxColumn
@@ -1254,12 +1272,4 @@ Partial Class fm_0300_facturas_compras
     Friend WithEvents dgocell_id_accion_raiz As DataGridViewTextBoxColumn
     Friend WithEvents dgocell_nota As DataGridViewTextBoxColumn
     Friend WithEvents dgocell_planta As DataGridViewTextBoxColumn
-    Friend WithEvents Tx_Nombre_Tercero As TextBox
-    Friend WithEvents Label5 As Label
-    Friend WithEvents Label21 As Label
-    Friend WithEvents Label22 As Label
-    Friend WithEvents tx_id_tercero As TextBox
-    Friend WithEvents Tx_Nit As TextBox
-    Friend WithEvents lb_identificacion As Label
-    Friend WithEvents lb_IncumpleRequisitos As Label
 End Class
