@@ -1,4 +1,4 @@
-﻿Public Class fm_0300_facturas_compras
+﻿Public Class fm_0300_recepcion_compras
     'Objetos publicos que reciben valores desde el Formulario padre
     'Public vf_oform_padre As Object
     Public ocontexto_form As String = ""
@@ -87,6 +87,8 @@
         bt_editar.Enabled = False
         bt_generar_informe.Enabled = False
         bt_aprobar.Enabled = True
+
+        'OJO CAMBIAR LOS PERMISOS EN LA TABLA DE PERMISOS, ESTE BOTON APLICA PARA LAS RECEPCIONES, SALE DE FACTURAS
         cl_gestion_permisos.activar_control_si_tiene_permiso(vf_otabla_permisos, Me.Name, bt_aprobar_recepcion, "")
 
         csql = "SELECT *" _
@@ -517,12 +519,7 @@
             tx_oc_uno.Text = orow("f0307_oc_uno").ToString
             tx_factura_proveedor.Text = orow("f0307_numero_factura")
             tx_remision_proveedor.Text = orow("f0307_remision_proveedor")
-            tx_contabilizacion.Text = orow("f0307_conta1")
-            If orow("f0307_cont") = "B" Then
-                chk_cmena.Checked = True
-            Else
-                chk_cmena.Checked = False
-            End If
+
             Dim val_fact As Decimal = orow("f0307_valor_factura")
             'lb_valor_aprobado.Text = val_fact.ToString("C2")
             oaprovada = orow("f0307_aprobada")
@@ -2133,52 +2130,5 @@
         Activar_botones_aprobaciones()
         MsgBox("Registrado", MsgBoxStyle.Information, "Vinculado")
     End Sub
-
-    Private Sub Bt_contabilizacion_Click(sender As Object, e As EventArgs) Handles bt_contabilizacion.Click
-        If tx_id_factura.Text = String.Empty Then
-            Exit Sub
-        End If
-        If tx_contabilizacion.Text = String.Empty Then
-            MsgBox("Debe digitar el documento.", MsgBoxStyle.Information, "Info")
-            tx_contabilizacion.Focus()
-            Exit Sub
-        End If
-        Registrar_documento_contabilizacion()
-        If verror = "N" Then
-            MsgBox("Contabilizacion Registrada", MsgBoxStyle.Information, "Info")
-            Me.Dispose()
-        Else
-            MsgBox("Error en el Registro", MsgBoxStyle.Critical, "Info")
-        End If
-    End Sub
-
-    Private Sub Registrar_documento_contabilizacion()
-        'Instancia la conexión que estará vigente para todas las operaciones CRUD
-        oconn_form = database.obtener_conexion()
-        'actualizacion parametrizada
-        csql = "update " + database.obtener_esquema + ".tb0307_facturas_compras set "
-        csql += "f0307_conta1 = '" & tx_contabilizacion.Text.ToString & "'"
-
-        If chk_cmena.Checked = True Then
-            csql += ", f0307_cont = 'B'"
-        End If
-
-        csql += " where f0307_id_factura_compras = '" & tx_id_factura.Text.ToString & "' and f0307_anulado = 'N'"
-
-        ocmd = database.obtener_comando(oconn_form)
-        ocmd.CommandText = csql
-        'crear_parametros_aprobar_facturas(ocmd)
-
-        verror = "N"
-        Try
-            ocmd.ExecuteNonQuery()
-        Catch ex As Exception
-            verror = "S"
-            MsgBox("Hubo un error al Actualizar ! ") ' + vbCrLf + ex.ToString)
-        End Try
-        ocmd = Nothing
-        oconn_form.Close()
-    End Sub
-
 
 End Class

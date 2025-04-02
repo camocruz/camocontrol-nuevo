@@ -183,16 +183,22 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ds_sol_almacen.xsd</DependentUpon>
     </Compile>
-    <Compile Include="formularios\fm_0300_facturas_compras.Designer.vb">
+    <Compile Include="formularios\Compras\SC-OC-RC-SA\fm_0300_facturas_compras.Designer.vb">
       <DependentUpon>fm_0300_facturas_compras.vb</DependentUpon>
     </Compile>
-    <Compile Include="formularios\fm_0300_facturas_compras.vb">
+    <Compile Include="formularios\Compras\SC-OC-RC-SA\fm_0300_facturas_compras.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="formularios\fm_0800_cargar_faltantes_cotizaciones.Designer.vb">
+    <Compile Include="formularios\Compras\SC-OC-RC-SA\fm_0300_recepcion_compras.Designer.vb">
+      <DependentUpon>fm_0300_recepcion_compras.vb</DependentUpon>
+    </Compile>
+    <Compile Include="formularios\Compras\SC-OC-RC-SA\fm_0300_recepcion_compras.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="formularios\Logistica\fm_0800_cargar_faltantes_cotizaciones.Designer.vb">
       <DependentUpon>fm_0800_cargar_faltantes_cotizaciones.vb</DependentUpon>
     </Compile>
-    <Compile Include="formularios\fm_0800_cargar_faltantes_cotizaciones.vb">
+    <Compile Include="formularios\Logistica\fm_0800_cargar_faltantes_cotizaciones.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Form2.Designer.vb">
@@ -207,94 +213,94 @@
     <Compile Include="formularios\ejemplo.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="formularios\fm_0023_01_ausentismo.Designer.vb">
+    <Compile Include="formularios\RHumanos\fm_0023_01_ausentismo.Designer.vb">
       <DependentUpon>fm_0023_01_ausentismo.vb</DependentUpon>
     </Compile>
-    <Compile Include="formularios\fm_0023_01_ausentismo.vb">
+    <Compile Include="formularios\RHumanos\fm_0023_01_ausentismo.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="formularios\fm_0300_asignacion_elemetos_personal_encabezado.Designer.vb">
+    <Compile Include="formularios\RHumanos\fm_0300_asignacion_elemetos_personal_encabezado.Designer.vb">
       <DependentUpon>fm_0300_asignacion_elemetos_personal_encabezado.vb</DependentUpon>
     </Compile>
-    <Compile Include="formularios\fm_0300_asignacion_elemetos_personal_encabezado.vb">
+    <Compile Include="formularios\RHumanos\fm_0300_asignacion_elemetos_personal_encabezado.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="formularios\fm_0300_facturas_compras_recepcion.Designer.vb">
+    <Compile Include="formularios\Compras\SC-OC-RC-SA\fm_0300_facturas_compras_recepcion.Designer.vb">
       <DependentUpon>fm_0300_facturas_compras_recepcion.vb</DependentUpon>
     </Compile>
-    <Compile Include="formularios\fm_0300_facturas_compras_recepcion.vb">
+    <Compile Include="formularios\Compras\SC-OC-RC-SA\fm_0300_facturas_compras_recepcion.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="formularios\fm_0300_formulacion_menu.Designer.vb">
+    <Compile Include="formularios\Compras\Items-Formulaciones\fm_0300_formulacion_menu.Designer.vb">
       <DependentUpon>fm_0300_formulacion_menu.vb</DependentUpon>
     </Compile>
-    <Compile Include="formularios\fm_0300_formulacion_menu.vb">
+    <Compile Include="formularios\Compras\Items-Formulaciones\fm_0300_formulacion_menu.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="formularios\fm_0300_formulacion_tree_view.Designer.vb">
+    <Compile Include="formularios\Compras\Items-Formulaciones\fm_0300_formulacion_tree_view.Designer.vb">
       <DependentUpon>fm_0300_formulacion_tree_view.vb</DependentUpon>
     </Compile>
-    <Compile Include="formularios\fm_0300_formulacion_tree_view.vb">
+    <Compile Include="formularios\Compras\Items-Formulaciones\fm_0300_formulacion_tree_view.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="formularios\fm_0300_gestion_items_costos.Designer.vb">
+    <Compile Include="formularios\Compras\Items-Formulaciones\fm_0300_gestion_items_costos.Designer.vb">
       <DependentUpon>fm_0300_gestion_items_costos.vb</DependentUpon>
     </Compile>
-    <Compile Include="formularios\fm_0300_gestion_items_costos.vb">
+    <Compile Include="formularios\Compras\Items-Formulaciones\fm_0300_gestion_items_costos.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="formularios\fm_0300_orden_compra.Designer.vb">
+    <Compile Include="formularios\Compras\SC-OC-RC-SA\fm_0300_orden_compra.Designer.vb">
       <DependentUpon>fm_0300_orden_compra.vb</DependentUpon>
     </Compile>
-    <Compile Include="formularios\fm_0300_orden_compra.vb">
+    <Compile Include="formularios\Compras\SC-OC-RC-SA\fm_0300_orden_compra.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="formularios\fm_0300_solicitud_mp_produccion.Designer.vb">
+    <Compile Include="formularios\Produccion\fm_0300_solicitud_mp_produccion.Designer.vb">
       <DependentUpon>fm_0300_solicitud_mp_produccion.vb</DependentUpon>
     </Compile>
-    <Compile Include="formularios\fm_0300_solicitud_mp_produccion.vb">
+    <Compile Include="formularios\Produccion\fm_0300_solicitud_mp_produccion.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="formularios\fm_0300_suministrar_item_cant.Designer.vb">
+    <Compile Include="formularios\Compras\SC-OC-RC-SA\fm_0300_suministrar_item_cant.Designer.vb">
       <DependentUpon>fm_0300_suministrar_item_cant.vb</DependentUpon>
     </Compile>
-    <Compile Include="formularios\fm_0300_suministrar_item_cant.vb">
+    <Compile Include="formularios\Compras\SC-OC-RC-SA\fm_0300_suministrar_item_cant.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="formularios\fm_0300_unificar_items.Designer.vb">
+    <Compile Include="formularios\Compras\Items-Formulaciones\fm_0300_unificar_items.Designer.vb">
       <DependentUpon>fm_0300_unificar_items.vb</DependentUpon>
     </Compile>
-    <Compile Include="formularios\fm_0300_unificar_items.vb">
+    <Compile Include="formularios\Compras\Items-Formulaciones\fm_0300_unificar_items.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="formularios\fm_0400_cargar_ip_cguno.Designer.vb">
+    <Compile Include="formularios\Produccion\fm_0400_cargar_ip_cguno.Designer.vb">
       <DependentUpon>fm_0400_cargar_ip_cguno.vb</DependentUpon>
     </Compile>
-    <Compile Include="formularios\fm_0400_cargar_ip_cguno.vb">
+    <Compile Include="formularios\Produccion\fm_0400_cargar_ip_cguno.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="formularios\fm_0400_gestion_agrupada_consumos_produccion.Designer.vb">
+    <Compile Include="formularios\Produccion\fm_0400_gestion_agrupada_consumos_produccion.Designer.vb">
       <DependentUpon>fm_0400_gestion_agrupada_consumos_produccion.vb</DependentUpon>
     </Compile>
-    <Compile Include="formularios\fm_0400_gestion_agrupada_consumos_produccion.vb">
+    <Compile Include="formularios\Produccion\fm_0400_gestion_agrupada_consumos_produccion.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="formularios\fm_0400_pp_ordenes_produccion_arbol.Designer.vb">
+    <Compile Include="formularios\Produccion\fm_0400_pp_ordenes_produccion_arbol.Designer.vb">
       <DependentUpon>fm_0400_pp_ordenes_produccion_arbol.vb</DependentUpon>
     </Compile>
-    <Compile Include="formularios\fm_0400_pp_ordenes_produccion_arbol.vb">
+    <Compile Include="formularios\Produccion\fm_0400_pp_ordenes_produccion_arbol.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="formularios\fm_0400_pp_edicion_programa.Designer.vb">
+    <Compile Include="formularios\Produccion\fm_0400_pp_edicion_programa.Designer.vb">
       <DependentUpon>fm_0400_pp_edicion_programa.vb</DependentUpon>
     </Compile>
-    <Compile Include="formularios\fm_0400_pp_edicion_programa.vb">
+    <Compile Include="formularios\Produccion\fm_0400_pp_edicion_programa.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="formularios\fm_0400_pp_progamas_produccion.Designer.vb">
+    <Compile Include="formularios\Produccion\fm_0400_pp_progamas_produccion.Designer.vb">
       <DependentUpon>fm_0400_pp_progamas_produccion.vb</DependentUpon>
     </Compile>
-    <Compile Include="formularios\fm_0400_pp_progamas_produccion.vb">
+    <Compile Include="formularios\Produccion\fm_0400_pp_progamas_produccion.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="formularios\fm_0052_equivalencias_ciudades_cg.Designer.vb">
@@ -309,46 +315,46 @@
     <Compile Include="formularios\fm_0200_tercero_sucursal.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="formularios\fm_0300_explosion_prog_prod.Designer.vb">
+    <Compile Include="formularios\Produccion\fm_0300_explosion_prog_prod.Designer.vb">
       <DependentUpon>fm_0300_explosion_prog_prod.vb</DependentUpon>
     </Compile>
-    <Compile Include="formularios\fm_0300_explosion_prog_prod.vb">
+    <Compile Include="formularios\Produccion\fm_0300_explosion_prog_prod.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="formularios\fm_0300_doc_movimientos_inventarios.Designer.vb">
+    <Compile Include="formularios\Compras\SC-OC-RC-SA\fm_0300_doc_movimientos_inventarios.Designer.vb">
       <DependentUpon>fm_0300_doc_movimientos_inventarios.vb</DependentUpon>
     </Compile>
-    <Compile Include="formularios\fm_0300_doc_movimientos_inventarios.vb">
+    <Compile Include="formularios\Compras\SC-OC-RC-SA\fm_0300_doc_movimientos_inventarios.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="formularios\fm_0400_rp_ip_cguno.Designer.vb">
+    <Compile Include="formularios\Produccion\fm_0400_rp_ip_cguno.Designer.vb">
       <DependentUpon>fm_0400_rp_ip_cguno.vb</DependentUpon>
     </Compile>
-    <Compile Include="formularios\fm_0400_rp_ip_cguno.vb">
+    <Compile Include="formularios\Produccion\fm_0400_rp_ip_cguno.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="formularios\fm_0400_rp_reporte_act_alternas.Designer.vb">
+    <Compile Include="formularios\Produccion\fm_0400_rp_reporte_act_alternas.Designer.vb">
       <DependentUpon>fm_0400_rp_reporte_act_alternas.vb</DependentUpon>
     </Compile>
-    <Compile Include="formularios\fm_0400_rp_reporte_act_alternas.vb">
+    <Compile Include="formularios\Produccion\fm_0400_rp_reporte_act_alternas.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="formularios\fm_0400_rp_reporte_produccion.Designer.vb">
+    <Compile Include="formularios\Produccion\fm_0400_rp_reporte_produccion.Designer.vb">
       <DependentUpon>fm_0400_rp_reporte_produccion.vb</DependentUpon>
     </Compile>
-    <Compile Include="formularios\fm_0400_rp_reporte_produccion.vb">
+    <Compile Include="formularios\Produccion\fm_0400_rp_reporte_produccion.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="formularios\fm_0400_update_items_cg.Designer.vb">
+    <Compile Include="formularios\Produccion\fm_0400_update_items_cg.Designer.vb">
       <DependentUpon>fm_0400_update_items_cg.vb</DependentUpon>
     </Compile>
-    <Compile Include="formularios\fm_0400_update_items_cg.vb">
+    <Compile Include="formularios\Produccion\fm_0400_update_items_cg.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="formularios\fm_0400_update_lotes_ip_cguno.Designer.vb">
+    <Compile Include="formularios\Produccion\fm_0400_update_lotes_ip_cguno.Designer.vb">
       <DependentUpon>fm_0400_update_lotes_ip_cguno.vb</DependentUpon>
     </Compile>
-    <Compile Include="formularios\fm_0400_update_lotes_ip_cguno.vb">
+    <Compile Include="formularios\Produccion\fm_0400_update_lotes_ip_cguno.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="formularios\fm_0500_control_copias_accesos.Designer.vb">
@@ -393,76 +399,76 @@
     <Compile Include="formularios\fm_0500_info_documento.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="formularios\fm_0600_relacionar_items_accion.Designer.vb">
+    <Compile Include="formularios\G-Acciones\fm_0600_relacionar_items_accion.Designer.vb">
       <DependentUpon>fm_0600_relacionar_items_accion.vb</DependentUpon>
     </Compile>
-    <Compile Include="formularios\fm_0600_relacionar_items_accion.vb">
+    <Compile Include="formularios\G-Acciones\fm_0600_relacionar_items_accion.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="formularios\fm_0800_cargar_cajas_despacho.Designer.vb">
+    <Compile Include="formularios\Logistica\fm_0800_cargar_cajas_despacho.Designer.vb">
       <DependentUpon>fm_0800_cargar_cajas_despacho.vb</DependentUpon>
     </Compile>
-    <Compile Include="formularios\fm_0800_cargar_cajas_despacho.vb">
+    <Compile Include="formularios\Logistica\fm_0800_cargar_cajas_despacho.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="formularios\fm_0800_costo_flete_transportadora.Designer.vb">
+    <Compile Include="formularios\Logistica\fm_0800_costo_flete_transportadora.Designer.vb">
       <DependentUpon>fm_0800_costo_flete_transportadora.vb</DependentUpon>
     </Compile>
-    <Compile Include="formularios\fm_0800_costo_flete_transportadora.vb">
+    <Compile Include="formularios\Logistica\fm_0800_costo_flete_transportadora.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="formularios\fm_0800_facturacion_pos.Designer.vb">
+    <Compile Include="formularios\Logistica\fm_0800_facturacion_pos.Designer.vb">
       <DependentUpon>fm_0800_facturacion_pos.vb</DependentUpon>
     </Compile>
-    <Compile Include="formularios\fm_0800_facturacion_pos.vb">
+    <Compile Include="formularios\Logistica\fm_0800_facturacion_pos.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="formularios\fm_0800_perfil_transportadora.Designer.vb">
+    <Compile Include="formularios\Logistica\fm_0800_perfil_transportadora.Designer.vb">
       <DependentUpon>fm_0800_perfil_transportadora.vb</DependentUpon>
     </Compile>
-    <Compile Include="formularios\fm_0800_perfil_transportadora.vb">
+    <Compile Include="formularios\Logistica\fm_0800_perfil_transportadora.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="formularios\fm_0800_programacion_despacho.Designer.vb">
+    <Compile Include="formularios\Logistica\fm_0800_programacion_despacho.Designer.vb">
       <DependentUpon>fm_0800_programacion_despacho.vb</DependentUpon>
     </Compile>
-    <Compile Include="formularios\fm_0800_programacion_despacho.vb">
+    <Compile Include="formularios\Logistica\fm_0800_programacion_despacho.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="formularios\fm_0300_formulacion_items.Designer.vb">
+    <Compile Include="formularios\Compras\Items-Formulaciones\fm_0300_formulacion_items.Designer.vb">
       <DependentUpon>fm_0300_formulacion_items.vb</DependentUpon>
     </Compile>
-    <Compile Include="formularios\fm_0300_formulacion_items.vb">
+    <Compile Include="formularios\Compras\Items-Formulaciones\fm_0300_formulacion_items.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="formularios\fm_0300_historico_compras_item.Designer.vb">
+    <Compile Include="formularios\Compras\Items-Formulaciones\fm_0300_historico_compras_item.Designer.vb">
       <DependentUpon>fm_0300_historico_compras_item.vb</DependentUpon>
     </Compile>
-    <Compile Include="formularios\fm_0300_historico_compras_item.vb">
+    <Compile Include="formularios\Compras\Items-Formulaciones\fm_0300_historico_compras_item.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="formularios\fm_0300_formulacion.Designer.vb">
+    <Compile Include="formularios\Compras\Items-Formulaciones\fm_0300_formulacion.Designer.vb">
       <DependentUpon>fm_0300_formulacion.vb</DependentUpon>
     </Compile>
-    <Compile Include="formularios\fm_0300_formulacion.vb">
+    <Compile Include="formularios\Compras\Items-Formulaciones\fm_0300_formulacion.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="formularios\fm_0400_impresion_etiquetas.Designer.vb">
+    <Compile Include="formularios\Produccion\fm_0400_impresion_etiquetas.Designer.vb">
       <DependentUpon>fm_0400_impresion_etiquetas.vb</DependentUpon>
     </Compile>
-    <Compile Include="formularios\fm_0400_impresion_etiquetas.vb">
+    <Compile Include="formularios\Produccion\fm_0400_impresion_etiquetas.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="formularios\fm_0800_cargar_rm.Designer.vb">
+    <Compile Include="formularios\Logistica\fm_0800_cargar_rm.Designer.vb">
       <DependentUpon>fm_0800_cargar_rm.vb</DependentUpon>
     </Compile>
-    <Compile Include="formularios\fm_0800_cargar_rm.vb">
+    <Compile Include="formularios\Logistica\fm_0800_cargar_rm.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="formularios\fm_0800_registro_pedidos obsoleto.Designer.vb">
+    <Compile Include="formularios\Logistica\fm_0800_registro_pedidos obsoleto.Designer.vb">
       <DependentUpon>fm_0800_registro_pedidos obsoleto.vb</DependentUpon>
     </Compile>
-    <Compile Include="formularios\fm_0800_registro_pedidos obsoleto.vb">
+    <Compile Include="formularios\Logistica\fm_0800_registro_pedidos obsoleto.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="formularios\FI_VISOR_CR.Designer.vb">
@@ -489,16 +495,16 @@
     <Compile Include="formularios\fm_0008_configurar_archivo_recibo.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="formularios\fm_0023_informacion_personal.Designer.vb">
+    <Compile Include="formularios\RHumanos\fm_0023_informacion_personal.Designer.vb">
       <DependentUpon>fm_0023_informacion_personal.vb</DependentUpon>
     </Compile>
-    <Compile Include="formularios\fm_0023_informacion_personal.vb">
+    <Compile Include="formularios\RHumanos\fm_0023_informacion_personal.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="formularios\fm_0100_estructura_mantenimiento_identificador.Designer.vb">
+    <Compile Include="formularios\Mantenimiento\fm_0100_estructura_mantenimiento_identificador.Designer.vb">
       <DependentUpon>fm_0100_estructura_mantenimiento_identificador.vb</DependentUpon>
     </Compile>
-    <Compile Include="formularios\fm_0100_estructura_mantenimiento_identificador.vb">
+    <Compile Include="formularios\Mantenimiento\fm_0100_estructura_mantenimiento_identificador.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="formularios\fm_0008_importar_plano_bancos.Designer.vb">
@@ -513,40 +519,40 @@
     <Compile Include="formularios\fm_0500_dialog_suministro_documento.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="formularios\fm_0600_estadisticas_usuario.Designer.vb">
+    <Compile Include="formularios\G-Acciones\fm_0600_estadisticas_usuario.Designer.vb">
       <DependentUpon>fm_0600_estadisticas_usuario.vb</DependentUpon>
     </Compile>
-    <Compile Include="formularios\fm_0600_estadisticas_usuario.vb">
+    <Compile Include="formularios\G-Acciones\fm_0600_estadisticas_usuario.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="formularios\fm_0600_gestion_causas.Designer.vb">
+    <Compile Include="formularios\G-Acciones\fm_0600_gestion_causas.Designer.vb">
       <DependentUpon>fm_0600_gestion_causas.vb</DependentUpon>
     </Compile>
-    <Compile Include="formularios\fm_0600_gestion_causas.vb">
+    <Compile Include="formularios\G-Acciones\fm_0600_gestion_causas.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="formularios\fm_0600_gestion_seguimiento.Designer.vb">
+    <Compile Include="formularios\G-Acciones\fm_0600_gestion_seguimiento.Designer.vb">
       <DependentUpon>fm_0600_gestion_seguimiento.vb</DependentUpon>
     </Compile>
-    <Compile Include="formularios\fm_0600_gestion_seguimiento.vb">
+    <Compile Include="formularios\G-Acciones\fm_0600_gestion_seguimiento.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="formularios\fm_0300_gestion_items.Designer.vb">
+    <Compile Include="formularios\Compras\Items-Formulaciones\fm_0300_gestion_items.Designer.vb">
       <DependentUpon>fm_0300_gestion_items.vb</DependentUpon>
     </Compile>
-    <Compile Include="formularios\fm_0300_gestion_items.vb">
+    <Compile Include="formularios\Compras\Items-Formulaciones\fm_0300_gestion_items.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="formularios\fm_0300_sc_solicitud.Designer.vb">
+    <Compile Include="formularios\Compras\SC-OC-RC-SA\fm_0300_sc_solicitud.Designer.vb">
       <DependentUpon>fm_0300_sc_solicitud.vb</DependentUpon>
     </Compile>
-    <Compile Include="formularios\fm_0300_sc_solicitud.vb">
+    <Compile Include="formularios\Compras\SC-OC-RC-SA\fm_0300_sc_solicitud.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="formularios\fm_0600_gestion_tareas.Designer.vb">
+    <Compile Include="formularios\G-Acciones\fm_0600_gestion_tareas.Designer.vb">
       <DependentUpon>fm_0600_gestion_tareas.vb</DependentUpon>
     </Compile>
-    <Compile Include="formularios\fm_0600_gestion_tareas.vb">
+    <Compile Include="formularios\G-Acciones\fm_0600_gestion_tareas.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="formularios\fm_0002_edicion_unidades_medicion.Designer.vb">
@@ -567,10 +573,10 @@
     <Compile Include="formularios\fm_0022_gestion_permisos_usuarios.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="formularios\fm_0100_gestion_especificaciones.Designer.vb">
+    <Compile Include="formularios\Mantenimiento\fm_0100_gestion_especificaciones.Designer.vb">
       <DependentUpon>fm_0100_gestion_especificaciones.vb</DependentUpon>
     </Compile>
-    <Compile Include="formularios\fm_0100_gestion_especificaciones.vb">
+    <Compile Include="formularios\Mantenimiento\fm_0100_gestion_especificaciones.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="formularios\fm_0021_usuarios.Designer.vb">
@@ -579,40 +585,40 @@
     <Compile Include="formularios\fm_0021_usuarios.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="formularios\fm_0100_estructura_mantenimiento.Designer.vb">
+    <Compile Include="formularios\Mantenimiento\fm_0100_estructura_mantenimiento.Designer.vb">
       <DependentUpon>fm_0100_estructura_mantenimiento.vb</DependentUpon>
     </Compile>
-    <Compile Include="formularios\fm_0100_estructura_mantenimiento.vb">
+    <Compile Include="formularios\Mantenimiento\fm_0100_estructura_mantenimiento.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="formularios\fm_0100_elemento_estructura_mantenimiento.Designer.vb">
+    <Compile Include="formularios\Mantenimiento\fm_0100_elemento_estructura_mantenimiento.Designer.vb">
       <DependentUpon>fm_0100_elemento_estructura_mantenimiento.vb</DependentUpon>
     </Compile>
-    <Compile Include="formularios\fm_0100_elemento_estructura_mantenimiento.vb">
+    <Compile Include="formularios\Mantenimiento\fm_0100_elemento_estructura_mantenimiento.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="formularios\fm_0600_gestion_tarea_repetitiva.Designer.vb">
+    <Compile Include="formularios\G-Acciones\fm_0600_gestion_tarea_repetitiva.Designer.vb">
       <DependentUpon>fm_0600_gestion_tarea_repetitiva.vb</DependentUpon>
     </Compile>
-    <Compile Include="formularios\fm_0600_gestion_tarea_repetitiva.vb">
+    <Compile Include="formularios\G-Acciones\fm_0600_gestion_tarea_repetitiva.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="formularios\fm_0100_programacion_actividad_manto_menu.Designer.vb">
+    <Compile Include="formularios\Mantenimiento\fm_0100_programacion_actividad_manto_menu.Designer.vb">
       <DependentUpon>fm_0100_programacion_actividad_manto_menu.vb</DependentUpon>
     </Compile>
-    <Compile Include="formularios\fm_0100_programacion_actividad_manto_menu.vb">
+    <Compile Include="formularios\Mantenimiento\fm_0100_programacion_actividad_manto_menu.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="formularios\fm_0100_reportar_falla_maquina.Designer.vb">
+    <Compile Include="formularios\Mantenimiento\fm_0100_reportar_falla_maquina.Designer.vb">
       <DependentUpon>fm_0100_reportar_falla_maquina.vb</DependentUpon>
     </Compile>
-    <Compile Include="formularios\fm_0100_reportar_falla_maquina.vb">
+    <Compile Include="formularios\Mantenimiento\fm_0100_reportar_falla_maquina.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="formularios\fm_0100_trasladar_ramal.Designer.vb">
+    <Compile Include="formularios\Mantenimiento\fm_0100_trasladar_ramal.Designer.vb">
       <DependentUpon>fm_0100_trasladar_ramal.vb</DependentUpon>
     </Compile>
-    <Compile Include="formularios\fm_0100_trasladar_ramal.vb">
+    <Compile Include="formularios\Mantenimiento\fm_0100_trasladar_ramal.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="formularios\fm_0200_tercero.Designer.vb">
@@ -621,46 +627,46 @@
     <Compile Include="formularios\fm_0200_tercero.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="formularios\fm_0600_gestion_tareas_cambio_fecha.Designer.vb">
+    <Compile Include="formularios\G-Acciones\fm_0600_gestion_tareas_cambio_fecha.Designer.vb">
       <DependentUpon>fm_0600_gestion_tareas_cambio_fecha.vb</DependentUpon>
     </Compile>
-    <Compile Include="formularios\fm_0600_gestion_tareas_cambio_fecha.vb">
+    <Compile Include="formularios\G-Acciones\fm_0600_gestion_tareas_cambio_fecha.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="formularios\fm_0600_p1_definicion_accion.Designer.vb">
+    <Compile Include="formularios\G-Acciones\fm_0600_p1_definicion_accion.Designer.vb">
       <DependentUpon>fm_0600_p1_definicion_accion.vb</DependentUpon>
     </Compile>
-    <Compile Include="formularios\fm_0600_p1_definicion_accion.vb">
+    <Compile Include="formularios\G-Acciones\fm_0600_p1_definicion_accion.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="formularios\fm_0600_p2_criterios_eficacia.Designer.vb">
+    <Compile Include="formularios\G-Acciones\fm_0600_p2_criterios_eficacia.Designer.vb">
       <DependentUpon>fm_0600_p2_criterios_eficacia.vb</DependentUpon>
     </Compile>
-    <Compile Include="formularios\fm_0600_p2_criterios_eficacia.vb">
+    <Compile Include="formularios\G-Acciones\fm_0600_p2_criterios_eficacia.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="formularios\fm_0300_sc_items.Designer.vb">
+    <Compile Include="formularios\Compras\SC-OC-RC-SA\fm_0300_sc_items.Designer.vb">
       <DependentUpon>fm_0300_sc_items.vb</DependentUpon>
     </Compile>
-    <Compile Include="formularios\fm_0300_sc_items.vb">
+    <Compile Include="formularios\Compras\SC-OC-RC-SA\fm_0300_sc_items.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="formularios\fm_0600_p3_analisis_y_solucion.Designer.vb">
+    <Compile Include="formularios\G-Acciones\fm_0600_p3_analisis_y_solucion.Designer.vb">
       <DependentUpon>fm_0600_p3_analisis_y_solucion.vb</DependentUpon>
     </Compile>
-    <Compile Include="formularios\fm_0600_p3_analisis_y_solucion.vb">
+    <Compile Include="formularios\G-Acciones\fm_0600_p3_analisis_y_solucion.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="formularios\fm_0600_p3_mef.Designer.vb">
+    <Compile Include="formularios\G-Acciones\fm_0600_p3_mef.Designer.vb">
       <DependentUpon>fm_0600_p3_mef.vb</DependentUpon>
     </Compile>
-    <Compile Include="formularios\fm_0600_p3_mef.vb">
+    <Compile Include="formularios\G-Acciones\fm_0600_p3_mef.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="formularios\fm_0600_recursos_listado.Designer.vb">
+    <Compile Include="formularios\G-Acciones\fm_0600_recursos_listado.Designer.vb">
       <DependentUpon>fm_0600_recursos_listado.vb</DependentUpon>
     </Compile>
-    <Compile Include="formularios\fm_0600_recursos_listado.vb">
+    <Compile Include="formularios\G-Acciones\fm_0600_recursos_listado.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="formularios\fm_gestion_fechas.Designer.vb">
@@ -828,58 +834,61 @@
     <EmbeddedResource Include="CustomControls\DropDownCheckedListBox.resx">
       <DependentUpon>DropDownCheckedListBox.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="formularios\fm_0300_facturas_compras.resx">
+    <EmbeddedResource Include="formularios\Compras\SC-OC-RC-SA\fm_0300_facturas_compras.resx">
       <DependentUpon>fm_0300_facturas_compras.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="formularios\fm_0800_cargar_faltantes_cotizaciones.resx">
+    <EmbeddedResource Include="formularios\Compras\SC-OC-RC-SA\fm_0300_recepcion_compras.resx">
+      <DependentUpon>fm_0300_recepcion_compras.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="formularios\Logistica\fm_0800_cargar_faltantes_cotizaciones.resx">
       <DependentUpon>fm_0800_cargar_faltantes_cotizaciones.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="formularios\ejemplo.resx">
       <DependentUpon>ejemplo.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="formularios\fm_0023_01_ausentismo.resx">
+    <EmbeddedResource Include="formularios\RHumanos\fm_0023_01_ausentismo.resx">
       <DependentUpon>fm_0023_01_ausentismo.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="formularios\fm_0300_asignacion_elemetos_personal_encabezado.resx">
+    <EmbeddedResource Include="formularios\RHumanos\fm_0300_asignacion_elemetos_personal_encabezado.resx">
       <DependentUpon>fm_0300_asignacion_elemetos_personal_encabezado.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="formularios\fm_0300_facturas_compras_recepcion.resx">
+    <EmbeddedResource Include="formularios\Compras\SC-OC-RC-SA\fm_0300_facturas_compras_recepcion.resx">
       <DependentUpon>fm_0300_facturas_compras_recepcion.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="formularios\fm_0300_formulacion_menu.resx">
+    <EmbeddedResource Include="formularios\Compras\Items-Formulaciones\fm_0300_formulacion_menu.resx">
       <DependentUpon>fm_0300_formulacion_menu.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="formularios\fm_0300_formulacion_tree_view.resx">
+    <EmbeddedResource Include="formularios\Compras\Items-Formulaciones\fm_0300_formulacion_tree_view.resx">
       <DependentUpon>fm_0300_formulacion_tree_view.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="formularios\fm_0300_gestion_items_costos.resx">
+    <EmbeddedResource Include="formularios\Compras\Items-Formulaciones\fm_0300_gestion_items_costos.resx">
       <DependentUpon>fm_0300_gestion_items_costos.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="formularios\fm_0300_orden_compra.resx">
+    <EmbeddedResource Include="formularios\Compras\SC-OC-RC-SA\fm_0300_orden_compra.resx">
       <DependentUpon>fm_0300_orden_compra.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="formularios\fm_0300_solicitud_mp_produccion.resx">
+    <EmbeddedResource Include="formularios\Produccion\fm_0300_solicitud_mp_produccion.resx">
       <DependentUpon>fm_0300_solicitud_mp_produccion.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="formularios\fm_0300_suministrar_item_cant.resx">
+    <EmbeddedResource Include="formularios\Compras\SC-OC-RC-SA\fm_0300_suministrar_item_cant.resx">
       <DependentUpon>fm_0300_suministrar_item_cant.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="formularios\fm_0300_unificar_items.resx">
+    <EmbeddedResource Include="formularios\Compras\Items-Formulaciones\fm_0300_unificar_items.resx">
       <DependentUpon>fm_0300_unificar_items.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="formularios\fm_0400_cargar_ip_cguno.resx">
+    <EmbeddedResource Include="formularios\Produccion\fm_0400_cargar_ip_cguno.resx">
       <DependentUpon>fm_0400_cargar_ip_cguno.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="formularios\fm_0400_gestion_agrupada_consumos_produccion.resx">
+    <EmbeddedResource Include="formularios\Produccion\fm_0400_gestion_agrupada_consumos_produccion.resx">
       <DependentUpon>fm_0400_gestion_agrupada_consumos_produccion.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="formularios\fm_0400_pp_edicion_programa.resx">
+    <EmbeddedResource Include="formularios\Produccion\fm_0400_pp_edicion_programa.resx">
       <DependentUpon>fm_0400_pp_edicion_programa.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="formularios\fm_0400_pp_ordenes_produccion_arbol.resx">
+    <EmbeddedResource Include="formularios\Produccion\fm_0400_pp_ordenes_produccion_arbol.resx">
       <DependentUpon>fm_0400_pp_ordenes_produccion_arbol.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="formularios\fm_0400_pp_progamas_produccion.resx">
+    <EmbeddedResource Include="formularios\Produccion\fm_0400_pp_progamas_produccion.resx">
       <DependentUpon>fm_0400_pp_progamas_produccion.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="formularios\fm_0052_equivalencias_ciudades_cg.resx">
@@ -888,25 +897,25 @@
     <EmbeddedResource Include="formularios\fm_0200_tercero_sucursal.resx">
       <DependentUpon>fm_0200_tercero_sucursal.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="formularios\fm_0300_explosion_prog_prod.resx">
+    <EmbeddedResource Include="formularios\Produccion\fm_0300_explosion_prog_prod.resx">
       <DependentUpon>fm_0300_explosion_prog_prod.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="formularios\fm_0300_doc_movimientos_inventarios.resx">
+    <EmbeddedResource Include="formularios\Compras\SC-OC-RC-SA\fm_0300_doc_movimientos_inventarios.resx">
       <DependentUpon>fm_0300_doc_movimientos_inventarios.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="formularios\fm_0400_rp_ip_cguno.resx">
+    <EmbeddedResource Include="formularios\Produccion\fm_0400_rp_ip_cguno.resx">
       <DependentUpon>fm_0400_rp_ip_cguno.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="formularios\fm_0400_rp_reporte_act_alternas.resx">
+    <EmbeddedResource Include="formularios\Produccion\fm_0400_rp_reporte_act_alternas.resx">
       <DependentUpon>fm_0400_rp_reporte_act_alternas.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="formularios\fm_0400_rp_reporte_produccion.resx">
+    <EmbeddedResource Include="formularios\Produccion\fm_0400_rp_reporte_produccion.resx">
       <DependentUpon>fm_0400_rp_reporte_produccion.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="formularios\fm_0400_update_items_cg.resx">
+    <EmbeddedResource Include="formularios\Produccion\fm_0400_update_items_cg.resx">
       <DependentUpon>fm_0400_update_items_cg.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="formularios\fm_0400_update_lotes_ip_cguno.resx">
+    <EmbeddedResource Include="formularios\Produccion\fm_0400_update_lotes_ip_cguno.resx">
       <DependentUpon>fm_0400_update_lotes_ip_cguno.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="formularios\fm_0500_control_copias_accesos.resx">
@@ -930,40 +939,40 @@
     <EmbeddedResource Include="formularios\fm_0500_info_documento.resx">
       <DependentUpon>fm_0500_info_documento.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="formularios\fm_0600_relacionar_items_accion.resx">
+    <EmbeddedResource Include="formularios\G-Acciones\fm_0600_relacionar_items_accion.resx">
       <DependentUpon>fm_0600_relacionar_items_accion.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="formularios\fm_0800_cargar_cajas_despacho.resx">
+    <EmbeddedResource Include="formularios\Logistica\fm_0800_cargar_cajas_despacho.resx">
       <DependentUpon>fm_0800_cargar_cajas_despacho.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="formularios\fm_0800_costo_flete_transportadora.resx">
+    <EmbeddedResource Include="formularios\Logistica\fm_0800_costo_flete_transportadora.resx">
       <DependentUpon>fm_0800_costo_flete_transportadora.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="formularios\fm_0800_facturacion_pos.resx">
+    <EmbeddedResource Include="formularios\Logistica\fm_0800_facturacion_pos.resx">
       <DependentUpon>fm_0800_facturacion_pos.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="formularios\fm_0800_perfil_transportadora.resx">
+    <EmbeddedResource Include="formularios\Logistica\fm_0800_perfil_transportadora.resx">
       <DependentUpon>fm_0800_perfil_transportadora.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="formularios\fm_0800_programacion_despacho.resx">
+    <EmbeddedResource Include="formularios\Logistica\fm_0800_programacion_despacho.resx">
       <DependentUpon>fm_0800_programacion_despacho.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="formularios\fm_0300_formulacion_items.resx">
+    <EmbeddedResource Include="formularios\Compras\Items-Formulaciones\fm_0300_formulacion_items.resx">
       <DependentUpon>fm_0300_formulacion_items.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="formularios\fm_0300_historico_compras_item.resx">
+    <EmbeddedResource Include="formularios\Compras\Items-Formulaciones\fm_0300_historico_compras_item.resx">
       <DependentUpon>fm_0300_historico_compras_item.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="formularios\fm_0300_formulacion.resx">
+    <EmbeddedResource Include="formularios\Compras\Items-Formulaciones\fm_0300_formulacion.resx">
       <DependentUpon>fm_0300_formulacion.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="formularios\fm_0400_impresion_etiquetas.resx">
+    <EmbeddedResource Include="formularios\Produccion\fm_0400_impresion_etiquetas.resx">
       <DependentUpon>fm_0400_impresion_etiquetas.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="formularios\fm_0800_cargar_rm.resx">
+    <EmbeddedResource Include="formularios\Logistica\fm_0800_cargar_rm.resx">
       <DependentUpon>fm_0800_cargar_rm.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="formularios\fm_0800_registro_pedidos obsoleto.resx">
+    <EmbeddedResource Include="formularios\Logistica\fm_0800_registro_pedidos obsoleto.resx">
       <DependentUpon>fm_0800_registro_pedidos obsoleto.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="formularios\FI_VISOR_CR.resx">
@@ -978,10 +987,10 @@
     <EmbeddedResource Include="formularios\fm_0008_configurar_archivo_recibo.resx">
       <DependentUpon>fm_0008_configurar_archivo_recibo.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="formularios\fm_0023_informacion_personal.resx">
+    <EmbeddedResource Include="formularios\RHumanos\fm_0023_informacion_personal.resx">
       <DependentUpon>fm_0023_informacion_personal.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="formularios\fm_0100_estructura_mantenimiento_identificador.resx">
+    <EmbeddedResource Include="formularios\Mantenimiento\fm_0100_estructura_mantenimiento_identificador.resx">
       <DependentUpon>fm_0100_estructura_mantenimiento_identificador.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="formularios\fm_0008_importar_plano_bancos.resx">
@@ -990,22 +999,22 @@
     <EmbeddedResource Include="formularios\fm_0500_dialog_suministro_documento.resx">
       <DependentUpon>fm_0500_dialog_suministro_documento.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="formularios\fm_0600_estadisticas_usuario.resx">
+    <EmbeddedResource Include="formularios\G-Acciones\fm_0600_estadisticas_usuario.resx">
       <DependentUpon>fm_0600_estadisticas_usuario.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="formularios\fm_0600_gestion_causas.resx">
+    <EmbeddedResource Include="formularios\G-Acciones\fm_0600_gestion_causas.resx">
       <DependentUpon>fm_0600_gestion_causas.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="formularios\fm_0600_gestion_seguimiento.resx">
+    <EmbeddedResource Include="formularios\G-Acciones\fm_0600_gestion_seguimiento.resx">
       <DependentUpon>fm_0600_gestion_seguimiento.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="formularios\fm_0300_gestion_items.resx">
+    <EmbeddedResource Include="formularios\Compras\Items-Formulaciones\fm_0300_gestion_items.resx">
       <DependentUpon>fm_0300_gestion_items.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="formularios\fm_0300_sc_solicitud.resx">
+    <EmbeddedResource Include="formularios\Compras\SC-OC-RC-SA\fm_0300_sc_solicitud.resx">
       <DependentUpon>fm_0300_sc_solicitud.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="formularios\fm_0600_gestion_tareas.resx">
+    <EmbeddedResource Include="formularios\G-Acciones\fm_0600_gestion_tareas.resx">
       <DependentUpon>fm_0600_gestion_tareas.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="formularios\fm_0002_edicion_unidades_medicion.resx">
@@ -1017,52 +1026,52 @@
     <EmbeddedResource Include="formularios\fm_0022_gestion_permisos_usuarios.resx">
       <DependentUpon>fm_0022_gestion_permisos_usuarios.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="formularios\fm_0100_gestion_especificaciones.resx">
+    <EmbeddedResource Include="formularios\Mantenimiento\fm_0100_gestion_especificaciones.resx">
       <DependentUpon>fm_0100_gestion_especificaciones.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="formularios\fm_0021_usuarios.resx">
       <DependentUpon>fm_0021_usuarios.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="formularios\fm_0100_estructura_mantenimiento.resx">
+    <EmbeddedResource Include="formularios\Mantenimiento\fm_0100_estructura_mantenimiento.resx">
       <DependentUpon>fm_0100_estructura_mantenimiento.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="formularios\fm_0100_elemento_estructura_mantenimiento.resx">
+    <EmbeddedResource Include="formularios\Mantenimiento\fm_0100_elemento_estructura_mantenimiento.resx">
       <DependentUpon>fm_0100_elemento_estructura_mantenimiento.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="formularios\fm_0600_gestion_tarea_repetitiva.resx">
+    <EmbeddedResource Include="formularios\G-Acciones\fm_0600_gestion_tarea_repetitiva.resx">
       <DependentUpon>fm_0600_gestion_tarea_repetitiva.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="formularios\fm_0100_programacion_actividad_manto_menu.resx">
+    <EmbeddedResource Include="formularios\Mantenimiento\fm_0100_programacion_actividad_manto_menu.resx">
       <DependentUpon>fm_0100_programacion_actividad_manto_menu.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="formularios\fm_0100_reportar_falla_maquina.resx">
+    <EmbeddedResource Include="formularios\Mantenimiento\fm_0100_reportar_falla_maquina.resx">
       <DependentUpon>fm_0100_reportar_falla_maquina.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="formularios\fm_0100_trasladar_ramal.resx">
+    <EmbeddedResource Include="formularios\Mantenimiento\fm_0100_trasladar_ramal.resx">
       <DependentUpon>fm_0100_trasladar_ramal.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="formularios\fm_0200_tercero.resx">
       <DependentUpon>fm_0200_tercero.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="formularios\fm_0600_gestion_tareas_cambio_fecha.resx">
+    <EmbeddedResource Include="formularios\G-Acciones\fm_0600_gestion_tareas_cambio_fecha.resx">
       <DependentUpon>fm_0600_gestion_tareas_cambio_fecha.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="formularios\fm_0600_p1_definicion_accion.resx">
+    <EmbeddedResource Include="formularios\G-Acciones\fm_0600_p1_definicion_accion.resx">
       <DependentUpon>fm_0600_p1_definicion_accion.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="formularios\fm_0600_p2_criterios_eficacia.resx">
+    <EmbeddedResource Include="formularios\G-Acciones\fm_0600_p2_criterios_eficacia.resx">
       <DependentUpon>fm_0600_p2_criterios_eficacia.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="formularios\fm_0300_sc_items.resx">
+    <EmbeddedResource Include="formularios\Compras\SC-OC-RC-SA\fm_0300_sc_items.resx">
       <DependentUpon>fm_0300_sc_items.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="formularios\fm_0600_p3_analisis_y_solucion.resx">
+    <EmbeddedResource Include="formularios\G-Acciones\fm_0600_p3_analisis_y_solucion.resx">
       <DependentUpon>fm_0600_p3_analisis_y_solucion.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="formularios\fm_0600_p3_mef.resx">
+    <EmbeddedResource Include="formularios\G-Acciones\fm_0600_p3_mef.resx">
       <DependentUpon>fm_0600_p3_mef.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="formularios\fm_0600_recursos_listado.resx">
+    <EmbeddedResource Include="formularios\G-Acciones\fm_0600_recursos_listado.resx">
       <DependentUpon>fm_0600_recursos_listado.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="formularios\fm_gestion_fechas.resx">
@@ -1393,6 +1402,7 @@
   <ItemGroup>
     <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

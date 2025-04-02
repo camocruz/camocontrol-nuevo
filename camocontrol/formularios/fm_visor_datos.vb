@@ -158,7 +158,9 @@ Public Class fm_visor_datos
         End If
         lb_total_registros.Text = dg_datos.Rows.Count
         Try
-            vf_oform_padre.vf_tot_notas = dg_datos.Rows.Count
+            If vf_oform_padre <> Nothing Then
+                vf_oform_padre.vf_tot_notas = dg_datos.Rows.Count
+            End If
         Catch ex As Exception
 
         End Try

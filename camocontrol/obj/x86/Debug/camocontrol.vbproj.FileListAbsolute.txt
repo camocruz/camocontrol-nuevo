@@ -622,12 +622,12 @@ C:\Repos\camocontrol\camocontrol\bin\Debug\CrystalDecisions.ReportAppServer.Comm
 C:\Repos\camocontrol\camocontrol\bin\Debug\stdole.dll
 C:\Repos\camocontrol\camocontrol\bin\Debug\Interop.AcroPDFLib.dll
 C:\Repos\camocontrol\camocontrol\bin\Debug\AxInterop.AcroPDFLib.dll
-C:\Repos\camocontrol\camocontrol\obj\x86\Debug\camocontrol.vbproj.AssemblyReference.cache
 C:\Repos\camocontrol\camocontrol\obj\x86\Debug\Interop.AcroPDFLib.dll
 C:\Repos\camocontrol\camocontrol\obj\x86\Debug\Interop.PAGEOBJECTMODELLib.dll
 C:\Repos\camocontrol\camocontrol\obj\x86\Debug\AxInterop.AcroPDFLib.dll
 C:\Repos\camocontrol\camocontrol\obj\x86\Debug\camocontrol.vbproj.ResolveComReference.cache
 C:\Repos\camocontrol\camocontrol\obj\x86\Debug\camocontrol.DropDownCheckedListBox.resources
+C:\Repos\camocontrol\camocontrol\obj\x86\Debug\camocontrol.fm_0300_facturas_compras.resources
 C:\Repos\camocontrol\camocontrol\obj\x86\Debug\camocontrol.fm_0800_cargar_faltantes_cotizaciones.resources
 C:\Repos\camocontrol\camocontrol\obj\x86\Debug\camocontrol.ejemplo.resources
 C:\Repos\camocontrol\camocontrol\obj\x86\Debug\camocontrol.fm_0023_01_ausentismo.resources
@@ -680,7 +680,6 @@ C:\Repos\camocontrol\camocontrol\obj\x86\Debug\camocontrol.fm_0008_configurar_ar
 C:\Repos\camocontrol\camocontrol\obj\x86\Debug\camocontrol.fm_0023_informacion_personal.resources
 C:\Repos\camocontrol\camocontrol\obj\x86\Debug\camocontrol.fm_0100_estructura_mantenimiento_identificador.resources
 C:\Repos\camocontrol\camocontrol\obj\x86\Debug\camocontrol.fm_0008_importar_plano_bancos.resources
-C:\Repos\camocontrol\camocontrol\obj\x86\Debug\camocontrol.fm_0300_facturas_compras.resources
 C:\Repos\camocontrol\camocontrol\obj\x86\Debug\camocontrol.fm_0500_dialog_suministro_documento.resources
 C:\Repos\camocontrol\camocontrol\obj\x86\Debug\camocontrol.fm_0600_estadisticas_usuario.resources
 C:\Repos\camocontrol\camocontrol\obj\x86\Debug\camocontrol.fm_0600_gestion_causas.resources
@@ -728,3 +727,5 @@ C:\Repos\camocontrol\camocontrol\obj\x86\Debug\camocontrol.vbproj.CopyComplete
 C:\Repos\camocontrol\camocontrol\obj\x86\Debug\camocontrol.exe
 C:\Repos\camocontrol\camocontrol\obj\x86\Debug\camocontrol.xml
 C:\Repos\camocontrol\camocontrol\obj\x86\Debug\camocontrol.pdb
+C:\Repos\camocontrol\camocontrol\obj\x86\Debug\camocontrol.vbproj.AssemblyReference.cache
+C:\Repos\camocontrol\camocontrol\obj\x86\Debug\camocontrol.fm_0300_recepcion_compras.resources

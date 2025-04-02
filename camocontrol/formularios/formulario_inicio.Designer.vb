@@ -172,6 +172,7 @@ Partial Class formulario_inicio
         Me.StatusStrip = New System.Windows.Forms.StatusStrip()
         Me.ToolStripStatusLabel = New System.Windows.Forms.ToolStripStatusLabel()
         Me.ToolTip = New System.Windows.Forms.ToolTip(Me.components)
+        Me.mi_nueva_factura = New System.Windows.Forms.ToolStripMenuItem()
         Me.MenuStrip.SuspendLayout()
         Me.StatusStrip.SuspendLayout()
         Me.SuspendLayout()
@@ -533,7 +534,7 @@ Partial Class formulario_inicio
         Me.mi_solicitudes_compra.Image = Global.camocontrol.My.Resources.Resources.Full_shopping_cart_Icon_32
         Me.mi_solicitudes_compra.Name = "mi_solicitudes_compra"
         Me.mi_solicitudes_compra.Size = New System.Drawing.Size(289, 30)
-        Me.mi_solicitudes_compra.Text = "Solicitudes"
+        Me.mi_solicitudes_compra.Text = "Solicitudes de Compras"
         '
         'mi_consultar_sol_compra_listados
         '
@@ -606,7 +607,7 @@ Partial Class formulario_inicio
         Me.mi_menu_ordenes_compra.Image = Global.camocontrol.My.Resources.Resources.articles
         Me.mi_menu_ordenes_compra.Name = "mi_menu_ordenes_compra"
         Me.mi_menu_ordenes_compra.Size = New System.Drawing.Size(289, 30)
-        Me.mi_menu_ordenes_compra.Text = "Ordenes de Compra"
+        Me.mi_menu_ordenes_compra.Text = "Ordenes de Compras"
         '
         'mi_generar_OC
         '
@@ -642,7 +643,7 @@ Partial Class formulario_inicio
         Me.mi_recepcion_mp_menu.Image = Global.camocontrol.My.Resources.Resources.pesaje1_peq
         Me.mi_recepcion_mp_menu.Name = "mi_recepcion_mp_menu"
         Me.mi_recepcion_mp_menu.Size = New System.Drawing.Size(289, 30)
-        Me.mi_recepcion_mp_menu.Text = "Recepcion MP"
+        Me.mi_recepcion_mp_menu.Text = "Recepciones de Compras"
         '
         'mi_recepcion
         '
@@ -681,11 +682,11 @@ Partial Class formulario_inicio
         '
         'mi_aprobacion_facturas_menu
         '
-        Me.mi_aprobacion_facturas_menu.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mi_lista_facturas_x_aprobar, Me.mi_listado_facturas_aprobadas_menu, Me.mi_exportar_info_compras, Me.mi_consultar_factura, Me.mi_listado_general_facturas_compras})
+        Me.mi_aprobacion_facturas_menu.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mi_nueva_factura, Me.mi_lista_facturas_x_aprobar, Me.mi_listado_facturas_aprobadas_menu, Me.mi_exportar_info_compras, Me.mi_consultar_factura, Me.mi_listado_general_facturas_compras})
         Me.mi_aprobacion_facturas_menu.Image = Global.camocontrol.My.Resources.Resources.dinero01
         Me.mi_aprobacion_facturas_menu.Name = "mi_aprobacion_facturas_menu"
         Me.mi_aprobacion_facturas_menu.Size = New System.Drawing.Size(289, 30)
-        Me.mi_aprobacion_facturas_menu.Text = "Aprobacion Facturas Compras"
+        Me.mi_aprobacion_facturas_menu.Text = "Facturas de Compras"
         '
         'mi_lista_facturas_x_aprobar
         '
@@ -1244,6 +1245,13 @@ Partial Class formulario_inicio
         Me.ToolStripStatusLabel.Size = New System.Drawing.Size(40, 17)
         Me.ToolStripStatusLabel.Text = "Estado"
         '
+        'mi_nueva_factura
+        '
+        Me.mi_nueva_factura.Image = Global.camocontrol.My.Resources.Resources.articles
+        Me.mi_nueva_factura.Name = "mi_nueva_factura"
+        Me.mi_nueva_factura.Size = New System.Drawing.Size(355, 30)
+        Me.mi_nueva_factura.Text = "Registrar Nueva Factura"
+        '
         'formulario_inicio
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -1413,4 +1421,5 @@ Partial Class formulario_inicio
     Friend WithEvents mi_AsignarFaltantesCotizaciones As ToolStripMenuItem
     Friend WithEvents mi_CargarInventarioDiario As ToolStripMenuItem
     Friend WithEvents mi_ActualizarArchivosPlanosManto As ToolStripMenuItem
+    Friend WithEvents mi_nueva_factura As ToolStripMenuItem
 End Class

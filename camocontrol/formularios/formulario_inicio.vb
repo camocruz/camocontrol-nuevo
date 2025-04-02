@@ -1397,7 +1397,24 @@ reinicio:
         oform_recepciones.lb_titulo.Text = "Recepción de Items y Factura"
         oform_recepciones.Show()
     End Sub
-
+    Private Sub mi_nueva_factura_Click(sender As Object, e As EventArgs) Handles mi_nueva_factura.Click
+        'Debido a fallo en seguridad revalido permiso para uso del menu.
+        Dim permitir As String = "N"
+        permitir = verificar_permisos_menu(sender)
+        If permitir = "N" Then
+            MsgBox("Fallo en permisos de uso menu", MsgBoxStyle.Information, "Info")
+            Exit Sub
+        End If
+        'Instanciamos el formulario como un objeto de la clase fm_grilla_turnos
+        'Esto es necesario hacerlo cuando antes de mostrar el formulario debemos configurarle valores previos
+        Dim oform_factura_compras As New camocontrol.fm_0300_facturas_compras With {
+            .vf_oform_padre = Me,
+            .vg_id_cia = vg_id_cia,
+            .vg_usuario_autoriza = vlogin,
+            .vf_elemento_nuevo = "S"
+        }
+        oform_factura_compras.ShowDialog()
+    End Sub
     Private Sub mi_sc_pend_aprob_recepcion_Click(sender As System.Object, e As System.EventArgs) Handles mi_sc_pend_aprob_recepcion.Click
         'Debido a fallo en seguridad revalido permiso para uso del menu.
         Dim permitir As String = "N"
@@ -2613,15 +2630,6 @@ reinicio:
         Dim otb_bodegas As DataTable = cl_utilidades_datatables.cargar_informacion_postgres(csql)
         MsgBox("Actualizado")
     End Sub
-
-
-
-
-
-
-
-
-
 
 
 
