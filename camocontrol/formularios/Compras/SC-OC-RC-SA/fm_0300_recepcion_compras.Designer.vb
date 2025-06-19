@@ -26,7 +26,6 @@ Partial Class fm_0300_recepcion_compras
         Me.lb_identificacion = New System.Windows.Forms.Label()
         Me.Tx_Nombre_Tercero = New System.Windows.Forms.TextBox()
         Me.Label5 = New System.Windows.Forms.Label()
-        Me.lb_fecha_aprob = New System.Windows.Forms.Label()
         Me.bt_listado_oc = New System.Windows.Forms.Button()
         Me.tx_id_oc = New System.Windows.Forms.TextBox()
         Me.Label20 = New System.Windows.Forms.Label()
@@ -48,33 +47,22 @@ Partial Class fm_0300_recepcion_compras
         Me.cm_bodega = New System.Windows.Forms.ComboBox()
         Me.Label23 = New System.Windows.Forms.Label()
         Me.bt_aprobar_recepcion = New System.Windows.Forms.Button()
-        Me.tx_remision_proveedor = New System.Windows.Forms.TextBox()
-        Me.Label15 = New System.Windows.Forms.Label()
-        Me.Label14 = New System.Windows.Forms.Label()
         Me.Label13 = New System.Windows.Forms.Label()
-        Me.dtp_vencimiento_factura = New System.Windows.Forms.DateTimePicker()
         Me.dtp_fecha_factura = New System.Windows.Forms.DateTimePicker()
         Me.bt_solicitud_compra = New System.Windows.Forms.Button()
         Me.tx_sol_compra = New System.Windows.Forms.TextBox()
         Me.Label11 = New System.Windows.Forms.Label()
-        Me.bt_gestionar_tercero = New System.Windows.Forms.Button()
-        Me.bt_catalago_items = New System.Windows.Forms.Button()
         Me.lb_valor_factura = New System.Windows.Forms.Label()
         Me.Label10 = New System.Windows.Forms.Label()
-        Me.tx_cuadre_caja = New System.Windows.Forms.TextBox()
-        Me.Label2 = New System.Windows.Forms.Label()
-        Me.bt_aprobar = New System.Windows.Forms.Button()
         Me.tx_estado = New System.Windows.Forms.TextBox()
         Me.Label7 = New System.Windows.Forms.Label()
-        Me.tx_id_factura = New System.Windows.Forms.TextBox()
+        Me.tx_id_recepcion = New System.Windows.Forms.TextBox()
         Me.Label9 = New System.Windows.Forms.Label()
-        Me.tx_oc_uno = New System.Windows.Forms.TextBox()
-        Me.Label6 = New System.Windows.Forms.Label()
         Me.bt_eliminar_item = New System.Windows.Forms.Button()
         Me.bt_add_item = New System.Windows.Forms.Button()
         Me.tx_id_item_sc = New System.Windows.Forms.TextBox()
         Me.Label1 = New System.Windows.Forms.Label()
-        Me.tx_factura_proveedor = New System.Windows.Forms.TextBox()
+        Me.tx_doc_recep_proveedor = New System.Windows.Forms.TextBox()
         Me.Label8 = New System.Windows.Forms.Label()
         Me.lb_IncumpleRequisitos = New System.Windows.Forms.Label()
         Me.bt_historico_compras = New System.Windows.Forms.Button()
@@ -214,16 +202,6 @@ Partial Class fm_0300_recepcion_compras
         Me.Label5.Size = New System.Drawing.Size(75, 16)
         Me.Label5.TabIndex = 408
         Me.Label5.Text = "Proveedor:"
-        '
-        'lb_fecha_aprob
-        '
-        Me.lb_fecha_aprob.AutoSize = True
-        Me.lb_fecha_aprob.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lb_fecha_aprob.Location = New System.Drawing.Point(509, 280)
-        Me.lb_fecha_aprob.Name = "lb_fecha_aprob"
-        Me.lb_fecha_aprob.Size = New System.Drawing.Size(17, 16)
-        Me.lb_fecha_aprob.TabIndex = 406
-        Me.lb_fecha_aprob.Text = "..."
         '
         'bt_listado_oc
         '
@@ -446,34 +424,6 @@ Partial Class fm_0300_recepcion_compras
         Me.bt_aprobar_recepcion.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage
         Me.bt_aprobar_recepcion.UseVisualStyleBackColor = True
         '
-        'tx_remision_proveedor
-        '
-        Me.tx_remision_proveedor.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.tx_remision_proveedor.Location = New System.Drawing.Point(691, 61)
-        Me.tx_remision_proveedor.Name = "tx_remision_proveedor"
-        Me.tx_remision_proveedor.Size = New System.Drawing.Size(64, 22)
-        Me.tx_remision_proveedor.TabIndex = 391
-        '
-        'Label15
-        '
-        Me.Label15.AutoSize = True
-        Me.Label15.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label15.Location = New System.Drawing.Point(600, 64)
-        Me.Label15.Name = "Label15"
-        Me.Label15.Size = New System.Drawing.Size(86, 16)
-        Me.Label15.TabIndex = 390
-        Me.Label15.Text = "REMISION #:"
-        '
-        'Label14
-        '
-        Me.Label14.AutoSize = True
-        Me.Label14.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label14.Location = New System.Drawing.Point(277, 117)
-        Me.Label14.Name = "Label14"
-        Me.Label14.Size = New System.Drawing.Size(85, 16)
-        Me.Label14.TabIndex = 389
-        Me.Label14.Text = "Vencimiento:"
-        '
         'Label13
         '
         Me.Label13.AutoSize = True
@@ -483,15 +433,6 @@ Partial Class fm_0300_recepcion_compras
         Me.Label13.Size = New System.Drawing.Size(49, 16)
         Me.Label13.TabIndex = 388
         Me.Label13.Text = "Fecha:"
-        '
-        'dtp_vencimiento_factura
-        '
-        Me.dtp_vencimiento_factura.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.dtp_vencimiento_factura.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
-        Me.dtp_vencimiento_factura.Location = New System.Drawing.Point(368, 114)
-        Me.dtp_vencimiento_factura.Name = "dtp_vencimiento_factura"
-        Me.dtp_vencimiento_factura.Size = New System.Drawing.Size(123, 22)
-        Me.dtp_vencimiento_factura.TabIndex = 387
         '
         'dtp_fecha_factura
         '
@@ -529,32 +470,6 @@ Partial Class fm_0300_recepcion_compras
         Me.Label11.TabIndex = 383
         Me.Label11.Text = "Id_SC:"
         '
-        'bt_gestionar_tercero
-        '
-        Me.bt_gestionar_tercero.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center
-        Me.bt_gestionar_tercero.Image = Global.camocontrol.My.Resources.Resources.terceros
-        Me.bt_gestionar_tercero.Location = New System.Drawing.Point(374, 170)
-        Me.bt_gestionar_tercero.Name = "bt_gestionar_tercero"
-        Me.bt_gestionar_tercero.Size = New System.Drawing.Size(117, 39)
-        Me.bt_gestionar_tercero.TabIndex = 382
-        Me.bt_gestionar_tercero.Text = "Gestion Terceros"
-        Me.bt_gestionar_tercero.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.bt_gestionar_tercero.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage
-        Me.bt_gestionar_tercero.UseVisualStyleBackColor = True
-        '
-        'bt_catalago_items
-        '
-        Me.bt_catalago_items.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center
-        Me.bt_catalago_items.Image = Global.camocontrol.My.Resources.Resources.icono_herramientas
-        Me.bt_catalago_items.Location = New System.Drawing.Point(374, 211)
-        Me.bt_catalago_items.Name = "bt_catalago_items"
-        Me.bt_catalago_items.Size = New System.Drawing.Size(117, 39)
-        Me.bt_catalago_items.TabIndex = 381
-        Me.bt_catalago_items.Text = "Gestion Items"
-        Me.bt_catalago_items.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.bt_catalago_items.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage
-        Me.bt_catalago_items.UseVisualStyleBackColor = True
-        '
         'lb_valor_factura
         '
         Me.lb_valor_factura.AutoSize = True
@@ -575,36 +490,6 @@ Partial Class fm_0300_recepcion_compras
         Me.Label10.TabIndex = 379
         Me.Label10.Text = "Total:"
         '
-        'tx_cuadre_caja
-        '
-        Me.tx_cuadre_caja.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.tx_cuadre_caja.Location = New System.Drawing.Point(840, 61)
-        Me.tx_cuadre_caja.Name = "tx_cuadre_caja"
-        Me.tx_cuadre_caja.Size = New System.Drawing.Size(64, 22)
-        Me.tx_cuadre_caja.TabIndex = 378
-        '
-        'Label2
-        '
-        Me.Label2.AutoSize = True
-        Me.Label2.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label2.Location = New System.Drawing.Point(769, 64)
-        Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(65, 16)
-        Me.Label2.TabIndex = 377
-        Me.Label2.Text = "C_Menor:"
-        '
-        'bt_aprobar
-        '
-        Me.bt_aprobar.BackColor = System.Drawing.Color.Gainsboro
-        Me.bt_aprobar.Image = Global.camocontrol.My.Resources.Resources.dinero01
-        Me.bt_aprobar.Location = New System.Drawing.Point(507, 240)
-        Me.bt_aprobar.Name = "bt_aprobar"
-        Me.bt_aprobar.Size = New System.Drawing.Size(117, 39)
-        Me.bt_aprobar.TabIndex = 376
-        Me.bt_aprobar.Text = "Aprobar Factura"
-        Me.bt_aprobar.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage
-        Me.bt_aprobar.UseVisualStyleBackColor = False
-        '
         'tx_estado
         '
         Me.tx_estado.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -623,13 +508,13 @@ Partial Class fm_0300_recepcion_compras
         Me.Label7.TabIndex = 374
         Me.Label7.Text = "Estado:"
         '
-        'tx_id_factura
+        'tx_id_recepcion
         '
-        Me.tx_id_factura.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.tx_id_factura.Location = New System.Drawing.Point(96, 61)
-        Me.tx_id_factura.Name = "tx_id_factura"
-        Me.tx_id_factura.Size = New System.Drawing.Size(79, 22)
-        Me.tx_id_factura.TabIndex = 373
+        Me.tx_id_recepcion.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.tx_id_recepcion.Location = New System.Drawing.Point(96, 61)
+        Me.tx_id_recepcion.Name = "tx_id_recepcion"
+        Me.tx_id_recepcion.Size = New System.Drawing.Size(79, 22)
+        Me.tx_id_recepcion.TabIndex = 373
         '
         'Label9
         '
@@ -640,24 +525,6 @@ Partial Class fm_0300_recepcion_compras
         Me.Label9.Size = New System.Drawing.Size(76, 16)
         Me.Label9.TabIndex = 372
         Me.Label9.Text = "id_fct_prov:"
-        '
-        'tx_oc_uno
-        '
-        Me.tx_oc_uno.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.tx_oc_uno.Location = New System.Drawing.Point(516, 61)
-        Me.tx_oc_uno.Name = "tx_oc_uno"
-        Me.tx_oc_uno.Size = New System.Drawing.Size(64, 22)
-        Me.tx_oc_uno.TabIndex = 371
-        '
-        'Label6
-        '
-        Me.Label6.AutoSize = True
-        Me.Label6.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label6.Location = New System.Drawing.Point(425, 64)
-        Me.Label6.Name = "Label6"
-        Me.Label6.Size = New System.Drawing.Size(73, 16)
-        Me.Label6.TabIndex = 370
-        Me.Label6.Text = "OC UNO #:"
         '
         'bt_eliminar_item
         '
@@ -696,13 +563,13 @@ Partial Class fm_0300_recepcion_compras
         Me.Label1.TabIndex = 366
         Me.Label1.Text = "Id_item_SC:"
         '
-        'tx_factura_proveedor
+        'tx_doc_recep_proveedor
         '
-        Me.tx_factura_proveedor.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.tx_factura_proveedor.Location = New System.Drawing.Point(96, 96)
-        Me.tx_factura_proveedor.Name = "tx_factura_proveedor"
-        Me.tx_factura_proveedor.Size = New System.Drawing.Size(168, 29)
-        Me.tx_factura_proveedor.TabIndex = 365
+        Me.tx_doc_recep_proveedor.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.tx_doc_recep_proveedor.Location = New System.Drawing.Point(96, 96)
+        Me.tx_doc_recep_proveedor.Name = "tx_doc_recep_proveedor"
+        Me.tx_doc_recep_proveedor.Size = New System.Drawing.Size(168, 29)
+        Me.tx_doc_recep_proveedor.TabIndex = 365
         '
         'Label8
         '
@@ -1020,7 +887,6 @@ Partial Class fm_0300_recepcion_compras
         Me.Controls.Add(Me.lb_identificacion)
         Me.Controls.Add(Me.Tx_Nombre_Tercero)
         Me.Controls.Add(Me.Label5)
-        Me.Controls.Add(Me.lb_fecha_aprob)
         Me.Controls.Add(Me.bt_listado_oc)
         Me.Controls.Add(Me.tx_id_oc)
         Me.Controls.Add(Me.Label20)
@@ -1031,33 +897,22 @@ Partial Class fm_0300_recepcion_compras
         Me.Controls.Add(Me.lb_valor_subtotal)
         Me.Controls.Add(Me.Label19)
         Me.Controls.Add(Me.GroupBox2)
-        Me.Controls.Add(Me.tx_remision_proveedor)
-        Me.Controls.Add(Me.Label15)
-        Me.Controls.Add(Me.Label14)
         Me.Controls.Add(Me.Label13)
-        Me.Controls.Add(Me.dtp_vencimiento_factura)
         Me.Controls.Add(Me.dtp_fecha_factura)
         Me.Controls.Add(Me.bt_solicitud_compra)
         Me.Controls.Add(Me.tx_sol_compra)
         Me.Controls.Add(Me.Label11)
-        Me.Controls.Add(Me.bt_gestionar_tercero)
-        Me.Controls.Add(Me.bt_catalago_items)
         Me.Controls.Add(Me.lb_valor_factura)
         Me.Controls.Add(Me.Label10)
-        Me.Controls.Add(Me.tx_cuadre_caja)
-        Me.Controls.Add(Me.Label2)
-        Me.Controls.Add(Me.bt_aprobar)
         Me.Controls.Add(Me.tx_estado)
         Me.Controls.Add(Me.Label7)
-        Me.Controls.Add(Me.tx_id_factura)
+        Me.Controls.Add(Me.tx_id_recepcion)
         Me.Controls.Add(Me.Label9)
-        Me.Controls.Add(Me.tx_oc_uno)
-        Me.Controls.Add(Me.Label6)
         Me.Controls.Add(Me.bt_eliminar_item)
         Me.Controls.Add(Me.bt_add_item)
         Me.Controls.Add(Me.tx_id_item_sc)
         Me.Controls.Add(Me.Label1)
-        Me.Controls.Add(Me.tx_factura_proveedor)
+        Me.Controls.Add(Me.tx_doc_recep_proveedor)
         Me.Controls.Add(Me.Label8)
         Me.Name = "fm_0300_recepcion_compras"
         Me.Text = "Recepcion de Compras"
@@ -1069,33 +924,22 @@ Partial Class fm_0300_recepcion_compras
         Me.Controls.SetChildIndex(Me.GroupBox1, 0)
         Me.Controls.SetChildIndex(Me.lb_diseñador_programa, 0)
         Me.Controls.SetChildIndex(Me.Label8, 0)
-        Me.Controls.SetChildIndex(Me.tx_factura_proveedor, 0)
+        Me.Controls.SetChildIndex(Me.tx_doc_recep_proveedor, 0)
         Me.Controls.SetChildIndex(Me.Label1, 0)
         Me.Controls.SetChildIndex(Me.tx_id_item_sc, 0)
         Me.Controls.SetChildIndex(Me.bt_add_item, 0)
         Me.Controls.SetChildIndex(Me.bt_eliminar_item, 0)
-        Me.Controls.SetChildIndex(Me.Label6, 0)
-        Me.Controls.SetChildIndex(Me.tx_oc_uno, 0)
         Me.Controls.SetChildIndex(Me.Label9, 0)
-        Me.Controls.SetChildIndex(Me.tx_id_factura, 0)
+        Me.Controls.SetChildIndex(Me.tx_id_recepcion, 0)
         Me.Controls.SetChildIndex(Me.Label7, 0)
         Me.Controls.SetChildIndex(Me.tx_estado, 0)
-        Me.Controls.SetChildIndex(Me.bt_aprobar, 0)
-        Me.Controls.SetChildIndex(Me.Label2, 0)
-        Me.Controls.SetChildIndex(Me.tx_cuadre_caja, 0)
         Me.Controls.SetChildIndex(Me.Label10, 0)
         Me.Controls.SetChildIndex(Me.lb_valor_factura, 0)
-        Me.Controls.SetChildIndex(Me.bt_catalago_items, 0)
-        Me.Controls.SetChildIndex(Me.bt_gestionar_tercero, 0)
         Me.Controls.SetChildIndex(Me.Label11, 0)
         Me.Controls.SetChildIndex(Me.tx_sol_compra, 0)
         Me.Controls.SetChildIndex(Me.bt_solicitud_compra, 0)
         Me.Controls.SetChildIndex(Me.dtp_fecha_factura, 0)
-        Me.Controls.SetChildIndex(Me.dtp_vencimiento_factura, 0)
         Me.Controls.SetChildIndex(Me.Label13, 0)
-        Me.Controls.SetChildIndex(Me.Label14, 0)
-        Me.Controls.SetChildIndex(Me.Label15, 0)
-        Me.Controls.SetChildIndex(Me.tx_remision_proveedor, 0)
         Me.Controls.SetChildIndex(Me.GroupBox2, 0)
         Me.Controls.SetChildIndex(Me.Label19, 0)
         Me.Controls.SetChildIndex(Me.lb_valor_subtotal, 0)
@@ -1106,7 +950,6 @@ Partial Class fm_0300_recepcion_compras
         Me.Controls.SetChildIndex(Me.Label20, 0)
         Me.Controls.SetChildIndex(Me.tx_id_oc, 0)
         Me.Controls.SetChildIndex(Me.bt_listado_oc, 0)
-        Me.Controls.SetChildIndex(Me.lb_fecha_aprob, 0)
         Me.Controls.SetChildIndex(Me.Label5, 0)
         Me.Controls.SetChildIndex(Me.Tx_Nombre_Tercero, 0)
         Me.Controls.SetChildIndex(Me.lb_identificacion, 0)
@@ -1137,7 +980,6 @@ Partial Class fm_0300_recepcion_compras
     Friend WithEvents lb_identificacion As Label
     Friend WithEvents Tx_Nombre_Tercero As TextBox
     Friend WithEvents Label5 As Label
-    Friend WithEvents lb_fecha_aprob As Label
     Friend WithEvents bt_listado_oc As Button
     Friend WithEvents tx_id_oc As TextBox
     Friend WithEvents Label20 As Label
@@ -1159,33 +1001,22 @@ Partial Class fm_0300_recepcion_compras
     Friend WithEvents cm_bodega As ComboBox
     Friend WithEvents Label23 As Label
     Friend WithEvents bt_aprobar_recepcion As Button
-    Friend WithEvents tx_remision_proveedor As TextBox
-    Friend WithEvents Label15 As Label
-    Friend WithEvents Label14 As Label
     Friend WithEvents Label13 As Label
-    Friend WithEvents dtp_vencimiento_factura As DateTimePicker
     Friend WithEvents dtp_fecha_factura As DateTimePicker
     Friend WithEvents bt_solicitud_compra As Button
     Friend WithEvents tx_sol_compra As TextBox
     Friend WithEvents Label11 As Label
-    Friend WithEvents bt_gestionar_tercero As Button
-    Friend WithEvents bt_catalago_items As Button
     Friend WithEvents lb_valor_factura As Label
     Friend WithEvents Label10 As Label
-    Friend WithEvents tx_cuadre_caja As TextBox
-    Friend WithEvents Label2 As Label
-    Friend WithEvents bt_aprobar As Button
     Friend WithEvents tx_estado As TextBox
     Friend WithEvents Label7 As Label
-    Friend WithEvents tx_id_factura As TextBox
+    Friend WithEvents tx_id_recepcion As TextBox
     Friend WithEvents Label9 As Label
-    Friend WithEvents tx_oc_uno As TextBox
-    Friend WithEvents Label6 As Label
     Friend WithEvents bt_eliminar_item As Button
     Friend WithEvents bt_add_item As Button
     Friend WithEvents tx_id_item_sc As TextBox
     Friend WithEvents Label1 As Label
-    Friend WithEvents tx_factura_proveedor As TextBox
+    Friend WithEvents tx_doc_recep_proveedor As TextBox
     Friend WithEvents Label8 As Label
     Friend WithEvents lb_IncumpleRequisitos As Label
     Friend WithEvents bt_historico_compras As Button

@@ -974,6 +974,9 @@ Public Class fm_0300_orden_compra
 
         If oaprovada = "N" Then
             adicionar_items_factura(tx_id_item_sc.Text)
+            If verror_requisitos = "S" Then
+                MsgBox(vmensaje_requisitos, MsgBoxStyle.Exclamation, "Error")
+            End If
         Else
             MsgBox("La OC ya esta aprovada, no puede modificarse.", MsgBoxStyle.Information, "Info")
         End If
@@ -1017,7 +1020,7 @@ Public Class fm_0300_orden_compra
             vmensaje_requisitos = "El Item no existe"
             verror_requisitos = "S"
         End If
-        'Valida que no se halla utilizado antes
+        'Valida que no se halla utilizado antes y que la solicitud de compra este aprobada
         For Each orow As DataRow In otb_info_item.Rows
             If IsDBNull(orow("f0305_id_factura_compras")) = False Then
                 vmensaje_requisitos = "El item ya fue facturado en el registro: " & orow("f0305_id_factura_compras")
@@ -1027,9 +1030,13 @@ Public Class fm_0300_orden_compra
                 vmensaje_requisitos = "El item ya tiene OC en el registro: " & orow("f0305_id_oc")
                 verror_requisitos = "S"
             End If
+            If orow("f0305_estado") = "P" Then
+                vmensaje_requisitos = "La SC no esta aprobada."
+                verror_requisitos = "S"
+            End If
         Next
         If verror_requisitos = "S" Then
-            MsgBox(vmensaje_requisitos, MsgBoxStyle.Exclamation, "Error")
+            'MsgBox(vmensaje_requisitos, MsgBoxStyle.Exclamation, "Error")
             Exit Sub
         End If
     End Sub
@@ -1042,6 +1049,8 @@ Public Class fm_0300_orden_compra
         'Actualizo el item
         If verror_requisitos = "N" Then
             actualizar_item_solicitado("S", id_item_sc)
+        Else
+            'MsgBox(vmensaje_requisitos, MsgBoxStyle.Exclamation, "Error")
         End If
         If verror = "N" Then
             'MsgBox("Registrado", MsgBoxStyle.Information, "Vinculado")
@@ -1370,7 +1379,11 @@ Public Class fm_0300_orden_compra
             If IsDBNull(orow("f0305_id_oc")) = True Then
                 'Actualizo el item
                 'MsgBox(orow("f0305_id_item_solicitud"))
-                actualizar_item_solicitado("S", orow("f0305_id_item_solicitud"))
+                'actualizar_item_solicitado("S", orow("f0305_id_item_solicitud"))
+                adicionar_items_factura(orow("f0305_id_item_solicitud"))
+                If verror_requisitos = "S" Then
+                    MsgBox(vmensaje_requisitos, MsgBoxStyle.Exclamation, "Error")
+                End If
             End If
         Next
 

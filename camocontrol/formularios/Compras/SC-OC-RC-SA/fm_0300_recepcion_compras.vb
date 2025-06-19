@@ -1,4 +1,12 @@
 ﻿Public Class fm_0300_recepcion_compras
+
+
+    ' tb0320_recepciones_compras
+    ' tb0307_facturas_compras"
+
+
+
+
     'Objetos publicos que reciben valores desde el Formulario padre
     'Public vf_oform_padre As Object
     Public ocontexto_form As String = ""
@@ -7,7 +15,7 @@
     Public autoriza As String = "N"
     '$Public$vg_id_cia As String = ""
     '$Public$vf_elemento_nuevo As String = "S"
-    Public id_factura_compras As Integer 'se asigna cuando se llama al formulario desde el fm_padre
+    Public id_recepcion_compras As Integer 'se asigna cuando se llama al formulario desde el fm_padre
     Public id_sc_creada As Integer = 0 'para recoger el numero de la solicitud de compra que creo desde el formulario
     'Private$vf_otabla_permisos$As DataTable
 
@@ -79,14 +87,12 @@
         dtp_fecha.Format = DateTimePickerFormat.Custom
         dtp_fecha.CustomFormat = "yyyy/MM/dd  HH:mm"
 
-        tx_id_factura.ReadOnly = True
+        tx_id_recepcion.ReadOnly = True
         tx_estado.ReadOnly = True
-        tx_cuadre_caja.ReadOnly = True
         tx_id_item_cons_mov.ReadOnly = True
         'bt_anular.Enabled = False
         bt_editar.Enabled = False
         bt_generar_informe.Enabled = False
-        bt_aprobar.Enabled = True
 
         'OJO CAMBIAR LOS PERMISOS EN LA TABLA DE PERMISOS, ESTE BOTON APLICA PARA LAS RECEPCIONES, SALE DE FACTURAS
         cl_gestion_permisos.activar_control_si_tiene_permiso(vf_otabla_permisos, Me.Name, bt_aprobar_recepcion, "")
@@ -117,7 +123,7 @@
             Llenar_items_solicitados()
 
             'identifico el tipo de nota
-            vf_id_notas_archivos = tx_id_factura.Text
+            vf_id_notas_archivos = tx_id_recepcion.Text
             cl_gestion_permisos.gestionar_permisos_botones_basicos(vg_id_cia, vf_otabla_permisos, vf_elemento_nuevo,
                                                                vg_usuario_autoriza, Me,
                                                                vf_id_notas_archivos, vf_otipo_nota, vf_var_config_archivos)
@@ -440,23 +446,19 @@
     End Sub
     Private Sub Activar_botones_aprobaciones()
         If oaprovada = "N" Then
-            cl_gestion_permisos.activar_control_si_tiene_permiso(vf_otabla_permisos, Me.Name, bt_aprobar, "")
+            'cl_gestion_permisos.activar_control_si_tiene_permiso(vf_otabla_permisos, Me.Name, bt_aprobar, "")
         Else
-            bt_aprobar.Enabled = False
             bt_aprobar_recepcion.Enabled = False
             bt_aprobar_recepcion_sin_ea.Enabled = False
         End If
     End Sub
     Private Sub Inicializar_campos()
-        tx_id_factura.Text = ""
+        tx_id_recepcion.Text = ""
         tx_estado.Text = "Sin Aprobar"
         'cm_proveedor.SelectedIndex = -1
         'cm_nit.SelectedIndex = -1
-        tx_factura_proveedor.Focus()
-        tx_oc_uno.Text = ""
-        tx_cuadre_caja.Text = ""
-        tx_factura_proveedor.Text = ""
-        tx_remision_proveedor.Text = ""
+        tx_doc_recep_proveedor.Focus()
+        tx_doc_recep_proveedor.Text = ""
         tx_id_item_sc.Text = ""
         dg_listado.Rows.Clear()
         oaprovada = "N"
@@ -465,7 +467,6 @@
         lb_valor_factura.Text = "$0.00"
         lb_valor_subtotal.Text = "$0.00"
         dtp_fecha_factura.Value = comunes.g_fechahora
-        dtp_vencimiento_factura.Value = comunes.g_fechahora
         vf_id_notas_archivos = ""
         Tx_Nit.Enabled = True
         Tx_Nombre_Tercero.Enabled = True
@@ -479,25 +480,24 @@
     End Sub
     Private Sub Cargar_elemento_existente()
         csql = "SELECT *" _
-            & " FROM " & database.obtener_esquema & ".tb0307_facturas_compras" _
-            & " where f0307_id_factura_compras = '" & id_factura_compras & "'"
+            & " FROM " & database.obtener_esquema & ".tb0320_recepciones_compras" _
+            & " where f0320_id_recepcion_compras = '" & id_recepcion_compras & "'"
         otb_info_factura = cl_utilidades_datatables.cargar_informacion_postgres(csql)
         For Each orow As DataRow In otb_info_factura.Rows
-            tx_id_factura.Text = orow("f0307_id_factura_compras")
-            vf_id_notas_archivos = orow("f0307_id_factura_compras")
+            tx_id_recepcion.Text = orow("f0320_id_recepcion_compras")
+            vf_id_notas_archivos = orow("f0320_id_recepcion_compras")
             vf_elemento_nuevo = "N"
             cl_gestion_permisos.gestionar_permisos_botones_basicos(vg_id_cia, vf_otabla_permisos, vf_elemento_nuevo,
                                                                vg_usuario_autoriza, Me,
                                                                vf_id_notas_archivos, vf_otipo_nota, vf_var_config_archivos)
             If bt_g_archivos.Text = "0" Then
-                bt_aprobar.BackColor = Color.Red
+                'bt_aprobar.BackColor = Color.Red
             End If
 
-            lb_doc_entrada.Text = orow("f0307_doc_entrada").ToString
-            If IsDBNull(orow("f0307_fecha_aprobacion")) = False Then
-                lb_fecha_aprob.Text = CDate(orow("f0307_fecha_aprobacion")).ToString("yyyy/MM/dd HH:mm:ss")
-            End If
+            lb_doc_entrada.Text = orow("f0320_doc_entrada").ToString
 
+            ''''' UNA RECEPCION NO SE APRUEBA, SE VERIFICAN LOS REGISTROS DE ENTRADA EN LOS MOVIMIENTOS DE CADA ITEM
+            ''''' PERO DEBO BLOQUEAR EL REGISTRO PARA QUE NO SE MODIFIQUE POSTERIORMENTE....
 
             If orow("f0307_recepcion_aprobada") = "S" Then
                 'tx_estado.Text = "Recepcion Aprobada"
@@ -516,15 +516,12 @@
             id_tercero = orow("f0307_id_tercero")
             cargar_info_tercero()
 
-            tx_oc_uno.Text = orow("f0307_oc_uno").ToString
-            tx_factura_proveedor.Text = orow("f0307_numero_factura")
-            tx_remision_proveedor.Text = orow("f0307_remision_proveedor")
+            tx_doc_recep_proveedor.Text = orow("f0307_numero_factura")
 
             Dim val_fact As Decimal = orow("f0307_valor_factura")
             'lb_valor_aprobado.Text = val_fact.ToString("C2")
             oaprovada = orow("f0307_aprobada")
             dtp_fecha_factura.Value = orow("f0307_fecha_factura")
-            dtp_vencimiento_factura.Value = orow("f0307_fecha_vencimiento_factura")
             Activar_botones_aprobaciones()
         Next
     End Sub
@@ -584,7 +581,7 @@
 
     Private Sub CargarItemsSinEntrada()
         csql = "select * from " & database.obtener_esquema & ".tb0305_items_solicitados" _
-            & " where f0305_id_factura_compras = '" & id_factura_compras & "'" _
+            & " where f0305_id_recepcion_compras = '" & id_recepcion_compras & "'" _
             & " and f0305_docto_mov_inventario = ''"
         otb_ItemsSinEntrada = cl_utilidades_datatables.cargar_informacion_postgres(csql)
     End Sub
@@ -630,7 +627,7 @@
                 & " on id = f0305_id_estructura" _
             & " left join " & database.obtener_esquema & " .tb0600_acciones" _
                 & " on f0305_id_accion = f0600_id_accion" _
-            & " where f0305_id_factura_compras = '" & tx_id_factura.Text.ToString.Trim & "'"
+            & " where f0305_id_recepcion_compras = '" & tx_id_recepcion.Text.ToString.Trim & "'"
 
         otb_items_programados = cl_utilidades_datatables.cargar_informacion_postgres(csql)
         ocosto = 0
@@ -906,7 +903,7 @@
         End If
     End Sub
     Private Sub Validar_factura_cliente()
-        If tx_factura_proveedor.Text.Trim = "" Then
+        If tx_doc_recep_proveedor.Text.Trim = "" Then
             vmensaje_requisitos = "Registre el numero de factura del proveedor"
             verror_requisitos = "S"
         End If
@@ -925,21 +922,19 @@
         Validar_fecha_factura()
     End Sub
 
-    Private Sub Grabar_nueva_factura()
+    Private Sub Grabar_nueva_recepcion()
         Dim id_creado As Integer
         'Instancia la conexión que estará vigente para todas las operaciones CRUD
         oconn_form = database.obtener_conexion()
-
+        ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''' camocontrol.tb0320_recepciones_compras
         'Inserción parametrizada
         csql = "INSERT INTO " & database.obtener_esquema & ".tb0307_facturas_compras" _
-                & " (f0307_id_cia, f0307_id_tercero, f0307_numero_factura, f0307_remision_proveedor, f0307_fecha_factura," _
-                & " f0307_fecha_vencimiento_factura," _
+                & " (f0307_id_cia, f0307_id_tercero, f0307_numero_factura, f0307_fecha_factura," _
                 & " f0307_usuario_modificar, f0307_usuario_crear, f0307_fm)" _
                 & " VALUES" _
-                & " (@f0307_id_cia, @f0307_id_tercero, @f0307_numero_factura, @f0307_remision_proveedor, @f0307_fecha_factura," _
-                & " @f0307_fecha_vencimiento_factura," _
+                & " (@f0307_id_cia, @f0307_id_tercero, @f0307_numero_factura, @f0307_fecha_factura," _
                 & " @f0307_usuario_modificar, @f0307_usuario_crear, @f0307_fm)" _
-                & " RETURNING f0307_id_factura_compras"
+                & " RETURNING f0305_id_recepcion_compras"
 
         ocmd = database.obtener_comando(oconn_form)
         ocmd.CommandText = csql
@@ -966,10 +961,10 @@
             End Try
         End If
         If verror = "N" Then
-            tx_id_factura.Text = id_creado   ' cl_utilidades_datatables.consultar_consecutivo_creado_tablas("f0307_id_factura_compras", "f0307_usuario_crear", vg_usuario_autoriza, "tb0307_facturas_compras")
-            id_factura_compras = tx_id_factura.Text
+            tx_id_recepcion.Text = id_creado   ' cl_utilidades_datatables.consultar_consecutivo_creado_tablas("f0305_id_recepcion_compras", "f0307_usuario_crear", vg_usuario_autoriza, "tb0307_facturas_compras")
+            id_recepcion_compras = tx_id_recepcion.Text
             'tx_estado.Text = "Sin Aprobar Recepcion"
-            vf_id_notas_archivos = tx_id_factura.Text
+            vf_id_notas_archivos = tx_id_recepcion.Text
             vf_elemento_nuevo = "N"
             cl_gestion_permisos.gestionar_permisos_botones_basicos(vg_id_cia, vf_otabla_permisos, vf_elemento_nuevo,
                                                                vg_usuario_autoriza, Me,
@@ -981,14 +976,12 @@
     Private Sub Crear_parametros_facturas(ByVal ocmd As NpgsqlCommand)
         ocmd.Parameters.Clear()
         If vf_elemento_nuevo = "N" Then
-            ocmd.Parameters.Add("@f0307_id_factura_compras", NpgsqlDbType.Integer).Value = tx_id_factura.Text.ToString
+            ocmd.Parameters.Add("@f0305_id_recepcion_compras", NpgsqlDbType.Integer).Value = tx_id_recepcion.Text.ToString
         End If
         ocmd.Parameters.Add("@f0307_id_cia", NpgsqlDbType.Varchar).Value = vg_id_cia
         ocmd.Parameters.Add("@f0307_id_tercero", NpgsqlDbType.Varchar).Value = tx_id_tercero.Text
-        ocmd.Parameters.Add("@f0307_numero_factura", NpgsqlDbType.Varchar).Value = tx_factura_proveedor.Text
-        ocmd.Parameters.Add("@f0307_remision_proveedor", NpgsqlDbType.Varchar).Value = tx_remision_proveedor.Text.ToString.Trim
+        ocmd.Parameters.Add("@f0307_numero_factura", NpgsqlDbType.Varchar).Value = tx_doc_recep_proveedor.Text
         ocmd.Parameters.Add("@f0307_fecha_factura", NpgsqlDbType.Timestamp).Value = dtp_fecha_factura.Value
-        ocmd.Parameters.Add("@f0307_fecha_vencimiento_factura", NpgsqlDbType.Timestamp).Value = dtp_vencimiento_factura.Value
         ocmd.Parameters.Add("@f0307_usuario_modificar", NpgsqlDbType.Varchar).Value = vg_usuario_autoriza
         ocmd.Parameters.Add("@f0307_usuario_crear", NpgsqlDbType.Varchar).Value = vg_usuario_autoriza
         ocmd.Parameters.Add("@f0307_fm", NpgsqlDbType.Timestamp).Value = comunes.g_fechahora
@@ -1000,12 +993,10 @@
         csql = "update " + database.obtener_esquema + ".tb0307_facturas_compras set "
         csql += "f0307_id_tercero = @f0307_id_tercero,"
         csql += "f0307_numero_factura = @f0307_numero_factura,"
-        csql += "f0307_remision_proveedor = @f0307_remision_proveedor,"
         csql += "f0307_fecha_factura = @f0307_fecha_factura,"
-        csql += "f0307_fecha_vencimiento_factura = @f0307_fecha_vencimiento_factura,"
         csql += "f0307_fm = @f0307_fm,"
         csql += "f0307_usuario_modificar = @f0307_usuario_modificar"
-        csql += " where f0307_id_factura_compras = @f0307_id_factura_compras"
+        csql += " where f0305_id_recepcion_compras = @f0305_id_recepcion_compras"
 
         ocmd = database.obtener_comando(oconn_form)
         ocmd.CommandText = csql
@@ -1037,15 +1028,15 @@
             Exit Sub
         End If
         If vf_elemento_nuevo = "S" Then
-            Grabar_nueva_factura()
+            Grabar_nueva_recepcion()
             new_name_file = comunes.suministrar_valor_variable_configuracion("CD-FCC-001", vg_id_cia)
-            new_name_file += "-" & tx_id_factura.Text.PadLeft(8, "0")
+            new_name_file += "-" & tx_id_recepcion.Text.PadLeft(8, "0")
         Else
             Actualizar_factura()
         End If
         If verror = "N" Then
             Activar_botones_aprobaciones()
-            vf_id_notas_archivos = tx_id_factura.Text
+            vf_id_notas_archivos = tx_id_recepcion.Text
             vf_elemento_nuevo = "N"
             cl_gestion_permisos.gestionar_permisos_botones_basicos(vg_id_cia, vf_otabla_permisos, vf_elemento_nuevo,
                                                                vg_usuario_autoriza, Me,
@@ -1054,35 +1045,6 @@
         End If
     End Sub
 
-    Private Sub Bt_aprobar_Click(sender As System.Object, e As System.EventArgs) Handles bt_aprobar.Click
-        If tx_id_factura.Text.ToString = "" Or dg_listado.Rows.Count = 0 Then
-            Exit Sub
-        End If
-        verror_requisitos = "N"
-        Validaciones()
-        CargarItemsSinEntrada()
-        If otb_ItemsSinEntrada.Rows.Count <> 0 Then
-            MsgBox("Todos los items deben tener una entrada de almacen", MsgBoxStyle.Information, "Error")
-            Exit Sub
-        End If
-        If verror_requisitos = "S" Then
-            MsgBox(vmensaje_requisitos, MsgBoxStyle.Critical, "Error")
-            Exit Sub
-        End If
-        Dim respuestas As String = "N"
-        respuestas = comunes.g_mensaje_YesNo("Aprobar Factura", "Desea Aprobar esta factura?")
-        If respuestas = "N" Then
-            Exit Sub
-        End If
-        Llenar_items_solicitados()
-        Aprobar_factura()
-        Aprobar_items_factura()
-        If verror = "N" Then
-            MsgBox("Factura aprobada", MsgBoxStyle.Information, "Aprobada")
-            'inicializar_campos()
-            Dispose()
-        End If
-    End Sub
     Private Sub Actualizar_costo_ultima_compra()
         Dim inventario As Decimal = 0
         For Each orow As DataGridViewRow In dg_listado.Rows
@@ -1091,7 +1053,7 @@
                                        orow.Cells("dgocell_costo_unitario").Value,
                                        orow.Cells("dgocell_cantidad_solicitada").Value,
                                        dtp_fecha_factura.Value,
-                                       tx_id_factura.Text,
+                                       tx_id_recepcion.Text,
                                        inventario)
             'MsgBox(orow.Cells("dgocell_item").Value & " -- " & orow.Cells("dgocell_costo_unitario").Value)
         Next
@@ -1151,83 +1113,15 @@
         ocmd = Nothing
         oconn_form.Close()
     End Sub
-    Private Sub Aprobar_factura()
-        'Instancia la conexión que estará vigente para todas las operaciones CRUD
-        oconn_form = database.obtener_conexion()
-        'actualizacion parametrizada
-        csql = "update " + database.obtener_esquema + ".tb0307_facturas_compras set "
-        csql += "f0307_aprobada = @f0307_aprobada,"
-        csql += "f0307_valor_factura = @f0307_valor_factura,"
-        csql += "f0307_fecha_aprobacion = @f0307_fecha_aprobacion,"
-        csql += "f0307_usuario_aprobar = @f0307_usuario_aprobar,"
-        csql += "f0307_fm = @f0307_fm,"
-        csql += "f0307_usuario_modificar = @f0307_usuario_modificar"
-        csql += " where f0307_id_factura_compras = @f0307_id_factura_compras"
 
-        ocmd = database.obtener_comando(oconn_form)
-        ocmd.CommandText = csql
-        Crear_parametros_aprobar_facturas(ocmd)
-        verror = "N"
-        Try
-            'Compila el comando en la Base de datos.
-            'ocmd.Prepare()
-        Catch ex As Exception
-            verror = "S"
-            MsgBox("Hubo un error al Compilar comando! ") ' + ex.ToString)
-        End Try
-        If verror = "N" Then
-            Try
-                ocmd.ExecuteNonQuery()
-            Catch ex As Exception
-                verror = "S"
-                MsgBox("Hubo un error al Actualizar ! ") ' + vbCrLf + ex.ToString)
-            End Try
-        End If
-        ocmd = Nothing
-        oconn_form.Close()
-    End Sub
-    Private Sub Crear_parametros_aprobar_facturas(ByVal ocmd As NpgsqlCommand)
-        Dim ofecha As Date = comunes.g_fechahora
-        ocmd.Parameters.Clear()
-        If vf_elemento_nuevo = "N" Then
-            ocmd.Parameters.Add("@f0307_id_factura_compras", NpgsqlDbType.Integer).Value = tx_id_factura.Text.ToString
-        End If
-        ocmd.Parameters.Add("@f0307_aprobada", NpgsqlDbType.Varchar).Value = "S"
-        ocmd.Parameters.Add("@f0307_valor_factura", NpgsqlDbType.Numeric).Value = ocosto
-        ocmd.Parameters.Add("@f0307_fecha_aprobacion", NpgsqlDbType.Timestamp).Value = ofecha
-        ocmd.Parameters.Add("@f0307_usuario_aprobar", NpgsqlDbType.Varchar).Value = vg_usuario_autoriza
-        ocmd.Parameters.Add("@f0307_usuario_modificar", NpgsqlDbType.Varchar).Value = vg_usuario_autoriza
-        ocmd.Parameters.Add("@f0307_fm", NpgsqlDbType.Timestamp).Value = ofecha
-    End Sub
-    Private Sub Aprobar_items_factura()
-        'Instancia la conexión que estará vigente para todas las operaciones CRUD
-        oconn_form = database.obtener_conexion()
-        'actualizacion parametrizada
-        csql = "update " + database.obtener_esquema + ".tb0305_items_solicitados set "
-        csql += "f0305_factura_c_aprov = 'S'"
-        csql += " where f0305_id_factura_compras = '" & tx_id_factura.Text.ToString & "' and f0305_anulado = 'N'"
 
-        ocmd = database.obtener_comando(oconn_form)
-        ocmd.CommandText = csql
-        'crear_parametros_aprobar_facturas(ocmd)
-
-        verror = "N"
-        Try
-            ocmd.ExecuteNonQuery()
-        Catch ex As Exception
-            verror = "S"
-            MsgBox("Hubo un error al Actualizar ! ") ' + vbCrLf + ex.ToString)
-        End Try
-        ocmd = Nothing
-        oconn_form.Close()
-    End Sub
     Private Sub Registrar_documento_mov_inventario_items()
         'Instancia la conexión que estará vigente para todas las operaciones CRUD
         oconn_form = database.obtener_conexion()
         'actualizacion parametrizada
         csql = "update " + database.obtener_esquema + ".tb0305_items_solicitados set "
         csql += "f0305_docto_mov_inventario = '" & docto_mov_inv & "'"
-        csql += " where f0305_id_factura_compras = '" & tx_id_factura.Text.ToString & "' and f0305_anulado = 'N'"
+        csql += " where f0305_id_recepcion_compras = '" & tx_id_recepcion.Text.ToString & "' and f0305_anulado = 'N'"
         csql += " and f0305_docto_mov_inventario = ''"
 
         ocmd = database.obtener_comando(oconn_form)
@@ -1252,7 +1146,7 @@
         csql += "f0307_recepcion_aprobada = '" & aprobada & "',"
         csql += "f0307_fecha_aprobacion_recepcion = @f0307_fecha_aprobacion_recepcion,"
         csql += "f0307_usuario_aprobar_recepcion = @f0307_usuario_aprobar_recepcion"
-        csql += " where f0307_id_factura_compras = @f0307_id_factura_compras"
+        csql += " where f0305_id_recepcion_compras = @f0305_id_recepcion_compras"
 
         ocmd = database.obtener_comando(oconn_form)
         ocmd.CommandText = csql
@@ -1280,13 +1174,13 @@
         Dim ofecha As Date = comunes.g_fechahora
         ocmd.Parameters.Clear()
         If vf_elemento_nuevo = "N" Then
-            ocmd.Parameters.Add("@f0307_id_factura_compras", NpgsqlDbType.Integer).Value = tx_id_factura.Text.ToString
+            ocmd.Parameters.Add("@f0305_id_recepcion_compras", NpgsqlDbType.Integer).Value = tx_id_recepcion.Text.ToString
         End If
         ocmd.Parameters.Add("@f0307_fecha_aprobacion_recepcion", NpgsqlDbType.Timestamp).Value = ofecha
         ocmd.Parameters.Add("@f0307_usuario_aprobar_recepcion", NpgsqlDbType.Varchar).Value = vg_usuario_autoriza
     End Sub
     Private Sub Bt_aprobar_recepcion_Click(sender As System.Object, e As System.EventArgs) Handles bt_aprobar_recepcion.Click
-        If tx_id_factura.Text.ToString = "" Or dg_listado.Rows.Count = 0 Then
+        If tx_id_recepcion.Text.ToString = "" Or dg_listado.Rows.Count = 0 Then
             Exit Sub
         End If
         If dg_listado.Rows.Count = 0 Then
@@ -1301,7 +1195,7 @@
         End If
     End Sub
     Private Sub Generar_entrada_almacen()
-        If tx_id_factura.Text = "" Then
+        If tx_id_recepcion.Text = "" Then
             Exit Sub
         End If
         If cm_bodega.SelectedIndex = -1 Then
@@ -1339,7 +1233,7 @@
                                                                                 13,
                                                                                 fecha_movimiento,
                                                                                 vg_usuario_autoriza, vg_id_cia,
-                                                                                "FCP-" & tx_id_factura.Text, tx_docto_contable.Text)
+                                                                                "FCP-" & tx_id_recepcion.Text, tx_docto_contable.Text)
         'movimiento de entrada
         If ocreado = "N" Then
             Exit Sub
@@ -1352,7 +1246,7 @@
                                                                              orow.Item("f0305_id_item"),
                                                                              orow.Item("f0305_cantidad"),
                                                                              0, fecha_movimiento,
-                                                                             vg_usuario_autoriza, vg_id_cia, 0, 1,, "FCP-" & tx_id_factura.Text,
+                                                                             vg_usuario_autoriza, vg_id_cia, 0, 1,, "FCP-" & tx_id_recepcion.Text,
                                                                              orow.Item("f0305_costo_unitario_planificado") / (1 - orow.Item("f0305_descuento")),
                                                                                      orow.Item("f0305_id_item_solicitud"),
                                                                                      orow.Item("f0305_id_solicitud_compra"))
@@ -1376,7 +1270,7 @@
 
     End Sub
     Private Sub Bt_aprobar_recepcion_sin_ea_Click(sender As Object, e As EventArgs) Handles bt_aprobar_recepcion_sin_ea.Click
-        If tx_id_factura.Text = "" Then
+        If tx_id_recepcion.Text = "" Then
             Exit Sub
         End If
         If dg_listado.Rows.Count = 0 Then
@@ -1396,14 +1290,14 @@
         csql = "update " + database.obtener_esquema + ".tb0307_facturas_compras set "
         csql += "f0307_id_bodega_entrada = @f0307_id_bodega_entrada,"
         csql += "f0307_doc_entrada = @f0307_doc_entrada"
-        csql += " where f0307_id_factura_compras = @f0307_id_factura_compras"
+        csql += " where f0305_id_recepcion_compras = @f0305_id_recepcion_compras"
 
         ocmd = database.obtener_comando(oconn_form)
         ocmd.CommandText = csql
         'crear_parametros_solicitud(ocmd)
         Dim fecha_act As Date = comunes.g_fechahora
         ocmd.Parameters.Clear()
-        ocmd.Parameters.Add("@f0307_id_factura_compras", NpgsqlDbType.Integer).Value = tx_id_factura.Text
+        ocmd.Parameters.Add("@f0305_id_recepcion_compras", NpgsqlDbType.Integer).Value = tx_id_recepcion.Text
         ocmd.Parameters.Add("@f0307_id_bodega_entrada", NpgsqlDbType.Numeric).Value = cm_bodega.SelectedValue
         ocmd.Parameters.Add("@f0307_doc_entrada", NpgsqlDbType.Varchar).Value = docto_mov_inv
         verror = "N"
@@ -1430,7 +1324,7 @@
                & " join " & database.obtener_esquema & ".tb0310_documentos_movimientos_inventarios" _
                  & " on f0309_id_documento = f0310_id_documento" _
             & " where f0309_id_cia = '" & vg_id_cia & "'" & " and" _
-               & " f0310_id_documento_origen = 'FCP-" & tx_id_factura.Text & "'" _
+               & " f0310_id_documento_origen = 'FCP-" & tx_id_recepcion.Text & "'" _
                & " and f0309_anulado = 'N'"
         'Clipboard.SetDataObject(csql)
         'MsgBox(csql)
@@ -1476,7 +1370,7 @@
         If tx_id_item_sc.Text.ToString.Trim = "" Then
             Exit Sub
         End If
-        If tx_id_factura.Text.Trim = "" Then
+        If tx_id_recepcion.Text.Trim = "" Then
             verror_requisitos = "N"
             Validaciones()
             If verror_requisitos = "S" Then
@@ -1484,7 +1378,7 @@
                 Exit Sub
             Else
                 verror = "N"
-                Grabar_nueva_factura()
+                Grabar_nueva_recepcion()
                 If verror = "S" Then
                     Exit Sub
                 End If
@@ -1504,8 +1398,8 @@
         End If
         'Valida que no se halla utilizado antes
         For Each orow As DataRow In otb_info_item.Rows
-            If IsDBNull(orow("f0305_id_factura_compras")) = False Then
-                vmensaje_requisitos = "El item ya fue facturado en el registro: " & orow("f0305_id_factura_compras")
+            If IsDBNull(orow("f0305_id_recepcion_compras")) = False Then
+                vmensaje_requisitos = "El item ya fue facturado en el registro: " & orow("f0305_id_recepcion_compras")
                 verror_requisitos = "S"
             End If
         Next
@@ -1530,7 +1424,7 @@
         If tx_id_item_sc.Text.ToString.Trim = "" Then
             Exit Sub
         End If
-        If tx_id_factura.Text.Trim = "" Then
+        If tx_id_recepcion.Text.Trim = "" Then
             Exit Sub
         End If
         Cargar_elemento_existente()
@@ -1552,8 +1446,8 @@
         End If
         'Valida que no se halla utilizado antes en otra factura
         For Each orow As DataRow In otb_info_item.Rows
-            If IsDBNull(orow("f0305_id_factura_compras")) = False Then
-                If orow("f0305_id_factura_compras").ToString <> tx_id_factura.Text Then
+            If IsDBNull(orow("f0305_id_recepcion_compras")) = False Then
+                If orow("f0305_id_recepcion_compras").ToString <> tx_id_recepcion.Text Then
                     vmensaje_requisitos = "El item no corresponde a esta factura"
                     verror_requisitos = "S"
                 End If
@@ -1579,7 +1473,7 @@
         oconn_form = database.obtener_conexion()
         'actualizacion parametrizada
         csql = "update " + database.obtener_esquema + ".tb0305_items_solicitados set "
-        csql += "f0305_id_factura_compras = @f0305_id_factura_compras,"
+        csql += "f0305_id_recepcion_compras = @f0305_id_recepcion_compras,"
         csql += "f0305_fm = @f0305_fm,"
         csql += "f0305_usuario_modificar = @f0305_usuario_modificar"
         csql += " where f0305_id_item_solicitud = '" & id_item_sc & "'"
@@ -1590,9 +1484,9 @@
         Dim ofecha As Date = comunes.g_fechahora
         ocmd.Parameters.Clear()
         If vincular = "S" Then
-            ocmd.Parameters.Add("@f0305_id_factura_compras", NpgsqlDbType.Integer).Value = tx_id_factura.Text.ToString
+            ocmd.Parameters.Add("@f0305_id_recepcion_compras", NpgsqlDbType.Integer).Value = tx_id_recepcion.Text.ToString
         Else
-            ocmd.Parameters.Add("@f0305_id_factura_compras", NpgsqlDbType.Integer).Value = DBNull.Value
+            ocmd.Parameters.Add("@f0305_id_recepcion_compras", NpgsqlDbType.Integer).Value = DBNull.Value
         End If
 
         ocmd.Parameters.Add("@f0305_usuario_modificar", NpgsqlDbType.Varchar).Value = vg_usuario_autoriza
@@ -1651,30 +1545,6 @@
         }
         oform_agregar_recurso.ShowDialog()
         Llenar_items_solicitados()
-    End Sub
-
-    Private Sub Bt_catalago_items_Click(sender As System.Object, e As System.EventArgs) Handles bt_catalago_items.Click
-        'Instanciamos el formulario como un objeto de la clase fm_0100_estructura_mantenimiento
-        'Esto es necesario hacerlo cuando antes de mostrar el formulario debemos configurarle valores previos
-        Dim oform_catalogo_items As New camocontrol.fm_0300_gestion_items With {
-            .vf_oform_padre = Me,
-            .vg_usuario_autoriza = vg_usuario_autoriza,
-            .vg_id_cia = vg_id_cia
-        }
-        'oform_catalogo_items.vf_elemento_nuevo = "N"
-        oform_catalogo_items.ShowDialog()
-    End Sub
-
-    Private Sub Bt_gestionar_tercero_Click(sender As System.Object, e As System.EventArgs) Handles bt_gestionar_tercero.Click
-        'Instanciamos el formulario como un objeto de la clase fm_0100_estructura_mantenimiento
-        'Esto es necesario hacerlo cuando antes de mostrar el formulario debemos configurarle valores previos
-        Dim oform_catalogo_terceros As New camocontrol.fm_0200_tercero With {
-            .vf_oform_padre = Me,
-            .vg_usuario_autoriza = vg_usuario_autoriza,
-            .vg_id_cia = vg_id_cia
-        }
-        'oform_catalogo_terceros.vf_elemento_nuevo = "N"
-        oform_catalogo_terceros.ShowDialog()
     End Sub
 
     Private Sub Bt_nuevo_Click(sender As System.Object, e As System.EventArgs) Handles bt_nuevo.Click
@@ -1744,15 +1614,15 @@
         csql += "f0307_fm = @f0307_fm,"
         csql += "f0307_anulado = 'S',"
         csql += "f0307_usuario_anular = @f0307_usuario_modificar"
-        csql += " where f0307_id_factura_compras = @f0307_id_factura_compras"
+        csql += " where f0305_id_recepcion_compras = @f0305_id_recepcion_compras"
 
         ocmd = database.obtener_comando(oconn_form)
         ocmd.CommandText = csql
         'crear_parametros_aprobar_recepcion_facturas(ocmd)
         Dim ofecha As Date = comunes.g_fechahora
         ocmd.Parameters.Clear()
-        ocmd.Parameters.Add("@f0307_numero_factura", NpgsqlDbType.Varchar).Value = "ANU" & tx_id_factura.Text.ToString
-        ocmd.Parameters.Add("@f0307_id_factura_compras", NpgsqlDbType.Integer).Value = tx_id_factura.Text.ToString
+        ocmd.Parameters.Add("@f0307_numero_factura", NpgsqlDbType.Varchar).Value = "ANU" & tx_id_recepcion.Text.ToString
+        ocmd.Parameters.Add("@f0305_id_recepcion_compras", NpgsqlDbType.Integer).Value = tx_id_recepcion.Text.ToString
         ocmd.Parameters.Add("@f0307_usuario_modificar", NpgsqlDbType.Varchar).Value = vg_usuario_autoriza
         ocmd.Parameters.Add("@f0307_fm", NpgsqlDbType.Timestamp).Value = ofecha
         verror = "N"
@@ -1780,18 +1650,18 @@
         oconn_form = database.obtener_conexion()
         'actualizacion parametrizada
         csql = "update " + database.obtener_esquema + ".tb0305_items_solicitados set "
-        csql += "f0305_id_factura_compras = null,"
+        csql += "f0305_id_recepcion_compras = null,"
         csql += "f0305_factura_c_aprov = 'N',"
         csql += "f0305_fm = @f0305_fm,"
         csql += "f0305_usuario_modificar = @f0305_usuario_modificar"
-        csql += " where f0305_id_factura_compras = @f0305_id_factura_compras"
+        csql += " where f0305_id_recepcion_compras = @f0305_id_recepcion_compras"
 
         ocmd = database.obtener_comando(oconn_form)
         ocmd.CommandText = csql
         'crear_parametros_aprobar_facturas(ocmd)
         Dim ofecha As Date = comunes.g_fechahora
         ocmd.Parameters.Clear()
-        ocmd.Parameters.Add("@f0305_id_factura_compras", NpgsqlDbType.Integer).Value = tx_id_factura.Text.ToString
+        ocmd.Parameters.Add("@f0305_id_recepcion_compras", NpgsqlDbType.Integer).Value = tx_id_recepcion.Text.ToString
         ocmd.Parameters.Add("@f0305_usuario_modificar", NpgsqlDbType.Varchar).Value = vg_usuario_autoriza
         ocmd.Parameters.Add("@f0305_fm", NpgsqlDbType.Timestamp).Value = ofecha
         verror = "N"
@@ -1852,7 +1722,7 @@
         End If
 
         'creo una nueva factura si no existe
-        If tx_id_factura.Text.Trim = "" Then
+        If tx_id_recepcion.Text.Trim = "" Then
             verror_requisitos = "N"
             Validaciones()
             If verror_requisitos = "S" Then
@@ -1860,7 +1730,7 @@
                 Exit Sub
             Else
                 verror = "N"
-                Grabar_nueva_factura()
+                Grabar_nueva_recepcion()
                 If verror = "S" Then
                     Exit Sub
                 End If
@@ -1880,7 +1750,7 @@
 
         'Valida que no se halla utilizado antes
         For Each orow As DataRow In otb_info_item.Rows
-            If IsDBNull(orow("f0305_id_factura_compras")) = True Then
+            If IsDBNull(orow("f0305_id_recepcion_compras")) = True Then
                 'Actualizo el item
                 'MsgBox(orow("f0305_id_item_solicitud"))
                 Actualizar_item_solicitado("S", orow("f0305_id_item_solicitud"))
@@ -1906,7 +1776,7 @@
         End If
 
         'creo una nueva factura si no existe
-        If tx_id_factura.Text.Trim = "" Then
+        If tx_id_recepcion.Text.Trim = "" Then
             verror_requisitos = "N"
             Validaciones()
             If verror_requisitos = "S" Then
@@ -1914,7 +1784,7 @@
                 Exit Sub
             Else
                 verror = "N"
-                Grabar_nueva_factura()
+                Grabar_nueva_recepcion()
                 If verror = "S" Then
                     Exit Sub
                 End If
@@ -1934,7 +1804,7 @@
 
         'Valida que no se halla utilizado antes
         For Each orow As DataRow In otb_info_item.Rows
-            If IsDBNull(orow("f0305_id_factura_compras")) = True Then
+            If IsDBNull(orow("f0305_id_recepcion_compras")) = True Then
                 'Actualizo el item
                 'MsgBox(orow("f0305_id_item_solicitud"))
                 Actualizar_item_solicitado("S", orow("f0305_id_item_solicitud"))
@@ -1961,7 +1831,7 @@
         End If
 
         'creo una nueva factura si no existe
-        If tx_id_factura.Text.Trim = "" Then
+        If tx_id_recepcion.Text.Trim = "" Then
             verror_requisitos = "N"
             Validaciones()
             If verror_requisitos = "S" Then
@@ -1969,7 +1839,7 @@
                 Exit Sub
             Else
                 verror = "N"
-                Grabar_nueva_factura()
+                Grabar_nueva_recepcion()
                 If verror = "S" Then
                     Exit Sub
                 End If
@@ -2075,7 +1945,7 @@
         End If
         'MsgBox("aqui")
         'creo una nueva factura si no existe
-        If tx_id_factura.Text.Trim = "" Then
+        If tx_id_recepcion.Text.Trim = "" Then
             verror_requisitos = "N"
             Validaciones()
             If verror_requisitos = "S" Then
@@ -2083,7 +1953,7 @@
                 Exit Sub
             Else
                 verror = "N"
-                Grabar_nueva_factura()
+                Grabar_nueva_recepcion()
                 If verror = "S" Then
                     Exit Sub
                 End If
