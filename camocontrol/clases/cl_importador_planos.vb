@@ -1,4 +1,8 @@
-﻿Public Class cl_importador_planos
+﻿Imports System.Data
+Imports System.IO
+Imports System.Text
+Imports Npgsql
+Public Class cl_importador_planos
     'Estructura creada para almacenar datos de items movimientos de inventario
     Public Structure info_busqueda_campo
         Public criterios_n_linea As String()
@@ -785,11 +789,29 @@ aaa:
                     valor_encontrado = txt_verificador
                 End If
             Case Else
-                txt_testCheck = txt_verificador Like criterios(4).Trim
-                If txt_testCheck = True Then
-                    valor_encontrado = Mid(l_texto, criterios(5).Trim(), criterios(6).Trim()).Trim
-                    If CInt(criterios(7) > 0) Then
-                        valor_encontrado = "-1"
+                'Caso especial donde quiero extraer de un solo documento que contine varios tipos de cocumentos
+                'la informacion asociada a todos los documentos que contiene sin excepcion
+                'Ejemplo el listado UCCO109B que contiene
+                'por ejemplo tipos de documentos como EA MN OP OC
+                If Left(criterios(4).Trim, 5) = "${}-{" Then
+                    Dim txlistado1 As String = criterios(4).Trim.Substring(5, criterios(4).Trim.Length - 1)
+                    'valido que tenga algun valor
+                    If txlistado1.Trim.Length > 0 Then
+                        Dim arrlistado As Array = Split(txlistado1, ";")
+                        For Each ele As String In arrlistado
+                            If ele = txt_verificador Then
+                                valor_encontrado = txt_verificador
+                            End If
+                        Next
+                    End If
+                    MsgBox(txlistado1)
+                Else
+                    txt_testCheck = txt_verificador Like criterios(4).Trim
+                    If txt_testCheck = True Then
+                        valor_encontrado = Mid(l_texto, criterios(5).Trim(), criterios(6).Trim()).Trim
+                        If CInt(criterios(7) > 0) Then
+                            valor_encontrado = "-1"
+                        End If
                     End If
                 End If
         End Select
@@ -1189,4 +1211,67 @@ a1:
         Next
         MsgBox("FINALIZADO")
     End Sub
+
+    Public Shared Function importador_oc_siesa(ByVal vg_id_cia As String,
+                                               ByVal vg_usuario_autoriza As String)
+
+        Dim oconn_form As NpgsqlConnection
+        Dim oda As NpgsqlDataAdapter
+        Dim ocmd As NpgsqlCommand
+        Dim ocmd_update As NpgsqlCommand
+        Dim odr As NpgsqlDataReader
+        Dim ods As New DataSet
+        Dim verror As String = "S"
+        Dim verror_requisitos As String = "N"
+        Dim vmensaje_requisitos As String
+        Dim csql As String
+        Dim path_file As String = ""
+
+        'Importo las tablas encabezado y detalle generadas de la importacion del plano
+        Dim id_file_plano As String = String.Empty
+
+
+        Dim file_plano As String = "UCCO109B" 'Debe estra configurado con este nombre en la tabla camocontrol.tb0012_config_read_cg
+
+        Dim openFileDialog1 As New OpenFileDialog()
+
+        'openFileDialog1.InitialDirectory = "e: \"
+        openFileDialog1.Filter = "csv files (*.rtf)|*.rtf|txt files (*.txt)|*.txt|All files (*.*)|*.*" 'openFileDialog1.Filter = "txt files (*.txt)|*.txt|All files (*.*)|*.*"
+        openFileDialog1.FilterIndex = 1
+        openFileDialog1.Title = "Buscar Archivo " & file_plano
+        openFileDialog1.RestoreDirectory = True
+
+        If openFileDialog1.ShowDialog() = System.Windows.Forms.DialogResult.OK Then
+            path_file = openFileDialog1.FileName
+            'comunes.mostrar_archivo_texto(path_file, "")
+        Else
+            Return "N"
+            Exit Function
+        End If
+
+        'BackgroundWorker1.RunWorkerAsync()
+
+        'Importo las tablas encabezado y detalle generadas de la importacion del plano
+
+        Dim ds As DataSet = cl_importador_planos.importador_planos_a_dataset(file_plano, "S", vg_id_cia, vg_usuario_autoriza, path_file).copy()
+        For Each otable As DataTable In ds.Tables
+
+            If otable.TableName = "otb_encabezado" Then
+                'MsgBox(otable.TableName & " cantidad " & otable.Rows.Count)
+                ' Generar CSV en directorio del servidor donde esta instalado el postgres
+                Dim archservidor As String = "C:\dat_temp\oc1.csv"
+                cl_utilidades_datatables.datatable_to_csv_path_sin_comillas(otable, archservidor, False, "S")
+            End If
+            If otable.TableName = "ITEMS" Then
+                'MsgBox(otable.TableName & " cantidad " & otable.Rows.Count)
+                ' Generar CSV en directorio del servidor donde esta instalado el postgres
+                Dim archservidor As String = "C:\dat_temp\oc2.csv"
+                cl_utilidades_datatables.datatable_to_csv_path_sin_comillas(otable, archservidor, False, "S")
+            End If
+        Next
+
+
+        Return "S"
+    End Function
+
 End Class

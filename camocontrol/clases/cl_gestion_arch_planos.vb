@@ -15,7 +15,7 @@
         oform_mostrar_datos.ShowDialog()
         Dim ds As DataSet
         ds = oform_mostrar_datos.ds
-        oform_mostrar_datos.Close()
+        oform_mostrar_datos.Hide()
         Return ds
     End Function
 

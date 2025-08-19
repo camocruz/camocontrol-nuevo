@@ -730,3 +730,4 @@ C:\Repos\camocontrol\camocontrol\obj\x86\Release\camocontrol.vbproj.CopyComplete
 C:\Repos\camocontrol\camocontrol\obj\x86\Release\camocontrol.exe
 C:\Repos\camocontrol\camocontrol\obj\x86\Release\camocontrol.xml
 C:\Repos\camocontrol\camocontrol\obj\x86\Release\camocontrol.pdb
+C:\Repos\camocontrol\camocontrol\obj\x86\Release\camocontrol.vbproj.AssemblyReference.cache

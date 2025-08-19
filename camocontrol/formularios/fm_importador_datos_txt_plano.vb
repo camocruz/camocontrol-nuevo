@@ -180,9 +180,9 @@ Public Class fm_importador_datos_txt_plano
         'Importo las tablas encabezado y detalle generadas de la importacion del plano
 
         Dim ds As DataSet = cl_importador_planos.importador_planos_a_dataset(file_plano, "S", vg_id_cia, vg_usuario_autoriza, path_file).copy()
-        'For Each otable As DataTable In ds.Tables
-        'MsgBox(otable.TableName & " cantidad " & otable.Rows.Count)
-        'Next
+        For Each otable As DataTable In ds.Tables
+            MsgBox(otable.TableName & " cantidad " & otable.Rows.Count)
+        Next
     End Sub
 
     Private Sub bt_armar_arreglo_Click(sender As Object, e As EventArgs) Handles bt_armar_arreglo.Click

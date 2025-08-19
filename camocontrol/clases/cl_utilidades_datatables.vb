@@ -1,5 +1,8 @@
 ﻿Imports System.Data.OleDb
 Imports System.Data.SqlClient
+Imports System.Data
+Imports System.IO
+Imports System.Text
 Imports System.Linq
 Public Class cl_utilidades_datatables
     Public Shared Function copiar_ramal(ocampos As String(,), otabla As String, id_rama As String, campo_rama As String, campo_id As String)
@@ -480,14 +483,16 @@ Public Class cl_utilidades_datatables
 
         If saveFileDialog1.ShowDialog() = DialogResult.OK Then
             Using writer As StreamWriter = New StreamWriter(saveFileDialog1.FileName)
-                cl_utilidades_datatables.datatable_to_csv_path(sourceTable, writer, includeHeaders, id_cia)
+                cl_utilidades_datatables.datatable_to_csv_path(sourceTable, writer, includeHeaders, "S", id_cia)
             End Using
         End If
     End Sub
 
     Public Shared Sub datatable_to_csv_path(ByVal sourceTable As DataTable,
                                      ByVal writer As TextWriter,
-                                     ByVal includeHeaders As Boolean, ByVal id_cia As String)
+                                     ByVal includeHeaders As Boolean,
+                                     ByVal ajust_numeros As String,
+                                     ByVal id_cia As String)
         'writer es el path del aechivo que se va a crear.
         If (includeHeaders) Then
             If (includeHeaders) Then
@@ -498,7 +503,7 @@ Public Class cl_utilidades_datatables
 
         Dim items As IEnumerable(Of String) = Nothing
         Dim items2 As IEnumerable(Of String) = Nothing
-        Dim ajust_numeros As String = comunes.suministrar_valor_variable_configuracion("CONFIG-GEN001", id_cia)
+        'Dim ajust_numeros As String = comunes.suministrar_valor_variable_configuracion("CONFIG-GEN001", id_cia)
         Dim txt_item As String = ""
 
         If ajust_numeros = "S" Then
@@ -511,6 +516,7 @@ Public Class cl_utilidades_datatables
                 items2 = items2.Select(Function(x) x.Replace(vbTab, "    ")).ToList()
                 items2 = items2.Select(Function(x) x.Replace("\uDC23", "")).ToList()
                 txt_item = ""
+
                 'MsgBox(row(0).ToString & txt_item)
                 Try
                     writer.WriteLine(String.Join(vbTab, items2))
@@ -543,5 +549,48 @@ Public Class cl_utilidades_datatables
     Private Shared Function QuoteValue(ByVal value As String) As String
         Return String.Concat("""", value.Replace("""", """"""), """")
     End Function
+
+    Public Shared Sub datatable_to_csv_path_sin_comillas(ByVal sourceTable As DataTable,
+                                     ByVal rutaArchivo As String,
+                                     ByVal includeHeaders As Boolean,
+                                     ByVal ajust_numeros As String)
+
+
+
+        Using sw As New StreamWriter(rutaArchivo, False, Encoding.UTF8)
+            ' Escribir cabeceras
+            If includeHeaders Then
+                Dim columnas As String() = sourceTable.Columns.Cast(Of DataColumn)().
+                                            Select(Function(c) c.ColumnName).ToArray()
+                sw.WriteLine(String.Join(vbTab, columnas))
+            End If
+
+            ' Escribir filas
+            For Each row As DataRow In sourceTable.Rows
+                Dim valores As New List(Of String)
+                For Each col As DataColumn In sourceTable.Columns
+                    Dim valor As String = If(row(col) IsNot Nothing, row(col).ToString(), "")
+                    ' Sin comillas, solo limpiar comas para no romper el CSV
+                    'valor = valor.Replace(vbTab, " ") ' <- evita que una coma en el dato rompa el CSV
+                    valor = valor.Replace(vbCrLf, " -- ")
+                    valor = valor.Replace(vbTab, "    ")
+                    valor = valor.Replace("\uDC23", "")
+
+                    If ajust_numeros = "S" Then 'cambiar "," por "." y viceversa
+                        Dim vf As String = valor.Replace(",", vbEmpty)
+                        vf = vf.Replace(".", vbEmpty)
+                        If IsNumeric(vf) Then
+                            valor = valor.Replace(",", vbEmpty)
+                            'valor = valor.Replace(".", ",") 'En realidad solo debo eliminar las "," el punto es el decimal
+                        End If
+                    End If
+                    valores.Add(valor)
+                Next
+                sw.WriteLine(String.Join(vbTab, valores))
+            Next
+        End Using
+    End Sub
+
+
 
 End Class

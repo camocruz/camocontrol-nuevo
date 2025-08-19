@@ -800,7 +800,9 @@ reinicio:
         MsgBox("Actualizado")
     End Sub
 
-
+    Private Sub mi_CargarInfoComprasSIESA_Click(sender As Object, e As EventArgs) Handles mi_CargarInfoComprasSIESA.Click
+        cl_importador_planos.importador_oc_siesa(vg_id_cia, vlogin)
+    End Sub
 #End Region
 
 #Region "Menu Comercial"
@@ -2630,6 +2632,8 @@ reinicio:
         Dim otb_bodegas As DataTable = cl_utilidades_datatables.cargar_informacion_postgres(csql)
         MsgBox("Actualizado")
     End Sub
+
+
 
 
 

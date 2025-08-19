@@ -94,6 +94,7 @@ Partial Class formulario_inicio
         Me.mi_recepcion_mp_me_desde_cguno = New System.Windows.Forms.ToolStripMenuItem()
         Me.mi_ListadoDeItemsSinRecibir = New System.Windows.Forms.ToolStripMenuItem()
         Me.mi_aprobacion_facturas_menu = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mi_nueva_factura = New System.Windows.Forms.ToolStripMenuItem()
         Me.mi_lista_facturas_x_aprobar = New System.Windows.Forms.ToolStripMenuItem()
         Me.mi_listado_facturas_aprobadas_menu = New System.Windows.Forms.ToolStripMenuItem()
         Me.mi_facturas_Aprob_por_fechas = New System.Windows.Forms.ToolStripMenuItem()
@@ -172,7 +173,7 @@ Partial Class formulario_inicio
         Me.StatusStrip = New System.Windows.Forms.StatusStrip()
         Me.ToolStripStatusLabel = New System.Windows.Forms.ToolStripStatusLabel()
         Me.ToolTip = New System.Windows.Forms.ToolTip(Me.components)
-        Me.mi_nueva_factura = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mi_CargarInfoComprasSIESA = New System.Windows.Forms.ToolStripMenuItem()
         Me.MenuStrip.SuspendLayout()
         Me.StatusStrip.SuspendLayout()
         Me.SuspendLayout()
@@ -456,7 +457,7 @@ Partial Class formulario_inicio
         '
         'mi_mantenimiento
         '
-        Me.mi_mantenimiento.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mi_estructura_mantenimiento, Me.mi_listados_manto, Me.mi_reportar_seguimientos, Me.mi_ActualizarArchivosPlanosManto})
+        Me.mi_mantenimiento.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mi_estructura_mantenimiento, Me.mi_listados_manto, Me.mi_reportar_seguimientos, Me.mi_ActualizarArchivosPlanosManto, Me.mi_CargarInfoComprasSIESA})
         Me.mi_mantenimiento.Image = Global.camocontrol.My.Resources.Resources.chatarra2
         Me.mi_mantenimiento.Name = "mi_mantenimiento"
         Me.mi_mantenimiento.Size = New System.Drawing.Size(141, 28)
@@ -466,7 +467,7 @@ Partial Class formulario_inicio
         '
         Me.mi_estructura_mantenimiento.Image = Global.camocontrol.My.Resources.Resources.chatarra2
         Me.mi_estructura_mantenimiento.Name = "mi_estructura_mantenimiento"
-        Me.mi_estructura_mantenimiento.Size = New System.Drawing.Size(259, 30)
+        Me.mi_estructura_mantenimiento.Size = New System.Drawing.Size(269, 30)
         Me.mi_estructura_mantenimiento.Text = "Estructura"
         '
         'mi_listados_manto
@@ -474,7 +475,7 @@ Partial Class formulario_inicio
         Me.mi_listados_manto.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mi_listado_estructura_manto, Me.mi_t_improd_prod_mto})
         Me.mi_listados_manto.Image = Global.camocontrol.My.Resources.Resources.icono_lupa
         Me.mi_listados_manto.Name = "mi_listados_manto"
-        Me.mi_listados_manto.Size = New System.Drawing.Size(259, 30)
+        Me.mi_listados_manto.Size = New System.Drawing.Size(269, 30)
         Me.mi_listados_manto.Text = "Listados"
         '
         'mi_listado_estructura_manto
@@ -496,7 +497,7 @@ Partial Class formulario_inicio
         Me.mi_reportar_seguimientos.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mi_rep_seg_estandar, Me.mi_rep_seg_actividad})
         Me.mi_reportar_seguimientos.Image = Global.camocontrol.My.Resources.Resources.icono_agenda_electronica
         Me.mi_reportar_seguimientos.Name = "mi_reportar_seguimientos"
-        Me.mi_reportar_seguimientos.Size = New System.Drawing.Size(259, 30)
+        Me.mi_reportar_seguimientos.Size = New System.Drawing.Size(269, 30)
         Me.mi_reportar_seguimientos.Text = "Reporte Seguimientos"
         '
         'mi_rep_seg_estandar
@@ -517,7 +518,7 @@ Partial Class formulario_inicio
         '
         Me.mi_ActualizarArchivosPlanosManto.Image = Global.camocontrol.My.Resources.Resources.actualizar
         Me.mi_ActualizarArchivosPlanosManto.Name = "mi_ActualizarArchivosPlanosManto"
-        Me.mi_ActualizarArchivosPlanosManto.Size = New System.Drawing.Size(259, 30)
+        Me.mi_ActualizarArchivosPlanosManto.Size = New System.Drawing.Size(269, 30)
         Me.mi_ActualizarArchivosPlanosManto.Text = "Actualizar Archivos Planos"
         '
         'mi_compras
@@ -687,6 +688,13 @@ Partial Class formulario_inicio
         Me.mi_aprobacion_facturas_menu.Name = "mi_aprobacion_facturas_menu"
         Me.mi_aprobacion_facturas_menu.Size = New System.Drawing.Size(289, 30)
         Me.mi_aprobacion_facturas_menu.Text = "Facturas de Compras"
+        '
+        'mi_nueva_factura
+        '
+        Me.mi_nueva_factura.Image = Global.camocontrol.My.Resources.Resources.articles
+        Me.mi_nueva_factura.Name = "mi_nueva_factura"
+        Me.mi_nueva_factura.Size = New System.Drawing.Size(355, 30)
+        Me.mi_nueva_factura.Text = "Registrar Nueva Factura"
         '
         'mi_lista_facturas_x_aprobar
         '
@@ -1245,12 +1253,12 @@ Partial Class formulario_inicio
         Me.ToolStripStatusLabel.Size = New System.Drawing.Size(40, 17)
         Me.ToolStripStatusLabel.Text = "Estado"
         '
-        'mi_nueva_factura
+        'mi_CargarInfoComprasSIESA
         '
-        Me.mi_nueva_factura.Image = Global.camocontrol.My.Resources.Resources.articles
-        Me.mi_nueva_factura.Name = "mi_nueva_factura"
-        Me.mi_nueva_factura.Size = New System.Drawing.Size(355, 30)
-        Me.mi_nueva_factura.Text = "Registrar Nueva Factura"
+        Me.mi_CargarInfoComprasSIESA.Image = Global.camocontrol.My.Resources.Resources.carpeta2
+        Me.mi_CargarInfoComprasSIESA.Name = "mi_CargarInfoComprasSIESA"
+        Me.mi_CargarInfoComprasSIESA.Size = New System.Drawing.Size(269, 30)
+        Me.mi_CargarInfoComprasSIESA.Text = "Cargar Info Compras SIESA"
         '
         'formulario_inicio
         '
@@ -1422,4 +1430,5 @@ Partial Class formulario_inicio
     Friend WithEvents mi_CargarInventarioDiario As ToolStripMenuItem
     Friend WithEvents mi_ActualizarArchivosPlanosManto As ToolStripMenuItem
     Friend WithEvents mi_nueva_factura As ToolStripMenuItem
+    Friend WithEvents mi_CargarInfoComprasSIESA As ToolStripMenuItem
 End Class
