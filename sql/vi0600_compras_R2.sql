@@ -13,15 +13,25 @@
          SELECT tb0600_acciones.f0600_id_accion AS id_proyecto
            FROM camocontrol.tb0600_acciones
           WHERE tb0600_acciones.f0600_proyinfra = 'S'::bpchar
-        )
+        ), recepciones_siesa as (
+          SELECT f0323_oc, f0324_referencia, 
+             SUM(f0324_cantidad) as cantidad_r, SUM(f0324_valor_bruto) as valor_bruto_r,
+             SUM(f0324_impuestos) as impuestos_r, SUM(f0324_total) as total_r
+          FROM camocontrol.tb0324_oc_doc_compras_detalles
+            JOIN camocontrol.tb0323_oc_doc_compras_encabezado
+              ON f0324_cod_doc = f0323_cod_doc 
+          GROUP BY f0323_oc, f0324_referencia
+          order by f0323_oc
+		)
  SELECT 
     tb0305_items_solicitados.f0305_id_solicitud_compra AS id_sc,
     tb0305_items_solicitados.f0305_id_item_solicitud AS item_sc,
+	tb0300_items.f0300_referencia as referencia,
 	to_char(tb0304_solicitud_compra.f0304_fr, 'YYYY-MM-DD'::text) as fecha_sc,
 	to_char(f0305_fecha_aprobacion, 'YYYY-MM-DD'::text) as fecha_aprb_sc,
 
     'OC-'::text || tb0305_items_solicitados.f0305_id_oc as id_oc,
-	'ERP-' || f0305_oc_uno as oc_uno,
+	'OC-'::text || lpad(right(f0305_oc_uno,-3),6,'0') as oc_uno,
     to_char(tb0319_ordenes_compra.f0319_fecha_oc, 'YYYY-MM-DD'::text) as fecha_oc,
 	to_char(tb0319_ordenes_compra.f0319_fecha_aprobacion, 'YYYY-MM-DD'::text) as fecha_aprb_oc,
 	f0319_aprobada as oc_aprob,
@@ -72,7 +82,8 @@
     CASE
         WHEN f0307_id_factura_compras IS NULL AND f0305_id_oc IS NULL THEN 'N'
         ELSE 'S'
-    END AS compra_autorizada 
+    END AS compra_autorizada,
+	cantidad_r, valor_bruto_r, impuestos_r, total_r
    FROM camocontrol.tb0305_items_solicitados
      left JOIN camocontrol.tb0304_solicitud_compra ON tb0305_items_solicitados.f0305_id_solicitud_compra = tb0304_solicitud_compra.f0304_id_solicitud
      LEFT JOIN camocontrol.tb0307_facturas_compras ON tb0305_items_solicitados.f0305_id_factura_compras = tb0307_facturas_compras.f0307_id_factura_compras
@@ -91,9 +102,11 @@
      LEFT JOIN camocontrol.tb0100_estructura_mantenimiento tb_estructura_general ON tb0305_items_solicitados.f0305_id_estructura = tb_estructura_general.f0100_id_estructura
      LEFT JOIN camocontrol.tb0100_estructura_mantenimiento tb_estructura_primaria ON tb_estructura_general.f0100_id_maquina_padre = tb_estructura_primaria.f0100_id_estructura
      LEFT JOIN estructura_planta ON estructura_planta.id = tb0305_items_solicitados.f0305_id_estructura
+	 LEFT JOIN recepciones_siesa ON f0323_oc = 'OC-'::text || lpad(right(f0305_oc_uno,-3),6,'0')
+	       AND f0324_referencia = f0300_referencia
   WHERE tb0305_items_solicitados.f0305_id_cia = '00000001'::bpchar 
   AND f0305_anulado = 'N'
-  AND f0305_fr >= '2022-01-01 00:00:00'::timestamp without time zone
+  AND f0305_fr >= '2025-07-01 00:00:00'::timestamp without time zone
   ORDER BY tb0305_items_solicitados.f0305_id_item_solicitud
-
+--D:\umpr4015
   	) to 'C:\dat_temp\CSVComprasManto.txt' DELIMITER '	'  CSV HEADER;

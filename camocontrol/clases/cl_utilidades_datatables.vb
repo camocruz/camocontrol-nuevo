@@ -577,10 +577,12 @@ Public Class cl_utilidades_datatables
                     valor = valor.Replace("\uDC23", "")
 
                     If ajust_numeros = "S" Then 'cambiar "," por "." y viceversa
-                        Dim vf As String = valor.Replace(",", vbEmpty)
-                        vf = vf.Replace(".", vbEmpty)
+                        Dim vf As String = valor.Replace(",", "")
+                        vf = vf.Replace(".", "")
+                        vf = vf.Replace("*", "") 'Aparece en informe al final del numero ??
                         If IsNumeric(vf) Then
-                            valor = valor.Replace(",", vbEmpty)
+                            valor = valor.Replace(",", "")
+                            valor = valor.Replace("*", "") 'Aparece en informe al final del numero ??
                             'valor = valor.Replace(".", ",") 'En realidad solo debo eliminar las "," el punto es el decimal
                         End If
                     End If

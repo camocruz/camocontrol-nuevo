@@ -1215,15 +1215,10 @@ a1:
     Public Shared Function importador_oc_siesa(ByVal vg_id_cia As String,
                                                ByVal vg_usuario_autoriza As String)
 
-        Dim oconn_form As NpgsqlConnection
-        Dim oda As NpgsqlDataAdapter
-        Dim ocmd As NpgsqlCommand
-        Dim ocmd_update As NpgsqlCommand
-        Dim odr As NpgsqlDataReader
+
         Dim ods As New DataSet
         Dim verror As String = "S"
         Dim verror_requisitos As String = "N"
-        Dim vmensaje_requisitos As String
         Dim csql As String
         Dim path_file As String = ""
 
@@ -1259,13 +1254,13 @@ a1:
             If otable.TableName = "otb_encabezado" Then
                 'MsgBox(otable.TableName & " cantidad " & otable.Rows.Count)
                 ' Generar CSV en directorio del servidor donde esta instalado el postgres
-                Dim archservidor As String = "C:\dat_temp\oc1.csv"
+                Dim archservidor As String = "\\192.168.0.96\umpr40152\oc1.csv"
                 cl_utilidades_datatables.datatable_to_csv_path_sin_comillas(otable, archservidor, False, "S")
             End If
             If otable.TableName = "ITEMS" Then
                 'MsgBox(otable.TableName & " cantidad " & otable.Rows.Count)
                 ' Generar CSV en directorio del servidor donde esta instalado el postgres
-                Dim archservidor As String = "C:\dat_temp\oc2.csv"
+                Dim archservidor As String = "\\192.168.0.96\umpr40152\oc2.csv"
                 cl_utilidades_datatables.datatable_to_csv_path_sin_comillas(otable, archservidor, False, "S")
             End If
         Next
