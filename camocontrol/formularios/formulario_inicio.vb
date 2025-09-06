@@ -800,9 +800,38 @@ reinicio:
         MsgBox("Actualizado")
     End Sub
 
-    Private Sub mi_CargarInfoComprasSIESA_Click(sender As Object, e As EventArgs) Handles mi_CargarInfoComprasSIESA.Click
+    Private Sub mi_Paso1BorrarDatos_Click(sender As Object, e As EventArgs) Handles mi_Paso1BorrarDatos.Click
+        'Debido a fallo en seguridad revalido permiso para uso del menu.
+        Dim permitir As String = "N"
+        permitir = verificar_permisos_menu(sender)
+        If permitir = "N" Then
+            MsgBox("Fallo en permisos de uso menu", MsgBoxStyle.Information, "Info")
+            Exit Sub
+        End If
+        Dim fechaMinima As String = comunes.formulario_fecha_hora(Now(), "S")
+        If fechaMinima = "ND" Then
+            Exit Sub
+        End If
+        fechaMinima = Strings.Left(fechaMinima, 10)
+        'MsgBox(fechaMinima.ToString)
+        Dim csql As String
+        csql = "DELETE FROM " & database.obtener_esquema & ".tb0323_oc_doc_compras_encabezado" _
+            & " WHERE f0323_fecha >= '" & fechaMinima & "'"
+        cl_utilidades_datatables.cargar_informacion_postgres(csql)
+        MsgBox("Borrado para ambos C.O.", MsgBoxStyle.Information)
+    End Sub
+
+    Private Sub mi_CargarDatos_Click(sender As Object, e As EventArgs) Handles mi_Paso2CargarArchivos.Click
+        'Debido a fallo en seguridad revalido permiso para uso del menu.
+        Dim permitir As String = "N"
+        permitir = verificar_permisos_menu(sender)
+        If permitir = "N" Then
+            MsgBox("Fallo en permisos de uso menu", MsgBoxStyle.Information, "Info")
+            Exit Sub
+        End If
         cl_importador_planos.importador_oc_siesa(vg_id_cia, vlogin)
     End Sub
+
 #End Region
 
 #Region "Menu Comercial"

@@ -1,8 +1,6 @@
 -- Exporto la informacion de las compras asociadas a las acciones
 	copy (
 
-
- 
  WITH estructura_planta AS (
          SELECT tb0100_estructura_mantenimiento.f0100_id_estructura AS id,
             temp1.f0100_nombre AS planta
@@ -80,9 +78,9 @@
     tb0305_items_solicitados.f0305_chkinventario AS p_inventario,
     proyectos.id_proyecto,
     CASE
-        WHEN f0307_id_factura_compras IS NULL AND f0305_id_oc IS NULL THEN 'N'
+        WHEN f0307_id_factura_compras IS NULL AND cantidad_r IS NULL THEN 'N'
         ELSE 'S'
-    END AS compra_autorizada,
+    END AS compra_ejecutada,
 	cantidad_r, valor_bruto_r, impuestos_r, total_r
    FROM camocontrol.tb0305_items_solicitados
      left JOIN camocontrol.tb0304_solicitud_compra ON tb0305_items_solicitados.f0305_id_solicitud_compra = tb0304_solicitud_compra.f0304_id_solicitud

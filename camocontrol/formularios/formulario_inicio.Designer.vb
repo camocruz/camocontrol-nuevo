@@ -71,6 +71,7 @@ Partial Class formulario_inicio
         Me.mi_rep_seg_estandar = New System.Windows.Forms.ToolStripMenuItem()
         Me.mi_rep_seg_actividad = New System.Windows.Forms.ToolStripMenuItem()
         Me.mi_ActualizarArchivosPlanosManto = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mi_CargarInfoComprasSIESA = New System.Windows.Forms.ToolStripMenuItem()
         Me.mi_compras = New System.Windows.Forms.ToolStripMenuItem()
         Me.mi_solicitudes_compra = New System.Windows.Forms.ToolStripMenuItem()
         Me.mi_consultar_sol_compra_listados = New System.Windows.Forms.ToolStripMenuItem()
@@ -173,7 +174,8 @@ Partial Class formulario_inicio
         Me.StatusStrip = New System.Windows.Forms.StatusStrip()
         Me.ToolStripStatusLabel = New System.Windows.Forms.ToolStripStatusLabel()
         Me.ToolTip = New System.Windows.Forms.ToolTip(Me.components)
-        Me.mi_CargarInfoComprasSIESA = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mi_Paso1BorrarDatos = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mi_Paso2CargarArchivos = New System.Windows.Forms.ToolStripMenuItem()
         Me.MenuStrip.SuspendLayout()
         Me.StatusStrip.SuspendLayout()
         Me.SuspendLayout()
@@ -520,6 +522,14 @@ Partial Class formulario_inicio
         Me.mi_ActualizarArchivosPlanosManto.Name = "mi_ActualizarArchivosPlanosManto"
         Me.mi_ActualizarArchivosPlanosManto.Size = New System.Drawing.Size(269, 30)
         Me.mi_ActualizarArchivosPlanosManto.Text = "Actualizar Archivos Planos"
+        '
+        'mi_CargarInfoComprasSIESA
+        '
+        Me.mi_CargarInfoComprasSIESA.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mi_Paso1BorrarDatos, Me.mi_Paso2CargarArchivos})
+        Me.mi_CargarInfoComprasSIESA.Image = Global.camocontrol.My.Resources.Resources.carpeta2
+        Me.mi_CargarInfoComprasSIESA.Name = "mi_CargarInfoComprasSIESA"
+        Me.mi_CargarInfoComprasSIESA.Size = New System.Drawing.Size(269, 30)
+        Me.mi_CargarInfoComprasSIESA.Text = "Cargar Info Compras SIESA"
         '
         'mi_compras
         '
@@ -1253,12 +1263,17 @@ Partial Class formulario_inicio
         Me.ToolStripStatusLabel.Size = New System.Drawing.Size(40, 17)
         Me.ToolStripStatusLabel.Text = "Estado"
         '
-        'mi_CargarInfoComprasSIESA
+        'mi_Paso1BorrarDatos
         '
-        Me.mi_CargarInfoComprasSIESA.Image = Global.camocontrol.My.Resources.Resources.carpeta2
-        Me.mi_CargarInfoComprasSIESA.Name = "mi_CargarInfoComprasSIESA"
-        Me.mi_CargarInfoComprasSIESA.Size = New System.Drawing.Size(269, 30)
-        Me.mi_CargarInfoComprasSIESA.Text = "Cargar Info Compras SIESA"
+        Me.mi_Paso1BorrarDatos.Name = "mi_Paso1BorrarDatos"
+        Me.mi_Paso1BorrarDatos.Size = New System.Drawing.Size(237, 22)
+        Me.mi_Paso1BorrarDatos.Text = "Paso 1: Borrar Datos"
+        '
+        'mi_Paso2CargarArchivos
+        '
+        Me.mi_Paso2CargarArchivos.Name = "mi_Paso2CargarArchivos"
+        Me.mi_Paso2CargarArchivos.Size = New System.Drawing.Size(237, 22)
+        Me.mi_Paso2CargarArchivos.Text = "Paso 2: Cargar Archivos"
         '
         'formulario_inicio
         '
@@ -1431,4 +1446,6 @@ Partial Class formulario_inicio
     Friend WithEvents mi_ActualizarArchivosPlanosManto As ToolStripMenuItem
     Friend WithEvents mi_nueva_factura As ToolStripMenuItem
     Friend WithEvents mi_CargarInfoComprasSIESA As ToolStripMenuItem
+    Friend WithEvents mi_Paso1BorrarDatos As ToolStripMenuItem
+    Friend WithEvents mi_Paso2CargarArchivos As ToolStripMenuItem
 End Class

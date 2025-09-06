@@ -1292,6 +1292,7 @@ Public Class fm_0300_orden_compra
         'actualizacion parametrizada
         csql = "update " + database.obtener_esquema + ".tb0305_items_solicitados set "
         csql += "f0305_id_oc = null,"
+        csql += "f0305_oc_uno = '',"
         csql += "f0305_oc_aprov = 'N',"
         csql += "f0305_fm = @f0305_fm,"
         csql += "f0305_usuario_modificar = @f0305_usuario_modificar"

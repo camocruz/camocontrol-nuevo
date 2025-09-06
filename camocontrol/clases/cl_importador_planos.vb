@@ -1265,6 +1265,10 @@ a1:
             End If
         Next
 
+        csql = "select *" _
+            & " from " & database.obtener_esquema & ".fnc_300_05_cargar_exportar_info_doc_mov_oc_siesa()"
+        Dim otb_bodegas As DataTable = cl_utilidades_datatables.cargar_informacion_postgres(csql)
+        'MsgBox("Actualizado")
 
         Return "S"
     End Function
