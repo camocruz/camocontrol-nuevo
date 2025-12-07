@@ -1,7 +1,7 @@
 ﻿Imports System.Windows.Forms
 
 Public Class formulario_inicio
-    'Objeto para manejar la configuración Regional
+    'Objeto para manejar la configuración Regional hola
     Protected oregioninfo As System.Globalization.RegionInfo
 
     Private vcerrar As String = "N"
