@@ -610,7 +610,6 @@ C:\Repos\camocontrol\camocontrol\bin\Debug\System.Text.Encodings.Web.dll
 C:\Repos\camocontrol\camocontrol\bin\Debug\System.Text.Json.dll
 C:\Repos\camocontrol\camocontrol\bin\Debug\System.Threading.Channels.dll
 C:\Repos\camocontrol\camocontrol\bin\Debug\System.Threading.Tasks.Extensions.dll
-C:\Repos\camocontrol\camocontrol\bin\Debug\System.ValueTuple.dll
 C:\Repos\camocontrol\camocontrol\bin\Debug\stdole.dll
 C:\Repos\camocontrol\camocontrol\bin\Debug\Microsoft.Bcl.AsyncInterfaces.xml
 C:\Repos\camocontrol\camocontrol\bin\Debug\Newtonsoft.Json.xml
@@ -623,7 +622,6 @@ C:\Repos\camocontrol\camocontrol\bin\Debug\System.Text.Encodings.Web.xml
 C:\Repos\camocontrol\camocontrol\bin\Debug\System.Text.Json.xml
 C:\Repos\camocontrol\camocontrol\bin\Debug\System.Threading.Channels.xml
 C:\Repos\camocontrol\camocontrol\bin\Debug\System.Threading.Tasks.Extensions.xml
-C:\Repos\camocontrol\camocontrol\bin\Debug\System.ValueTuple.xml
 C:\Repos\camocontrol\camocontrol\bin\Debug\Interop.AcroPDFLib.dll
 C:\Repos\camocontrol\camocontrol\bin\Debug\AxInterop.AcroPDFLib.dll
 C:\Repos\camocontrol\camocontrol\obj\x86\Debug\camocontrol.vbproj.AssemblyReference.cache
@@ -733,3 +731,8 @@ C:\Repos\camocontrol\camocontrol\obj\x86\Debug\camocont.270CA531.Up2Date
 C:\Repos\camocontrol\camocontrol\obj\x86\Debug\camocontrol.exe
 C:\Repos\camocontrol\camocontrol\obj\x86\Debug\camocontrol.xml
 C:\Repos\camocontrol\camocontrol\obj\x86\Debug\camocontrol.pdb
+C:\Repos\camocontrol\camocontrol\bin\Debug\RestSharp.dll
+C:\Repos\camocontrol\camocontrol\bin\Debug\System.IO.Pipelines.dll
+C:\Repos\camocontrol\camocontrol\bin\Debug\RestSharp.xml
+C:\Repos\camocontrol\camocontrol\bin\Debug\System.IO.Pipelines.xml
+C:\Repos\camocontrol\camocontrol\obj\x86\Debug\camocontrol.fm_0800_cargar_pedidos_unoee.resources

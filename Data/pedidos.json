@@ -1,0 +1,482 @@
+[
+    {
+        "Encabezado": {
+            "id_pedido": 1,
+            "id_compañia": "MAC",
+            "fecha": "2025-02-06",
+            "cliente_id": "CLI1410",
+            "cliente_nombre": "Luis Fernández",
+            "direccion_envio": "Av. Siempre Viva 123",
+            "ciudad_envio": "Madrid",
+            "código_vendedor": "VEN74",
+            "nombre_vendedor": "Pedro Ruiz",
+            "moneda": "EUR",
+            "subtotal": 1433.08,
+            "descuento": 71.65,
+            "impuestos": 300.95000000000005,
+            "retenciones": 28.66,
+            "total": 1633.72
+        },
+        "Detalle": [
+            {
+                "producto_id": "PROD476",
+                "descripción": "Mouse",
+                "unidad_medida": "unidad",
+                "cantidad": 5,
+                "precio_unitario": 37.25,
+                "impuesto_iva": 39.11,
+                "total_linea": 225.36
+            },
+            {
+                "producto_id": "PROD806",
+                "descripción": "Monitor",
+                "unidad_medida": "unidad",
+                "cantidad": 9,
+                "precio_unitario": 98.77,
+                "impuesto_iva": 186.68,
+                "total_linea": 1075.61
+            },
+            {
+                "producto_id": "PROD665",
+                "descripción": "Mouse",
+                "unidad_medida": "unidad",
+                "cantidad": 5,
+                "precio_unitario": 71.58,
+                "impuesto_iva": 75.16,
+                "total_linea": 433.06
+            }
+        ]
+    },
+    {
+        "Encabezado": {
+            "id_pedido": 2,
+            "id_compañia": "MAC",
+            "fecha": "2025-07-23",
+            "cliente_id": "CLI5867",
+            "cliente_nombre": "Ana Torres",
+            "direccion_envio": "Calle Luna 45",
+            "ciudad_envio": "Valencia",
+            "código_vendedor": "VEN98",
+            "nombre_vendedor": "Miguel Castro",
+            "moneda": "EUR",
+            "subtotal": 323.4,
+            "descuento": 16.17,
+            "impuestos": 67.91,
+            "retenciones": 6.47,
+            "total": 368.67
+        },
+        "Detalle": [
+            {
+                "producto_id": "PROD106",
+                "descripción": "Impresora",
+                "unidad_medida": "unidad",
+                "cantidad": 2,
+                "precio_unitario": 92.44,
+                "impuesto_iva": 38.82,
+                "total_linea": 223.7
+            },
+            {
+                "producto_id": "PROD643",
+                "descripción": "Mouse",
+                "unidad_medida": "unidad",
+                "cantidad": 8,
+                "precio_unitario": 13.38,
+                "impuesto_iva": 22.48,
+                "total_linea": 129.52
+            },
+            {
+                "producto_id": "PROD523",
+                "descripción": "Monitor",
+                "unidad_medida": "unidad",
+                "cantidad": 1,
+                "precio_unitario": 31.48,
+                "impuesto_iva": 6.61,
+                "total_linea": 38.09
+            }
+        ]
+    },
+    {
+        "Encabezado": {
+            "id_pedido": 3,
+            "id_compañia": "MAC",
+            "fecha": "2025-10-12",
+            "cliente_id": "CLI4085",
+            "cliente_nombre": "Luis Fernández",
+            "direccion_envio": "Boulevard Sol 678",
+            "ciudad_envio": "Valencia",
+            "código_vendedor": "VEN86",
+            "nombre_vendedor": "Laura Sánchez",
+            "moneda": "EUR",
+            "subtotal": 1275.1,
+            "descuento": 63.75,
+            "impuestos": 267.77,
+            "retenciones": 25.5,
+            "total": 1453.62
+        },
+        "Detalle": [
+            {
+                "producto_id": "PROD894",
+                "descripción": "Laptop",
+                "unidad_medida": "unidad",
+                "cantidad": 2,
+                "precio_unitario": 62.33,
+                "impuesto_iva": 26.18,
+                "total_linea": 150.84
+            },
+            {
+                "producto_id": "PROD996",
+                "descripción": "Monitor",
+                "unidad_medida": "unidad",
+                "cantidad": 3,
+                "precio_unitario": 84.08,
+                "impuesto_iva": 52.97,
+                "total_linea": 305.21
+            },
+            {
+                "producto_id": "PROD750",
+                "descripción": "Impresora",
+                "unidad_medida": "unidad",
+                "cantidad": 9,
+                "precio_unitario": 99.8,
+                "impuesto_iva": 188.62,
+                "total_linea": 1086.82
+            }
+        ]
+    },
+    {
+        "Encabezado": {
+            "id_pedido": 4,
+            "id_compañia": "MAC",
+            "fecha": "2025-08-14",
+            "cliente_id": "CLI9182",
+            "cliente_nombre": "Carlos Gómez",
+            "direccion_envio": "Av. Siempre Viva 123",
+            "ciudad_envio": "Sevilla",
+            "código_vendedor": "VEN67",
+            "nombre_vendedor": "Pedro Ruiz",
+            "moneda": "EUR",
+            "subtotal": 731.75,
+            "descuento": 36.59,
+            "impuestos": 153.67,
+            "retenciones": 14.63,
+            "total": 834.2
+        },
+        "Detalle": [
+            {
+                "producto_id": "PROD565",
+                "descripción": "Impresora",
+                "unidad_medida": "unidad",
+                "cantidad": 5,
+                "precio_unitario": 38.68,
+                "impuesto_iva": 40.61,
+                "total_linea": 234.01
+            },
+            {
+                "producto_id": "PROD877",
+                "descripción": "Laptop",
+                "unidad_medida": "unidad",
+                "cantidad": 5,
+                "precio_unitario": 96.53,
+                "impuesto_iva": 101.36,
+                "total_linea": 584.01
+            },
+            {
+                "producto_id": "PROD404",
+                "descripción": "Mouse",
+                "unidad_medida": "unidad",
+                "cantidad": 1,
+                "precio_unitario": 55.7,
+                "impuesto_iva": 11.7,
+                "total_linea": 67.4
+            }
+        ]
+    },
+    {
+        "Encabezado": {
+            "id_pedido": 5,
+            "id_compañia": "MAC",
+            "fecha": "2025-02-24",
+            "cliente_id": "CLI6677",
+            "cliente_nombre": "Ana Torres",
+            "direccion_envio": "Boulevard Sol 678",
+            "ciudad_envio": "Madrid",
+            "código_vendedor": "VEN20",
+            "nombre_vendedor": "Miguel Castro",
+            "moneda": "EUR",
+            "subtotal": 467.86,
+            "descuento": 23.39,
+            "impuestos": 98.25,
+            "retenciones": 9.36,
+            "total": 533.36
+        },
+        "Detalle": [
+            {
+                "producto_id": "PROD676",
+                "descripción": "Teclado",
+                "unidad_medida": "unidad",
+                "cantidad": 1,
+                "precio_unitario": 85.96,
+                "impuesto_iva": 18.05,
+                "total_linea": 104.01
+            },
+            {
+                "producto_id": "PROD774",
+                "descripción": "Mouse",
+                "unidad_medida": "unidad",
+                "cantidad": 3,
+                "precio_unitario": 37.24,
+                "impuesto_iva": 23.46,
+                "total_linea": 135.18
+            },
+            {
+                "producto_id": "PROD825",
+                "descripción": "Monitor",
+                "unidad_medida": "unidad",
+                "cantidad": 3,
+                "precio_unitario": 90.06,
+                "impuesto_iva": 56.74,
+                "total_linea": 326.92
+            }
+        ]
+    },
+    {
+        "Encabezado": {
+            "id_pedido": 6,
+            "id_compañia": "MEN",
+            "fecha": "2025-06-19",
+            "cliente_id": "CLI9007",
+            "cliente_nombre": "Luis Fernández",
+            "direccion_envio": "Calle Luna 45",
+            "ciudad_envio": "Madrid",
+            "código_vendedor": "VEN61",
+            "nombre_vendedor": "Miguel Castro",
+            "moneda": "EUR",
+            "subtotal": 1660.01,
+            "descuento": 83.0,
+            "impuestos": 348.6,
+            "retenciones": 33.2,
+            "total": 1892.41
+        },
+        "Detalle": [
+            {
+                "producto_id": "PROD282",
+                "descripción": "Impresora",
+                "unidad_medida": "unidad",
+                "cantidad": 10,
+                "precio_unitario": 87.72,
+                "impuesto_iva": 184.21,
+                "total_linea": 1061.41
+            },
+            {
+                "producto_id": "PROD608",
+                "descripción": "Mouse",
+                "unidad_medida": "unidad",
+                "cantidad": 7,
+                "precio_unitario": 36.93,
+                "impuesto_iva": 54.29,
+                "total_linea": 312.8
+            },
+            {
+                "producto_id": "PROD172",
+                "descripción": "Mouse",
+                "unidad_medida": "unidad",
+                "cantidad": 7,
+                "precio_unitario": 74.9,
+                "impuesto_iva": 110.1,
+                "total_linea": 634.4
+            }
+        ]
+    },
+    {
+        "Encabezado": {
+            "id_pedido": 7,
+            "id_compañia": "MEN",
+            "fecha": "2025-02-25",
+            "cliente_id": "CLI6439",
+            "cliente_nombre": "Carlos Gómez",
+            "direccion_envio": "Calle Luna 45",
+            "ciudad_envio": "Valencia",
+            "código_vendedor": "VEN46",
+            "nombre_vendedor": "Pedro Ruiz",
+            "moneda": "EUR",
+            "subtotal": 1039.48,
+            "descuento": 51.97,
+            "impuestos": 218.29,
+            "retenciones": 20.79,
+            "total": 1185.01
+        },
+        "Detalle": [
+            {
+                "producto_id": "PROD911",
+                "descripción": "Monitor",
+                "unidad_medida": "unidad",
+                "cantidad": 10,
+                "precio_unitario": 76.42,
+                "impuesto_iva": 160.48,
+                "total_linea": 924.68
+            },
+            {
+                "producto_id": "PROD351",
+                "descripción": "Mouse",
+                "unidad_medida": "unidad",
+                "cantidad": 9,
+                "precio_unitario": 24.08,
+                "impuesto_iva": 45.51,
+                "total_linea": 262.23
+            },
+            {
+                "producto_id": "PROD887",
+                "descripción": "Mouse",
+                "unidad_medida": "unidad",
+                "cantidad": 4,
+                "precio_unitario": 14.64,
+                "impuesto_iva": 12.3,
+                "total_linea": 70.86
+            }
+        ]
+    },
+    {
+        "Encabezado": {
+            "id_pedido": 8,
+            "id_compañia": "MEN",
+            "fecha": "2025-12-12",
+            "cliente_id": "CLI1835",
+            "cliente_nombre": "María López",
+            "direccion_envio": "Av. Siempre Viva 123",
+            "ciudad_envio": "Barcelona",
+            "código_vendedor": "VEN21",
+            "nombre_vendedor": "Pedro Ruiz",
+            "moneda": "EUR",
+            "subtotal": 526.45,
+            "descuento": 26.32,
+            "impuestos": 110.56,
+            "retenciones": 10.53,
+            "total": 600.16
+        },
+        "Detalle": [
+            {
+                "producto_id": "PROD732",
+                "descripción": "Impresora",
+                "unidad_medida": "unidad",
+                "cantidad": 8,
+                "precio_unitario": 21.89,
+                "impuesto_iva": 36.78,
+                "total_linea": 211.9
+            },
+            {
+                "producto_id": "PROD828",
+                "descripción": "Teclado",
+                "unidad_medida": "unidad",
+                "cantidad": 7,
+                "precio_unitario": 36.02,
+                "impuesto_iva": 52.95,
+                "total_linea": 305.09
+            },
+            {
+                "producto_id": "PROD692",
+                "descripción": "Mouse",
+                "unidad_medida": "unidad",
+                "cantidad": 7,
+                "precio_unitario": 14.17,
+                "impuesto_iva": 20.83,
+                "total_linea": 120.02
+            }
+        ]
+    },
+    {
+        "Encabezado": {
+            "id_pedido": 9,
+            "id_compañia": "MEN",
+            "fecha": "2025-06-21",
+            "cliente_id": "CLI7519",
+            "cliente_nombre": "Juan Pérez",
+            "direccion_envio": "Calle Luna 45",
+            "ciudad_envio": "Barcelona",
+            "código_vendedor": "VEN84",
+            "nombre_vendedor": "Laura Sánchez",
+            "moneda": "EUR",
+            "subtotal": 1144.5,
+            "descuento": 57.23,
+            "impuestos": 240.35000000000002,
+            "retenciones": 22.89,
+            "total": 1304.73
+        },
+        "Detalle": [
+            {
+                "producto_id": "PROD956",
+                "descripción": "Mouse",
+                "unidad_medida": "unidad",
+                "cantidad": 2,
+                "precio_unitario": 54.21,
+                "impuesto_iva": 22.77,
+                "total_linea": 131.19
+            },
+            {
+                "producto_id": "PROD345",
+                "descripción": "Impresora",
+                "unidad_medida": "unidad",
+                "cantidad": 5,
+                "precio_unitario": 95.51,
+                "impuesto_iva": 100.29,
+                "total_linea": 577.84
+            },
+            {
+                "producto_id": "PROD131",
+                "descripción": "Monitor",
+                "unidad_medida": "unidad",
+                "cantidad": 7,
+                "precio_unitario": 79.79,
+                "impuesto_iva": 117.29,
+                "total_linea": 675.82
+            }
+        ]
+    },
+    {
+        "Encabezado": {
+            "id_pedido": 10,
+            "id_compañia": "MEN",
+            "fecha": "2025-01-30",
+            "cliente_id": "CLI8468",
+            "cliente_nombre": "María López",
+            "direccion_envio": "Av. Siempre Viva 123",
+            "ciudad_envio": "Valencia",
+            "código_vendedor": "VEN18",
+            "nombre_vendedor": "Laura Sánchez",
+            "moneda": "EUR",
+            "subtotal": 1650.84,
+            "descuento": 82.54,
+            "impuestos": 346.68,
+            "retenciones": 33.02,
+            "total": 1881.96
+        },
+        "Detalle": [
+            {
+                "producto_id": "PROD335",
+                "descripción": "Mouse",
+                "unidad_medida": "unidad",
+                "cantidad": 9,
+                "precio_unitario": 55.24,
+                "impuesto_iva": 104.4,
+                "total_linea": 601.56
+            },
+            {
+                "producto_id": "PROD663",
+                "descripción": "Monitor",
+                "unidad_medida": "unidad",
+                "cantidad": 4,
+                "precio_unitario": 55.27,
+                "impuesto_iva": 46.43,
+                "total_linea": 267.51
+            },
+            {
+                "producto_id": "PROD517",
+                "descripción": "Mouse",
+                "unidad_medida": "unidad",
+                "cantidad": 10,
+                "precio_unitario": 93.26,
+                "impuesto_iva": 195.85,
+                "total_linea": 1128.45
+            }
+        ]
+    }
+]
