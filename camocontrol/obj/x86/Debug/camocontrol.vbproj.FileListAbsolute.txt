@@ -736,3 +736,4 @@ C:\Repos\camocontrol\camocontrol\bin\Debug\System.IO.Pipelines.dll
 C:\Repos\camocontrol\camocontrol\bin\Debug\RestSharp.xml
 C:\Repos\camocontrol\camocontrol\bin\Debug\System.IO.Pipelines.xml
 C:\Repos\camocontrol\camocontrol\obj\x86\Debug\camocontrol.fm_0800_cargar_pedidos_unoee.resources
+C:\Repos\camocontrol\camocontrol\bin\Debug\System.ValueTuple.dll

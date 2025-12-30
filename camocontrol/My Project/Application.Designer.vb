@@ -32,7 +32,7 @@ Namespace My
         
         <Global.System.Diagnostics.DebuggerStepThroughAttribute()>  _
         Protected Overrides Sub OnCreateMainForm()
-            Me.MainForm = Global.camocontrol.fm_0800_cargar_pedidos_unoee
+            Me.MainForm = Global.camocontrol.login
         End Sub
         
         <Global.System.Diagnostics.DebuggerStepThroughAttribute()>  _
