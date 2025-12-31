@@ -2,6 +2,9 @@
 Imports System.IO
 Imports System.Collections
 Imports System.Globalization
+Imports System.Threading.Tasks
+Imports Newtonsoft.Json.Linq
+Imports RestSharp
 Public Class fm_0800_cargar_rm
     'Objetos publicos que reciben valores desde el Formulario padre
     'Public vf_oform_padre As Object
@@ -34,6 +37,7 @@ Public Class fm_0800_cargar_rm
     Private razon_social As String = ""
     Private ciudad_cliente As String = ""
     Private direccion As String = ""
+    Private id_sucursal_fact As String = ""
     Private nombre_vendedor As String = ""
     Private codigo_vendedor As String = ""
     Private referencia_1 As String = ""
@@ -55,9 +59,9 @@ Public Class fm_0800_cargar_rm
     Private remision_factura As String
 
     Private id_item_producto As Integer
-    Private subtotal_producto As Decimal
-    Private descuento_producto As Decimal
-    Private iva_producto As Decimal
+    Private item_valor_unitario As Decimal
+    Private item_valor_impuestos As Decimal
+    Private item_valor_neto As Decimal
     Private total_producto As Decimal
 
     Public ciudad_equivalente_actualizada As String = "N"
@@ -260,7 +264,7 @@ Public Class fm_0800_cargar_rm
             & " f0850_ciudad_destino, f0850_direccion_destino," _
             & " f0850_codigo_vendedor, f0850_nombre_vendedor," _
             & " f0850_usuario_crear," _
-            & " f0850_usuario_modificar, f0850_ofi" _
+            & " f0850_usuario_modificar, f0850_ofi, f0850_id_sucursal_fact" _
             & ") values" _
             & " (" _
             & " @f0850_rm, @f0850_id_cia, @f0850_codigo_tercero, @f0850_dig_ver," _
@@ -268,7 +272,7 @@ Public Class fm_0800_cargar_rm
             & " @f0850_ciudad_destino, @f0850_direccion_destino," _
             & " @f0850_codigo_vendedor, @f0850_nombre_vendedor," _
             & " @f0850_usuario_crear," _
-            & " @f0850_usuario_modificar, @f0850_ofi" _
+            & " @f0850_usuario_modificar, @f0850_ofi, @f0850_id_sucursal_fact" _
             & ")" _
             & " RETURNING f0850_id_rm"
 
@@ -291,7 +295,7 @@ Public Class fm_0800_cargar_rm
         ocmd.Parameters.Add("f0850_usuario_modificar", NpgsqlDbType.Varchar).Value = vg_usuario_autoriza
         ocmd.Parameters.Add("f0850_usuario_crear", NpgsqlDbType.Varchar).Value = vg_usuario_autoriza
         ocmd.Parameters.Add("f0850_ofi", NpgsqlDbType.Varchar).Value = ofiscal
-
+        ocmd.Parameters.Add("f0850_id_sucursal_fact", NpgsqlDbType.Varchar).Value = id_sucursal_fact
         verror = "N"
         Try
             'Compila el comando en la Base de datos.
@@ -321,12 +325,14 @@ Public Class fm_0800_cargar_rm
             & " (" _
             & " f0851_id_rm, f0851_rm, f0851_id_cia, f0851_referencia_1, f0851_referencia_2," _
             & " f0851_descripcion, f0851_cantidad," _
+            & " f0851_val_unit, f0851_iva, f0851_val_tot," _
             & " f0851_usuario_crear," _
             & " f0851_usuario_modificar" _
             & ") values" _
             & " (" _
             & " @f0851_id_rm, @f0851_rm, @f0851_id_cia, @f0851_referencia_1, @f0851_referencia_2," _
             & " @f0851_descripcion, @f0851_cantidad," _
+            & " @f0851_val_unit, @f0851_iva, @f0851_val_tot," _
             & " @f0851_usuario_crear," _
             & " @f0851_usuario_modificar" _
             & ")"
@@ -345,6 +351,9 @@ Public Class fm_0800_cargar_rm
         ocmd.Parameters.Add("f0851_cantidad", NpgsqlDbType.Numeric).Value = cantidad_producto
         ocmd.Parameters.Add("f0851_usuario_crear", NpgsqlDbType.Varchar).Value = vg_usuario_autoriza
         ocmd.Parameters.Add("f0851_usuario_modificar", NpgsqlDbType.Varchar).Value = vg_usuario_autoriza
+        ocmd.Parameters.Add("f0851_val_unit", NpgsqlDbType.Numeric).Value = item_valor_unitario
+        ocmd.Parameters.Add("f0851_iva", NpgsqlDbType.Numeric).Value = item_valor_impuestos
+        ocmd.Parameters.Add("f0851_val_tot", NpgsqlDbType.Numeric).Value = item_valor_neto
         verror = "N"
         Try
             'Compila el comando en la Base de datos.
@@ -709,7 +718,8 @@ Public Class fm_0800_cargar_rm
         Next
         If verror = "N" Then
             MsgBox("Remisiones Anuladas", MsgBoxStyle.Information, "Info")
-            Dispose()
+            'muestro las remisiones sin agignar a un despacho
+            cargar_dg_remisiones_sin_asignar()
         End If
     End Sub
 
@@ -1253,301 +1263,266 @@ Public Class fm_0800_cargar_rm
         oconn_form.Close()
     End Sub
 
-    Private Sub bt_exportar_archivo_Click(sender As Object, e As EventArgs) Handles bt_exportar_archivo.Click
-        'Conectar base en postgres para actualizar tabla
-        oconn_form = database.obtener_conexion()
-        ocmd = database.obtener_comando(oconn_form)
 
-        csql = comunes.suministrar_valor_variable_configuracion("ST-0800-04", vg_id_cia)
-        ocmd.CommandText = csql
+    'AQUI INICIA LAS FUNCIONES DE IMPORTACION DE FACTURAS DE CGUNO
 
-        verror = "N"
-        Try
-            'Compila el comando en la Base de datos.
-            ocmd.Prepare()
-        Catch ex As Exception
-            verror = "S"
-            MsgBox("Hubo un error al Compilar comando! actualizar plano" + vbCrLf + ex.ToString)
-        End Try
+    Private Async Function CargarPaginaAsync(numPag As Integer) As Task(Of DataTable)
 
-        If verror = "N" Then
-            Try
-                ocmd.ExecuteNonQuery()
-            Catch ex As Exception
-                verror = "S"
-                MsgBox("Hubo un error actualizando plano" + vbCrLf + ex.ToString)
-            End Try
+        Dim options As New RestClientOptions("https://apiqa.siesacloud.com") With {
+        .Timeout = TimeSpan.FromMinutes(5)
+    }
+
+        Dim client As New RestClient(options)
+
+        Dim filtro As String = "(f350_id_cia = 1 and f350_consec_docto > 2025) or (f350_id_cia = 2 and f350_consec_docto > 4)"
+        Dim filtroCodificado As String = Uri.EscapeDataString(filtro)
+
+        Dim fullUrl As String =
+        "https://apiqa.siesacloud.com/connekta/siesa/estandar/consulta/v3" &
+        "?idCompania=9174" &
+        "&descripcion=API_v2_Ventas_Facturas_DesdePedido" &
+        $"&paginacion=numPag={numPag}|tamPag=100" &
+        $"&parametros={filtroCodificado}"
+
+        Dim request As New RestRequest(fullUrl, Method.Get)
+
+        request.AddHeader("client_id", "BNvQCwIKFzDP51D1QkzObw4Es79ELWTRG0jN0X1sL1dUJKe0")
+        request.AddHeader("ConniKey", "ff96a448b64d3a764b2501749fd6e354")
+        request.AddHeader("ConniToken", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjNiZjFiNGE5LTY3ZDUtNGU5MC1iYmI1LWJiMjRiNGJjY2U5NiIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcHJpbWFyeXNpZCI6IjZiY2FhMDAwLTRkNTYtNGMwYS1iODRmLTcxY2JhMWM5NWNjMCJ9.6mqPMJgJwaUU2VCjdvTfIx_TXJGVOy2AZN6d7pZXo-Y")
+
+        Dim response As RestResponse = Await client.ExecuteAsync(request)
+
+        If Not response.IsSuccessful Then
+            Return Nothing
         End If
 
-        ocmd = Nothing
-        oconn_form.Close()
-        If verror = "N" Then
-            MsgBox("Datos exportados", MsgBoxStyle.Information, "Info")
+        Dim json As JObject = JObject.Parse(response.Content)
+
+        If json("codigo") IsNot Nothing AndAlso json("codigo").ToString() = "1" Then
+            Return Nothing
         End If
-    End Sub
 
-    Private Sub tx_scaner_KeyPress(sender As Object, e As KeyPressEventArgs) Handles tx_scaner.KeyPress
-        If e.KeyChar = Microsoft.VisualBasic.ChrW(Keys.Enter) Then
-            lb_cuenta.Text = lb_cuenta.Text + 1
-            tx_scaner.Text = ""
+        Dim tablaJson As JArray = CType(json("detalle")("Table"), JArray)
+
+        If tablaJson Is Nothing OrElse tablaJson.Count = 0 Then
+            Return Nothing
         End If
-    End Sub
 
-    Private Sub bt_cargar_traslados_Click(sender As Object, e As EventArgs) Handles bt_cargar_traslados.Click
-        'MsgBox("En desarrollo.", MsgBoxStyle.Information, "CAMO")
-        'Cargamos la datatable con todos los items
-        csql = "select * from " & database.obtener_esquema & ".tb0300_items"
-        otb_items = cl_utilidades_datatables.cargar_informacion_postgres(csql)
+        Return tablaJson.ToObject(Of DataTable)()
 
-        Dim openFileDialog1 As New OpenFileDialog()
-        Dim path_file As String = ""
+    End Function
 
-        'openFileDialog1.InitialDirectory = "e:\"
-        openFileDialog1.Filter = "csv files (*.rtf)|*.rtf|txt files (*.txt)|*.txt|All files (*.*)|*.*" 'openFileDialog1.Filter = "txt files (*.txt)|*.txt|All files (*.*)|*.*"
-        openFileDialog1.FilterIndex = 1
-        openFileDialog1.RestoreDirectory = True
+    Private Async Function ObtenerTotalPaginasYRegistrosAsync() As Task(Of (totalPaginas As Integer, totalRegistros As Integer))
 
-        If openFileDialog1.ShowDialog() = System.Windows.Forms.DialogResult.OK Then
-            path_file = openFileDialog1.FileName
-            'comunes.mostrar_archivo_texto(path_file, "")
-        Else
+        Dim pagina As Integer = 1
+        Dim totalPaginas As Integer = 0
+        Dim totalRegistros As Integer = 0
+
+        While True
+
+            Dim dtPagina As DataTable = Await CargarPaginaAsync(pagina)
+
+            If dtPagina Is Nothing Then
+                Exit While
+            End If
+
+            totalPaginas += 1
+            totalRegistros += dtPagina.Rows.Count
+
+            pagina += 1
+        End While
+
+        Return (totalPaginas, totalRegistros)
+
+    End Function
+
+    Private Async Function CargarTodasLasPaginasAsync() As Task(Of DataTable)
+
+        ' 1. Obtener total de páginas y registros
+        Dim info = Await ObtenerTotalPaginasYRegistrosAsync()
+        Dim totalPaginas = info.totalPaginas
+        Dim totalRegistros = info.totalRegistros
+
+        If totalPaginas = 0 Then
+            Return Nothing
+        End If
+
+        ' 2. Configurar barra de progreso
+        ProgressBar1.Style = ProgressBarStyle.Blocks
+        ProgressBar1.Minimum = 0
+        ProgressBar1.Maximum = totalPaginas
+        ProgressBar1.Value = 0
+
+        lblPaginas.Text = $"Páginas cargadas: 0 / {totalPaginas}"
+        'lblRegistros.Text = $"Registros totales: 0 / {totalRegistros}"
+
+        ' 3. Cargar todas las páginas
+        Dim tablaFinal As New DataTable()
+        Dim primeraVez As Boolean = True
+        Dim pagina As Integer = 1
+        Dim registrosAcumulados As Integer = 0
+
+        While pagina <= totalPaginas
+
+            Dim dtPagina As DataTable = Await CargarPaginaAsync(pagina)
+
+            If dtPagina Is Nothing Then
+                Exit While
+            End If
+
+            If primeraVez Then
+                tablaFinal = dtPagina.Clone()
+                primeraVez = False
+            End If
+
+            For Each fila As DataRow In dtPagina.Rows
+                tablaFinal.ImportRow(fila)
+            Next
+
+            registrosAcumulados += dtPagina.Rows.Count
+
+            ' Actualizar UI
+            ProgressBar1.Value = pagina
+            lblPaginas.Text = $"Páginas cargadas: {pagina} / {totalPaginas}"
+            lblRegistros.Text = $"Registros totales: {registrosAcumulados} / {totalRegistros}"
+
+            pagina += 1
+        End While
+
+        Return tablaFinal
+
+    End Function
+
+
+
+    Private Function GenerarEncabezadoYDetalleLINQ(dtOriginal As DataTable) As (Encabezado As DataTable, Detalle As DataTable)
+
+        ' ============================
+        ' 1. ENCABEZADO: valores únicos por combinación de campos
+        ' ============================
+        Dim encabezadoQuery = dtOriginal.AsEnumerable().
+        GroupBy(Function(r) New With {
+            Key .cia = r("f350_id_cia"),
+            Key .tipo = r("f350_id_tipo_docto"),
+            Key .consec = r("f350_consec_docto"),
+            Key .fecha = r("f350_fecha"),
+            Key .notas = r("f350_notas"),
+            Key .nitFact = r("f200_nit_fact"),
+            Key .razonFact = r("f200_razon_social_fact"),
+            Key .sucursal = r("f461_id_sucursal_fact"),
+            Key .nitVend = r("f200_nit_vendedor"),
+            Key .razonVend = r("f200_razon_social_vendedor")
+        }).
+        Select(Function(g) g.First())
+
+        Dim dtEncabezado As DataTable = encabezadoQuery.CopyToDataTable()
+
+        ' ============================
+        ' 2. DETALLE: todas las líneas con campos específicos
+        ' ============================
+        ' Crear estructura del DataTable Detalle
+        Dim dtDetalle As New DataTable("Detalle")
+
+        dtDetalle.Columns.Add("f350_id_cia", GetType(Integer))
+        dtDetalle.Columns.Add("f350_id_tipo_docto", GetType(String))
+        dtDetalle.Columns.Add("f350_consec_docto", GetType(Integer))
+        dtDetalle.Columns.Add("f120_id", GetType(String))
+        dtDetalle.Columns.Add("f120_referencia", GetType(String))
+        dtDetalle.Columns.Add("f120_descripcion", GetType(String))
+        dtDetalle.Columns.Add("f470_cant_1", GetType(Decimal))
+        dtDetalle.Columns.Add("f470_id_unidad_medida", GetType(String))
+        dtDetalle.Columns.Add("f470_factor", GetType(Decimal))
+        dtDetalle.Columns.Add("f470_precio_uni", GetType(Decimal))
+        dtDetalle.Columns.Add("f470_vlr_imp", GetType(Decimal))
+        dtDetalle.Columns.Add("f470_vlr_neto", GetType(Decimal))
+
+        ' Llenar usando LINQ + LoadDataRow (más rápido que Rows.Add)
+        dtOriginal.AsEnumerable().
+    Select(Function(r) dtDetalle.LoadDataRow(New Object() {
+        r("f350_id_cia"),
+        r("f350_id_tipo_docto"),
+        r("f350_consec_docto"),
+        r("f120_id"),
+        r("f120_referencia"),
+        r("f120_descripcion"),
+        r("f470_cant_1"),
+        r("f470_id_unidad_medida"),
+        r("f470_factor"),
+        r("f470_precio_uni"),
+        r("f470_vlr_imp"),
+        r("f470_vlr_neto")
+    }, False)).ToList()
+
+        Return (dtEncabezado, dtDetalle)
+
+    End Function
+
+    Private Async Sub btnCargar_Click(sender As Object, e As EventArgs) Handles btnCargar.Click
+        Dim dt As DataTable = Await CargarTodasLasPaginasAsync()
+
+        If dt Is Nothing OrElse dt.Rows.Count = 0 Then
+            MessageBox.Show("No se encontraron registros en ninguna página.")
             Exit Sub
         End If
 
-        Dim lector As New IO.StreamReader(path_file, System.Text.Encoding.UTF7)
-        ' Leer el contenido mientras no se llegue al final
+        Dim resultado = GenerarEncabezadoYDetalleLINQ(dt)
 
-        Dim txt_info As String = ""
-        Dim contador_exitos As Integer = 0
-        Dim contador_fallas As Integer = 0
-        Dim bloqueo_actualizacion As String = "N"
-        Dim pagina_extra As String = "N"
-        Dim conteo_pagina_extra As Integer = 0
+        Dim dtEncabezado As DataTable = resultado.Encabezado
+        Dim dtDetalle As DataTable = resultado.Detalle
 
-        While lector.Peek() <> -1
-            Dim linea As String = Replace(lector.ReadLine(), "\'d1", "Ñ")
-            ' Si no está vacía, añadirla al control
-            ' Si está vacía, continuar el bucle
-            If String.IsNullOrEmpty(linea) Then
-                Continue While
-            End If
-            'No fiscal  
-            ofiscal = "1"
-            'If InStr(linea, "NIT.: 11111111-6") <> 0 Then
-            'ofiscal = "N"
-            'End If
-            'If InStr(linea, "NIT.: 805027332-8") <> 0 Then
-            'ofiscal = "S"
-            'End If
-            Dim txt As String = ""
-            If IsNumeric(Mid(linea, 6, 8)) = True And InStr(linea, "**  ANULADO  **") = 0 Then
-                'txt += "Factura:" & Mid(linea, 6, 8) & "|" & vbCrLf
-                'txt += "Fecha factura:" & Mid(linea, 25, 11) & "|" & vbCrLf
-                'txt += "Subtotal Factura:" & Mid(linea, 71, 15) & "|" & vbCrLf
-                'txt += "Descuento:" & Mid(linea, 84, 15) & "|" & vbCrLf
-                'txt += "IVA factura:" & Mid(linea, 96, 15) & "|" & vbCrLf
-                'txt += "Total Factura:" & Mid(linea, 109, 13) & "|" & vbCrLf
-                'MsgBox(txt)
-                num_factura = Mid(linea, 6, 8).Trim
-                tx_fecha_factura = Mid(linea, 25, 11).Trim
-                subtotal_factura = CDec(Mid(linea, 72, 15).Trim)
-                descuento_factura = CDec(Mid(linea, 85, 14).Trim)
-                iva_factura = CDec(Mid(linea, 97, 14).Trim)
-                total_factura = CDec(Mid(linea, 109, 13).Trim)
-                factura_anulada_cg = "N"
-            End If
-            If InStr(linea, "**  ANULADO  **") <> 0 Then
-                'txt += "Factura Anulada:" & Mid(linea, 6, 8) & "|" & vbCrLf
-                'MsgBox(txt)
-                num_factura = Mid(linea, 6, 8).Trim
-                remision_factura = ""
-                tx_fecha_factura = ""
-                subtotal_factura = 0
-                descuento_factura = 0
-                iva_factura = 0
-                total_factura = 0
-                factura_anulada_cg = "S"
-                grabar_encabezado_factura()
-            End If
+        'RECORRER EL ENCABEZADO PARA GRABAR EN BD
 
+        For Each rowEncabezado As DataRow In dtEncabezado.Rows
+            'Asignar variables globales para grabar
+            Select Case rowEncabezado("f350_id_cia").ToString()
+                Case "1"
+                    ofiscal = "1"
+                Case "2"
+                    ofiscal = "3"
+                Case Else
+                    ofiscal = "9" 'Por defecto
+            End Select
+            numero_rm = rowEncabezado("f350_id_tipo_docto") & "-" & rowEncabezado("f350_id_cia") & "-" & rowEncabezado("f350_consec_docto").ToString.PadLeft(6, "0")
+            fecha_documento_rm = Mid(rowEncabezado("f350_fecha").ToString(), 1, 10)
+            razon_social = rowEncabezado("f200_razon_social_fact").ToString()
+            codigo_cliente = rowEncabezado("f200_nit_fact").ToString()
+            digito_verificacion = ""
+            ciudad_cliente = ""
+            direccion = ""
+            id_sucursal_fact = rowEncabezado("f461_id_sucursal_fact").ToString()
+            codigo_vendedor = rowEncabezado("f200_nit_vendedor").ToString()
+            nombre_vendedor = rowEncabezado("f200_razon_social_vendedor").ToString()
 
-            'Remision
-            If InStr(linea, "RM-") <> 0 Then
-                txt += "Remision:" & Mid(linea, 6, 14) & "|" & vbCrLf
-                'MsgBox(txt)
-                remision_factura = Mid(linea, 6, 14).Trim
-                grabar_encabezado_factura()
-                id_factura = cl_utilidades_datatables.consultar_consecutivo_creado_tablas("f0852_id_factura",
-                                                                                          "f0852_usuario_crear",
-                                                                                          vg_usuario_autoriza,
-                                                                                          "tb0852_facturas_cguno_encabezado")
-            End If
+            grabar_encabezado_rm()
+            'Obtener el ID de la factura recién creada (si es necesario)
+            'id_factura = ObtenerIdFacturaRecienCreada() 'Implementar esta función si es necesario
+            'Recorrer detalle para esta factura
+            Dim detallesFactura = dtDetalle.AsEnumerable().
+                Where(Function(r) r("f350_id_cia") = rowEncabezado("f350_id_cia") AndAlso
+                                    r("f350_id_tipo_docto") = rowEncabezado("f350_id_tipo_docto") AndAlso
+                                    r("f350_consec_docto") = rowEncabezado("f350_consec_docto"))
+            For Each rowDetalle As DataRow In detallesFactura
+                'Asignar variables globales para grabar detalle
+                'numero_rm = numero_rm 'ya esta definido desde el encabezado
+                referencia_1 = rowDetalle("f120_referencia")
+                referencia_2 = rowDetalle("f470_id_unidad_medida") 'ESTE VALOR NO ES EL QUE SE USA EN 8.5 AQUI PONEN VALOR DISTRACTOR
+                descripcion_producto = rowDetalle("f120_descripcion")
+                cantidad_producto = rowDetalle("f470_cant_1") / rowDetalle("f470_factor")
+                item_valor_unitario = rowDetalle("f470_precio_uni")
+                item_valor_impuestos = rowDetalle("f470_vlr_imp")
+                item_valor_neto = rowDetalle("f470_vlr_neto")
 
-            'Referencia producto
-            Dim otxt_array() As String = Split(Mid(linea, 6, 7).Trim, "-")
-            If otxt_array.Length = 2 Then
-                If IsNumeric(otxt_array(0)) = True And IsNumeric(otxt_array(1)) = True Then
-                    'txt += "Referencia:" & Mid(linea, 6, 7) & "|" & vbCrLf
-                    'txt += "Producto:" & Mid(linea, 13, 35) & "|" & vbCrLf
-                    'txt += "Cantidad:" & Mid(linea, 57, 9) & "|" & vbCrLf
-                    'txt += "U-med:" & Mid(linea, 67, 7) & "|" & vbCrLf
-                    'txt += "Subtotal producto:" & Mid(linea, 73, 14) & "|" & vbCrLf
-                    'txt += "Descuento producto:" & Mid(linea, 85, 14) & "|" & vbCrLf
-                    'txt += "IVA producto:" & Mid(linea, 97, 13) & "|" & vbCrLf
-                    'txt += "Total producto:" & Mid(linea, 109, 17) & "|" & vbCrLf
-                    'MsgBox(txt)
-                    referencia_1 = Mid(linea, 6, 7).Trim
-                    referencia_2 = Mid(linea, 67, 7).Trim
-                    descripcion_producto = Mid(linea, 13, 35).Trim
-                    cantidad_producto = CDec(Mid(linea, 57, 9).Trim)
-                    subtotal_producto = CDec(Mid(linea, 73, 14).Trim)
-                    descuento_producto = CDec(Mid(linea, 85, 14).Trim)
-                    iva_producto = CDec(Mid(linea, 97, 13).Trim)
-                    total_producto = CDec(Mid(linea, 110, 13).Trim)
+                grabar_detalle_rm()
+            Next
+        Next
 
+        'muestro las remisiones sin agignar a un despacho
+        cargar_dg_remisiones_sin_asignar()
 
-                    'busco el item del producto
-                    Dim otb_item_identificado() As DataRow
-                    'MsgBox(otb_items.Rows.Count)
-                    otb_item_identificado = otb_items.Select("f0300_referencia = '" & referencia_1 & "' and f0300_referencia_empaque = '" &
-                                                             referencia_2 & "'")
-                    falla_items = "N"
-                    If otb_item_identificado.Length = 0 Then
-                        falla_items = "S"
-                        txt_falla_item = "No hay creado un Item en CAMO para:" & vbCrLf & descripcion_producto & vbCrLf _
-                            & " ( " & referencia_1 & " ) ( " & referencia_2 & " ) " & vbCrLf
-                    Else
-                        If otb_item_identificado.Length = 1 Then
-                            For Each orow2 As DataRow In otb_item_identificado
-                                id_item_producto = orow2("f0300_id_item")
-                            Next
-                        Else
-                            falla_items = "S"
-                            txt_falla_item = "Hay multiples items que coinciden con las referencias:" _
-                                   & vbCrLf & referencia_1 & vbCrLf & referencia_2 & vbCrLf
-                        End If
-                    End If
-                    If falla_items = "S" Then
-                        'MsgBox(txt_falla_item, MsgBoxStyle.Exclamation, "Info")
-                        id_item_producto = 0
-                    End If
-                    grabar_detalle_factura()
-                End If
-            End If
-        End While
-        ' Cerrar el fichero
-        lector.Close()
-        MsgBox("hola")
+        ' Mostrar total de registros del encabezado
+        lblRegistros.Text = $"Registros totales (encabezado): {dtEncabezado.Rows.Count}"
+
     End Sub
 
-    Private Sub grabar_encabezado_factura()
-        'Conectar base en postgres para actualizar tabla
-        oconn_form = database.obtener_conexion()
-        ocmd = database.obtener_comando(oconn_form)
-        'Creamos la remision en la bd
-        csql = "insert into " + database.obtener_esquema + ".tb0852_facturas_cguno_encabezado" _
-            & " (" _
-            & " f0852_factura, f0852_id_cia, f0852_fecha_documento, f0852_remision, f0852_subtotal_factura," _
-            & " f0852_descuento_factura, f0852_iva_factura," _
-            & " f0852_total_factura, f0852_ind_fiscal, f0852_anulada_cg," _
-            & " f0852_usuario_crear," _
-            & " f0852_usuario_modificar" _
-            & ") values" _
-            & " (" _
-            & " @f0852_factura, @f0852_id_cia, @f0852_fecha_documento, @f0852_remision, @f0852_subtotal_factura," _
-            & " @f0852_descuento_factura, @f0852_iva_factura," _
-            & " @f0852_total_factura, @f0852_ind_fiscal, @f0852_anulada_cg," _
-            & " @f0852_usuario_crear," _
-            & " @f0852_usuario_modificar" _
-            & ")"
-
-        ocmd.CommandText = csql
-
-        'Inserción parametrizada
-        'crear_parametros_tb_terceros(ocmd)
-        ocmd.Parameters.Clear()
-        ocmd.Parameters.Add("f0852_factura", NpgsqlDbType.Varchar).Value = num_factura
-        ocmd.Parameters.Add("f0852_id_cia", NpgsqlDbType.Varchar).Value = vg_id_cia
-        ocmd.Parameters.Add("f0852_fecha_documento", NpgsqlDbType.Varchar).Value = tx_fecha_factura
-        ocmd.Parameters.Add("f0852_remision", NpgsqlDbType.Varchar).Value = remision_factura
-        ocmd.Parameters.Add("f0852_subtotal_factura", NpgsqlDbType.Numeric).Value = subtotal_factura
-        ocmd.Parameters.Add("f0852_descuento_factura", NpgsqlDbType.Numeric).Value = descuento_factura
-        ocmd.Parameters.Add("f0852_iva_factura", NpgsqlDbType.Numeric).Value = iva_factura
-        ocmd.Parameters.Add("f0852_total_factura", NpgsqlDbType.Numeric).Value = total_factura
-        ocmd.Parameters.Add("f0852_usuario_modificar", NpgsqlDbType.Varchar).Value = vg_usuario_autoriza
-        ocmd.Parameters.Add("f0852_usuario_crear", NpgsqlDbType.Varchar).Value = vg_usuario_autoriza
-        ocmd.Parameters.Add("f0852_ind_fiscal", NpgsqlDbType.Varchar).Value = "S"
-        ocmd.Parameters.Add("f0852_anulada_cg", NpgsqlDbType.Varchar).Value = factura_anulada_cg
-
-        verror = "N"
-        Try
-            ocmd.ExecuteNonQuery()
-        Catch ex As Exception
-            verror = "S"
-            MsgBox("Hubo un error al crear factura ! " + vbCrLf + ex.ToString)
-        End Try
-
-        ocmd = Nothing
-        oconn_form.Close()
-    End Sub
-
-    Private Sub grabar_detalle_factura()
-        'Conectar base en postgres para actualizar tabla
-        oconn_form = database.obtener_conexion()
-        ocmd = database.obtener_comando(oconn_form)
-
-        csql = "insert into " + database.obtener_esquema + ".tb0853_facturas_cguno_detalle" _
-            & " (" _
-            & " f0853_id_factura, f0853_id_cia, f0853_referencia_1, f0853_referencia_2, f0853_descripcion," _
-            & " f0853_cantidad, f0853_subtotal_producto, f0853_descuento_producto, f0853_iva_producto," _
-            & " f0853_total_producto, f0853_id_item, f0853_usuario_crear," _
-            & " f0853_usuario_modificar" _
-            & ") values" _
-            & " (" _
-            & " @f0853_id_factura, @f0853_id_cia, @f0853_referencia_1, @f0853_referencia_2, @f0853_descripcion," _
-            & " @f0853_cantidad, @f0853_subtotal_producto, @f0853_descuento_producto, @f0853_iva_producto," _
-            & " @f0853_total_producto, @f0853_id_item, @f0853_usuario_crear," _
-            & " @f0853_usuario_modificar" _
-            & ")"
-
-        ocmd.CommandText = csql
-
-        'Inserción parametrizada
-        'crear_parametros_tb_terceros(ocmd)
-        ocmd.Parameters.Clear()
-        ocmd.Parameters.Add("f0853_id_factura", NpgsqlDbType.Integer).Value = id_factura
-        ocmd.Parameters.Add("f0853_id_cia", NpgsqlDbType.Varchar).Value = vg_id_cia
-        ocmd.Parameters.Add("f0853_referencia_1", NpgsqlDbType.Varchar).Value = referencia_1
-        ocmd.Parameters.Add("f0853_referencia_2", NpgsqlDbType.Varchar).Value = referencia_2
-        ocmd.Parameters.Add("f0853_descripcion", NpgsqlDbType.Varchar).Value = descripcion_producto
-        ocmd.Parameters.Add("f0853_cantidad", NpgsqlDbType.Numeric).Value = cantidad_producto
-        ocmd.Parameters.Add("f0853_subtotal_producto", NpgsqlDbType.Numeric).Value = subtotal_producto
-        ocmd.Parameters.Add("f0853_descuento_producto", NpgsqlDbType.Numeric).Value = descuento_producto
-        ocmd.Parameters.Add("f0853_iva_producto", NpgsqlDbType.Numeric).Value = iva_producto
-        ocmd.Parameters.Add("f0853_total_producto", NpgsqlDbType.Numeric).Value = total_producto
-        ocmd.Parameters.Add("f0853_id_item", NpgsqlDbType.Integer).Value = id_item_producto
-        ocmd.Parameters.Add("f0853_usuario_crear", NpgsqlDbType.Varchar).Value = vg_usuario_autoriza
-        ocmd.Parameters.Add("f0853_usuario_modificar", NpgsqlDbType.Varchar).Value = vg_usuario_autoriza
-        verror = "N"
-        Try
-            'Compila el comando en la Base de datos.
-            ocmd.Prepare()
-        Catch ex As Exception
-            verror = "S"
-            MsgBox("Hubo un error al Compilar comando! grabando detalle factura" + vbCrLf + ex.ToString)
-        End Try
-
-        If verror = "N" Then
-            Try
-                ocmd.ExecuteNonQuery()
-            Catch ex As Exception
-                verror = "S"
-                MsgBox("Hubo un error grabando detalle factura" + vbCrLf + ex.ToString)
-            End Try
-        End If
-
-        ocmd = Nothing
-        oconn_form.Close()
-    End Sub
 
 End Class

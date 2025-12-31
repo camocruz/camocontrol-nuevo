@@ -1,6 +1,4 @@
-﻿Imports System
-Imports System.Threading.Tasks
-Imports Newtonsoft.Json
+﻿Imports System.Threading.Tasks
 Imports Newtonsoft.Json.Linq
 Imports RestSharp
 
@@ -17,7 +15,7 @@ Public Class fm_0800_cargar_pedidos_unoee
         Dim client As New RestClient(options)
 
         ' Filtro EXACTO que usas en Postman
-        Dim filtro As String = "(f350_id_cia = 1 and f350_consec_docto > 2025) or (f350_id_cia = 2 and f350_consec_docto > 4)"
+        Dim filtro As String = "(f350_id_cia = 1 and f350_consec_docto > 0) or (f350_id_cia = 2 and f350_consec_docto > 0)"
         Dim filtroCodificado As String = Uri.EscapeDataString(filtro)
 
         ' URL COMPLETA (igual que Postman)
@@ -76,7 +74,7 @@ Public Class fm_0800_cargar_pedidos_unoee
 
         Dim client As New RestClient(options)
 
-        Dim filtro As String = "(f350_id_cia = 1 and f350_consec_docto > 2025) or (f350_id_cia = 2 and f350_consec_docto > 4)"
+        Dim filtro As String = "(f350_id_cia = 1 and f350_consec_docto > 0) or (f350_id_cia = 2 and f350_consec_docto > 0)"
         Dim filtroCodificado As String = Uri.EscapeDataString(filtro)
 
         Dim fullUrl As String =
@@ -352,6 +350,7 @@ Public Class fm_0800_cargar_pedidos_unoee
 
         ' Mostrar en DataGridView
         DataGridView1.DataSource = dtEncabezado
+        DataGridView2.DataSource = dtDetalle
 
         ' Mostrar total de registros del encabezado
         lblRegistros.Text = $"Registros totales (encabezado): {dtEncabezado.Rows.Count}"
