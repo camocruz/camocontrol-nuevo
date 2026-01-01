@@ -28,6 +28,8 @@ Public Class fm_0800_cargar_rm
     Private oda As NpgsqlDataAdapter
     Private ocmd As NpgsqlCommand
 
+    Private UltimoDoctoCia1 As Integer = 0
+    Private UltimoDoctoCia2 As Integer = 0
     Private ofiscal As String = "1"
     Private numero_rm As String = ""
     Private id_encabezado As Integer
@@ -49,6 +51,7 @@ Public Class fm_0800_cargar_rm
     Private id_bodega As String = ""
 
     Private id_factura As Integer
+    Private id_cia_factura As Integer = 0
     Private num_factura As String = ""
     Private tx_fecha_factura As String = ""
     Private subtotal_factura As Decimal
@@ -260,6 +263,7 @@ Public Class fm_0800_cargar_rm
         csql = "insert into " + database.obtener_esquema + ".tb0850_remisiones_cguno_encabezado" _
             & " (" _
             & " f0850_rm, f0850_id_cia, f0850_codigo_tercero, f0850_dig_ver," _
+            & " f0850_id_cia_unoee, f0850_consec_doc_unoee," _
             & " f0850_fecha_documento, f0850_razon_social," _
             & " f0850_ciudad_destino, f0850_direccion_destino," _
             & " f0850_codigo_vendedor, f0850_nombre_vendedor," _
@@ -268,6 +272,7 @@ Public Class fm_0800_cargar_rm
             & ") values" _
             & " (" _
             & " @f0850_rm, @f0850_id_cia, @f0850_codigo_tercero, @f0850_dig_ver," _
+            & " @f0850_id_cia_unoee, @f0850_consec_doc_unoee," _
             & " @f0850_fecha_documento, @f0850_razon_social," _
             & " @f0850_ciudad_destino, @f0850_direccion_destino," _
             & " @f0850_codigo_vendedor, @f0850_nombre_vendedor," _
@@ -296,6 +301,8 @@ Public Class fm_0800_cargar_rm
         ocmd.Parameters.Add("f0850_usuario_crear", NpgsqlDbType.Varchar).Value = vg_usuario_autoriza
         ocmd.Parameters.Add("f0850_ofi", NpgsqlDbType.Varchar).Value = ofiscal
         ocmd.Parameters.Add("f0850_id_sucursal_fact", NpgsqlDbType.Varchar).Value = id_sucursal_fact
+        ocmd.Parameters.Add("f0850_id_cia_unoee", NpgsqlDbType.Integer).Value = id_cia_factura
+        ocmd.Parameters.Add("f0850_consec_doc_unoee", NpgsqlDbType.Integer).Value = id_factura
         verror = "N"
         Try
             'Compila el comando en la Base de datos.
@@ -724,46 +731,9 @@ Public Class fm_0800_cargar_rm
     End Sub
 
     Private Sub anular_remision(ByVal id_rm As Integer)
-
-        'Conectar base en postgres para actualizar tabla
-        oconn_form = database.obtener_conexion()
-        ocmd = database.obtener_comando(oconn_form)
-
-        csql = "update " + database.obtener_esquema + ".tb0850_remisiones_cguno_encabezado set" _
-                    & " f0850_anulado = 'S'," _
-                    & " f0850_usuario_anular = @f0850_usuario_anular," _
-                    & " f0850_fm = @f0850_fm" _
-                    & " where f0850_id_rm = @f0850_id_rm and f0850_anulado = 'N'"
-
-        ocmd.CommandText = csql
-
-        'Inserción parametrizada
-        'crear_parametros_tb_terceros(ocmd)
-        ocmd.Parameters.Clear()
-        ocmd.Parameters.Add("f0850_id_rm", NpgsqlDbType.Integer).Value = id_rm
-        ocmd.Parameters.Add("f0850_usuario_anular", NpgsqlDbType.Varchar).Value = vg_usuario_autoriza
-        ocmd.Parameters.Add("f0850_fm", NpgsqlDbType.Timestamp).Value = comunes.g_fechahora
-
-        verror = "N"
-        Try
-            'Compila el comando en la Base de datos.
-            ocmd.Prepare()
-        Catch ex As Exception
-            verror = "S"
-            MsgBox("Hubo un error al Compilar comando! asignar tercero a remision" + vbCrLf + ex.ToString)
-        End Try
-
-        If verror = "N" Then
-            Try
-                ocmd.ExecuteNonQuery()
-            Catch ex As Exception
-                verror = "S"
-                MsgBox("Hubo un error al asignar tercero a remision" + vbCrLf + ex.ToString)
-            End Try
-        End If
-
-        ocmd = Nothing
-        oconn_form.Close()
+        csql = "select * from " & database.obtener_esquema & ".fnc_800_03_anularremisionunoee('" & id_rm & "', '" & vg_usuario_autoriza & "')"
+        verror = cl_utilidades_datatables.ejecutar_csql(csql)
+        'MsgBox("Remision Anulada: " & id_rm)
     End Sub
 
     'Buscamos en el listado de pendientes despachos al mismo cliente sin identificar
@@ -1274,7 +1244,7 @@ Public Class fm_0800_cargar_rm
 
         Dim client As New RestClient(options)
 
-        Dim filtro As String = "(f350_id_cia = 1 and f350_consec_docto > 2025) or (f350_id_cia = 2 and f350_consec_docto > 4)"
+        Dim filtro As String = "(f350_id_cia = 1 and f350_consec_docto >" & UltimoDoctoCia1.ToString() & ") or (f350_id_cia = 2 and f350_consec_docto > " & UltimoDoctoCia2.ToString() & ")"
         Dim filtroCodificado As String = Uri.EscapeDataString(filtro)
 
         Dim fullUrl As String =
@@ -1458,6 +1428,13 @@ Public Class fm_0800_cargar_rm
     End Function
 
     Private Async Sub btnCargar_Click(sender As Object, e As EventArgs) Handles btnCargar.Click
+
+        ' Identifico los ultimos documentos cargados para cada compañia
+        Dim ultimos As Dictionary(Of Integer, Integer) = IdentificarUltimaFacturaImportada()
+        UltimoDoctoCia1 = ultimos(1)
+        UltimoDoctoCia2 = ultimos(2)
+        'MsgBox("Ultimo Cia 1: " & maxCia1 & vbCrLf & "Ultimo Cia 2: " & maxCia2)
+
         Dim dt As DataTable = Await CargarTodasLasPaginasAsync()
 
         If dt Is Nothing OrElse dt.Rows.Count = 0 Then
@@ -1482,6 +1459,8 @@ Public Class fm_0800_cargar_rm
                 Case Else
                     ofiscal = "9" 'Por defecto
             End Select
+            id_cia_factura = rowEncabezado("f350_id_cia")
+            id_factura = rowEncabezado("f350_consec_docto")
             numero_rm = rowEncabezado("f350_id_tipo_docto") & "-" & rowEncabezado("f350_id_cia") & "-" & rowEncabezado("f350_consec_docto").ToString.PadLeft(6, "0")
             fecha_documento_rm = Mid(rowEncabezado("f350_fecha").ToString(), 1, 10)
             razon_social = rowEncabezado("f200_razon_social_fact").ToString()
@@ -1524,5 +1503,33 @@ Public Class fm_0800_cargar_rm
 
     End Sub
 
+    Private Function IdentificarUltimaFacturaImportada() As Dictionary(Of Integer, Integer)
+        ' Retorna un diccionario con el consecutivo máximo por compañía (1 y 2).
+        ' Llaves: id_cia (Integer). Valores: max(f0850_consec_docto) (Integer).
+        Dim resultados As New Dictionary(Of Integer, Integer)
+        resultados(1) = 0
+        resultados(2) = 0
+
+        csql = "select f0850_id_cia_unoee, coalesce(max(f0850_consec_doc_unoee), 0) as ultimo " _
+         & "from " & database.obtener_esquema & ".tb0850_remisiones_cguno_encabezado " _
+         & "where f0850_id_cia_unoee in (1,2) and f0850_anulado = 'N'" _
+         & "group by f0850_id_cia_unoee"
+
+        Dim otb As DataTable = cl_utilidades_datatables.cargar_informacion_postgres(csql)
+
+        If otb IsNot Nothing AndAlso otb.Rows.Count > 0 Then
+            For Each orow As DataRow In otb.Rows
+                Dim idCia As Integer = 0
+                Dim ultimo As Integer = 0
+                Integer.TryParse(orow("f0850_id_cia_unoee").ToString(), idCia)
+                Integer.TryParse(orow("ultimo").ToString(), ultimo)
+                If idCia = 1 OrElse idCia = 2 Then
+                    resultados(idCia) = ultimo
+                End If
+            Next
+        End If
+
+        Return resultados
+    End Function
 
 End Class
