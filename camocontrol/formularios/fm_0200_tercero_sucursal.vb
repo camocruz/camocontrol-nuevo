@@ -55,10 +55,10 @@
         'vf_var_config_notas = "TN-ITM-001"
         vf_otipo_nota = comunes.suministrar_valor_variable_configuracion(vf_var_config_notas, vg_id_cia)
         vf_elemento_nuevo = "N"
-        cl_gestion_permisos.gestionar_permisos_botones_basicos(vg_id_cia, vf_otabla_permisos, vf_elemento_nuevo,
-                                                               vg_usuario_autoriza, Me,
-                                                               vf_id_notas_archivos, vf_otipo_nota,
-                                                               vf_var_config_archivos)
+        'cl_gestion_permisos.gestionar_permisos_botones_basicos(vg_id_cia, vf_otabla_permisos, vf_elemento_nuevo,
+        '                                                       vg_usuario_autoriza, Me,
+        '                                                       vf_id_notas_archivos, vf_otipo_nota,
+        '                                                       vf_var_config_archivos)
 
         'MsgBox(vf_elemento_nuevo)
         'gestiono_permisos_basicos
@@ -101,32 +101,9 @@
             tx_celular.Text = orow_tercero("f0200_telefono_celular")
             tx_email.Text = orow_tercero("f0200_correo_electronico")
 
-            'cargo la informacion de los puntos de entrega
-            cargar_datos_dg_puntos_entrega()
         End If
     End Sub
 
-    Private Sub cargar_datos_dg_puntos_entrega()
-        csql = "SELECT tb0202_sucursales_puntos_entrega.*, f0052_ciudad || ' - ' || f0051_departamento as ciudad" _
-              & " FROM " & database.obtener_esquema & ".tb0202_sucursales_puntos_entrega" _
-                & " join " & database.obtener_esquema & ".tb0052_ciudades" _
-                  & " on f0202_id_ciudad = f0052_codigo_ciudad" _
-                & " join " & database.obtener_esquema & ".tb0051_departamentos" _
-                  & " on f0051_codigo_departamento = f0052_codigo_departamento" _
-              & " where f0202_id_cia = '$001$' and f0202_id_tercero = '$002$'" _
-              & " and f0202_anulado = 'N'" _
-              & " order by f0202_id_punto_entrega"
-        csql = csql.Replace("$001$", vg_id_cia)
-        csql = csql.Replace("$002$", id_tercero)
-        otb_puntos_entrega = cl_utilidades_datatables.cargar_informacion_postgres(csql)
-        dg_puntos_entrega.Rows.Clear()
-
-        If otb_puntos_entrega.Rows.Count > 0 Then
-            For Each orow As DataRow In otb_puntos_entrega.Rows
-                agregar_fila_dg_puntos(orow)
-            Next
-        End If
-    End Sub
 
     Private Sub agregar_fila_dg_puntos(ByVal orow As DataRow)
 
@@ -162,8 +139,6 @@
         'Agrega columna al objeto fila
         'orowgrid.Cells.Add(otextgrid)
 
-        'Finalmente, agrega el objeto rowgrid (con todas las columnas llenas) al DatagridView
-        dg_puntos_entrega.Rows.Add(orowgrid)
     End Sub
 
     Private Sub grabar_nuevo_punto()
@@ -219,31 +194,6 @@
         oconn_form.Close()
     End Sub
 
-    Private Sub actualizar_punto()
-        'Conectar base en postgres para actualizar tabla
-        oconn_form = database.obtener_conexion()
-        ocmd = database.obtener_comando(oconn_form)
-
-        csql = "update " + database.obtener_esquema + ".tb0202_sucursales_puntos_entrega set" _
-            & " f0202_id_ciudad = @f0202_id_ciudad," _
-            & " f0202_direccion = @f0202_direccion," _
-            & " f0202_fm = @f0202_fm," _
-            & " f0202_usuario_modificar = @f0202_usuario_modificar" _
-            & " where f0202_id_punto_entrega = @f0202_id_punto_entrega"
-
-        ocmd.CommandText = csql
-
-        'Inserción parametrizada
-        crear_parametros_tb_terceros(ocmd)
-        verror = "N"
-        Try
-            ocmd.ExecuteNonQuery()
-        Catch ex As Exception
-            verror = "S"
-            MsgBox("Hubo un error al Actualizar Punto! " + vbCrLf + ex.ToString)
-        End Try
-    End Sub
-
     Private Sub crear_parametros_tb_terceros(ByVal ocmd As NpgsqlCommand)
         ocmd.Parameters.Clear()
         ocmd.Parameters.Add("f0202_id_cia", NpgsqlDbType.Varchar).Value = vg_id_cia
@@ -254,55 +204,6 @@
         ocmd.Parameters.Add("f0202_fm", NpgsqlDbType.Timestamp).Value = comunes.g_fechahora
         ocmd.Parameters.Add("f0202_usuario_modificar", NpgsqlDbType.Varchar).Value = vg_usuario_autoriza
         ocmd.Parameters.Add("f0202_usuario_crear", NpgsqlDbType.Varchar).Value = vg_usuario_autoriza
-    End Sub
-
-    Private Sub dg_puntos_entrega_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles dg_puntos_entrega.CellClick
-        If dg_puntos_entrega.Rows.Count = 0 Then
-            Exit Sub
-        End If
-        id_punto_entrega = dg_puntos_entrega.CurrentRow.Cells("dgocell_id").Value
-        If dg_puntos_entrega.Columns(dg_puntos_entrega.CurrentCell.ColumnIndex).Name = "dg_imgcell_editar" Then
-            Dim respuesta As String = "N"
-            respuesta = comunes.g_mensaje_YesNo("Editar Punto Entrega", "Desea editar el punto de entrega?")
-            If respuesta = "N" Then
-                Exit Sub
-            End If
-            id_ciudad_punto = comunes.formulario_parametro_texto("", "Seleccione la ciudad",, otb_ciudades, "ciudad", "f0052_codigo_ciudad",, dg_puntos_entrega.CurrentRow.Cells("dgocell_ciudad").Value)
-            If id_ciudad_punto = "" Then
-                Exit Sub
-            End If
-            direccion_punto = comunes.formulario_parametro_texto(dg_puntos_entrega.CurrentRow.Cells("dgocell_direccion").Value, "Digite la Direccion",,)
-            If direccion_punto = "" Then
-                Exit Sub
-            End If
-            actualizar_punto()
-            If verror = "N" Then
-                cargar_datos_dg_puntos_entrega()
-                MsgBox("Actualizado", MsgBoxStyle.Information, "Actualizar punto")
-            End If
-        End If
-    End Sub
-
-    Private Sub bt_nuevo_punto_entrega_Click(sender As Object, e As EventArgs) Handles bt_nuevo_punto_entrega.Click
-        Dim respuesta As String = "N"
-        respuesta = comunes.g_mensaje_YesNo("Crear Punto Entrega", "Desea Crear un nuevo punto de entrega?")
-        If respuesta = "N" Then
-            Exit Sub
-        End If
-        id_ciudad_punto = comunes.formulario_parametro_texto("", "Seleccione la ciudad",, otb_ciudades, "ciudad", "f0052_codigo_ciudad")
-        If id_ciudad_punto = "" Then
-            Exit Sub
-        End If
-        direccion_punto = comunes.formulario_parametro_texto("", "Digite la Direccion",,)
-        If direccion_punto = "" Then
-            Exit Sub
-        End If
-        grabar_nuevo_punto()
-        If verror = "N" Then
-            cargar_datos_dg_puntos_entrega()
-            MsgBox("Creado", MsgBoxStyle.Information, "Crear punto")
-        End If
-
     End Sub
 
     Private Sub bt_grabar_Click(sender As Object, e As EventArgs) Handles bt_grabar.Click

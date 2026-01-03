@@ -23,15 +23,14 @@ Partial Class fm_0800_cargar_rm
         Me.dg_remision_encabezado = New System.Windows.Forms.DataGridView()
         Me.lb_total_rms = New System.Windows.Forms.Label()
         Me.bt_generar_despacho = New System.Windows.Forms.Button()
-        Me.tx_scaner = New System.Windows.Forms.TextBox()
         Me.lb_cuenta = New System.Windows.Forms.Label()
         Me.btnCargar = New System.Windows.Forms.Button()
         Me.lblRegistros = New System.Windows.Forms.Label()
         Me.lblPaginas = New System.Windows.Forms.Label()
         Me.ProgressBar1 = New System.Windows.Forms.ProgressBar()
         Me.Tx_Nit = New System.Windows.Forms.TextBox()
-        Me.Tx_Nombre_Tercero = New System.Windows.Forms.TextBox()
-        Me.bt_asignar_tercero = New System.Windows.Forms.Button()
+        Me.bt_asignar_sucursal = New System.Windows.Forms.Button()
+        Me.tx_id_tercero = New System.Windows.Forms.TextBox()
         Me.GroupBox1.SuspendLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.dg_remision_encabezado, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -106,15 +105,6 @@ Partial Class fm_0800_cargar_rm
         Me.bt_generar_despacho.Text = "Generar Despacho"
         Me.bt_generar_despacho.UseVisualStyleBackColor = True
         '
-        'tx_scaner
-        '
-        Me.tx_scaner.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.tx_scaner.Location = New System.Drawing.Point(22, 594)
-        Me.tx_scaner.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
-        Me.tx_scaner.Name = "tx_scaner"
-        Me.tx_scaner.Size = New System.Drawing.Size(130, 26)
-        Me.tx_scaner.TabIndex = 67
-        '
         'lb_cuenta
         '
         Me.lb_cuenta.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
@@ -174,39 +164,38 @@ Partial Class fm_0800_cargar_rm
         Me.Tx_Nit.Size = New System.Drawing.Size(130, 26)
         Me.Tx_Nit.TabIndex = 77
         '
-        'Tx_Nombre_Tercero
+        'bt_asignar_sucursal
         '
-        Me.Tx_Nombre_Tercero.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.Tx_Nombre_Tercero.Location = New System.Drawing.Point(177, 559)
-        Me.Tx_Nombre_Tercero.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
-        Me.Tx_Nombre_Tercero.Name = "Tx_Nombre_Tercero"
-        Me.Tx_Nombre_Tercero.Size = New System.Drawing.Size(130, 26)
-        Me.Tx_Nombre_Tercero.TabIndex = 78
+        Me.bt_asignar_sucursal.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.bt_asignar_sucursal.Location = New System.Drawing.Point(984, 525)
+        Me.bt_asignar_sucursal.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
+        Me.bt_asignar_sucursal.Name = "bt_asignar_sucursal"
+        Me.bt_asignar_sucursal.Size = New System.Drawing.Size(122, 95)
+        Me.bt_asignar_sucursal.TabIndex = 79
+        Me.bt_asignar_sucursal.Text = "Asignar/Editar Sucursal"
+        Me.bt_asignar_sucursal.UseVisualStyleBackColor = True
         '
-        'bt_asignar_tercero
+        'tx_id_tercero
         '
-        Me.bt_asignar_tercero.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.bt_asignar_tercero.Location = New System.Drawing.Point(984, 525)
-        Me.bt_asignar_tercero.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
-        Me.bt_asignar_tercero.Name = "bt_asignar_tercero"
-        Me.bt_asignar_tercero.Size = New System.Drawing.Size(122, 95)
-        Me.bt_asignar_tercero.TabIndex = 79
-        Me.bt_asignar_tercero.Text = "Asignar Tercero"
-        Me.bt_asignar_tercero.UseVisualStyleBackColor = True
+        Me.tx_id_tercero.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.tx_id_tercero.Location = New System.Drawing.Point(22, 594)
+        Me.tx_id_tercero.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
+        Me.tx_id_tercero.Name = "tx_id_tercero"
+        Me.tx_id_tercero.Size = New System.Drawing.Size(130, 26)
+        Me.tx_id_tercero.TabIndex = 67
         '
         'fm_0800_cargar_rm
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(9.0!, 20.0!)
         Me.ClientSize = New System.Drawing.Size(1118, 743)
-        Me.Controls.Add(Me.bt_asignar_tercero)
-        Me.Controls.Add(Me.Tx_Nombre_Tercero)
+        Me.Controls.Add(Me.bt_asignar_sucursal)
         Me.Controls.Add(Me.Tx_Nit)
         Me.Controls.Add(Me.lblRegistros)
         Me.Controls.Add(Me.lblPaginas)
         Me.Controls.Add(Me.ProgressBar1)
         Me.Controls.Add(Me.btnCargar)
         Me.Controls.Add(Me.lb_cuenta)
-        Me.Controls.Add(Me.tx_scaner)
+        Me.Controls.Add(Me.tx_id_tercero)
         Me.Controls.Add(Me.bt_generar_despacho)
         Me.Controls.Add(Me.lb_total_rms)
         Me.Controls.Add(Me.dg_remision_encabezado)
@@ -214,6 +203,18 @@ Partial Class fm_0800_cargar_rm
         Me.Margin = New System.Windows.Forms.Padding(6, 8, 6, 8)
         Me.Name = "fm_0800_cargar_rm"
         Me.Text = "Cargar Remisiones CGUNO"
+        Me.Controls.SetChildIndex(Me.bt_cargar_rm, 0)
+        Me.Controls.SetChildIndex(Me.dg_remision_encabezado, 0)
+        Me.Controls.SetChildIndex(Me.lb_total_rms, 0)
+        Me.Controls.SetChildIndex(Me.bt_generar_despacho, 0)
+        Me.Controls.SetChildIndex(Me.tx_id_tercero, 0)
+        Me.Controls.SetChildIndex(Me.lb_cuenta, 0)
+        Me.Controls.SetChildIndex(Me.btnCargar, 0)
+        Me.Controls.SetChildIndex(Me.ProgressBar1, 0)
+        Me.Controls.SetChildIndex(Me.lblPaginas, 0)
+        Me.Controls.SetChildIndex(Me.lblRegistros, 0)
+        Me.Controls.SetChildIndex(Me.Tx_Nit, 0)
+        Me.Controls.SetChildIndex(Me.bt_asignar_sucursal, 0)
         Me.Controls.SetChildIndex(Me.lb_titulo, 0)
         Me.Controls.SetChildIndex(Me.ll_linea1, 0)
         Me.Controls.SetChildIndex(Me.lb_fecha, 0)
@@ -221,19 +222,6 @@ Partial Class fm_0800_cargar_rm
         Me.Controls.SetChildIndex(Me.PictureBox1, 0)
         Me.Controls.SetChildIndex(Me.GroupBox1, 0)
         Me.Controls.SetChildIndex(Me.lb_diseñador_programa, 0)
-        Me.Controls.SetChildIndex(Me.bt_cargar_rm, 0)
-        Me.Controls.SetChildIndex(Me.dg_remision_encabezado, 0)
-        Me.Controls.SetChildIndex(Me.lb_total_rms, 0)
-        Me.Controls.SetChildIndex(Me.bt_generar_despacho, 0)
-        Me.Controls.SetChildIndex(Me.tx_scaner, 0)
-        Me.Controls.SetChildIndex(Me.lb_cuenta, 0)
-        Me.Controls.SetChildIndex(Me.btnCargar, 0)
-        Me.Controls.SetChildIndex(Me.ProgressBar1, 0)
-        Me.Controls.SetChildIndex(Me.lblPaginas, 0)
-        Me.Controls.SetChildIndex(Me.lblRegistros, 0)
-        Me.Controls.SetChildIndex(Me.Tx_Nit, 0)
-        Me.Controls.SetChildIndex(Me.Tx_Nombre_Tercero, 0)
-        Me.Controls.SetChildIndex(Me.bt_asignar_tercero, 0)
         Me.GroupBox1.ResumeLayout(False)
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.dg_remision_encabezado, System.ComponentModel.ISupportInitialize).EndInit()
@@ -245,13 +233,12 @@ Partial Class fm_0800_cargar_rm
     Friend WithEvents dg_remision_encabezado As System.Windows.Forms.DataGridView
     Friend WithEvents lb_total_rms As System.Windows.Forms.Label
     Friend WithEvents bt_generar_despacho As System.Windows.Forms.Button
-    Friend WithEvents tx_scaner As System.Windows.Forms.TextBox
     Friend WithEvents lb_cuenta As System.Windows.Forms.Label
     Friend WithEvents btnCargar As Button
     Friend WithEvents lblRegistros As Label
     Friend WithEvents lblPaginas As Label
     Friend WithEvents ProgressBar1 As ProgressBar
     Friend WithEvents Tx_Nit As TextBox
-    Friend WithEvents Tx_Nombre_Tercero As TextBox
-    Friend WithEvents bt_asignar_tercero As Button
+    Friend WithEvents bt_asignar_sucursal As Button
+    Friend WithEvents tx_id_tercero As TextBox
 End Class

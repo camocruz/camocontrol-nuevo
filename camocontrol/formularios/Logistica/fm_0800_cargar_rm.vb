@@ -444,6 +444,7 @@ Public Class fm_0800_cargar_rm
         dg_remision_encabezado.Columns("nit").ReadOnly = True
         dg_remision_encabezado.Columns("vendedor").ReadOnly = True
         dg_remision_encabezado.Columns("vendedor").Width = 100
+        dg_remision_encabezado.Columns("id_tercero").ReadOnly = True
 
         'Dim ocolum As New DataGridViewCheckBoxColumn
         'ocolum.HeaderText = "Despachar"
@@ -1587,7 +1588,7 @@ Public Class fm_0800_cargar_rm
     End Function
 
 
-    'Identificar el numero de sucursales asociadas a un cliente, el valor que identifica el cliente es el f0200_id
+    'Identificar el numero de sucursales asociadas a un cliente, el valor que identifica el cliente es el f0200_id que es el NIT
     Public Function ObtenerDatosPorId(idBuscado As String, id_sucursal_fact As String) As ResultadoCliente
 
         Dim resultado As New ResultadoCliente()
@@ -1635,6 +1636,22 @@ Public Class fm_0800_cargar_rm
 
     End Function
 
+    'Identificar la informacion de la sucursal usando el id_tercero
+    Public Function ObtenerDatosPorIdTercero(idTercero As String) As ResultadoCliente
+
+        Dim resultado As New ResultadoCliente()
+
+        ' Filtrar registros del cliente
+        Dim filas = From f In otb_clientes.AsEnumerable()
+                    Where f.Field(Of String)("f0200_id_tercero") = idTercero
+                    Select f
+
+        Dim fila = filas.First()
+
+        Return ConstruirResultadoDesdeFila(fila)
+
+    End Function
+
     Private Function ConstruirResultadoDesdeFila(fila As DataRow) As ResultadoCliente
         Dim r As New ResultadoCliente()
 
@@ -1642,6 +1659,7 @@ Public Class fm_0800_cargar_rm
         Dim idCiudad As String = fila.Field(Of String)("f0200_ciudad_residencia")
         Dim direccion As String = fila.Field(Of String)("f0200_direccion_residencia")
         Dim sucUnoee As String = fila.Field(Of String)("f0200_id_sucursal_unoee")
+        Dim Nit As String = fila.Field(Of String)("f0200_id")
 
         ' Buscar ciudad en tb_ciudades
         Dim ciudadNombre As String = ""
@@ -1658,11 +1676,12 @@ Public Class fm_0800_cargar_rm
         r.Ciudad = ciudadNombre
         r.Direccion = direccion
         r.Suc_Unoee = sucUnoee
+        r.Nit = Nit
 
         Return r
     End Function
 
-    Private Sub bt_asignar_tercero_Click(sender As Object, e As EventArgs) Handles bt_asignar_tercero.Click
+    Private Sub bt_asignar_sucursal_Click(sender As Object, e As EventArgs) Handles bt_asignar_sucursal.Click
         Dim a As String = ""
         Dim filtro As String = ""
         If Tx_Nit.Text <> "" Then
@@ -1671,30 +1690,49 @@ Public Class fm_0800_cargar_rm
             MsgBox("Seleccione un registro", MsgBoxStyle.Critical)
             Exit Sub
         End If
-        a = comunes.Buscador_Terceros("ST-0210-02", vg_id_cia, vg_usuario_autoriza, filtro)
-        MsgBox(a)
-    End Sub
-
-    Private Function Buscador_Clientes()
-        Dim otb_items_selected As DataTable = Nothing
-        Dim otb_tablas_array() As DataTable = Nothing
-        Dim id_tercero As String = ""
-        Dim filtro = "nit LIKE '%" & Tx_Nit.Text.Trim & "%'"
-        otb_tablas_array = cl_utilidades_datatables.visualizar_datos_visor("ST-0210-02", vg_id_cia, vg_usuario_autoriza,
-                                                        "Listado de Clientes",
-                                                        {vg_id_cia},
-                                                            , "Terceros",,, "S", "id_tercero",, "S", "N", filtro)
-
-        If IsNothing(otb_tablas_array(2)) = False Then
-            otb_items_selected = otb_tablas_array(2)
-        Else
-            Return id_tercero
-            Exit Function
+        ' Si hay asignado un tercero, editar ese tercero
+        If tx_id_tercero.Text.Trim <> "" Then
+            abrir_form_sucursal(tx_id_tercero.Text.Trim)
+            cargar_dg_remisiones_sin_asignar()
+            Exit Sub
         End If
 
-        Return id_tercero
-    End Function
 
+
+        a = comunes.Buscador_Terceros("ST-0210-02", vg_id_cia, vg_usuario_autoriza, filtro)
+        If a = "" Then
+            MsgBox("No se seleccionó ningún tercero.", MsgBoxStyle.Critical)
+            Exit Sub
+        End If
+
+        'validar que no se haya seleccionado un cliente diferente o una sucursal que ya este asignada
+        verror = "N"
+        Dim info = ObtenerDatosPorIdTercero(a)
+        If info.Nit <> Tx_Nit.Text.Trim Then
+            verror = "S"
+            MsgBox("El tercero seleccionado no coincide con el NIT ingresado.", MsgBoxStyle.Critical)
+            Exit Sub
+        End If
+        If info.Suc_Unoee <> "" Then
+            verror = "S"
+            MsgBox("El tercero seleccionado ya tiene una sucursal asignada: " & info.Suc_Unoee, MsgBoxStyle.Critical)
+            Exit Sub
+        End If
+
+
+
+    End Sub
+    Private Sub abrir_form_sucursal(id_tercero As String)
+        'Instanciamos el formulario como un objeto de la clase fm_grilla_turnos
+        'Esto es necesario hacerlo cuando antes de mostrar el formulario debemos configurarle valores previos
+        Dim oform_sucursal As New camocontrol.fm_0200_tercero_sucursal
+        oform_sucursal.vf_oform_padre = Me
+        oform_sucursal.vg_id_cia = vg_id_cia
+        oform_sucursal.vg_usuario_autoriza = vg_usuario_autoriza
+        oform_sucursal.vf_elemento_nuevo = "N"
+        oform_sucursal.id_tercero = id_tercero
+        oform_sucursal.ShowDialog()
+    End Sub
     Private Sub dg_remision_encabezado_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles dg_remision_encabezado.CellClick
         If dg_remision_encabezado.Rows.Count = 0 Then
             Exit Sub
@@ -1703,6 +1741,8 @@ Public Class fm_0800_cargar_rm
         If dg_remision_encabezado.CurrentRow IsNot Nothing Then
             Dim val = dg_remision_encabezado.CurrentRow.Cells("nit").Value
             Tx_Nit.Text = If(val Is Nothing OrElse IsDBNull(val), String.Empty, val.ToString())
+            val = dg_remision_encabezado.CurrentRow.Cells("id_tercero").Value
+            tx_id_tercero.Text = If(val Is Nothing OrElse IsDBNull(val), String.Empty, val.ToString())
         End If
 
     End Sub
@@ -1714,4 +1754,5 @@ Public Class ResultadoCliente
     Public Property Ciudad As String
     Public Property Direccion As String
     Public Property Suc_Unoee As String
+    Public Property Nit As String
 End Class
