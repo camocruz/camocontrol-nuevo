@@ -79,7 +79,7 @@ Public Class fm_visor_datos
             'Para que la columna salga mas ancha
             Dim ColAncha As String = Split(dv_filter, " ")(0)
             'MsgBox(ColAncha)
-            dg_datos.Columns.Item(ColAncha).Width = 400
+            'dg_datos.Columns.Item(ColAncha).Width = 400
         Else
             dg_datos.DataSource = otb_datos
         End If

@@ -563,7 +563,7 @@ Public Class fm_0300_orden_compra
         Tx_Nombre_Tercero.Text = ""
         Tx_Nit.Text = ""
 
-        Dim id_ter As String = comunes.Buscador_Terceros(vg_id_cia, vg_usuario_autoriza, filtro)
+        Dim id_ter As String = comunes.Buscador_Terceros("ST-0210-01", vg_id_cia, vg_usuario_autoriza, filtro)
         If id_ter = "0" Then
             tx_id_tercero.Text = ""
             Tx_Nit.Text = ""

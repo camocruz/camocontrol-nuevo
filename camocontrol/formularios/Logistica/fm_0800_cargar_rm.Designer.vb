@@ -29,6 +29,9 @@ Partial Class fm_0800_cargar_rm
         Me.lblRegistros = New System.Windows.Forms.Label()
         Me.lblPaginas = New System.Windows.Forms.Label()
         Me.ProgressBar1 = New System.Windows.Forms.ProgressBar()
+        Me.Tx_Nit = New System.Windows.Forms.TextBox()
+        Me.Tx_Nombre_Tercero = New System.Windows.Forms.TextBox()
+        Me.bt_asignar_tercero = New System.Windows.Forms.Button()
         Me.GroupBox1.SuspendLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.dg_remision_encabezado, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -95,7 +98,7 @@ Partial Class fm_0800_cargar_rm
         'bt_generar_despacho
         '
         Me.bt_generar_despacho.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.bt_generar_despacho.Location = New System.Drawing.Point(873, 525)
+        Me.bt_generar_despacho.Location = New System.Drawing.Point(854, 525)
         Me.bt_generar_despacho.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
         Me.bt_generar_despacho.Name = "bt_generar_despacho"
         Me.bt_generar_despacho.Size = New System.Drawing.Size(122, 95)
@@ -162,10 +165,42 @@ Partial Class fm_0800_cargar_rm
         Me.ProgressBar1.Size = New System.Drawing.Size(192, 45)
         Me.ProgressBar1.TabIndex = 74
         '
+        'Tx_Nit
+        '
+        Me.Tx_Nit.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.Tx_Nit.Location = New System.Drawing.Point(22, 559)
+        Me.Tx_Nit.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
+        Me.Tx_Nit.Name = "Tx_Nit"
+        Me.Tx_Nit.Size = New System.Drawing.Size(130, 26)
+        Me.Tx_Nit.TabIndex = 77
+        '
+        'Tx_Nombre_Tercero
+        '
+        Me.Tx_Nombre_Tercero.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.Tx_Nombre_Tercero.Location = New System.Drawing.Point(177, 559)
+        Me.Tx_Nombre_Tercero.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
+        Me.Tx_Nombre_Tercero.Name = "Tx_Nombre_Tercero"
+        Me.Tx_Nombre_Tercero.Size = New System.Drawing.Size(130, 26)
+        Me.Tx_Nombre_Tercero.TabIndex = 78
+        '
+        'bt_asignar_tercero
+        '
+        Me.bt_asignar_tercero.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.bt_asignar_tercero.Location = New System.Drawing.Point(984, 525)
+        Me.bt_asignar_tercero.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
+        Me.bt_asignar_tercero.Name = "bt_asignar_tercero"
+        Me.bt_asignar_tercero.Size = New System.Drawing.Size(122, 95)
+        Me.bt_asignar_tercero.TabIndex = 79
+        Me.bt_asignar_tercero.Text = "Asignar Tercero"
+        Me.bt_asignar_tercero.UseVisualStyleBackColor = True
+        '
         'fm_0800_cargar_rm
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(9.0!, 20.0!)
         Me.ClientSize = New System.Drawing.Size(1118, 743)
+        Me.Controls.Add(Me.bt_asignar_tercero)
+        Me.Controls.Add(Me.Tx_Nombre_Tercero)
+        Me.Controls.Add(Me.Tx_Nit)
         Me.Controls.Add(Me.lblRegistros)
         Me.Controls.Add(Me.lblPaginas)
         Me.Controls.Add(Me.ProgressBar1)
@@ -196,6 +231,9 @@ Partial Class fm_0800_cargar_rm
         Me.Controls.SetChildIndex(Me.ProgressBar1, 0)
         Me.Controls.SetChildIndex(Me.lblPaginas, 0)
         Me.Controls.SetChildIndex(Me.lblRegistros, 0)
+        Me.Controls.SetChildIndex(Me.Tx_Nit, 0)
+        Me.Controls.SetChildIndex(Me.Tx_Nombre_Tercero, 0)
+        Me.Controls.SetChildIndex(Me.bt_asignar_tercero, 0)
         Me.GroupBox1.ResumeLayout(False)
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.dg_remision_encabezado, System.ComponentModel.ISupportInitialize).EndInit()
@@ -213,4 +251,7 @@ Partial Class fm_0800_cargar_rm
     Friend WithEvents lblRegistros As Label
     Friend WithEvents lblPaginas As Label
     Friend WithEvents ProgressBar1 As ProgressBar
+    Friend WithEvents Tx_Nit As TextBox
+    Friend WithEvents Tx_Nombre_Tercero As TextBox
+    Friend WithEvents bt_asignar_tercero As Button
 End Class

@@ -117,11 +117,12 @@ Public Class comunes
         Return id_item
     End Function
 
-    Public Shared Function Buscador_Terceros(vg_id_cia As String, vg_usuario_autoriza As String, Optional filtro As String = "")
+    Public Shared Function Buscador_Terceros(id_variable As String, vg_id_cia As String, vg_usuario_autoriza As String, Optional filtro As String = "")
+        ' el id_varibaeble es Ejemplo "ST-0210-01"
         Dim otb_items_selected As DataTable = Nothing
         Dim otb_tablas_array() As DataTable = Nothing
         Dim id_tercero As String = ""
-        otb_tablas_array = cl_utilidades_datatables.visualizar_datos_visor("ST-0210-01", vg_id_cia, vg_usuario_autoriza,
+        otb_tablas_array = cl_utilidades_datatables.visualizar_datos_visor(id_variable, vg_id_cia, vg_usuario_autoriza,
                                                         "Listado de Terceros",
                                                         {vg_id_cia},
                                                             , "Terceros",,, "S", "id_tercero",, "S", "N", filtro)
