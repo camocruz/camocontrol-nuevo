@@ -14,7 +14,7 @@
     Public vf_elemento_nuevo As String = "S"
     Public vf_otabla_permisos As DataTable
     Public vf_t_string As String = "" 'variable que se usara para almacenar datos de intercambio entre formularios
-    Private vcerrar As String = "N"
+    Public vcerrar As String = "N"
     'Objeto para manejar la configuración Regional
     Protected oregioninfo As System.Globalization.RegionInfo
 

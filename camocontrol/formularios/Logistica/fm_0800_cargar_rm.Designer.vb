@@ -19,7 +19,6 @@ Partial Class fm_0800_cargar_rm
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Me.bt_cargar_rm = New System.Windows.Forms.Button()
         Me.dg_remision_encabezado = New System.Windows.Forms.DataGridView()
         Me.lb_total_rms = New System.Windows.Forms.Label()
         Me.bt_generar_despacho = New System.Windows.Forms.Button()
@@ -31,6 +30,8 @@ Partial Class fm_0800_cargar_rm
         Me.Tx_Nit = New System.Windows.Forms.TextBox()
         Me.bt_asignar_sucursal = New System.Windows.Forms.Button()
         Me.tx_id_tercero = New System.Windows.Forms.TextBox()
+        Me.Tx_IdRm = New System.Windows.Forms.TextBox()
+        Me.tx_id_sucursal_unoee = New System.Windows.Forms.TextBox()
         Me.GroupBox1.SuspendLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.dg_remision_encabezado, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -55,17 +56,6 @@ Partial Class fm_0800_cargar_rm
         '
         Me.lb_diseñador_programa.Location = New System.Drawing.Point(0, 724)
         Me.lb_diseñador_programa.Margin = New System.Windows.Forms.Padding(6, 0, 6, 0)
-        '
-        'bt_cargar_rm
-        '
-        Me.bt_cargar_rm.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.bt_cargar_rm.Location = New System.Drawing.Point(326, 525)
-        Me.bt_cargar_rm.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
-        Me.bt_cargar_rm.Name = "bt_cargar_rm"
-        Me.bt_cargar_rm.Size = New System.Drawing.Size(122, 95)
-        Me.bt_cargar_rm.TabIndex = 62
-        Me.bt_cargar_rm.Text = "Cargar Rem"
-        Me.bt_cargar_rm.UseVisualStyleBackColor = True
         '
         'dg_remision_encabezado
         '
@@ -97,10 +87,10 @@ Partial Class fm_0800_cargar_rm
         'bt_generar_despacho
         '
         Me.bt_generar_despacho.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.bt_generar_despacho.Location = New System.Drawing.Point(854, 525)
+        Me.bt_generar_despacho.Location = New System.Drawing.Point(816, 525)
         Me.bt_generar_despacho.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
         Me.bt_generar_despacho.Name = "bt_generar_despacho"
-        Me.bt_generar_despacho.Size = New System.Drawing.Size(122, 95)
+        Me.bt_generar_despacho.Size = New System.Drawing.Size(132, 95)
         Me.bt_generar_despacho.TabIndex = 65
         Me.bt_generar_despacho.Text = "Generar Despacho"
         Me.bt_generar_despacho.UseVisualStyleBackColor = True
@@ -120,9 +110,9 @@ Partial Class fm_0800_cargar_rm
         'btnCargar
         '
         Me.btnCargar.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.btnCargar.Location = New System.Drawing.Point(505, 525)
+        Me.btnCargar.Location = New System.Drawing.Point(329, 525)
         Me.btnCargar.Name = "btnCargar"
-        Me.btnCargar.Size = New System.Drawing.Size(124, 95)
+        Me.btnCargar.Size = New System.Drawing.Size(134, 95)
         Me.btnCargar.TabIndex = 73
         Me.btnCargar.Text = "Cargar Facturas UnoEE"
         Me.btnCargar.UseVisualStyleBackColor = True
@@ -131,7 +121,7 @@ Partial Class fm_0800_cargar_rm
         '
         Me.lblRegistros.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.lblRegistros.AutoSize = True
-        Me.lblRegistros.Location = New System.Drawing.Point(631, 608)
+        Me.lblRegistros.Location = New System.Drawing.Point(465, 608)
         Me.lblRegistros.Name = "lblRegistros"
         Me.lblRegistros.Size = New System.Drawing.Size(57, 20)
         Me.lblRegistros.TabIndex = 76
@@ -141,7 +131,7 @@ Partial Class fm_0800_cargar_rm
         '
         Me.lblPaginas.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.lblPaginas.AutoSize = True
-        Me.lblPaginas.Location = New System.Drawing.Point(631, 579)
+        Me.lblPaginas.Location = New System.Drawing.Point(465, 579)
         Me.lblPaginas.Name = "lblPaginas"
         Me.lblPaginas.Size = New System.Drawing.Size(57, 20)
         Me.lblPaginas.TabIndex = 75
@@ -150,7 +140,7 @@ Partial Class fm_0800_cargar_rm
         'ProgressBar1
         '
         Me.ProgressBar1.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.ProgressBar1.Location = New System.Drawing.Point(635, 525)
+        Me.ProgressBar1.Location = New System.Drawing.Point(469, 525)
         Me.ProgressBar1.Name = "ProgressBar1"
         Me.ProgressBar1.Size = New System.Drawing.Size(192, 45)
         Me.ProgressBar1.TabIndex = 74
@@ -158,6 +148,7 @@ Partial Class fm_0800_cargar_rm
         'Tx_Nit
         '
         Me.Tx_Nit.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.Tx_Nit.Enabled = False
         Me.Tx_Nit.Location = New System.Drawing.Point(22, 559)
         Me.Tx_Nit.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
         Me.Tx_Nit.Name = "Tx_Nit"
@@ -167,10 +158,10 @@ Partial Class fm_0800_cargar_rm
         'bt_asignar_sucursal
         '
         Me.bt_asignar_sucursal.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.bt_asignar_sucursal.Location = New System.Drawing.Point(984, 525)
+        Me.bt_asignar_sucursal.Location = New System.Drawing.Point(964, 525)
         Me.bt_asignar_sucursal.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
         Me.bt_asignar_sucursal.Name = "bt_asignar_sucursal"
-        Me.bt_asignar_sucursal.Size = New System.Drawing.Size(122, 95)
+        Me.bt_asignar_sucursal.Size = New System.Drawing.Size(132, 95)
         Me.bt_asignar_sucursal.TabIndex = 79
         Me.bt_asignar_sucursal.Text = "Asignar/Editar Sucursal"
         Me.bt_asignar_sucursal.UseVisualStyleBackColor = True
@@ -178,16 +169,41 @@ Partial Class fm_0800_cargar_rm
         'tx_id_tercero
         '
         Me.tx_id_tercero.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.tx_id_tercero.Enabled = False
         Me.tx_id_tercero.Location = New System.Drawing.Point(22, 594)
         Me.tx_id_tercero.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
         Me.tx_id_tercero.Name = "tx_id_tercero"
         Me.tx_id_tercero.Size = New System.Drawing.Size(130, 26)
         Me.tx_id_tercero.TabIndex = 67
         '
+        'Tx_IdRm
+        '
+        Me.Tx_IdRm.AcceptsReturn = True
+        Me.Tx_IdRm.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.Tx_IdRm.Enabled = False
+        Me.Tx_IdRm.Location = New System.Drawing.Point(160, 559)
+        Me.Tx_IdRm.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
+        Me.Tx_IdRm.Name = "Tx_IdRm"
+        Me.Tx_IdRm.Size = New System.Drawing.Size(130, 26)
+        Me.Tx_IdRm.TabIndex = 80
+        '
+        'tx_id_sucursal_unoee
+        '
+        Me.tx_id_sucursal_unoee.AcceptsReturn = True
+        Me.tx_id_sucursal_unoee.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.tx_id_sucursal_unoee.Enabled = False
+        Me.tx_id_sucursal_unoee.Location = New System.Drawing.Point(158, 595)
+        Me.tx_id_sucursal_unoee.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
+        Me.tx_id_sucursal_unoee.Name = "tx_id_sucursal_unoee"
+        Me.tx_id_sucursal_unoee.Size = New System.Drawing.Size(130, 26)
+        Me.tx_id_sucursal_unoee.TabIndex = 81
+        '
         'fm_0800_cargar_rm
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(9.0!, 20.0!)
         Me.ClientSize = New System.Drawing.Size(1118, 743)
+        Me.Controls.Add(Me.tx_id_sucursal_unoee)
+        Me.Controls.Add(Me.Tx_IdRm)
         Me.Controls.Add(Me.bt_asignar_sucursal)
         Me.Controls.Add(Me.Tx_Nit)
         Me.Controls.Add(Me.lblRegistros)
@@ -199,11 +215,9 @@ Partial Class fm_0800_cargar_rm
         Me.Controls.Add(Me.bt_generar_despacho)
         Me.Controls.Add(Me.lb_total_rms)
         Me.Controls.Add(Me.dg_remision_encabezado)
-        Me.Controls.Add(Me.bt_cargar_rm)
         Me.Margin = New System.Windows.Forms.Padding(6, 8, 6, 8)
         Me.Name = "fm_0800_cargar_rm"
         Me.Text = "Cargar Remisiones CGUNO"
-        Me.Controls.SetChildIndex(Me.bt_cargar_rm, 0)
         Me.Controls.SetChildIndex(Me.dg_remision_encabezado, 0)
         Me.Controls.SetChildIndex(Me.lb_total_rms, 0)
         Me.Controls.SetChildIndex(Me.bt_generar_despacho, 0)
@@ -222,6 +236,8 @@ Partial Class fm_0800_cargar_rm
         Me.Controls.SetChildIndex(Me.PictureBox1, 0)
         Me.Controls.SetChildIndex(Me.GroupBox1, 0)
         Me.Controls.SetChildIndex(Me.lb_diseñador_programa, 0)
+        Me.Controls.SetChildIndex(Me.Tx_IdRm, 0)
+        Me.Controls.SetChildIndex(Me.tx_id_sucursal_unoee, 0)
         Me.GroupBox1.ResumeLayout(False)
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.dg_remision_encabezado, System.ComponentModel.ISupportInitialize).EndInit()
@@ -229,7 +245,6 @@ Partial Class fm_0800_cargar_rm
         Me.PerformLayout()
 
     End Sub
-    Friend WithEvents bt_cargar_rm As System.Windows.Forms.Button
     Friend WithEvents dg_remision_encabezado As System.Windows.Forms.DataGridView
     Friend WithEvents lb_total_rms As System.Windows.Forms.Label
     Friend WithEvents bt_generar_despacho As System.Windows.Forms.Button
@@ -241,4 +256,6 @@ Partial Class fm_0800_cargar_rm
     Friend WithEvents Tx_Nit As TextBox
     Friend WithEvents bt_asignar_sucursal As Button
     Friend WithEvents tx_id_tercero As TextBox
+    Friend WithEvents Tx_IdRm As TextBox
+    Friend WithEvents tx_id_sucursal_unoee As TextBox
 End Class

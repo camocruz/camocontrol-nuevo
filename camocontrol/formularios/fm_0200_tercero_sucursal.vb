@@ -9,6 +9,17 @@
     Public id_tercero As String
     '$Public$vf_elemento_nuevo As String = "N"
 
+    ' Propiedad pública para devolver el valor de ciudad, direccion
+    Private _resultado As DtoTercero
+    Public ReadOnly Property Resultado As DtoTercero
+        Get
+            Return _resultado
+        End Get
+    End Property
+
+
+
+
     Private verror_requisitos As String = "N"
     Private vmensaje_requisitos As String = ""
     Private verror_grabar As String = ""
@@ -214,7 +225,19 @@
         End If
         actualizar_tercero()
         If verror = "N" Then
+            'Asigno los valores a la propiedad Resultado para devolverlos al formulario padre
+            _resultado = New DtoTercero With {
+                .Id_tercero = id_tercero,
+                .Ciudad = cm_ciudad.Text,
+                .Id_Ciudad = cm_ciudad.SelectedValue.ToString(),
+                .Direccion = tx_direccion.Text
+            }
             MsgBox("Actualizado", MsgBoxStyle.Information, "Actualizar")
+            Me.DialogResult = DialogResult.OK
+            vcerrar = "S"
+            Me.Close()
+        Else
+            Me.DialogResult = DialogResult.None
         End If
     End Sub
 
@@ -266,5 +289,9 @@
 
     Private Sub bt_editar_Click(sender As Object, e As EventArgs) Handles bt_editar.Click
         bt_grabar.Enabled = True
+    End Sub
+
+    Private Sub bt_anular_Click(sender As Object, e As EventArgs) Handles bt_anular.Click
+
     End Sub
 End Class

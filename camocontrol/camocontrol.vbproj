@@ -168,6 +168,7 @@
     <Import Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ClasesT\DtoTercero.vb" />
     <Compile Include="clases\cl_estructuras_variables.vb" />
     <Compile Include="clases\cl_gestion_anotaciones.vb" />
     <Compile Include="clases\cl_gestion_permisos.vb" />

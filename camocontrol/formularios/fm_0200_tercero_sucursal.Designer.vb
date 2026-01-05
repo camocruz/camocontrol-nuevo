@@ -73,6 +73,9 @@ Partial Class fm_0200_tercero_sucursal
         'bt_grabar
         '
         '
+        'bt_anular
+        '
+        '
         'lb_diseñador_programa
         '
         Me.lb_diseñador_programa.Location = New System.Drawing.Point(0, 563)

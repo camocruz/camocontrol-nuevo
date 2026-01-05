@@ -1,7 +1,8 @@
 ﻿Imports System
-Imports System.IO
 Imports System.Collections
 Imports System.Globalization
+Imports System.IO
+Imports System.Net.WebRequestMethods
 Imports System.Threading.Tasks
 Imports Newtonsoft.Json.Linq
 Imports RestSharp
@@ -31,6 +32,7 @@ Public Class fm_0800_cargar_rm
     Private oda As NpgsqlDataAdapter
     Private ocmd As NpgsqlCommand
 
+    Private DtoDgEnEdicion As New DtoTercero
     Private UltimoDoctoCia1 As Integer = 0
     Private UltimoDoctoCia2 As Integer = 0
     Private ofiscal As String = "1"
@@ -102,178 +104,6 @@ Public Class fm_0800_cargar_rm
                & " JOIN " & database.obtener_esquema & ".tb0051_departamentos ON f0051_codigo_departamento = f0052_codigo_departamento"
         otb_ciudades = cl_utilidades_datatables.cargar_informacion_postgres(csql)
     End Sub
-
-    Private Sub bt_cargar_rm_Click(sender As Object, e As EventArgs) Handles bt_cargar_rm.Click
-        Dim openFileDialog1 As New OpenFileDialog()
-        Dim path_file As String = ""
-
-        'openFileDialog1.InitialDirectory = "e:\"
-        openFileDialog1.Filter = "csv files (*.rtf)|*.rtf|txt files (*.txt)|*.txt|All files (*.*)|*.*" 'openFileDialog1.Filter = "txt files (*.txt)|*.txt|All files (*.*)|*.*"
-        openFileDialog1.FilterIndex = 1
-        openFileDialog1.RestoreDirectory = True
-
-        If openFileDialog1.ShowDialog() = System.Windows.Forms.DialogResult.OK Then
-            path_file = openFileDialog1.FileName
-            'comunes.mostrar_archivo_texto(path_file, "")
-        Else
-            Exit Sub
-        End If
-
-        Dim lector As New IO.StreamReader(path_file, System.Text.Encoding.UTF7)
-        ' Leer el contenido mientras no se llegue al final
-
-        Dim txt_info As String = ""
-        Dim contador_exitos As Integer = 0
-        Dim contador_fallas As Integer = 0
-        Dim bloqueo_actualizacion As String = "N"
-        Dim pagina_extra As String = "N"
-        Dim conteo_pagina_extra As Integer = 0
-
-        While lector.Peek() <> -1
-            Dim linea As String = Replace(lector.ReadLine(), "\'d1", "Ñ")
-            ' Si no está vacía, añadirla al control
-            ' Si está vacía, continuar el bucle
-            If String.IsNullOrEmpty(linea) Then
-                Continue While
-            End If
-            'No fiscal  
-            If InStr(linea, "NIT.: 11111111-6") <> 0 Then
-                ofiscal = "2"
-            End If
-            If InStr(linea, "NIT.: 805027332-8") <> 0 Then
-                ofiscal = "1"
-            End If
-            '901183025-7
-            If InStr(linea, "NIT.: 901183025-7") <> 0 Then
-                ofiscal = "3"
-            End If
-
-            'Remision
-            If InStr(linea, "Numero:") <> 0 Then
-                'txt_info += vbCrLf & vbCrLf & vbCrLf
-                'txt_info += "Numero Remision: " & Mid(linea, InStr(linea, "Numero:") + 8, 10).Trim & vbCrLf
-                numero_rm = Mid(linea, InStr(linea, "Numero:") + 8, 10).Trim
-                'MsgBox(numero_rm)
-            End If
-            'Fecha
-            If InStr(linea, "Fecha :") <> 0 Then
-                'txt_info += "Fecha: " & Mid(linea, InStr(linea, "Fecha :") + 7, 13).Trim & vbCrLf
-                fecha_documento_rm = formatear_fecha(Mid(linea, InStr(linea, "Fecha :") + 7, 13).Trim)
-            End If
-            'Pagina:
-            If InStr(linea, "Pagina:") <> 0 Then
-                'txt_info += "Pagina:" & Mid(linea, InStr(linea, "Pagina:") + 7, 13).Trim & vbCrLf
-                If Mid(linea, InStr(linea, "Pagina:") + 7, 13).Trim = "01 de 01" Then
-                    pagina_extra = "N"
-                    conteo_pagina_extra = 0
-                Else
-                    pagina_extra = "S"
-                    'MsgBox("pagina extra")
-                    conteo_pagina_extra += 1
-                End If
-                If pagina_extra = "N" Then
-                    'Controlo que no se cargue dos veces la remision sin anular la anterior primero.
-                    bloqueo_actualizacion = verificar_registro_rm(numero_rm, ofiscal)
-                End If
-            End If
-            'Cliente   :
-            If InStr(linea, "Cliente   :") <> 0 Then
-                'txt_info += "Razon social: " & Mid(linea, InStr(linea, "Cliente   :") + 11, 54).Trim & vbCrLf
-                razon_social = Mid(linea, InStr(linea, "Cliente   :") + 11, 54).Trim
-            End If
-            'Ciudad    :
-            'MsgBox("Voy")
-            If InStr(linea, "Ciudad    :") <> 0 Then
-                'txt_info += "Ciudad: " & Mid(linea, InStr(linea, "Ciudad    :") + 11, 54).Trim & vbCrLf
-                ciudad_cliente = Mid(linea, InStr(linea, "Ciudad    :") + 11, 54).Trim
-                'MsgBox(ciudad_cliente)
-            End If
-            'Direccion :
-            If InStr(linea, "Direccion :") <> 0 Then
-                'txt_info += "Direccion: " & Mid(linea, InStr(linea, "Direccion :") + 11, 54).Trim & vbCrLf
-                direccion = Mid(linea, InStr(linea, "Direccion :") + 11, 54).Trim
-            End If
-            'Vendedor:
-            If InStr(linea, "Vendedor:") <> 0 Then
-                'txt_info += "Vendedor: " & Mid(linea, InStr(linea, "Vendedor:") + 9, 14).Trim & vbCrLf
-                codigo_vendedor = Mid(linea, InStr(linea, "Vendedor:") + 9, 14).Trim
-                nombre_vendedor = Mid(linea, InStr(linea, "Vendedor:") + 23, 40).Trim
-            End If
-            'Fecha :
-            If InStr(linea, "Nit o C.C.:") <> 0 Then
-                Dim otxt_nit() As String = Split(Mid(linea, InStr(linea, "Nit o C.C.:") + 11, 19).Trim, "-")
-                If otxt_nit.Length = 2 Then
-                    codigo_cliente = otxt_nit(0).Trim
-                    digito_verificacion = otxt_nit(1).Trim
-                Else
-                    codigo_cliente = otxt_nit(0).Trim
-                    digito_verificacion = ""
-                End If
-                'txt_info += "NIT: " & Mid(linea, InStr(linea, "Nit o C.C.:") + 11, 19).Trim & vbCrLf
-            End If
-            'Fax       :  indica que ya se leyo todo el encabezado
-            If InStr(linea, "Fax       :") <> 0 And conteo_pagina_extra <= 1 Then
-                'MsgBox(bloqueo_actualizacion)
-                If bloqueo_actualizacion = "N" Then
-                    verror = "N"
-                    contador_exitos += 1
-                    grabar_encabezado_rm()
-                    'id_encabezado = cl_utilidades_datatables.consultar_consecutivo_creado_tablas("f0850_id_rm", "f0850_usuario_crear", vg_usuario_autoriza, "tb0850_remisiones_cguno_encabezado")
-                    'MsgBox(id_encabezado)
-                Else
-                    contador_fallas += 1
-                End If
-            End If
-
-            'Referencia producto
-            Dim otxt_array() As String = Split(Mid(linea, 8, 12).Trim, "-")
-            If otxt_array.Length = 2 Then
-                'If IsNumeric(otxt_array(0)) = True And IsNumeric(otxt_array(1)) = True Then
-                If IsNumeric(otxt_array(1)) = True Then
-                    'txt_info += "Referencia: " & Mid(linea, 8, 12).Trim & " Cantidad: " & Mid(linea, 100, 20).Trim _
-                    '& " Ref Empaque: " & Mid(linea, 75, 5).Trim & " Descripcion: " & Mid(linea, 29, 41).Trim & vbCrLf
-
-                    referencia_1 = Mid(linea, 8, 12).Trim
-                    referencia_2 = Mid(linea, 75, 5).Trim
-                    descripcion_producto = Mid(linea, 29, 41).Trim
-                    cantidad_producto = Mid(linea, 100, 20).Trim
-
-                    If bloqueo_actualizacion = "N" Then
-
-                        If verror = "N" Then
-                            grabar_detalle_rm()
-                        End If
-                    End If
-                End If
-            End If
-        End While
-
-        ' Cerrar el fichero
-        lector.Close()
-
-        'muestro las remisiones sin agignar a un despacho
-        cargar_dg_remisiones_sin_asignar()
-
-        Try
-            'My.Computer.FileSystem.DeleteFile("C:\dsfc\remisiones.txt")
-        Catch ex As Exception
-
-        End Try
-        Try
-            Dim ruta As String = "C:\dsfc\remisiones.txt"
-            'Dim escritor As StreamWriter
-            'escritor = File.AppendText(ruta)
-            'escritor.Write(txt_info)
-            'escritor.Flush()
-            'escritor.Close()
-            MessageBox.Show("Escritura realizada con éxito." & vbCrLf _
-                            & "Total Remisiones cargadas: " & contador_exitos & vbCrLf _
-                            & "Total remisiones rechazadas: " & contador_fallas)
-        Catch ex As Exception
-            MessageBox.Show("Escritura realizada incorrectamente")
-        End Try
-    End Sub
-
     Private Sub grabar_encabezado_rm()
         'Conectar base en postgres para actualizar tabla
         oconn_form = database.obtener_conexion()
@@ -414,22 +244,8 @@ Public Class fm_0800_cargar_rm
         End If
         Return rm_programada
     End Function
-
-    Private Function verificar_registro_rm(ByVal id_rm As String, ByVal ooficial As String)
-        Dim rm_existe As String = "N"
-        csql = "select f0850_ofi from " & database.obtener_esquema & ".tb0850_remisiones_cguno_encabezado" _
-            & " where f0850_id_cia = '" & vg_id_cia & "' and " & "f0850_rm = '" & id_rm & "' and f0850_anulado = 'N'" _
-            & " and f0850_ofi = '" & ooficial & "'"
-        Dim otb_rm As DataTable = cl_utilidades_datatables.cargar_informacion_postgres(csql)
-        If otb_rm.Rows.Count > 0 Then
-            rm_existe = "S"
-        End If
-        Return rm_existe
-    End Function
-
     Private Sub cargar_dg_remisiones_sin_asignar()
         cargar_otb_remisiones_sin_asignar()
-
         'Dim ocolum_sel As New DataColumn
         otb_remisiones_sin_despacho_asignado.Columns.Add("sel", Type.GetType("System.Boolean"))
 
@@ -444,7 +260,10 @@ Public Class fm_0800_cargar_rm
         dg_remision_encabezado.Columns("nit").ReadOnly = True
         dg_remision_encabezado.Columns("vendedor").ReadOnly = True
         dg_remision_encabezado.Columns("vendedor").Width = 100
+        dg_remision_encabezado.Columns("id_tercero").Visible = False
         dg_remision_encabezado.Columns("id_tercero").ReadOnly = True
+        dg_remision_encabezado.Columns("id_suc_unoee").Visible = False
+        dg_remision_encabezado.Columns("id_suc_unoee").ReadOnly = True
 
         'Dim ocolum As New DataGridViewCheckBoxColumn
         'ocolum.HeaderText = "Despachar"
@@ -462,23 +281,7 @@ Public Class fm_0800_cargar_rm
         otb_remisiones_sin_despacho_asignado = cl_utilidades_datatables.cargar_informacion_postgres(csql)
     End Sub
 
-    Private Function formatear_fecha(ByVal txt As String)
-        Dim n_fecha As String = txt
-        n_fecha = Replace(n_fecha, "-ENE-", "/01/")
-        n_fecha = Replace(n_fecha, "-FEB-", "/02/")
-        n_fecha = Replace(n_fecha, "-MAR-", "/03/")
-        n_fecha = Replace(n_fecha, "-ABR-", "/04/")
-        n_fecha = Replace(n_fecha, "-MAY-", "/05/")
-        n_fecha = Replace(n_fecha, "-JUN-", "/06/")
-        n_fecha = Replace(n_fecha, "-JUL-", "/07/")
-        n_fecha = Replace(n_fecha, "-AGO-", "/08/")
-        n_fecha = Replace(n_fecha, "-SEP-", "/09/")
-        n_fecha = Replace(n_fecha, "-OCT-", "/10/")
-        n_fecha = Replace(n_fecha, "-NOV-", "/11/")
-        n_fecha = Replace(n_fecha, "-DIC-", "/12/")
-        'MsgBox("Retorna: " & n_fecha)
-        Return n_fecha
-    End Function
+
 
     Private Sub bt_generar_despacho_Click(sender As Object, e As EventArgs) Handles bt_generar_despacho.Click
         Dim fecha_act As Date = comunes.g_fechahora
@@ -487,20 +290,6 @@ Public Class fm_0800_cargar_rm
         fechavalidada = cl_utilidades_gestion_compras.ValidarFechaMovimiento(fecha_act, vg_id_cia)
         If fechavalidada(1) = "N" Then
             MsgBox(fechavalidada(2), MsgBoxStyle.Critical, "Error")
-            Exit Sub
-        End If
-
-        'Identificamos la bodega de la que saldra el producto terminado
-
-        Dim csql As String
-        csql = "select f0005_id_bodega, f0005_descripcion_bodega" _
-            & " from " & database.obtener_esquema & ".tb0005_bodegas" _
-            & " where f0005_anulado = 'N' AND f0005_uso = 'PT'"
-        Dim otb_bodegas As DataTable = cl_utilidades_datatables.cargar_informacion_postgres(csql)
-        Dim ODisplayMember As String = "f0005_descripcion_bodega"
-        Dim OValueMember As String = "f0005_id_bodega"
-        id_bodega = comunes.formulario_parametro_texto("", "Bodega", False, otb_bodegas, ODisplayMember, OValueMember)
-        If id_bodega.Trim = "" Then
             Exit Sub
         End If
 
@@ -513,11 +302,10 @@ Public Class fm_0800_cargar_rm
         otb_rm_sel.Columns.Add("id_rm", GetType(Integer))
         otb_rm_sel.Columns.Add("rm", GetType(String))
         otb_rm_sel.Columns.Add("nit", GetType(String))
-        otb_rm_sel.Columns.Add("digv", GetType(String))
         otb_rm_sel.Columns.Add("cliente", GetType(String))
         otb_rm_sel.Columns.Add("ciudad", GetType(String))
         otb_rm_sel.Columns.Add("direccion", GetType(String))
-        otb_rm_sel.Columns.Add("cvendedor", GetType(String))
+        otb_rm_sel.Columns.Add("vendedor", GetType(String))
 
         Dim oselected As String 'para identificar cuales regsitrso fueron selecccionados por el checkbox
         For Each orow As DataGridViewRow In dg_remision_encabezado.Rows
@@ -526,11 +314,10 @@ Public Class fm_0800_cargar_rm
                 otb_rm_sel.Rows.Add(orow.Cells("id_rm").Value,
                                     orow.Cells("rm").Value,
                                     orow.Cells("nit").Value,
-                                    orow.Cells("digv").Value,
                                     orow.Cells("cliente").Value,
                                     orow.Cells("ciudad").Value,
                                     orow.Cells("direccion").Value,
-                                    orow.Cells("cvendedor").Value)
+                                    orow.Cells("vendedor").Value)
             End If
         Next
 
@@ -560,10 +347,9 @@ Public Class fm_0800_cargar_rm
             id_encabezado = orow("id_rm")
             cliente = orow("cliente")
             nit = orow("nit")
-            digv = orow("digv")
             ciudad = orow("ciudad")
             direccion = orow("direccion")
-            cvendedor = orow("cvendedor")
+            cvendedor = orow("vendedor")
             'Verificamos seleccion completa
             cant_sel = buscar_cantidad_registros_mismo_cliente(otb_rm_sel, cliente, ciudad, direccion)
             cant_pend = buscar_cantidad_registros_mismo_cliente(otb_remisiones_sin_despacho_asignado, cliente, ciudad, direccion)
@@ -586,11 +372,10 @@ Public Class fm_0800_cargar_rm
                 MsgBox(tx & txt_falla_item, MsgBoxStyle.Information, "Info")
                 verror = "S"
             End If
-            'Identifico el vendedor
-            id_tercero_vendedor = buscar_id_vendedor(cvendedor)
-            If id_tercero_vendedor = "ND" Then
+            'Identifico que exista ciudad y direccion de despacho
+            If ciudad = "" Or direccion = "" Then
                 generar_despacho = "N"
-                MsgBox("No se cargo la REMISION: " & remision & vbCrLf & vbCrLf & "Vendedor no identificado", MsgBoxStyle.Exclamation, "Info")
+                MsgBox("No se cargo la REMISION: " & remision & vbCrLf & vbCrLf & "Ciudad o Direccion no definidos", MsgBoxStyle.Exclamation, "Info")
                 verror = "S"
             End If
             If generar_despacho = "S" Then
@@ -648,8 +433,6 @@ Public Class fm_0800_cargar_rm
                     End If
 
                     If falla_inventario = "N" Then
-                        'Identificamos el tercero
-                        gestionar_identificacion_cliente(cliente, nit, digv, ciudad, direccion)
                         'Asignamos un despacho
                         id_despacho = gestionar_despacho_para_remision(id_tercero, id_tercero_vendedor, id_bodega)
                         'Asignamos la Remision al despacho
@@ -730,13 +513,32 @@ Public Class fm_0800_cargar_rm
     Private Sub bt_anular_Click(sender As Object, e As EventArgs) Handles bt_anular.Click
         Dim oselected As String 'para identificar cuales regsitrso fueron selecccionados por el checkbox
         Dim id_rm As Integer
+        'Verifico que haya al menos una remision seleccionada
+        Dim remision_seleccionada As String = "N"
+        For Each orow As DataGridViewRow In dg_remision_encabezado.Rows
+            oselected = orow.Cells("sel").Value.ToString
+            If oselected = "True" Then
+                remision_seleccionada = "S"
+            End If
+        Next
+        If remision_seleccionada = "N" Then
+            MsgBox("No hay remisiones seleccionadas para anular.", MsgBoxStyle.Exclamation, "Info")
+            Exit Sub
+        End If
+
+        Dim anular_msg As MsgBoxResult
+        anular_msg = MsgBox("Se procederá a anular las remisiones seleccionadas." & vbCrLf _
+                         & "¿Desea continuar?", MsgBoxStyle.Question + MsgBoxStyle.YesNo, "Confirmar")
+        If anular_msg = MsgBoxResult.No Then
+            Exit Sub
+        End If
         For Each orow As DataGridViewRow In dg_remision_encabezado.Rows
             oselected = orow.Cells("sel").Value.ToString
             If oselected = "True" Then
                 id_rm = orow.Cells("id_rm").Value
                 'Verifico que la rm no este programada, dos usuarios con el mismo form abierto....
                 Dim rm_programada As String = "N"
-                rm_programada = verificar_que_rm_no_este_programada(id_encabezado)
+                rm_programada = verificar_que_rm_no_este_programada(id_rm)
                 If rm_programada = "N" Then
                     anular_remision(id_rm)
                 End If
@@ -768,135 +570,6 @@ Public Class fm_0800_cargar_rm
         cantidad = apariciones.Count
         Return cantidad
     End Function
-
-    Private Sub validar_equivalencia_ciudad(ByVal tx_razon_social As String,
-                                                 ByVal tx_direccion As String, ByVal tx_ciudad As String)
-        csql = "Select f0052_codigo_ciudad from " _
-            & database.obtener_esquema & ".tb0052_ciudades" _
-            & " Where f0052_ciudad = '" & tx_ciudad & "' or f0052_ciudad_cg = '" & tx_ciudad & "'"
-        Dim otb_reg As DataTable
-        otb_reg = cl_utilidades_datatables.cargar_informacion_postgres(csql)
-        'Dim resultado As String = ""
-        If otb_reg.Rows.Count = 1 Then
-            For Each orow As DataRow In otb_reg.Rows
-                id_ciudad = orow("f0052_codigo_ciudad")
-            Next
-        Else
-            id_ciudad = "ND"
-        End If
-
-        If id_ciudad = "ND" Then
-            MsgBox("Cliente: " & tx_razon_social & vbCrLf _
-                   & "Direccion: " & tx_direccion & vbCrLf _
-                   & "Ciudad sin identificar equivalencia." & vbCrLf _
-                   & "Ciudad     : " & tx_ciudad, MsgBoxStyle.Exclamation, "Info")
-            'Obligamos a crear equivalencia
-            'Instanciamos el formulario como un objeto de la clase fm_0100_estructura_mantenimiento
-            'Esto es necesario hacerlo cuando antes de mostrar el formulario debemos configurarle valores previos
-
-            'Aqui obtengo el id_ciudad.
-            Dim oform_equivalencia_ciudad As New camocontrol.fm_0052_equivalencias_ciudades_cg
-            'oform_grilla_programacion.ods_hijo = ods
-            oform_equivalencia_ciudad.vf_oform_padre = Me
-            oform_equivalencia_ciudad.vg_id_cia = vg_id_cia
-            oform_equivalencia_ciudad.vg_usuario_autoriza = vg_usuario_autoriza
-            oform_equivalencia_ciudad.tx_ciudad_cg.Text = tx_ciudad
-            oform_equivalencia_ciudad.ShowDialog()
-            If id_ciudad = "ND" Then
-                MsgBox("No esta la equivalencias de ciudad definida:" & vbCrLf & vbCrLf _
-                   & "NO SE GENERA ORDEN DE CARGUE.", MsgBoxStyle.Exclamation, "Info")
-                verror = "S"
-            End If
-        End If
-        'MsgBox(id_ciudad)
-    End Sub
-
-    Private Function buscar_id_vendedor(ByVal cod_vendedor As String)
-        Dim otb_vendedor As DataTable
-        Dim id_vendedor As String = "ND"
-        csql = "select f0200_id_tercero from " & database.obtener_esquema & ".tb0200_terceros" _
-            & " where f0200_id = '" & cod_vendedor & "' and f0200_id_cia = '" & vg_id_cia & "'"
-        otb_vendedor = cl_utilidades_datatables.cargar_informacion_postgres(csql)
-        For Each orow As DataRow In otb_vendedor.Rows
-            id_vendedor = orow("f0200_id_tercero")
-        Next
-        Return id_vendedor
-    End Function
-
-    Private Sub gestionar_identificacion_cliente(ByVal razon_social As String, ByVal nit As String,
-                                                 ByVal dig_ver As String, ByVal ciudad As String, ByVal direccion As String)
-
-        csql = "select * from " & database.obtener_esquema & ".tb0200_terceros" _
-            & " where f0200_id = '" & nit & "'"
-        Dim otb_todas_sucursales As DataTable = cl_utilidades_datatables.cargar_informacion_postgres(csql)
-        'Primero identifico si hay una sola sucursal
-        Dim numero_sucursales As Integer
-        numero_sucursales = otb_todas_sucursales.Rows.Count
-        Dim identificado As String = "N"
-        verror = "N"
-
-        Select Case numero_sucursales
-            Case 0
-                'El cliente no existe.
-                If verror = "N" Then
-                    validar_equivalencia_ciudad(razon_social, direccion, ciudad) 'Asigna el id_ciudad
-                    'crear_nuevo_tercero(nit, dig_ver, razon_social, direccion, id_ciudad)
-                    If verror = "N" Then
-                        id_tercero = cl_utilidades_datatables.consultar_consecutivo_creado_tablas("f0200_id_tercero",
-                                                                                                   "f0200_usuario_crear",
-                                                                                                   vg_usuario_autoriza,
-                                                                                                   "tb0200_terceros").ToString.PadLeft(8, "0")
-                        actualizar_sucursal_tercero(id_tercero)
-                        direccion_despacho = direccion
-                        ciudad_despacho = id_ciudad
-                        identificado = "S"
-                    End If
-                End If
-            Case Is > 0
-                'verificamos si existe la direccion
-                Dim orows_sucursales As DataRow()
-                'Buscamos igual direccion
-                orows_sucursales = otb_todas_sucursales.Select("f0200_direccion_residencia = '" & direccion & "'")
-                For Each orow As DataRow In orows_sucursales
-                    id_tercero = orow("f0200_id_tercero")
-                    direccion_despacho = orow("f0200_direccion_residencia")
-                    ciudad_despacho = orow("f0200_ciudad_residencia")
-                    If orow("f0200_ciudad_residencia").ToString = "" Then
-                        validar_equivalencia_ciudad(razon_social, direccion, ciudad) 'Asigna el id_ciudad
-                        'Actualizo el registro tercero
-                        actualizar_tercero(id_tercero, direccion, razon_social, id_ciudad)
-                    End If
-                    identificado = "S"
-                Next
-                'Buscamos sucursal con direccion basia
-                orows_sucursales = otb_todas_sucursales.Select("f0200_direccion_residencia = ''")
-                For Each orow As DataRow In orows_sucursales
-                    If identificado = "N" Then
-                        id_tercero = orow("f0200_id_tercero")
-                        direccion_despacho = orow("f0200_direccion_residencia")
-                        ciudad_despacho = orow("f0200_ciudad_residencia")
-                        validar_equivalencia_ciudad(razon_social, direccion, ciudad) 'Asigna el id_ciudad
-                        'Actualizo el registro tercero
-                        actualizar_tercero(id_tercero, direccion, razon_social, id_ciudad)
-                        identificado = "S"
-                    End If
-                Next
-                'Al no haber ni registro vacio ni direccion se crea un nuevo tercero.
-                If identificado = "N" Then
-                    validar_equivalencia_ciudad(razon_social, direccion, ciudad) 'Asigna el id_ciudad
-                    'crear_nuevo_tercero(nit, dig_ver, razon_social, direccion, id_ciudad)
-                    If verror = "N" Then
-                        id_tercero = cl_utilidades_datatables.consultar_consecutivo_creado_tablas("f0200_id_tercero",
-                                                                                                   "f0200_usuario_crear",
-                                                                                                   vg_usuario_autoriza,
-                                                                                                   "tb0200_terceros").ToString.PadLeft(8, "0")
-                        actualizar_sucursal_tercero(id_tercero)
-                        identificado = "S"
-                    End If
-                End If
-        End Select
-    End Sub
-
     Private Sub actualizar_tercero(ByVal id_tercero As String, ByVal direccion As String,
                                    razon_social As String, id_ciudad As String)
 
@@ -1010,7 +683,7 @@ Public Class fm_0800_cargar_rm
         oconn_form.Close()
     End Sub
 
-    Private Sub actualizar_sucursal_tercero(ByVal id_tercero As String)
+    Private Sub actualizar_sucursal_tercero(ByVal _IdTtercero As String, _IdSucursalUnoee As String)
         'cuando se crea un nuevo tercero se debe asignar un unico codigo de sucursal debido a al constraint de unicidad
 
         'Conectar base en postgres para actualizar tabla
@@ -1027,8 +700,8 @@ Public Class fm_0800_cargar_rm
         'Inserción parametrizada
         'crear_parametros_tb_terceros(ocmd)
         ocmd.Parameters.Clear()
-        ocmd.Parameters.Add("f0200_id_tercero", NpgsqlDbType.Varchar).Value = id_tercero
-        ocmd.Parameters.Add("f0200_id_sucursal_unoee", NpgsqlDbType.Varchar).Value = id_sucursal_unoee
+        ocmd.Parameters.Add("f0200_id_tercero", NpgsqlDbType.Varchar).Value = _IdTtercero
+        ocmd.Parameters.Add("f0200_id_sucursal_unoee", NpgsqlDbType.Varchar).Value = _IdSucursalUnoee
 
         verror = "N"
         Try
@@ -1045,6 +718,96 @@ Public Class fm_0800_cargar_rm
             Catch ex As Exception
                 verror = "S"
                 MsgBox("Hubo un error actualizando codigo sucursal" + vbCrLf + ex.ToString)
+            End Try
+        End If
+
+        ocmd = Nothing
+        oconn_form.Close()
+    End Sub
+
+    Private Sub actualizar_datos_encabezado_factura(ByVal f0850_id_rm As Integer, ciudad As String, direccion As String)
+        '
+        'cuando se crea un nuevo tercero se debe asignar un unico codigo de sucursal debido a al constraint de unicidad
+        'Conectar base en postgres para actualizar tabla
+        oconn_form = database.obtener_conexion()
+        ocmd = database.obtener_comando(oconn_form)
+
+        csql = "update " + database.obtener_esquema + ".tb0850_remisiones_cguno_encabezado set" _
+                    & " f0850_ciudad_destino = @f0850_ciudad_destino," _
+                    & " f0850_direccion_destino = @f0850_direccion_destino" _
+                    & " where f0850_id_rm = @f0850_id_rm"
+
+        ocmd.CommandText = csql
+
+        'Inserción parametrizada
+        'crear_parametros_tb_terceros(ocmd)
+        ocmd.Parameters.Clear()
+        ocmd.Parameters.Add("f0850_id_rm", NpgsqlDbType.Integer).Value = f0850_id_rm
+        ocmd.Parameters.Add("f0850_ciudad_destino", NpgsqlDbType.Varchar).Value = ciudad
+        ocmd.Parameters.Add("f0850_direccion_destino", NpgsqlDbType.Varchar).Value = direccion
+
+        verror = "N"
+        Try
+            'Compila el comando en la Base de datos.
+            ocmd.Prepare()
+        Catch ex As Exception
+            verror = "S"
+            MsgBox("Hubo un error al Compilar comando! actualizar codigo sucursal" + vbCrLf + ex.ToString)
+        End Try
+
+        If verror = "N" Then
+            Try
+                ocmd.ExecuteNonQuery()
+            Catch ex As Exception
+                verror = "S"
+                MsgBox("Hubo un error actualizando codigo sucursal" + vbCrLf + ex.ToString)
+            End Try
+        End If
+
+        ocmd = Nothing
+        oconn_form.Close()
+    End Sub
+    Private Sub AsignarTerceroCamoTodosEncabezadosNitSucursal(_nit As String, _id_tercero As String, _sucUnoEE As String,
+                                                              _ciudad As String, _direccion As String)
+        '
+        'cuando se crea un nuevo tercero se debe asignar un unico codigo de sucursal debido a al constraint de unicidad
+        'Conectar base en postgres para actualizar tabla
+        oconn_form = database.obtener_conexion()
+        ocmd = database.obtener_comando(oconn_form)
+
+        csql = "update " + database.obtener_esquema + ".tb0850_remisiones_cguno_encabezado set" _
+                    & " f0850_ciudad_destino = @f0850_ciudad_destino," _
+                    & " f0850_direccion_destino = @f0850_direccion_destino," _
+                    & " f0850_id_tercero = @f0850_id_tercero" _
+                    & " where f0850_anulado = 'N' and f0850_id_cia = '" & vg_id_cia & "'" _
+                    & " And f0850_id_despacho Is null" _
+                    & " And f0850_codigo_tercero = @f0850_codigo_tercero And f0850_id_sucursal_fact = @f0850_id_sucursal_fact"
+
+        ocmd.CommandText = csql
+
+        'Inserción parametrizada
+        'crear_parametros_tb_terceros(ocmd)
+        ocmd.Parameters.Clear()
+        ocmd.Parameters.Add("f0850_ciudad_destino", NpgsqlDbType.Varchar).Value = _ciudad
+        ocmd.Parameters.Add("f0850_direccion_destino", NpgsqlDbType.Varchar).Value = _direccion
+        ocmd.Parameters.Add("f0850_id_tercero", NpgsqlDbType.Varchar).Value = _id_tercero
+        ocmd.Parameters.Add("f0850_codigo_tercero", NpgsqlDbType.Varchar).Value = _nit
+        ocmd.Parameters.Add("f0850_id_sucursal_fact", NpgsqlDbType.Varchar).Value = _sucUnoEE
+        verror = "N"
+        Try
+            'Compila el comando en la Base de datos.
+            ocmd.Prepare()
+        Catch ex As Exception
+            verror = "S"
+            MsgBox("Hubo un error al Compilar comando! asignando tercero" + vbCrLf + ex.ToString)
+        End Try
+
+        If verror = "N" Then
+            Try
+                ocmd.ExecuteNonQuery()
+            Catch ex As Exception
+                verror = "S"
+                MsgBox("Hubo un error asignando tercero" + vbCrLf + ex.ToString)
             End Try
         End If
 
@@ -1272,7 +1035,7 @@ Public Class fm_0800_cargar_rm
         Dim filtroCodificado As String = Uri.EscapeDataString(filtro)
 
         Dim fullUrl As String =
-        "https://apiqa.siesacloud.com/connekta/siesa/estandar/consulta/v3" &
+        "https://api.siesacloud.com/connekta/siesa/estandar/consulta/v3" &
         "?idCompania=9174" &
         "&descripcion=API_v2_Ventas_Facturas_DesdePedido" &
         $"&paginacion=numPag={numPag}|tamPag=100" &
@@ -1283,7 +1046,6 @@ Public Class fm_0800_cargar_rm
         request.AddHeader("client_id", "BNvQCwIKFzDP51D1QkzObw4Es79ELWTRG0jN0X1sL1dUJKe0")
         request.AddHeader("ConniKey", "ff96a448b64d3a764b2501749fd6e354")
         request.AddHeader("ConniToken", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjNiZjFiNGE5LTY3ZDUtNGU5MC1iYmI1LWJiMjRiNGJjY2U5NiIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcHJpbWFyeXNpZCI6IjZiY2FhMDAwLTRkNTYtNGMwYS1iODRmLTcxY2JhMWM5NWNjMCJ9.6mqPMJgJwaUU2VCjdvTfIx_TXJGVOy2AZN6d7pZXo-Y")
-
         Dim response As RestResponse = Await client.ExecuteAsync(request)
 
         If Not response.IsSuccessful Then
@@ -1486,7 +1248,7 @@ Public Class fm_0800_cargar_rm
             id_cia_factura = rowEncabezado("f350_id_cia")
             id_factura = rowEncabezado("f350_consec_docto")
             numero_rm = rowEncabezado("f350_id_tipo_docto") & "-" & rowEncabezado("f350_id_cia") & "-" & rowEncabezado("f350_consec_docto").ToString.PadLeft(6, "0")
-            fecha_documento_rm = Mid(rowEncabezado("f350_fecha").ToString(), 1, 10)
+            fecha_documento_rm = rowEncabezado("f350_fecha").ToString() 'Mid(rowEncabezado("f350_fecha").ToString(), 1, 10)
             razon_social = rowEncabezado("f200_razon_social_fact").ToString()
             codigo_cliente = rowEncabezado("f200_nit_fact").ToString()
             digito_verificacion = ""
@@ -1500,12 +1262,12 @@ Public Class fm_0800_cargar_rm
             Dim info = ObtenerDatosPorId(codigo_cliente, id_sucursal_fact)
 
             Dim cter As String = ""
-            cter = info.Id
+            cter = info.Id_tercero
 
             Select Case True
                 Case IsNumeric(cter)
                     'SI ENCONTRO EL TERCERO
-                    id_tercero = info.Id
+                    id_tercero = info.Id_tercero
                     direccion = info.Direccion
                     ciudad_cliente = info.Ciudad
                     'MsgBox("Tercero encontrado: " & id_tercero & " - " & razon_social)
@@ -1513,7 +1275,7 @@ Public Class fm_0800_cargar_rm
                     If info.Suc_Unoee = "" Then
                         'Actualizar sucursal del tercero
                         id_sucursal_unoee = id_sucursal_fact
-                        actualizar_sucursal_tercero(id_tercero)
+                        actualizar_sucursal_tercero(id_tercero, id_sucursal_fact)
                     End If
                 Case cter = "ND"
                     'NO ENCONTRO EL TERCERO, SE DEBE CREAR
@@ -1589,9 +1351,9 @@ Public Class fm_0800_cargar_rm
 
 
     'Identificar el numero de sucursales asociadas a un cliente, el valor que identifica el cliente es el f0200_id que es el NIT
-    Public Function ObtenerDatosPorId(idBuscado As String, id_sucursal_fact As String) As ResultadoCliente
+    Public Function ObtenerDatosPorId(idBuscado As String, id_sucursal_fact As String) As DtoTercero
 
-        Dim resultado As New ResultadoCliente()
+        Dim resultado As New DtoTercero()
 
         ' Filtrar registros del cliente
         Dim filas = From f In otb_clientes.AsEnumerable()
@@ -1602,7 +1364,7 @@ Public Class fm_0800_cargar_rm
 
         ' --- Caso 0 registros ---
         If cantidad = 0 Then
-            resultado.Id = "ND"
+            resultado.Id_tercero = "ND"
             resultado.Id_Ciudad = ""
             resultado.Ciudad = ""
             resultado.Direccion = ""
@@ -1627,7 +1389,7 @@ Public Class fm_0800_cargar_rm
         End If
 
         ' Si no hay coincidencia con la sucursal
-        resultado.Id = "Varios"
+        resultado.Id_tercero = "Varios"
         resultado.Id_Ciudad = ""
         resultado.Ciudad = ""
         resultado.Direccion = ""
@@ -1637,9 +1399,9 @@ Public Class fm_0800_cargar_rm
     End Function
 
     'Identificar la informacion de la sucursal usando el id_tercero
-    Public Function ObtenerDatosPorIdTercero(idTercero As String) As ResultadoCliente
+    Public Function ObtenerDatosPorIdTercero(idTercero As String) As DtoTercero
 
-        Dim resultado As New ResultadoCliente()
+        Dim resultado As New DtoTercero()
 
         ' Filtrar registros del cliente
         Dim filas = From f In otb_clientes.AsEnumerable()
@@ -1652,8 +1414,8 @@ Public Class fm_0800_cargar_rm
 
     End Function
 
-    Private Function ConstruirResultadoDesdeFila(fila As DataRow) As ResultadoCliente
-        Dim r As New ResultadoCliente()
+    Private Function ConstruirResultadoDesdeFila(fila As DataRow) As DtoTercero
+        Dim r As New DtoTercero()
 
         Dim idTercero As String = fila.Field(Of String)("f0200_id_tercero")
         Dim idCiudad As String = fila.Field(Of String)("f0200_ciudad_residencia")
@@ -1671,7 +1433,7 @@ Public Class fm_0800_cargar_rm
             ciudadNombre = filaCiudad.Field(Of String)("destino")
         End If
 
-        r.Id = idTercero
+        r.Id_tercero = idTercero
         r.Id_Ciudad = idCiudad
         r.Ciudad = ciudadNombre
         r.Direccion = direccion
@@ -1682,7 +1444,6 @@ Public Class fm_0800_cargar_rm
     End Function
 
     Private Sub bt_asignar_sucursal_Click(sender As Object, e As EventArgs) Handles bt_asignar_sucursal.Click
-        Dim a As String = ""
         Dim filtro As String = ""
         If Tx_Nit.Text <> "" Then
             filtro = "nit LIKE '%" & Tx_Nit.Text.Trim & "%'"
@@ -1692,23 +1453,39 @@ Public Class fm_0800_cargar_rm
         End If
         ' Si hay asignado un tercero, editar ese tercero
         If tx_id_tercero.Text.Trim <> "" Then
-            abrir_form_sucursal(tx_id_tercero.Text.Trim)
-            cargar_dg_remisiones_sin_asignar()
+            Dim actualizado As String = "N"
+            actualizado = abrir_form_sucursal(DtoDgEnEdicion.Id_tercero)
+            If actualizado = "S" Then
+                cargar_otb_clientes()
+                'Traigo el id_ciudad y la direccion del tercero actualizado
+                Dim _dto1 As DtoTercero = ObtenerDatosPorIdTercero(DtoDgEnEdicion.Id_tercero)
+                DtoDgEnEdicion.Id_Ciudad = _dto1.Id_Ciudad
+                DtoDgEnEdicion.Direccion = _dto1.Direccion
+                ' Buscar ciudad en tb_ciudades
+                Dim filaCiudad1 = (From c In otb_ciudades.AsEnumerable()
+                                   Where c.Field(Of String)("f0052_codigo_ciudad") = DtoDgEnEdicion.Id_Ciudad
+                                   Select c).FirstOrDefault()
+                If filaCiudad1 IsNot Nothing Then
+                    DtoDgEnEdicion.Ciudad = filaCiudad1.Field(Of String)("destino")
+                End If
+                actualizar_datos_encabezado_factura(DtoDgEnEdicion.Id_Docto_Gestion, DtoDgEnEdicion.Ciudad, DtoDgEnEdicion.Direccion)
+                cargar_dg_remisiones_sin_asignar()
+                Exit Sub
+            End If
             Exit Sub
         End If
 
-
-
-        a = comunes.Buscador_Terceros("ST-0210-02", vg_id_cia, vg_usuario_autoriza, filtro)
-        If a = "" Then
+        ' Si hay varias sucursales para el NIT, abrir buscador para seleccionar la correcta
+        Dim _id_tercero As String = ""
+        _id_tercero = comunes.Buscador_Terceros("ST-0210-02", vg_id_cia, vg_usuario_autoriza, filtro)
+        If _id_tercero = "" Then
             MsgBox("No se seleccionó ningún tercero.", MsgBoxStyle.Critical)
             Exit Sub
         End If
-
         'validar que no se haya seleccionado un cliente diferente o una sucursal que ya este asignada
         verror = "N"
-        Dim info = ObtenerDatosPorIdTercero(a)
-        If info.Nit <> Tx_Nit.Text.Trim Then
+        Dim info = ObtenerDatosPorIdTercero(_id_tercero)
+        If info.Nit <> DtoDgEnEdicion.Nit Then
             verror = "S"
             MsgBox("El tercero seleccionado no coincide con el NIT ingresado.", MsgBoxStyle.Critical)
             Exit Sub
@@ -1718,21 +1495,49 @@ Public Class fm_0800_cargar_rm
             MsgBox("El tercero seleccionado ya tiene una sucursal asignada: " & info.Suc_Unoee, MsgBoxStyle.Critical)
             Exit Sub
         End If
+        DtoDgEnEdicion.Id_tercero = _id_tercero
+        ' Actualizar la sucursal del tercero seleccionado cambiar direccion y ciudad  
+        'id_sucursal_unoee = tx_id_sucursal_unoee.Text.Trim
+        'Dim id_rm As String = Tx_IdRm.Text.Trim
+        actualizar_sucursal_tercero(DtoDgEnEdicion.Id_tercero, DtoDgEnEdicion.Suc_Unoee)
+        cargar_otb_clientes()
+        'Traigo el id_ciudad y la direccion del tercero actualizado
+        Dim _dto2 As DtoTercero = ObtenerDatosPorIdTercero(DtoDgEnEdicion.Id_tercero)
+        DtoDgEnEdicion.Id_Ciudad = _dto2.Id_Ciudad
+        DtoDgEnEdicion.Direccion = _dto2.Direccion
+        ' Buscar ciudad en tb_ciudades
+        Dim filaCiudad2 = (From c In otb_ciudades.AsEnumerable()
+                           Where c.Field(Of String)("f0052_codigo_ciudad") = DtoDgEnEdicion.Id_Ciudad
+                           Select c).FirstOrDefault()
+        If filaCiudad2 IsNot Nothing Then
+            DtoDgEnEdicion.Ciudad = filaCiudad2.Field(Of String)("destino")
+        End If
 
-
-
+        'Actualizo los datos del encabezado con los nuevos datos del tercero
+        AsignarTerceroCamoTodosEncabezadosNitSucursal(DtoDgEnEdicion.Nit, _dto2.Id_tercero,
+                                                      DtoDgEnEdicion.Suc_Unoee, DtoDgEnEdicion.Ciudad,
+                                                      _dto2.Direccion)
+        cargar_otb_remisiones_sin_asignar()
+        cargar_dg_remisiones_sin_asignar()
     End Sub
-    Private Sub abrir_form_sucursal(id_tercero As String)
-        'Instanciamos el formulario como un objeto de la clase fm_grilla_turnos
-        'Esto es necesario hacerlo cuando antes de mostrar el formulario debemos configurarle valores previos
-        Dim oform_sucursal As New camocontrol.fm_0200_tercero_sucursal
-        oform_sucursal.vf_oform_padre = Me
-        oform_sucursal.vg_id_cia = vg_id_cia
-        oform_sucursal.vg_usuario_autoriza = vg_usuario_autoriza
-        oform_sucursal.vf_elemento_nuevo = "N"
-        oform_sucursal.id_tercero = id_tercero
-        oform_sucursal.ShowDialog()
-    End Sub
+    Private Function abrir_form_sucursal(id_tercero As String)
+        Dim actualizado As String = "N"
+        Using frm As New camocontrol.fm_0200_tercero_sucursal
+            frm.vf_oform_padre = Me
+            frm.vg_id_cia = vg_id_cia
+            frm.vg_usuario_autoriza = vg_usuario_autoriza
+            frm.vf_elemento_nuevo = "N"
+            frm.id_tercero = id_tercero
+
+            If frm.ShowDialog() = DialogResult.OK Then
+                'DtoDgEnEdicion = frm.Resultado 'NO ES NECESARIO RETORNAR EL DTO PORUQE SOLO SE ACTUALIZO LA CIUDAD Y DIRECCION Y BORRA EL ID_RM
+                actualizado = "S"
+            Else
+                MessageBox.Show("Operación Cancelada")
+            End If
+        End Using
+        Return actualizado
+    End Function
     Private Sub dg_remision_encabezado_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles dg_remision_encabezado.CellClick
         If dg_remision_encabezado.Rows.Count = 0 Then
             Exit Sub
@@ -1741,18 +1546,26 @@ Public Class fm_0800_cargar_rm
         If dg_remision_encabezado.CurrentRow IsNot Nothing Then
             Dim val = dg_remision_encabezado.CurrentRow.Cells("nit").Value
             Tx_Nit.Text = If(val Is Nothing OrElse IsDBNull(val), String.Empty, val.ToString())
+            DtoDgEnEdicion.Nit = Tx_Nit.Text
             val = dg_remision_encabezado.CurrentRow.Cells("id_tercero").Value
             tx_id_tercero.Text = If(val Is Nothing OrElse IsDBNull(val), String.Empty, val.ToString())
+            DtoDgEnEdicion.Id_tercero = tx_id_tercero.Text
+            val = dg_remision_encabezado.CurrentRow.Cells("id_rm").Value
+            Tx_IdRm.Text = If(val Is Nothing OrElse IsDBNull(val), String.Empty, val.ToString())
+            DtoDgEnEdicion.Id_Docto_Gestion = Tx_IdRm.Text
+            val = dg_remision_encabezado.CurrentRow.Cells("id_suc_unoee").Value
+            tx_id_sucursal_unoee.Text = If(val Is Nothing OrElse IsDBNull(val), String.Empty, val.ToString())
+            DtoDgEnEdicion.Suc_Unoee = tx_id_sucursal_unoee.Text
         End If
 
     End Sub
 End Class
 
-Public Class ResultadoCliente
-    Public Property Id As String
-    Public Property Id_Ciudad As String
-    Public Property Ciudad As String
-    Public Property Direccion As String
-    Public Property Suc_Unoee As String
-    Public Property Nit As String
-End Class
+'Public Class ResultadoCliente
+'    Public Property Id As String
+'    Public Property Id_Ciudad As String
+'    Public Property Ciudad As String
+'    Public Property Direccion As String
+'    Public Property Suc_Unoee As String
+'    Public Property Nit As String
+'End Class
