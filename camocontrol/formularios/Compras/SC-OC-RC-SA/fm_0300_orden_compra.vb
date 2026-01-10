@@ -1521,6 +1521,7 @@ Public Class fm_0300_orden_compra
             MsgBox("Hubo un error al Compilar comando! ") ' + ex.ToString)
         End Try
         If verror = "N" Then
+            'ocmd.ExecuteNonQuery()
             Try
                 ocmd.ExecuteNonQuery()
             Catch ex As Exception
@@ -1535,7 +1536,7 @@ Public Class fm_0300_orden_compra
         Dim ofecha As Date = comunes.g_fechahora
         ocmd.Parameters.Clear()
         If vf_elemento_nuevo = "N" Then
-            ocmd.Parameters.Add("@f0319_id_oc", NpgsqlDbType.Integer).Value = tx_id_orden_compra.Text.ToString
+            ocmd.Parameters.Add("@f0319_id_oc", NpgsqlDbType.Integer).Value = CInt(tx_id_orden_compra.Text.ToString)
         End If
         ocmd.Parameters.Add("@f0319_aprobada", NpgsqlDbType.Varchar).Value = "S"
         ocmd.Parameters.Add("@f0319_valor_oc", NpgsqlDbType.Numeric).Value = ocosto
@@ -1605,7 +1606,7 @@ Public Class fm_0300_orden_compra
         Dim ofecha As Date = comunes.g_fechahora
         ocmd.Parameters.Clear()
         If vf_elemento_nuevo = "N" Then
-            ocmd.Parameters.Add("@f0319_id_oc", NpgsqlDbType.Integer).Value = tx_id_orden_compra.Text.ToString
+            ocmd.Parameters.Add("@f0319_id_oc", NpgsqlDbType.Integer).Value = CInt(tx_id_orden_compra.Text.ToString)
         End If
         ocmd.Parameters.Add("@f0319_aprobada", NpgsqlDbType.Varchar).Value = "N"
         ocmd.Parameters.Add("@f0319_valor_oc", NpgsqlDbType.Numeric).Value = ocosto
@@ -1713,7 +1714,7 @@ Public Class fm_0300_orden_compra
         oconn_form = database.obtener_conexion()
         'actualizacion parametrizada
         csql = "update " + database.obtener_esquema + ".tb0319_ordenes_compra set "
-        csql += "f0319_oc_uno = '" & "OC-" & tx_oc_uno.Text.ToString & "'"
+        csql += "f0319_oc_uno = '" & tx_oc_uno.Text.ToString & "'"
         csql += " where f0319_id_oc = '" & tx_id_orden_compra.Text.ToString & "' and f0319_anulado = 'N'"
 
         ocmd = database.obtener_comando(oconn_form)
@@ -1735,7 +1736,7 @@ Public Class fm_0300_orden_compra
         oconn_form = database.obtener_conexion()
         'actualizacion parametrizada
         csql = "update " + database.obtener_esquema + ".tb0305_items_solicitados set "
-        csql += "f0305_oc_uno = '" & "OC-" & tx_oc_uno.Text.ToString & "'"
+        csql += "f0305_oc_uno = '" & tx_oc_uno.Text.ToString & "'"
         csql += " where f0305_id_oc = '" & tx_id_orden_compra.Text.ToString & "' and f0305_anulado = 'N'"
 
         ocmd = database.obtener_comando(oconn_form)
@@ -1753,16 +1754,16 @@ Public Class fm_0300_orden_compra
         oconn_form.Close()
     End Sub
 
-    Private Sub tx_oc_uno_KeyPress(sender As Object, e As KeyPressEventArgs) Handles tx_oc_uno.KeyPress
-        If Not IsNumeric(e.KeyChar) Then
-            e.Handled = True
-        End If
-        If e.KeyChar = Microsoft.VisualBasic.ChrW(Keys.Back) Then
-            e.Handled = False
-        End If
-        If e.KeyChar = "." Or e.KeyChar = "," Then
-            e.Handled = True
-        End If
+    Private Sub tx_oc_uno_KeyPress(sender As Object, e As KeyPressEventArgs)
+        'If Not IsNumeric(e.KeyChar) Then
+        '    e.Handled = True
+        'End If
+        'If e.KeyChar = Microsoft.VisualBasic.ChrW(Keys.Back) Then
+        '    e.Handled = False
+        'End If
+        'If e.KeyChar = "." Or e.KeyChar = "," Then
+        '    e.Handled = True
+        'End If
     End Sub
 
     Private Sub bt_actualizar_info_oc_siesa_Click(sender As Object, e As EventArgs) Handles bt_actualizar_info_oc_siesa.Click
@@ -1770,12 +1771,286 @@ Public Class fm_0300_orden_compra
             Exit Sub
         End If
         If IsNumeric(tx_oc_uno.Text) = False Then
-            MsgBox("Solo valores numericos", MsgBoxStyle.Critical)
-            Exit Sub
+            'MsgBox("Solo valores numericos", MsgBoxStyle.Critical)
+            'Exit Sub
         End If
+        Dim t_doc As String = ""
+
+
         actualizar_oc_siesa_encabezado_oc()
         actualizar_oc_siesa_items()
-        tx_oc_uno.Text = "OC-" & tx_oc_uno.Text
+        If verror = "N" Then
+            MsgBox("Listo")
+        End If
+        tx_oc_uno.Text = tx_oc_uno.Text '"OC-" & tx_oc_uno.Text
         'MsgBox("Actualizado", MsgBoxStyle.Information)
     End Sub
+
+
+    '''PARA CREAR EL ARCHIVO PLANO DE LA OC EN SIESA
+    '''
+
+    ''' <summary>
+    ''' Genera un archivo de texto con N líneas construidas mediante las funciones de línea fija.
+    ''' </summary>
+    Public Sub GenerarArchivoTexto(rutaArchivo As String,
+                                   cantidadLineas As Integer,
+                                   longitudLinea As Integer)
+
+        Dim lineas As New List(Of String)
+        Dim lineaApertura As String = "000000100000001001"
+        Dim lineaDocumento As String = "0000002045000020011001SI 0000001120251231               06110SALDOS INICIALES                                                                                                                                                                                                                                               601                               00000000                                                                                                                                          0000000000.0000000000000000000.0000000000000000000.0000000000000000000.0000                                                                                                                                                                                                                                                               "
+        Dim LineaItem As String = "000001304700003001001SI 000000304700005001001SI 000000110000000001                                                       0179                          60199001                                UND 000000000000006.0000000000000000000.0000000000000035739.5800"
+        Dim LineaCierre As String = "000001299990001001"
+
+        ''MATRIZ DE DEFINICION DE CAMPOS SECCION INICIO
+        Dim MatSeccion(,) As String = {
+            {"F_NUMERO_REG", "1", "7", "0", "ND"},
+            {"F_TIPO_REG", "8", "4", "0", "0000"},
+            {"F_SUBTIPO_REG", "12", "2", "0", "00"},
+            {"F_VERSION_REG", "14", "2", "0", "01"},
+            {"F_CIA", "16", "3", "0", "001"}
+        }
+        'CONVIERTO LA MATRIZ EN UNA LISTA DE OBJETOS DTO PARA LINEA INICIAL
+        Dim ListaDtosSeccion As IEnumerable(Of CampoDto) = ConvertirMatriz(MatSeccion)
+        ' 1. Crear una línea inicial con espacios
+        Dim lineaDinamica As String = CrearLineaInicial(18)
+        'Apartir de aqui se pueden usar los campos para construir la linea inicial dinamicamente
+        lineaDinamica = ReemplazarValores(ListaDtosSeccion, lineaDinamica, "F_NUMERO_REG", "1")
+        lineaDinamica = ReemplazarValores(ListaDtosSeccion, lineaDinamica, "F_TIPO_REG", "0")
+        lineaDinamica = ReemplazarValores(ListaDtosSeccion, lineaDinamica, "F_SUBTIPO_REG", "01")
+        lineaDinamica = ReemplazarValores(ListaDtosSeccion, lineaDinamica, "F_VERSION_REG", "01")
+        lineaDinamica = ReemplazarValores(ListaDtosSeccion, lineaDinamica, "F_CIA", "1")
+        lineas.Add(lineaDinamica)
+
+        'CONVIERTO LA MATRIZ EN UNA LISTA DE OBJETOS DTO PARA LINEA INICIO DOCUMENTO (DOCUMENTOS VERSION 03)
+        MatSeccion = {
+            {"F_NUMERO_REG", "1", "7", "0", "CONSECUTIVO"},
+            {"F_TIPO_REG", "8", "4", "0", "420"},
+            {"F_SUBTIPO_REG", "12", "2", "0", "00"},
+            {"F_VERSION_REG", "14", "2", "0", "03"},
+            {"F_CIA", "16", "3", "0", "1"},
+            {"F_LIQUIDA_IMPUESTO", "19", "1", "0", "1"},
+            {"F_CONSEC_AUTO_REG", "20", "1", "0", "1"},
+            {"f420_id_co", "21", "3", "0", "001"},
+            {"f420_id_tipo_docto", "24", "3", " ", "OS o  OC"},
+            {"f420_consec_docto", "27", "8", "0", "1"},
+            {"f420_fecha", "35", "8", " ", "FECHA"},
+            {"f420_id_concepto", "43", "3", "0", "401"},
+            {"f420_id_grupo_clase_docto", "46", "3", "0", "402"},
+            {"f420_id_clase_docto", "49", "3", "0", "404"},
+            {"f420_ind_estado", "52", "1", "0", "1"},
+            {"f420_ind_impresion", "53", "1", "0", "0"},
+            {"f420_id_tercero_sol_comp", "54", "15", " ", "CEDULA DEL COMPRADOR"},
+            {"f420_id_tercero_prov", "69", "15", "0", "NIT DEL TERCERO"},
+            {"f420_id_sucursal_prov", "84", "3", "0", "000"},
+            {"f420_id_cond_pago", "87", "3", "0", "30D"},
+            {"f420_ind_tasa", "90", "1", "0", "1"},
+            {"f420_id_moneda_docto", "91", "3", "0", "COP"},
+            {"f420_id_moneda_conv", "94", "3", "0", "COP"},
+            {"f420_tasa_conv", "97", "13", "0", "1"},
+            {"f420_id_moneda_local", "110", "3", "0", "COP"},
+            {"f420_tasa_local", "113", "13", "0", "1"},
+            {"f420_tasa_dscto_global1", "126", "8", "0", "0"},
+            {"f420_tasa_dscto_global2", "134", "8", "0", "0"},
+            {"f420_notas", "142", "255", " ", "NOTA DEL DOCUMENTO"},
+            {"F_IND_CONTACTO", "397", "1", "0", "1"},
+            {"f420_num_docto_referencia", "716", "15", " ", "USAR OC DATO CAMO"}
+        }
+        'CONVIERTO LA MATRIZ EN UNA LISTA DE OBJETOS DTO PARA LINEA INICIO
+        ListaDtosSeccion = ConvertirMatriz(MatSeccion)
+        ' 1. Crear una línea inicial con espacios
+        lineaDinamica = CrearLineaInicial(745)
+        'Apartir de aqui se pueden usar los campos para construir la linea inicial dinamicamente
+        lineaDinamica = ReemplazarValores(ListaDtosSeccion, lineaDinamica, "F_NUMERO_REG", "2")
+        lineaDinamica = ReemplazarValores(ListaDtosSeccion, lineaDinamica, "F_TIPO_REG", "")
+        lineaDinamica = ReemplazarValores(ListaDtosSeccion, lineaDinamica, "F_SUBTIPO_REG", "")
+        lineaDinamica = ReemplazarValores(ListaDtosSeccion, lineaDinamica, "F_VERSION_REG", "")
+        lineaDinamica = ReemplazarValores(ListaDtosSeccion, lineaDinamica, "F_CIA", "")
+        lineaDinamica = ReemplazarValores(ListaDtosSeccion, lineaDinamica, "F_LIQUIDA_IMPUESTO", "")
+        lineaDinamica = ReemplazarValores(ListaDtosSeccion, lineaDinamica, "F_CONSEC_AUTO_REG", "")
+        lineaDinamica = ReemplazarValores(ListaDtosSeccion, lineaDinamica, "f420_id_co", "")
+        lineaDinamica = ReemplazarValores(ListaDtosSeccion, lineaDinamica, "f420_id_tipo_docto", "OC ") 'Cambiar a OS cuando corresponda
+        lineaDinamica = ReemplazarValores(ListaDtosSeccion, lineaDinamica, "f420_consec_docto", "")
+        lineaDinamica = ReemplazarValores(ListaDtosSeccion, lineaDinamica, "f420_fecha", DateTime.Now.ToString("yyyyMMdd"))
+        lineaDinamica = ReemplazarValores(ListaDtosSeccion, lineaDinamica, "f420_id_concepto", "")
+        lineaDinamica = ReemplazarValores(ListaDtosSeccion, lineaDinamica, "f420_id_grupo_clase_docto", "")
+        lineaDinamica = ReemplazarValores(ListaDtosSeccion, lineaDinamica, "f420_id_clase_docto", "")
+        lineaDinamica = ReemplazarValores(ListaDtosSeccion, lineaDinamica, "f420_ind_estado", "")
+        lineaDinamica = ReemplazarValores(ListaDtosSeccion, lineaDinamica, "f420_ind_impresion", "")
+        lineaDinamica = ReemplazarValores(ListaDtosSeccion, lineaDinamica, "f420_id_tercero_sol_comp", "94492746") 'CEDULA DEL COMPRADOR
+        lineaDinamica = ReemplazarValores(ListaDtosSeccion, lineaDinamica, "f420_id_tercero_prov", "800034768") 'NIT DEL TERCERO
+        lineaDinamica = ReemplazarValores(ListaDtosSeccion, lineaDinamica, "f420_id_sucursal_prov", "000") 'implementar consulta de api para obtener esta informacion
+        lineaDinamica = ReemplazarValores(ListaDtosSeccion, lineaDinamica, "f420_id_cond_pago", "")
+        lineaDinamica = ReemplazarValores(ListaDtosSeccion, lineaDinamica, "f420_ind_tasa", "")
+        lineaDinamica = ReemplazarValores(ListaDtosSeccion, lineaDinamica, "f420_id_moneda_docto", "")
+        lineaDinamica = ReemplazarValores(ListaDtosSeccion, lineaDinamica, "f420_id_moneda_conv", "")
+        lineaDinamica = ReemplazarValores(ListaDtosSeccion, lineaDinamica, "f420_tasa_conv", "")
+        lineaDinamica = ReemplazarValores(ListaDtosSeccion, lineaDinamica, "f420_id_moneda_local", "00000000.0000") 'CAMBIE ""
+        lineaDinamica = ReemplazarValores(ListaDtosSeccion, lineaDinamica, "f420_tasa_dscto_global1", "")
+        lineaDinamica = ReemplazarValores(ListaDtosSeccion, lineaDinamica, "f420_tasa_dscto_global2", "")
+        lineaDinamica = ReemplazarValores(ListaDtosSeccion, lineaDinamica, "f420_notas", "ESTA ES UNA PRUEBA") 'ESPACIO PARA NOTAS
+        lineaDinamica = ReemplazarValores(ListaDtosSeccion, lineaDinamica, "F_IND_CONTACTO", "") 'LO METI PARA PROBAR
+        lineaDinamica = ReemplazarValores(ListaDtosSeccion, lineaDinamica, "f420_num_docto_referencia", "RS_CAMO") 'USAR OC DATO CAMO
+        lineas.Add(lineaDinamica)
+
+        'CONVIERTO LA MATRIZ EN UNA LISTA DE OBJETOS DTO PARA LINEA MOVIIENTO DEL DOCUMENTO (MOVIMIENTO VERSION 04)
+        MatSeccion = {
+            {"F_NUMERO_REG", "1", "7", "0", "CONSEC GLOBAL"},
+            {"F_TIPO_REG", "8", "4", "0", "421"},
+            {"F_SUBTIPO_REG", "12", "2", "0", "00"},
+            {"F_VERSION_REG", "14", "2", "0", "04"},
+            {"F_CIA", "16", "3", "0", "001"},
+            {"f421_id_co", "19", "3", "0", "001"},
+            {"f421_id_tipo_docto", "22", "3", " ", "OC o OS SEGÚN LO QUE ESTE HACIENDO"},
+            {"f421_consec_docto", "25", "8", "0", "1"},
+            {"f421_nro_registro", "33", "10", "0", "1"},
+            {"f421_id_bodega", "98", "5", "0", "09"},
+            {"f421_id_concepto", "103", "3", "0", "401"},
+            {"f421_id_motivo", "106", "2", "0", "01 PARA PRODUCTOS Y 73 PARA SERVICIOS"},
+            {"f421_ind_obsequio", "108", "1", "0", "0"},
+            {"f421_id_co_movto", "109", "3", "0", "001"},
+            {"f421_id_unidad_medida", "144", "4", " ", "UND"},
+            {"f421_cant_pedida_base", "148", "20", "0", "Cantidad pedida "},
+            {"f421_fecha_entrega", "168", "8", " ", "FECHA REQUERIDA O LA DEL SISTEMA"},
+            {"f421_precio_unitario", "191", "20", "0", "Precio unitario"},
+            {"f421_notas", "211", "255", " ", "NOTA DEL MOV"},
+            {"f421_id_item", "2510", "7", "0", "0"},
+            {"f421_referencia_item", "2517", "50", " ", "REFERENCIA"},
+            {"f421_id_un_movto", "2627", "20", "0", "099"},
+            {"f421_tasa_dscto_condicionado", "2647", "8", "0", "000.0000"}
+        }
+        'CONVIERTO LA MATRIZ EN UNA LISTA DE OBJETOS DTO PARA LINEA INICIO
+        ListaDtosSeccion = ConvertirMatriz(MatSeccion)
+        ' 1. Crear una línea inicial con espacios
+        lineaDinamica = CrearLineaInicial(2654)
+        'Apartir de aqui se pueden usar los campos para construir la linea inicial dinamicamente
+        lineaDinamica = ReemplazarValores(ListaDtosSeccion, lineaDinamica, "F_NUMERO_REG", "3") 'CONTEO DE LINEA INICIA EN 3 Y AUMENTA
+        lineaDinamica = ReemplazarValores(ListaDtosSeccion, lineaDinamica, "F_TIPO_REG", "")
+        lineaDinamica = ReemplazarValores(ListaDtosSeccion, lineaDinamica, "F_SUBTIPO_REG", "")
+        lineaDinamica = ReemplazarValores(ListaDtosSeccion, lineaDinamica, "F_VERSION_REG", "")
+        lineaDinamica = ReemplazarValores(ListaDtosSeccion, lineaDinamica, "F_CIA", "")
+        lineaDinamica = ReemplazarValores(ListaDtosSeccion, lineaDinamica, "f421_id_co", "")
+        lineaDinamica = ReemplazarValores(ListaDtosSeccion, lineaDinamica, "f421_id_tipo_docto", "OC ") 'Cambiar a OS cuando corresponda
+        lineaDinamica = ReemplazarValores(ListaDtosSeccion, lineaDinamica, "f421_consec_docto", "")
+        lineaDinamica = ReemplazarValores(ListaDtosSeccion, lineaDinamica, "f421_nro_registro", "")
+        lineaDinamica = ReemplazarValores(ListaDtosSeccion, lineaDinamica, "f421_id_bodega", "")
+        lineaDinamica = ReemplazarValores(ListaDtosSeccion, lineaDinamica, "f421_id_concepto", "")
+        lineaDinamica = ReemplazarValores(ListaDtosSeccion, lineaDinamica, "f421_id_motivo", "01") '01 PARA PRODUCTOS Y 73 PARA SERVICIOS
+        lineaDinamica = ReemplazarValores(ListaDtosSeccion, lineaDinamica, "f421_ind_obsequio", "")
+        lineaDinamica = ReemplazarValores(ListaDtosSeccion, lineaDinamica, "f421_id_co_movto", "")
+        lineaDinamica = ReemplazarValores(ListaDtosSeccion, lineaDinamica, "f421_id_unidad_medida", "UND") 'UNIDAD DE MEDIDA
+        lineaDinamica = ReemplazarValores(ListaDtosSeccion, lineaDinamica, "f421_cant_pedida_base", "100.0000") 'Cantidad pedida
+        lineaDinamica = ReemplazarValores(ListaDtosSeccion, lineaDinamica, "f421_fecha_entrega", DateTime.Now.ToString("yyyyMMdd"))
+        lineaDinamica = ReemplazarValores(ListaDtosSeccion, lineaDinamica, "f421_precio_unitario", "1000")
+        lineaDinamica = ReemplazarValores(ListaDtosSeccion, lineaDinamica, "f421_notas", "NOTA DEL MOVIMIENTO") 'NOTA DEL MOVIMIENTO
+        lineaDinamica = ReemplazarValores(ListaDtosSeccion, lineaDinamica, "f421_id_item", "") 'ID DEL PRODUCTO SE LO METI
+        lineaDinamica = ReemplazarValores(ListaDtosSeccion, lineaDinamica, "f421_referencia_item", "000655") 'REFERENCIA DEL PRODUCTO
+        lineaDinamica = ReemplazarValores(ListaDtosSeccion, lineaDinamica, "f421_id_un_movto", "")
+        lineaDinamica = ReemplazarValores(ListaDtosSeccion, lineaDinamica, "f421_tasa_dscto_condicionado", "")
+        lineas.Add(lineaDinamica)
+
+
+
+        'CONVIERTO LA MATRIZ EN UNA LISTA DE OBJETOS DTO PARA LINEA FINAL DEL DOCUMENTO
+        MatSeccion = {
+            {"F_NUMERO_REG", "1", "7", "0", "CONSECUTIVO DE LINEA"},
+            {"F_TIPO_REG", "8", "4", "0", "9999"},
+            {"F_SUBTIPO_REG", "12", "2", "0", "00"},
+            {"F_VERSION_REG", "14", "2", "0", "01"},
+            {"F_CIA", "16", "3", "0", "001"}
+        }
+        'CONVIERTO LA MATRIZ EN UNA LISTA DE OBJETOS DTO PARA LINEA INICIO
+        ListaDtosSeccion = ConvertirMatriz(MatSeccion)
+        ' 1. Crear una línea inicial con espacios
+        lineaDinamica = CrearLineaInicial(18)
+        'Apartir de aqui se pueden usar los campos para construir la linea inicial dinamicamente
+        lineaDinamica = ReemplazarValores(ListaDtosSeccion, lineaDinamica, "F_NUMERO_REG", "4") 'CONTEO DE LINEA INICIA EN 3 Y AUMENTA
+        lineaDinamica = ReemplazarValores(ListaDtosSeccion, lineaDinamica, "F_TIPO_REG", "")
+        lineaDinamica = ReemplazarValores(ListaDtosSeccion, lineaDinamica, "F_SUBTIPO_REG", "")
+        lineaDinamica = ReemplazarValores(ListaDtosSeccion, lineaDinamica, "F_VERSION_REG", "")
+        lineaDinamica = ReemplazarValores(ListaDtosSeccion, lineaDinamica, "F_CIA", "")
+        lineas.Add(lineaDinamica)
+
+
+        System.IO.File.WriteAllLines(rutaArchivo, lineas, System.Text.Encoding.UTF8)
+    End Sub
+    Private Function ReemplazarValores(ListaDtosSecc As IEnumerable(Of CampoDto), LineaEdicion As String, Nombre As String, valor As String)
+        Dim campoNumReg As CampoDto = ObtenerCampoPorNombre(ListaDtosSecc, Nombre)
+        If valor <> "" Then
+            campoNumReg.Valor = valor
+        End If
+        LineaEdicion = ReemplazarFragmento(LineaEdicion, campoNumReg.Valor.PadLeft(CInt(campoNumReg.Tamaño), campoNumReg.DigRelleno), CInt(campoNumReg.Inicio) - 1)
+        Return LineaEdicion
+    End Function
+    Private Function CrearLineaInicial(longitud As Integer) As String
+        If longitud <= 0 Then Return String.Empty
+        Return New String(" "c, longitud)
+    End Function
+    Private Function ReemplazarFragmento(LineaTotal As String,
+                                         FragmentoLinea As String,
+                                         posicionInicio As Integer) As String
+
+        If posicionInicio < 0 Then Throw New ArgumentOutOfRangeException(NameOf(posicionInicio))
+        If posicionInicio + FragmentoLinea.Length > LineaTotal.Length Then
+            Throw New ArgumentException("El fragmento excede la longitud de la línea.")
+        End If
+
+        Dim resultado As Char() = LineaTotal.ToCharArray()
+
+        For i As Integer = 0 To FragmentoLinea.Length - 1
+            resultado(posicionInicio + i) = FragmentoLinea(i)
+        Next
+
+        Return New String(resultado)
+    End Function
+
+    Private Sub usar()
+        Dim ruta As String = "C:\Data\oc_siesa.txt"
+        Dim cantidad As Integer = 10
+        Dim longitud As Integer = 80
+
+        GenerarArchivoTexto(ruta, cantidad, longitud)
+
+        MessageBox.Show("Archivo generado correctamente.")
+
+
+
+    End Sub
+
+    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+        usar()
+
+    End Sub
+
+    Public Function ConvertirMatriz(matriz(,) As String) As IEnumerable(Of CampoDto)
+
+        Dim filas = matriz.GetLength(0)
+        Dim columnas = matriz.GetLength(1)
+
+        Dim lista As New List(Of CampoDto)
+
+        For i = 0 To filas - 1
+            lista.Add(New CampoDto With {
+                .Nombre = matriz(i, 0),
+                .Inicio = matriz(i, 1),
+                .Tamaño = matriz(i, 2),
+                .DigRelleno = matriz(i, 3),
+                .Valor = matriz(i, 4)
+            })
+        Next
+
+        Return lista
+    End Function
+    Public Function ObtenerCampoPorNombre(campos As IEnumerable(Of CampoDto), nombreBuscado As String) As CampoDto
+        Return campos.FirstOrDefault(Function(c) c.Nombre.Equals(nombreBuscado, StringComparison.OrdinalIgnoreCase))
+    End Function
+
+End Class
+Public Class CampoDto
+    Public Property Nombre As String
+    Public Property Inicio As String
+    Public Property Tamaño As String
+    Public Property DigRelleno As String
+    Public Property Valor As String
 End Class

@@ -502,6 +502,11 @@ Row event argument class
 Row event argument class
 </summary>
 </member>
+<member name="M:camocontrol.fm_0300_orden_compra.GenerarArchivoTexto(System.String,System.Int32,System.Int32)">
+ <summary>
+ Genera un archivo de texto con N líneas construidas mediante las funciones de línea fija.
+ </summary>
+</member>
 <member name="M:camocontrol.fm_0600_gestion_seguimiento.traer_info_accion">
  <summary>
  

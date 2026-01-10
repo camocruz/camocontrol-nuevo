@@ -570,7 +570,7 @@
     Private Sub Crear_parametros_item(ByVal ocmd As NpgsqlCommand)
         ocmd.Parameters.Clear()
         If vf_elemento_nuevo = "N" Then
-            ocmd.Parameters.Add("f0305_id_item_solicitud", NpgsqlDbType.Integer).Value = tx_id_registro.Text.ToString
+            ocmd.Parameters.Add("f0305_id_item_solicitud", NpgsqlDbType.Integer).Value = CInt(tx_id_registro.Text.ToString)
         End If
         ocmd.Parameters.Add("@f0305_id_cia", NpgsqlDbType.Varchar).Value = vg_id_cia
         ocmd.Parameters.Add("@f0305_id_solicitud_compra", NpgsqlDbType.Integer).Value = id_solicitud_compra
@@ -583,7 +583,7 @@
         ocmd.Parameters.Add("@f0305_id_item", NpgsqlDbType.Integer).Value = CInt(tx_id_item.Text.ToString)
         ocmd.Parameters.Add("@f0305_ampliacion_item", NpgsqlDbType.Varchar).Value = tx_descripcion_manual.Text.ToString
         ocmd.Parameters.Add("@f0305_anotacion_item", NpgsqlDbType.Varchar).Value = tx_observacion.Text.ToString
-        ocmd.Parameters.Add("@f0305_cantidad", NpgsqlDbType.Numeric).Value = tx_cantidad.Text
+        ocmd.Parameters.Add("@f0305_cantidad", NpgsqlDbType.Numeric).Value = CDbl(tx_cantidad.Text)
         If chk_inventario.Checked = True Then
             ocmd.Parameters.Add("@f0305_chkinventario", NpgsqlDbType.Char).Value = "S"
         Else

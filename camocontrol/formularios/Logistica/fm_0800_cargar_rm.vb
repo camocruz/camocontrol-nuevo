@@ -52,6 +52,8 @@ Public Class fm_0800_cargar_rm
     Private referencia_1 As String = ""
     Private referencia_2 As String = ""
     Private cantidad_producto As Decimal = 0
+    Private cantidad_producto_original As Decimal = 0
+    Private factor_empaque_siesa As Integer = 1
     Private descripcion_producto As String = ""
     Private falla_items As String = "N"
     Private txt_falla_item As String = ""
@@ -82,6 +84,15 @@ Public Class fm_0800_cargar_rm
     Public ciudad_despacho As String
 
     Private Sub fm_0800_cargar_rm_Load(sender As Object, e As EventArgs) Handles Me.Load
+        'SECCION QUE CONTROLA LOS PERMISOS DE LOS USUARIOS
+        Dim vusuario As String
+        vusuario = formulario_inicio.vlogin2.Trim 'el usuario actual del software 000000001234
+        'MsgBox(PrySidoc.Menu.vlogin2)
+        'Conseguimos los permisos del usuario en el formulario
+        Dim permisos As New cl_gestion_permisos
+        vf_otabla_permisos = permisos.identificar_permisos_usuario(vusuario, Me.Name, ocontexto_form) 'llenamos el datatable con los permisos
+        Dim ctrls As List(Of Control) = cl_gestion_permisos.habilitarcontroles(Of Control)(Me, True, vf_otabla_permisos, ocontexto_form)
+        '**********************
 
         dg_remision_encabezado.AllowUserToAddRows = False
         dg_remision_encabezado.AllowUserToDeleteRows = False
@@ -191,14 +202,14 @@ Public Class fm_0800_cargar_rm
         csql = "insert into " + database.obtener_esquema + ".tb0851_remisiones_cguno_detalle" _
             & " (" _
             & " f0851_id_rm, f0851_rm, f0851_id_cia, f0851_referencia_1, f0851_referencia_2," _
-            & " f0851_descripcion, f0851_cantidad," _
+            & " f0851_descripcion, f0851_cantidad, f0851_cantidad_origen, f0851_factor_empaque_siesa," _
             & " f0851_val_unit, f0851_iva, f0851_val_tot," _
             & " f0851_usuario_crear," _
             & " f0851_usuario_modificar" _
             & ") values" _
             & " (" _
             & " @f0851_id_rm, @f0851_rm, @f0851_id_cia, @f0851_referencia_1, @f0851_referencia_2," _
-            & " @f0851_descripcion, @f0851_cantidad," _
+            & " @f0851_descripcion, @f0851_cantidad, @f0851_cantidad_origen, @f0851_factor_empaque_siesa," _
             & " @f0851_val_unit, @f0851_iva, @f0851_val_tot," _
             & " @f0851_usuario_crear," _
             & " @f0851_usuario_modificar" _
@@ -216,6 +227,8 @@ Public Class fm_0800_cargar_rm
         ocmd.Parameters.Add("f0851_referencia_2", NpgsqlDbType.Varchar).Value = referencia_2
         ocmd.Parameters.Add("f0851_descripcion", NpgsqlDbType.Varchar).Value = descripcion_producto
         ocmd.Parameters.Add("f0851_cantidad", NpgsqlDbType.Numeric).Value = cantidad_producto
+        ocmd.Parameters.Add("f0851_cantidad_origen", NpgsqlDbType.Numeric).Value = cantidad_producto_original
+        ocmd.Parameters.Add("f0851_factor_empaque_siesa", NpgsqlDbType.Integer).Value = factor_empaque_siesa
         ocmd.Parameters.Add("f0851_usuario_crear", NpgsqlDbType.Varchar).Value = vg_usuario_autoriza
         ocmd.Parameters.Add("f0851_usuario_modificar", NpgsqlDbType.Varchar).Value = vg_usuario_autoriza
         ocmd.Parameters.Add("f0851_val_unit", NpgsqlDbType.Numeric).Value = item_valor_unitario
@@ -870,6 +883,8 @@ Public Class fm_0800_cargar_rm
         Dim producto As String
         Dim ref1 As String = ""
         Dim ref2 As String = ""
+        Dim FactorEmpaqueItemCg As Integer = 1
+        Dim FactorEmpaqueSiesa As Integer = 1
         txt_falla_item = ""
         For Each orow As DataRow In otb_items_rm.Rows
             'Primero identifico el id_item
@@ -878,6 +893,30 @@ Public Class fm_0800_cargar_rm
             producto = orow("f0851_descripcion")
             ref1 = orow("f0851_referencia_1")
             ref2 = orow("f0851_referencia_2")
+
+            FactorEmpaqueSiesa =
+            If(IsDBNull(orow("f0851_factor_empaque_siesa")),
+                0,
+                Convert.ToInt32(orow("f0851_factor_empaque_siesa")))
+
+            Dim info_item_cg As DtoItemCg = ObtenerDatosItemCG(ref1)
+            FactorEmpaqueItemCg = If(info_item_cg?.Factor_empaque, 0)
+
+            'Los factores de empaque no pueden ser cero o uno o diferentes
+            ' Determinar si hay falla en los factores de empaque
+            'Dim hayFalla As Boolean =
+            '    (FactorEmpaqueItemCg <= 1) OrElse
+            '    (FactorEmpaqueSiesa <= 1 AndAlso FactorEmpaqueSiesa <> FactorEmpaqueItemCg)
+
+            'If hayFalla Then
+            '    falla_items = "S"
+            '    txt_falla_item =
+            '        "Los factores de empaque de un Item en CAMO no pueden ser = 1 o diferentes entre CAMO y SIESA para:" & vbCrLf &
+            '        producto & vbCrLf &
+            '        " ( " & ref1 & " ) ( " & ref2 & " ) " & vbCrLf &
+            '        " El factor de empaque debe ser el número de unidades que se despacha por caja o equivalente"
+            'End If
+
             Dim otb_item_identificado() As DataRow
             'MsgBox(otb_items.Rows.Count)
             otb_item_identificado = otb_items.Select("f0300_referencia = '" & ref1 & "'") ' and f0300_referencia_empaque = '" & ref2 & "'")
@@ -1360,9 +1399,8 @@ Public Class fm_0800_cargar_rm
                 Else
                     cantidad_producto = rowDetalle("f470_cant_1") / rowDetalle("f470_factor")
                 End If
-
-
-
+                cantidad_producto_original = rowDetalle("f470_cant_1")
+                factor_empaque_siesa = rowDetalle("f470_factor")
                 item_valor_unitario = rowDetalle("f470_precio_uni")
                 item_valor_impuestos = rowDetalle("f470_vlr_imp")
                 item_valor_neto = rowDetalle("f470_vlr_neto")

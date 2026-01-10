@@ -681,6 +681,7 @@ C:\Repos\camocontrol\camocontrol\obj\x86\Debug\camocontrol.fm_0300_formulacion_i
 C:\Repos\camocontrol\camocontrol\obj\x86\Debug\camocontrol.fm_0300_historico_compras_item.resources
 C:\Repos\camocontrol\camocontrol\obj\x86\Debug\camocontrol.fm_0300_formulacion.resources
 C:\Repos\camocontrol\camocontrol\obj\x86\Debug\camocontrol.fm_0400_impresion_etiquetas.resources
+C:\Repos\camocontrol\camocontrol\obj\x86\Debug\camocontrol.fm_0800_cargar_rm.resources
 C:\Repos\camocontrol\camocontrol\obj\x86\Debug\camocontrol.fm_0800_registro_pedidos.resources
 C:\Repos\camocontrol\camocontrol\obj\x86\Debug\camocontrol.FI_VISOR_CR.resources
 C:\Repos\camocontrol\camocontrol\obj\x86\Debug\camocontrol.fm_0008_archivos_recibo_consignacion.resources
@@ -736,4 +737,3 @@ C:\Repos\camocontrol\camocontrol\obj\x86\Debug\camocont.270CA531.Up2Date
 C:\Repos\camocontrol\camocontrol\obj\x86\Debug\camocontrol.exe
 C:\Repos\camocontrol\camocontrol\obj\x86\Debug\camocontrol.xml
 C:\Repos\camocontrol\camocontrol\obj\x86\Debug\camocontrol.pdb
-C:\Repos\camocontrol\camocontrol\obj\x86\Debug\camocontrol.fm_0800_cargar_rm.resources
