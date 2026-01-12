@@ -860,6 +860,7 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Modulos\Extenciones.vb" />
+    <Compile Include="Modulos\JsonToTablesHelper.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>

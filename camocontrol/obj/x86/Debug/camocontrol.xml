@@ -503,6 +503,7 @@ Row event argument class
 </summary>
 </member>
 <member name="M:camocontrol.fm_0300_orden_compra.GenerarArchivoTexto(System.String,System.Int32,System.Int32)">
+PARA CREAR EL ARCHIVO PLANO DE LA OC EN SIESA
  <summary>
  Genera un archivo de texto con N líneas construidas mediante las funciones de línea fija.
  </summary>
