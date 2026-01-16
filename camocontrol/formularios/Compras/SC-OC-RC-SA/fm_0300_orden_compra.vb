@@ -522,7 +522,7 @@ Public Class fm_0300_orden_compra
         Next
     End Sub
     Private Sub cargar_info_tercero()
-        csql = "select f0200_id_tercero, f0200_id || '-' ||f0200_dig_ver_nit as nit," _
+        csql = "select f0200_id_tercero, f0200_id as nit," _
             & "trim(both ' ' from f0200_nombres || ' ' || f0200_apellido1 || ' ' || f0200_apellido2 || ' - ' || f0200_id) as razon_social" _
             & " FROM " & database.obtener_esquema & ".tb0200_terceros" _
             & " where f0200_ind_principal = 'S' and f0200_id_tercero = '" & id_tercero & "'"
@@ -1263,7 +1263,7 @@ Public Class fm_0300_orden_compra
         'crear_parametros_aprobar_recepcion_facturas(ocmd)
         Dim ofecha As Date = comunes.g_fechahora
         ocmd.Parameters.Clear()
-        ocmd.Parameters.Add("@f0319_id_oc", NpgsqlDbType.Integer).Value = tx_id_orden_compra.Text.ToString
+        ocmd.Parameters.Add("@f0319_id_oc", NpgsqlDbType.Integer).Value = CInt(tx_id_orden_compra.Text.ToString)
         ocmd.Parameters.Add("@f0319_usuario_modificar", NpgsqlDbType.Varchar).Value = vg_usuario_autoriza
         ocmd.Parameters.Add("@f0319_fm", NpgsqlDbType.Timestamp).Value = ofecha
         verror = "N"
@@ -1303,7 +1303,7 @@ Public Class fm_0300_orden_compra
         'crear_parametros_aprobar_facturas(ocmd)
         Dim ofecha As Date = comunes.g_fechahora
         ocmd.Parameters.Clear()
-        ocmd.Parameters.Add("@f0305_id_oc", NpgsqlDbType.Integer).Value = tx_id_orden_compra.Text.ToString
+        ocmd.Parameters.Add("@f0305_id_oc", NpgsqlDbType.Integer).Value = cl_db_helpers.SafeIntZero(tx_id_orden_compra.Text)
         ocmd.Parameters.Add("@f0305_usuario_modificar", NpgsqlDbType.Varchar).Value = vg_usuario_autoriza
         ocmd.Parameters.Add("@f0305_fm", NpgsqlDbType.Timestamp).Value = ofecha
         verror = "N"
@@ -1810,11 +1810,11 @@ Public Class fm_0300_orden_compra
 
         ''MATRIZ DE DEFINICION DE CAMPOS SECCION INICIO
         Dim MatSeccion(,) As String = {
-            {"F_NUMERO_REG", "1", "7", "0", "ND"},
-            {"F_TIPO_REG", "8", "4", "0", "0000"},
-            {"F_SUBTIPO_REG", "12", "2", "0", "00"},
-            {"F_VERSION_REG", "14", "2", "0", "01"},
-            {"F_CIA", "16", "3", "0", "001"}
+            {"F_NUMERO_REG", "Numérico", "1", "7", "0", "ND"},
+            {"F_TIPO_REG", "Numérico", "8", "4", "0", "0000"},
+            {"F_SUBTIPO_REG", "Numérico", "12", "2", "0", "00"},
+            {"F_VERSION_REG", "Numérico", "14", "2", "0", "01"},
+            {"F_CIA", "Numérico", "16", "3", "0", "001"}
         }
         'CONVIERTO LA MATRIZ EN UNA LISTA DE OBJETOS DTO PARA LINEA INICIAL
         Dim ListaDtosSeccion As IEnumerable(Of CampoDto) = ConvertirMatriz(MatSeccion)
@@ -1823,7 +1823,7 @@ Public Class fm_0300_orden_compra
         'Apartir de aqui se pueden usar los campos para construir la linea inicial dinamicamente
         lineaDinamica = ReemplazarValores(ListaDtosSeccion, lineaDinamica, "F_NUMERO_REG", "1")
         lineaDinamica = ReemplazarValores(ListaDtosSeccion, lineaDinamica, "F_TIPO_REG", "0")
-        lineaDinamica = ReemplazarValores(ListaDtosSeccion, lineaDinamica, "F_SUBTIPO_REG", "01")
+        lineaDinamica = ReemplazarValores(ListaDtosSeccion, lineaDinamica, "F_SUBTIPO_REG", "00")
         lineaDinamica = ReemplazarValores(ListaDtosSeccion, lineaDinamica, "F_VERSION_REG", "01")
         lineaDinamica = ReemplazarValores(ListaDtosSeccion, lineaDinamica, "F_CIA", "1")
         lineas.Add(lineaDinamica)
@@ -1831,46 +1831,59 @@ Public Class fm_0300_orden_compra
 
 #Region "SECCION INICIO DOCUMENTO"
 
-        Dim id_tipo_docto As String = "OC " 'OC o OS SEGÚN LO QUE ESTE HACIENDO debe tener tamaño 3
+        Dim id_tipo_docto As String = "OC" 'OC o OS SEGÚN LO QUE ESTE HACIENDO debe tener tamaño 3
         Dim f420_id_tercero_sol_comp As String = "94492746" ''CEDULA DEL COMPRADOR
-        Dim f420_id_tercero_prov As String = "800034768"  ' NIT DEL PROVEEDOR
+        Dim f420_id_tercero_prov As String = Tx_Nit.Text.Trim '"800034768"  ' NIT DEL PROVEEDOR
         Dim f420_id_sucursal_prov As String = "000" 'CODIGO DE LA SUCURSAL DEL PROVEEDOR
-        Dim f420_notas As String = "ESTA ES LA NOTA DEL DOCUMENTO" 'NOTA DEL DOCUMENTO
-        Dim f420_num_docto_referencia As String = "RSC-12345"  ' PARA REFERENCIAR EL RSC DEL CAMO
+        Dim f420_notas As String = "" '"ESTA ES LA NOTA DEL DOCUMENTO" 'NOTA DEL DOCUMENTO
+        Dim f420_num_docto_referencia As String = "RSC-" & tx_id_orden_compra.Text.Trim ' PARA REFERENCIAR EL RSC DEL CAMO
 
         'CONVIERTO LA MATRIZ EN UNA LISTA DE OBJETOS DTO PARA LINEA INICIO DOCUMENTO (DOCUMENTOS VERSION 03)
         MatSeccion = {
-            {"F_NUMERO_REG", "1", "7", "0", "CONSECUTIVO"},
-            {"F_TIPO_REG", "8", "4", "0", "420"},
-            {"F_SUBTIPO_REG", "12", "2", "0", "00"},
-            {"F_VERSION_REG", "14", "2", "0", "03"},
-            {"F_CIA", "16", "3", "0", "1"},
-            {"F_LIQUIDA_IMPUESTO", "19", "1", "0", "1"},
-            {"F_CONSEC_AUTO_REG", "20", "1", "0", "1"},
-            {"f420_id_co", "21", "3", "0", "001"},
-            {"f420_id_tipo_docto", "24", "3", " ", "OS o  OC"},
-            {"f420_consec_docto", "27", "8", "0", "1"},
-            {"f420_fecha", "35", "8", " ", "FECHA"},
-            {"f420_id_concepto", "43", "3", "0", "401"},
-            {"f420_id_grupo_clase_docto", "46", "3", "0", "402"},
-            {"f420_id_clase_docto", "49", "3", "0", "404"},
-            {"f420_ind_estado", "52", "1", "0", "1"},
-            {"f420_ind_impresion", "53", "1", "0", "0"},
-            {"f420_id_tercero_sol_comp", "54", "15", " ", "CEDULA DEL COMPRADOR"},
-            {"f420_id_tercero_prov", "69", "15", "0", "NIT DEL TERCERO"},
-            {"f420_id_sucursal_prov", "84", "3", "0", "001"},
-            {"f420_id_cond_pago", "87", "3", "0", "30D"},
-            {"f420_ind_tasa", "90", "1", "0", "1"},
-            {"f420_id_moneda_docto", "91", "3", "0", "COP"},
-            {"f420_id_moneda_conv", "94", "3", "0", "COP"},
-            {"f420_tasa_conv", "97", "13", "0", "1"},
-            {"f420_id_moneda_local", "110", "3", "0", "COP"},
-            {"f420_tasa_local", "113", "13", "0", "1"},
-            {"f420_tasa_dscto_global1", "126", "8", "0", "0"},
-            {"f420_tasa_dscto_global2", "134", "8", "0", "0"},
-            {"f420_notas", "142", "255", " ", "NOTA DEL DOCUMENTO"},
-            {"F_IND_CONTACTO", "397", "1", "0", "1"},
-            {"f420_num_docto_referencia", "716", "15", " ", "USAR OC DATO CAMO"}
+            {"F_NUMERO_REG", "Numérico", "1", "7", "0", "CONSECUTIVO"},
+            {"F_TIPO_REG", "Numérico", "8", "4", "0", "420"},
+            {"F_SUBTIPO_REG", "Numérico", "12", "2", "0", "00"},
+            {"F_VERSION_REG", "Numérico", "14", "2", "0", "03"},
+            {"F_CIA", "Numérico", "16", "3", "0", "1"},
+            {"F_LIQUIDA_IMPUESTO", "Numérico", "19", "1", "0", "1"},
+            {"F_CONSEC_AUTO_REG", "Numérico", "20", "1", "0", "1"},
+            {"f420_id_co", "Alfanumérico", "21", "3", " ", "001"},
+            {"f420_id_tipo_docto", "Alfanumérico", "24", "3", " ", "OS o  OC"},
+            {"f420_consec_docto", "Numérico", "27", "8", "0", "1"},
+            {"f420_fecha", "Alfanumérico", "35", "8", " ", "FECHA"},
+            {"f420_id_concepto", "Numérico", "43", "3", "0", "401"},
+            {"f420_id_grupo_clase_docto", "Numérico", "46", "3", "0", "402"},
+            {"f420_id_clase_docto", "Numérico", "49", "3", "0", "404"},
+            {"f420_ind_estado", "Numérico", "52", "1", "0", "1"},
+            {"f420_ind_impresion", "Numérico", "53", "1", "0", "0"},
+            {"f420_id_tercero_sol_comp", "Alfanumérico", "54", "15", " ", "CEDULA DEL COMPRADOR"},
+            {"f420_id_tercero_prov", "Alfanumérico", "69", "15", " ", "NIT DEL TERCERO"},
+            {"f420_id_sucursal_prov", "Alfanumérico", "84", "3", " ", "000"},
+            {"f420_id_cond_pago", "Alfanumérico", "87", "3", " ", "30D"},
+            {"f420_ind_tasa", "Numérico", "90", "1", "0", "1"},
+            {"f420_id_moneda_docto", "Alfanumérico", "91", "3", " ", "COP"},
+            {"f420_id_moneda_conv", "Alfanumérico", "94", "3", " ", "COP"},
+            {"f420_tasa_conv", "Numérico", "97", "13", "0", "1"},
+            {"f420_id_moneda_local", "Alfanumérico", "110", "3", " ", "COP"},
+            {"f420_tasa_local", "Numérico", "113", "13", "0", "00000001.0000"},
+            {"f420_tasa_dscto_global1", "Numérico", "126", "8", "0", "0"},
+            {"f420_tasa_dscto_global2", "Numérico", "134", "8", "0", "0"},
+            {"f420_notas", "Alfanumérico", "142", "255", " ", " "},
+            {"F_IND_CONTACTO", "Numérico", "397", "1", "0", "0"},
+            {"f419_contacto", "Alfanumérico", "398", "50", " ", " "},
+            {"f419_direccion1", "Alfanumérico", "448", "40", " ", " "},
+            {"f419_direccion2", "Alfanumérico", "488", "40", " ", " "},
+            {"f419_direccion3", "Alfanumérico", "528", "40", " ", " "},
+            {"f419_id_pais", "Alfanumérico", "568", "3", " ", " "},
+            {"f419_id_depto", "Alfanumérico", "571", "2", " ", " "},
+            {"f419_id_ciudad", "Alfanumérico", "573", "3", " ", " "},
+            {"f419_id_barrio", "Alfanumérico", "576", "40", " ", " "},
+            {"f419_telefono", "Alfanumérico", "616", "20", " ", " "},
+            {"f419_fax", "Alfanumérico", "636", "20", " ", " "},
+            {"f419_cod_postal", "Alfanumérico", "656", "10", " ", " "},
+            {"f419_email", "Alfanumérico", "666", "50", " ", " "},
+            {"f420_num_docto_referencia", "Alfanumérico", "716", "15", " ", "USAR OC DATO CAMO"},
+            {"f420_id_mandato", "Alfanumérico", "731", "15", " ", " "}
         }
         'CONVIERTO LA MATRIZ EN UNA LISTA DE OBJETOS DTO PARA LINEA INICIO
         ListaDtosSeccion = ConvertirMatriz(MatSeccion)
@@ -1901,7 +1914,8 @@ Public Class fm_0300_orden_compra
         lineaDinamica = ReemplazarValores(ListaDtosSeccion, lineaDinamica, "f420_id_moneda_docto", "")
         lineaDinamica = ReemplazarValores(ListaDtosSeccion, lineaDinamica, "f420_id_moneda_conv", "")
         lineaDinamica = ReemplazarValores(ListaDtosSeccion, lineaDinamica, "f420_tasa_conv", "")
-        lineaDinamica = ReemplazarValores(ListaDtosSeccion, lineaDinamica, "f420_id_moneda_local", "00000000.0000") 'CAMBIE ""
+        lineaDinamica = ReemplazarValores(ListaDtosSeccion, lineaDinamica, "f420_id_moneda_local", "COP") 'CAMBIE "" 00000000.0000
+        lineaDinamica = ReemplazarValores(ListaDtosSeccion, lineaDinamica, "f420_tasa_local", "")
         lineaDinamica = ReemplazarValores(ListaDtosSeccion, lineaDinamica, "f420_tasa_dscto_global1", "")
         lineaDinamica = ReemplazarValores(ListaDtosSeccion, lineaDinamica, "f420_tasa_dscto_global2", "")
         lineaDinamica = ReemplazarValores(ListaDtosSeccion, lineaDinamica, "f420_notas", f420_notas) 'ESPACIO PARA NOTAS
@@ -1911,81 +1925,112 @@ Public Class fm_0300_orden_compra
 #End Region
 
 #Region "SECCION MOVIMIENTOS ITEM DEL DOCUMENTO"
+        'Hago un recorrido por cada item del datagridview para crear las lineas de items
+
         Dim lineaItemContador As Integer = 3 'INICIA EN 3 PORQUE LA LINEA 1 ES INICIO Y LA 2 ES DOCUMENTO
-        Dim f421_cant_pedida_base As String = Formatear4Decimales(100)
-        Dim f421_precio_unitario As String = Formatear4Decimales(1000)
-        Dim f421_referencia_item As String = "000655"
-        Dim f421_id_motivo As String = "01" '01 PARA PRODUCTOS Y 73 PARA SERVICIOS
-        Dim f421_notas As String = "NOTA EN ITEM DE COMPRA"
+        Dim f421_cant_pedida_base As String = vbEmpty
+        Dim f421_precio_unitario As String = vbEmpty
+        Dim f421_referencia_item As String = vbEmpty
+        Dim f421_id_motivo As String = vbEmpty '01 PARA PRODUCTOS Y 73 PARA SERVICIOS
+        Dim f421_notas As String = vbEmpty
 
         'CONVIERTO LA MATRIZ EN UNA LISTA DE OBJETOS DTO PARA LINEA MOVIIENTO DEL DOCUMENTO (MOVIMIENTO VERSION 04)
         MatSeccion = {
-            {"F_NUMERO_REG", "1", "7", "0", "CONSEC GLOBAL"},
-            {"F_TIPO_REG", "8", "4", "0", "421"},
-            {"F_SUBTIPO_REG", "12", "2", "0", "00"},
-            {"F_VERSION_REG", "14", "2", "0", "04"},
-            {"F_CIA", "16", "3", "0", "001"},
-            {"f421_id_co", "19", "3", "0", "001"},
-            {"f421_id_tipo_docto", "22", "3", " ", "OC o OS SEGÚN LO QUE ESTE HACIENDO"},
-            {"f421_consec_docto", "25", "8", "0", "1"},
-            {"f421_nro_registro", "33", "10", "0", "1"},
-            {"f421_id_bodega", "98", "5", "0", "09"},
-            {"f421_id_concepto", "103", "3", "0", "401"},
-            {"f421_id_motivo", "106", "2", "0", "01 PARA PRODUCTOS Y 73 PARA SERVICIOS"},
-            {"f421_ind_obsequio", "108", "1", "0", "0"},
-            {"f421_id_co_movto", "109", "3", "0", "001"},
-            {"f421_id_unidad_medida", "144", "4", " ", "UND "},
-            {"f421_cant_pedida_base", "148", "20", "0", "Cantidad pedida "},
-            {"f421_fecha_entrega", "168", "8", " ", "FECHA REQUERIDA O LA DEL SISTEMA"},
-            {"f421_precio_unitario", "191", "20", "0", "Precio unitario"},
-            {"f421_notas", "211", "255", " ", "NOTA DEL MOV"},
-            {"f421_id_item", "2510", "7", "0", "0"},
-            {"f421_referencia_item", "2517", "50", " ", "REFERENCIA"},
-            {"f421_id_un_movto", "2627", "20", "0", "099"},
-            {"f421_tasa_dscto_condicionado", "2647", "8", "0", "000.0000"}
+            {"F_NUMERO_REG", "Numérico", "1", "7", "0", "CONSEC GLOBAL"},
+            {"F_TIPO_REG", "Numérico", "8", "4", "0", "421"},
+            {"F_SUBTIPO_REG", "Numérico", "12", "2", "0", "00"},
+            {"F_VERSION_REG", "Numérico", "14", "2", "0", "04"},
+            {"F_CIA", "Numérico", "16", "3", "0", "001"},
+            {"f421_id_co", "Alfanumérico", "19", "3", "0", "001"},
+            {"f421_id_tipo_docto", "Alfanumérico", "22", "3", " ", "OC o OS SEGÚN LO QUE ESTE HACIENDO"},
+            {"f421_consec_docto", "Numérico", "25", "8", "0", "1"},
+            {"f421_nro_registro", "Numérico", "33", "10", "0", "1"},
+            {"F_CAMPO", "Alfanumérico", "43", "55", " ", " "},
+            {"f421_id_bodega", "Alfanumérico", "98", "5", " ", "09"},
+            {"f421_id_concepto", "Numérico", "103", "3", "0", "401"},
+            {"f421_id_motivo", "Alfanumérico", "106", "2", " ", "01 PARA PRODUCTOS Y 73 PARA SERVICIOS"},
+            {"f421_ind_obsequio", "Numérico", "108", "1", "0", "0"},
+            {"f421_id_co_movto", "Alfanumérico", "109", "3", " ", "001"},
+            {"F_CAMPO", "Alfanumérico", "112", "2", " ", " "},
+            {"f421_id_ccosto_movto", "Alfanumérico", "114", "15", " ", " "},
+            {"f421_id_proyecto", "Alfanumérico", "129", "15", " ", " "},
+            {"f421_id_unidad_medida", "Alfanumérico", "144", "4", " ", "UND"},
+            {"f421_cant_pedida_base", "Numérico", "148", "20", "0", "Cantidad pedida"},
+            {"f421_fecha_entrega", "Alfanumérico", "168", "8", " ", "FECHA REQUERIDA O LA DEL SISTEMA"},
+            {"f421_cod_item_prov", "Alfanumérico", "176", "15", " ", " "},
+            {"f421_precio_unitario", "Numérico", "191", "20", "0", "Precio unitario"},
+            {"f421_notas", "Alfanumérico", "211", "255", " ", "NOTA DEL MOV"},
+            {"f421_detalle", "Alfanumérico", "466", "2000", " ", " "},
+            {"F_DESC_ITEM", "Alfanumérico", "2466", "40", " ", " "},
+            {"F_ID_UM_INVENTARIO", "Alfanumérico", "2506", "4", " ", " "},
+            {"f421_id_item", "Numérico", "2510", "7", "0", "0"},
+            {"f421_referencia_item", "Alfanumérico", "2517", "50", " ", "REFERENCIA"},
+            {"f421_codigo_barras", "Alfanumérico", "2567", "20", " ", " "},
+            {"f421_id_ext1_detalle", "Alfanumérico", "2587", "20", " ", " "},
+            {"f421_id_ext2_detalle", "Alfanumérico", "2607", "20", " ", " "},
+            {"f421_id_un_movto", "Alfanumérico", "2627", "20", " ", "099"},
+            {"f421_tasa_dscto_condicionado", "Numérico", "2647", "8", "0", "000.0000"}
         }
         'CONVIERTO LA MATRIZ EN UNA LISTA DE OBJETOS DTO PARA LINEA INICIO
         ListaDtosSeccion = ConvertirMatriz(MatSeccion)
-        ' 1. Crear una línea inicial con espacios
-        lineaDinamica = CrearLineaInicial(2654)
-        'Apartir de aqui se pueden usar los campos para construir la linea inicial dinamicamente
-        lineaDinamica = ReemplazarValores(ListaDtosSeccion, lineaDinamica, "F_NUMERO_REG", lineaItemContador.ToString) 'CONTEO DE LINEA INICIA EN 3 Y AUMENTA
-        lineaDinamica = ReemplazarValores(ListaDtosSeccion, lineaDinamica, "F_TIPO_REG", "")
-        lineaDinamica = ReemplazarValores(ListaDtosSeccion, lineaDinamica, "F_SUBTIPO_REG", "")
-        lineaDinamica = ReemplazarValores(ListaDtosSeccion, lineaDinamica, "F_VERSION_REG", "")
-        lineaDinamica = ReemplazarValores(ListaDtosSeccion, lineaDinamica, "F_CIA", "")
-        lineaDinamica = ReemplazarValores(ListaDtosSeccion, lineaDinamica, "f421_id_co", "")
-        lineaDinamica = ReemplazarValores(ListaDtosSeccion, lineaDinamica, "f421_id_tipo_docto", id_tipo_docto) 'Cambiar a OS cuando corresponda
-        lineaDinamica = ReemplazarValores(ListaDtosSeccion, lineaDinamica, "f421_consec_docto", "")
-        lineaDinamica = ReemplazarValores(ListaDtosSeccion, lineaDinamica, "f421_nro_registro", "")
-        lineaDinamica = ReemplazarValores(ListaDtosSeccion, lineaDinamica, "f421_id_bodega", "")
-        lineaDinamica = ReemplazarValores(ListaDtosSeccion, lineaDinamica, "f421_id_concepto", "")
-        lineaDinamica = ReemplazarValores(ListaDtosSeccion, lineaDinamica, "f421_id_motivo", f421_id_motivo) '01 PARA PRODUCTOS Y 73 PARA SERVICIOS
-        lineaDinamica = ReemplazarValores(ListaDtosSeccion, lineaDinamica, "f421_ind_obsequio", "")
-        lineaDinamica = ReemplazarValores(ListaDtosSeccion, lineaDinamica, "f421_id_co_movto", "")
-        lineaDinamica = ReemplazarValores(ListaDtosSeccion, lineaDinamica, "f421_id_unidad_medida", "") 'UNIDAD DE MEDIDA
-        lineaDinamica = ReemplazarValores(ListaDtosSeccion, lineaDinamica, "f421_cant_pedida_base", f421_cant_pedida_base) 'Cantidad pedida
-        lineaDinamica = ReemplazarValores(ListaDtosSeccion, lineaDinamica, "f421_fecha_entrega", fechaActual)
-        lineaDinamica = ReemplazarValores(ListaDtosSeccion, lineaDinamica, "f421_precio_unitario", f421_precio_unitario)
-        lineaDinamica = ReemplazarValores(ListaDtosSeccion, lineaDinamica, "f421_notas", f421_notas) 'NOTA DEL MOVIMIENTO
-        lineaDinamica = ReemplazarValores(ListaDtosSeccion, lineaDinamica, "f421_id_item", "") 'ID DEL PRODUCTO SE LO METI
-        lineaDinamica = ReemplazarValores(ListaDtosSeccion, lineaDinamica, "f421_referencia_item", f421_referencia_item) 'REFERENCIA DEL PRODUCTO
-        lineaDinamica = ReemplazarValores(ListaDtosSeccion, lineaDinamica, "f421_id_un_movto", "")
-        lineaDinamica = ReemplazarValores(ListaDtosSeccion, lineaDinamica, "f421_tasa_dscto_condicionado", "")
-        lineas.Add(lineaDinamica)
+        lineaItemContador = 3 'INICIA EN 3 PORQUE LA LINEA 1 ES INICIO Y LA 2 ES DOCUMENTO
+
+        'Hago un recorrido por cada item del datagridview para crear las lineas de items
+        For Each row As DataGridViewRow In dg_listado.Rows
+            f421_cant_pedida_base = Formatear4Decimales(CDbl(row.Cells("dgocell_cantidad_solicitada").Value.ToString))
+            f421_precio_unitario = Formatear4Decimales(CDbl(row.Cells("dgocell_costo_unitario").Value.ToString))
+            f421_referencia_item = row.Cells("dgocell_cod_uno").Value.ToString
+            f421_id_motivo = "01" '01 PARA PRODUCTOS Y 73 PARA SERVICIOS
+            Dim notas As String = "RSC-" & tx_id_orden_compra.Text.Trim & "-" & row.Cells("dgocell_id_sc_item").Value.ToString.Trim & " " &
+                row.Cells("dgocell_descripcion_complementaria").Value.ToString.Trim &
+                                " " & row.Cells("dgocell_nota").Value.ToString.Trim
+            f421_notas = notas.PadLeft(255) 'NOTA DEL MOVIMIENTO LIMITADA A 255 CARACTERES
+
+            ' 1. Crear una línea inicial con espacios
+            lineaDinamica = CrearLineaInicial(2654)
+
+            'Apartir de aqui se pueden usar los campos para construir la linea inicial dinamicamente
+            lineaDinamica = ReemplazarValores(ListaDtosSeccion, lineaDinamica, "F_NUMERO_REG", lineaItemContador.ToString) 'CONTEO DE LINEA INICIA EN 3 Y AUMENTA
+            lineaDinamica = ReemplazarValores(ListaDtosSeccion, lineaDinamica, "F_TIPO_REG", "")
+            lineaDinamica = ReemplazarValores(ListaDtosSeccion, lineaDinamica, "F_SUBTIPO_REG", "")
+            lineaDinamica = ReemplazarValores(ListaDtosSeccion, lineaDinamica, "F_VERSION_REG", "")
+            lineaDinamica = ReemplazarValores(ListaDtosSeccion, lineaDinamica, "F_CIA", "")
+            lineaDinamica = ReemplazarValores(ListaDtosSeccion, lineaDinamica, "f421_id_co", "")
+            lineaDinamica = ReemplazarValores(ListaDtosSeccion, lineaDinamica, "f421_id_tipo_docto", id_tipo_docto) 'Cambiar a OS cuando corresponda
+            lineaDinamica = ReemplazarValores(ListaDtosSeccion, lineaDinamica, "f421_consec_docto", "")
+            lineaDinamica = ReemplazarValores(ListaDtosSeccion, lineaDinamica, "f421_nro_registro", "")
+            lineaDinamica = ReemplazarValores(ListaDtosSeccion, lineaDinamica, "f421_id_bodega", "")
+            lineaDinamica = ReemplazarValores(ListaDtosSeccion, lineaDinamica, "f421_id_concepto", "")
+            lineaDinamica = ReemplazarValores(ListaDtosSeccion, lineaDinamica, "f421_id_motivo", f421_id_motivo) '01 PARA PRODUCTOS Y 73 PARA SERVICIOS
+            lineaDinamica = ReemplazarValores(ListaDtosSeccion, lineaDinamica, "f421_ind_obsequio", "")
+            lineaDinamica = ReemplazarValores(ListaDtosSeccion, lineaDinamica, "f421_id_co_movto", "")
+            lineaDinamica = ReemplazarValores(ListaDtosSeccion, lineaDinamica, "f421_id_unidad_medida", "") 'UNIDAD DE MEDIDA
+            lineaDinamica = ReemplazarValores(ListaDtosSeccion, lineaDinamica, "f421_cant_pedida_base", f421_cant_pedida_base) 'Cantidad pedida
+            lineaDinamica = ReemplazarValores(ListaDtosSeccion, lineaDinamica, "f421_fecha_entrega", fechaActual)
+            lineaDinamica = ReemplazarValores(ListaDtosSeccion, lineaDinamica, "f421_precio_unitario", f421_precio_unitario)
+            lineaDinamica = ReemplazarValores(ListaDtosSeccion, lineaDinamica, "f421_notas", f421_notas) 'NOTA DEL MOVIMIENTO
+            lineaDinamica = ReemplazarValores(ListaDtosSeccion, lineaDinamica, "f421_id_item", "") 'ID DEL PRODUCTO SE LO METI
+            lineaDinamica = ReemplazarValores(ListaDtosSeccion, lineaDinamica, "f421_referencia_item", f421_referencia_item) 'REFERENCIA DEL PRODUCTO
+            lineaDinamica = ReemplazarValores(ListaDtosSeccion, lineaDinamica, "f421_id_un_movto", "")
+            lineaDinamica = ReemplazarValores(ListaDtosSeccion, lineaDinamica, "f421_tasa_dscto_condicionado", "")
+            lineas.Add(lineaDinamica)
+
+            lineaItemContador += 1
+        Next
+
 #End Region
 
 #Region "SECCION CIERRE"
 
-        lineaItemContador += 1
+        'lineaItemContador += 1
 
         'CONVIERTO LA MATRIZ EN UNA LISTA DE OBJETOS DTO PARA LINEA FINAL DEL DOCUMENTO
         MatSeccion = {
-            {"F_NUMERO_REG", "1", "7", "0", "CONSECUTIVO DE LINEA"},
-            {"F_TIPO_REG", "8", "4", "0", "9999"},
-            {"F_SUBTIPO_REG", "12", "2", "0", "00"},
-            {"F_VERSION_REG", "14", "2", "0", "01"},
-            {"F_CIA", "16", "3", "0", "001"}
+            {"F_NUMERO_REG", "Numérico", "1", "7", "0", "CONSECUTIVO DE LINEA"},
+            {"F_TIPO_REG", "Numérico", "8", "4", "0", "9999"},
+            {"F_SUBTIPO_REG", "Numérico", "12", "2", "0", "00"},
+            {"F_VERSION_REG", "Numérico", "14", "2", "0", "01"},
+            {"F_CIA", "Numérico", "16", "3", "0", "001"}
         }
         'CONVIERTO LA MATRIZ EN UNA LISTA DE OBJETOS DTO PARA LINEA INICIO
         ListaDtosSeccion = ConvertirMatriz(MatSeccion)
@@ -2026,6 +2071,13 @@ Public Class fm_0300_orden_compra
         Dim campoNumReg As CampoDto = ObtenerCampoPorNombre(ListaDtosSecc, Nombre)
         If valor <> "" Then
             campoNumReg.Valor = valor
+        End If
+        If campoNumReg.Tipo.ToUpper() = "NUMÉRICO" Then
+            'Rellenar con ceros a la izquierda
+            campoNumReg.Valor = campoNumReg.Valor.PadLeft(CInt(campoNumReg.Tamaño), "0"c)
+        Else
+            'Rellenar con espacios a la derecha
+            campoNumReg.Valor = campoNumReg.Valor.PadRight(CInt(campoNumReg.Tamaño), " "c)
         End If
         LineaEdicion = ReemplazarFragmento(LineaEdicion, campoNumReg.Valor.PadLeft(CInt(campoNumReg.Tamaño), campoNumReg.DigRelleno), CInt(campoNumReg.Inicio) - 1)
         Return LineaEdicion
@@ -2080,10 +2132,11 @@ Public Class fm_0300_orden_compra
         For i = 0 To filas - 1
             lista.Add(New CampoDto With {
                 .Nombre = matriz(i, 0),
-                .Inicio = matriz(i, 1),
-                .Tamaño = matriz(i, 2),
-                .DigRelleno = matriz(i, 3),
-                .Valor = matriz(i, 4)
+                .Tipo = matriz(i, 1),
+                .Inicio = matriz(i, 2),
+                .Tamaño = matriz(i, 3),
+                .DigRelleno = matriz(i, 4),
+                .Valor = matriz(i, 5)
             })
         Next
 
@@ -2093,9 +2146,24 @@ Public Class fm_0300_orden_compra
         Return campos.FirstOrDefault(Function(c) c.Nombre.Equals(nombreBuscado, StringComparison.OrdinalIgnoreCase))
     End Function
 
+    Private Sub btn_consultarOcUnoEE_Click(sender As Object, e As EventArgs) Handles btn_consultarOcUnoEE.Click
+        Using frm As New camocontrol.fm_0300_Oc_ListadoSiesaApi
+            frm.vf_oform_padre = Me
+            frm.vg_id_cia = vg_id_cia
+            frm.vg_usuario_autoriza = vg_usuario_autoriza
+            frm.vf_elemento_nuevo = "N"
+
+            If frm.ShowDialog() = DialogResult.OK Then
+                'DtoDgEnEdicion = frm.Resultado 'NO ES NECESARIO RETORNAR EL DTO PORUQE SOLO SE ACTUALIZO LA CIUDAD Y DIRECCION Y BORRA EL ID_RM
+            Else
+                MessageBox.Show("Operación Cancelada")
+            End If
+        End Using
+    End Sub
 End Class
 Public Class CampoDto
     Public Property Nombre As String
+    Public Property Tipo As String
     Public Property Inicio As String
     Public Property Tamaño As String
     Public Property DigRelleno As String

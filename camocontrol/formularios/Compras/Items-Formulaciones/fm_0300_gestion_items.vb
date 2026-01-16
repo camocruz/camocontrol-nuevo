@@ -411,7 +411,7 @@ Public Class fm_0300_gestion_items
         ocmd.Parameters.Clear()
         'MsgBox(csql)
         If vf_elemento_nuevo = "N" Then
-            ocmd.Parameters.Add("f0300_id_item", NpgsqlDbType.Integer).Value = tx_id_item.Text
+            ocmd.Parameters.Add("f0300_id_item", NpgsqlDbType.Integer).Value = CInt(tx_id_item.Text)
             'MsgBox("ELEMENTO NUEVO: " & vf_elemento_nuevo & "  " & cm_descripcion.SelectedValue)
         End If
         If chk_descripcion_manual.Checked = True Then
@@ -438,18 +438,18 @@ Public Class fm_0300_gestion_items
         ocmd.Parameters.Add("@f0300_descripcion_item", NpgsqlDbType.Varchar).Value = UCase(tx_descripcion.Text.ToString.Trim)
         ocmd.Parameters.Add("@f0300_id_unidad_medicion", NpgsqlDbType.Varchar).Value = cm_unidad_medicion.SelectedValue
         'ocmd.Parameters.Add("@f0300_cantidad_bache_produccion", NpgsqlDbType.Numeric).Value = tx_cantidad_x_bache.Text
-        ocmd.Parameters.Add("@f0300_id_tipo_item", NpgsqlDbType.Integer).Value = cm_tipo_item.SelectedValue
+        ocmd.Parameters.Add("@f0300_id_tipo_item", NpgsqlDbType.Integer).Value = CInt(cm_tipo_item.SelectedValue)
         ocmd.Parameters.Add("@f0300_contenido_x_empaque", NpgsqlDbType.Varchar).Value = tx_cont_empaque.Text.ToString.Trim
         ocmd.Parameters.Add("@f0300_id_linea", NpgsqlDbType.Integer).Value = CInt(cm_linea.SelectedValue)
         ocmd.Parameters.Add("@f0300_referencia", NpgsqlDbType.Varchar).Value = UCase(tx_referencia.Text.ToString.Trim)
         ocmd.Parameters.Add("@f0300_referencia_empaque", NpgsqlDbType.Varchar).Value = UCase(tx_referencia_empaque.Text.ToString.Trim)
         ocmd.Parameters.Add("@f0300_codigo_barras", NpgsqlDbType.Varchar).Value = UCase(tx_codigo_barras.Text.ToString.Trim)
         ocmd.Parameters.Add("@f0300_referencia_empaque_alterna", NpgsqlDbType.Varchar).Value = UCase(tx_ref_emp_alt.Text.ToString.Trim)
-        ocmd.Parameters.Add("@f0300_facto_conv_ref_emp_alterna", NpgsqlDbType.Numeric).Value = tx_factor_conv_ref_emp_alt.Text.ToString.Trim
+        ocmd.Parameters.Add("@f0300_facto_conv_ref_emp_alterna", NpgsqlDbType.Numeric).Value = CDec(tx_factor_conv_ref_emp_alt.Text.ToString.Trim)
         ocmd.Parameters.Add("@f0300_oper_conversion", NpgsqlDbType.Varchar).Value = cm_oper_fact_conv_alt_ppal.Text
-        ocmd.Parameters.Add("@f0300_peso_unitario", NpgsqlDbType.Numeric).Value = tx_peso_unitario.Text
-        ocmd.Parameters.Add("@f0300_peso_neto", NpgsqlDbType.Numeric).Value = tx_peso_neto.Text
-        ocmd.Parameters.Add("@f0300_peso_bruto", NpgsqlDbType.Numeric).Value = tx_peso_bruto.Text
+        ocmd.Parameters.Add("@f0300_peso_unitario", NpgsqlDbType.Numeric).Value = CDec(tx_peso_unitario.Text)
+        ocmd.Parameters.Add("@f0300_peso_neto", NpgsqlDbType.Numeric).Value = CDec(tx_peso_neto.Text)
+        ocmd.Parameters.Add("@f0300_peso_bruto", NpgsqlDbType.Numeric).Value = CDec(tx_peso_bruto.Text)
         ocmd.Parameters.Add("@f0300_codigo_cguno", NpgsqlDbType.Varchar).Value = tx_cguno.Text.ToString.Trim
         ocmd.Parameters.Add("@f0300_nota", NpgsqlDbType.Varchar).Value = UCase(tx_observacion.Text.ToString.Trim)
         ocmd.Parameters.Add("@f0300_usuario_modificar", NpgsqlDbType.Varchar).Value = vg_usuario_autoriza
@@ -749,8 +749,8 @@ Public Class fm_0300_gestion_items
         ocmd.CommandText = csql
         'crear_parametros_facturas(ocmd)
         ocmd.Parameters.Clear()
-        ocmd.Parameters.Add("@f0301_id_bodega", NpgsqlDbType.Integer).Value = tx_id_criterio.Text
-        ocmd.Parameters.Add("@f0301_id_item", NpgsqlDbType.Integer).Value = tx_id_item.Text
+        ocmd.Parameters.Add("@f0301_id_bodega", NpgsqlDbType.Integer).Value = CInt(tx_id_criterio.Text)
+        ocmd.Parameters.Add("@f0301_id_item", NpgsqlDbType.Integer).Value = CInt(tx_id_item.Text)
         ocmd.Parameters.Add("@f0301_ubicacion", NpgsqlDbType.Varchar).Value = criterio_ubicacion
         ocmd.Parameters.Add("@f0301_usuario_modificar", NpgsqlDbType.Varchar).Value = vg_usuario_autoriza
         ocmd.Parameters.Add("@f0301_fm", NpgsqlDbType.Timestamp).Value = comunes.g_fechahora
@@ -790,7 +790,7 @@ Public Class fm_0300_gestion_items
         ocmd.CommandText = csql
         'crear_parametros_facturas(ocmd)
         ocmd.Parameters.Clear()
-        ocmd.Parameters.Add("@f0301_id_def_inv", NpgsqlDbType.Integer).Value = tx_id_criterio.Text
+        ocmd.Parameters.Add("@f0301_id_def_inv", NpgsqlDbType.Integer).Value = CInt(tx_id_criterio.Text)
         ocmd.Parameters.Add("@f0301_usuario_modificar", NpgsqlDbType.Varchar).Value = vg_usuario_autoriza
         ocmd.Parameters.Add("@f0301_fm", NpgsqlDbType.Timestamp).Value = comunes.g_fechahora
         verror = "N"

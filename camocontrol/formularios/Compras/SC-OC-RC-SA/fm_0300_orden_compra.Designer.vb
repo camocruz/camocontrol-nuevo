@@ -90,6 +90,7 @@ Partial Class fm_0300_orden_compra
         Me.bt_actualizar_info_oc_siesa = New System.Windows.Forms.Button()
         Me.Button1 = New System.Windows.Forms.Button()
         Me.tx_oc_uno = New System.Windows.Forms.TextBox()
+        Me.btn_consultarOcUnoEE = New System.Windows.Forms.Button()
         Me.GroupBox1.SuspendLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.dg_listado, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -852,10 +853,20 @@ Partial Class fm_0300_orden_compra
         Me.tx_oc_uno.Size = New System.Drawing.Size(104, 26)
         Me.tx_oc_uno.TabIndex = 371
         '
+        'btn_consultarOcUnoEE
+        '
+        Me.btn_consultarOcUnoEE.Location = New System.Drawing.Point(648, 267)
+        Me.btn_consultarOcUnoEE.Name = "btn_consultarOcUnoEE"
+        Me.btn_consultarOcUnoEE.Size = New System.Drawing.Size(118, 44)
+        Me.btn_consultarOcUnoEE.TabIndex = 372
+        Me.btn_consultarOcUnoEE.Text = "OC UnoEE"
+        Me.btn_consultarOcUnoEE.UseVisualStyleBackColor = True
+        '
         'fm_0300_orden_compra
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(9.0!, 20.0!)
         Me.ClientSize = New System.Drawing.Size(1474, 815)
+        Me.Controls.Add(Me.btn_consultarOcUnoEE)
         Me.Controls.Add(Me.tx_oc_uno)
         Me.Controls.Add(Me.Button1)
         Me.Controls.Add(Me.bt_actualizar_info_oc_siesa)
@@ -960,6 +971,7 @@ Partial Class fm_0300_orden_compra
         Me.Controls.SetChildIndex(Me.bt_actualizar_info_oc_siesa, 0)
         Me.Controls.SetChildIndex(Me.Button1, 0)
         Me.Controls.SetChildIndex(Me.tx_oc_uno, 0)
+        Me.Controls.SetChildIndex(Me.btn_consultarOcUnoEE, 0)
         Me.GroupBox1.ResumeLayout(False)
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.dg_listado, System.ComponentModel.ISupportInitialize).EndInit()
@@ -1039,4 +1051,5 @@ Partial Class fm_0300_orden_compra
     Friend WithEvents bt_actualizar_info_oc_siesa As Button
     Friend WithEvents Button1 As Button
     Friend WithEvents tx_oc_uno As TextBox
+    Friend WithEvents btn_consultarOcUnoEE As Button
 End Class

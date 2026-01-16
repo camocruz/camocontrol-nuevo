@@ -886,30 +886,29 @@ Public Class fm_0600_gestion_tareas
     Private Sub crear_parametros_tarea(ByVal ocmd As NpgsqlCommand)
         ocmd.Parameters.Clear()
         If vf_elemento_nuevo = "N" Then
-            ocmd.Parameters.Add("f0600_id_accion", NpgsqlDbType.Integer).Value = id_accion
+            ocmd.Parameters.Add("f0600_id_accion", NpgsqlDbType.Integer).Value = cl_db_helpers.SafeIntZero(id_accion)
         End If
         ocmd.Parameters.Add("@f0600_id_cia", NpgsqlDbType.Varchar).Value = vg_id_cia
         If id_accion_principal = 0 Then
             ocmd.Parameters.Add("@f0600_id_accion_principal", NpgsqlDbType.Integer).Value = DBNull.Value
         Else
-            ocmd.Parameters.Add("@f0600_id_accion_principal", NpgsqlDbType.Integer).Value = id_accion_principal
+            ocmd.Parameters.Add("@f0600_id_accion_principal", NpgsqlDbType.Integer).Value = cl_db_helpers.SafeIntZero(id_accion_principal)
         End If
         If id_accion_padre <> 0 Then
-            ocmd.Parameters.Add("@f0600_id_accion_padre", NpgsqlDbType.Integer).Value = id_accion_padre
+            ocmd.Parameters.Add("@f0600_id_accion_padre", NpgsqlDbType.Integer).Value = cl_db_helpers.SafeIntZero(id_accion_padre)
             ocmd.Parameters.Add("@f0600_path", NpgsqlDbType.Varchar).Value = path_padre & id_accion_padre & "-"
         Else
-            'MsgBox("si es nulo")
             ocmd.Parameters.Add("@f0600_id_accion_padre", NpgsqlDbType.Integer).Value = DBNull.Value
             ocmd.Parameters.Add("@f0600_path", NpgsqlDbType.Varchar).Value = "-"
         End If
-        ocmd.Parameters.Add("@f0600_id_estructura", NpgsqlDbType.Integer).Value = id_estructura
+        ocmd.Parameters.Add("@f0600_id_estructura", NpgsqlDbType.Integer).Value = cl_db_helpers.SafeIntZero(id_estructura)
         ocmd.Parameters.Add("@f0600_titulo", NpgsqlDbType.Varchar).Value = UCase(tx_titulo.Text.ToString.Trim)
         ocmd.Parameters.Add("@f0600_descripcion", NpgsqlDbType.Varchar).Value = UCase(tx_texto_tarea.Text.ToString.Trim)
 
-        ocmd.Parameters.Add("@f0600_id_fuente_accion", NpgsqlDbType.Integer).Value = cm_fuente_accion.SelectedValue.ToString '"00000003" '03 = actividad manto
+        ocmd.Parameters.Add("@f0600_id_fuente_accion", NpgsqlDbType.Integer).Value = cl_db_helpers.SafeIntZero(cm_fuente_accion.SelectedValue)
         ocmd.Parameters.Add("@f0600_id_tipo_accion", NpgsqlDbType.Varchar).Value = cm_tipo_accion.SelectedValue.ToString
         ocmd.Parameters.Add("@f0600_unidad_duracion", NpgsqlDbType.Varchar).Value = cm_unidad_duracion.SelectedValue.ToString
-        ocmd.Parameters.Add("@f0600_duracion", NpgsqlDbType.Integer).Value = tx_duracion.Text.ToString.Trim
+        ocmd.Parameters.Add("@f0600_duracion", NpgsqlDbType.Integer).Value = cl_db_helpers.SafeIntZero(tx_duracion.Text.ToString.Trim)
         If tipo_registro_acciones = "03" Then
             ocmd.Parameters.Add("@f0600_id_tipo_registro", NpgsqlDbType.Varchar).Value = "03" '03=tarea simple
             ocmd.Parameters.Add("@f0600_periodo_repeticion", NpgsqlDbType.Integer).Value = 0
@@ -925,15 +924,15 @@ Public Class fm_0600_gestion_tareas
         Else 'entonces es 04 = tarea repetitiva
             ocmd.Parameters.Add("@f0600_id_tipo_registro", NpgsqlDbType.Varchar).Value = "04" '03=tarea simple
             ocmd.Parameters.Add("@f0600_id_estado_accion", NpgsqlDbType.Varchar).Value = cm_estado.SelectedValue.ToString '"15"
-            ocmd.Parameters.Add("@f0600_periodo_repeticion", NpgsqlDbType.Integer).Value = tx_periodo.Text.ToString.Trim
-            ocmd.Parameters.Add("@f0600_repeticiones_programadas", NpgsqlDbType.Integer).Value = repeticiones
+            ocmd.Parameters.Add("@f0600_periodo_repeticion", NpgsqlDbType.Integer).Value = cl_db_helpers.SafeIntZero(tx_periodo.Text.ToString.Trim)
+            ocmd.Parameters.Add("@f0600_repeticiones_programadas", NpgsqlDbType.Integer).Value = cl_db_helpers.SafeIntZero(repeticiones)
             If chk_permanente.Checked = True Then
                 ocmd.Parameters.Add("@f0600_repeticiones_indefinidas", NpgsqlDbType.Varchar).Value = "S"
             Else
                 ocmd.Parameters.Add("@f0600_repeticiones_indefinidas", NpgsqlDbType.Varchar).Value = "N"
             End If
             ocmd.Parameters.Add("@f0600_repetitiva", NpgsqlDbType.Varchar).Value = "S"
-            ocmd.Parameters.Add("@f0600_repeticiones_ejecutadas", NpgsqlDbType.Integer).Value = 1
+            ocmd.Parameters.Add("@f0600_repeticiones_ejecutadas", NpgsqlDbType.Integer).Value = cl_db_helpers.SafeIntZero(1)
         End If
         ocmd.Parameters.Add("@f0600_responsable", NpgsqlDbType.Varchar).Value = cm_responsable.SelectedValue.ToString
         ocmd.Parameters.Add("@f0600_evaluador", NpgsqlDbType.Varchar).Value = cm_evaluador.SelectedValue.ToString
@@ -944,6 +943,7 @@ Public Class fm_0600_gestion_tareas
         ocmd.Parameters.Add("@f0600_fm", NpgsqlDbType.Timestamp).Value = comunes.g_fechahora
         ocmd.Parameters.Add("@f0600_fecha_limite", NpgsqlDbType.Timestamp).Value = fecha_limite
     End Sub
+
     Private Sub crear_parametros_nueva_tarea_hijo_repetitiva(ByVal ocmd As NpgsqlCommand)
         ocmd.Parameters.Clear()
 
@@ -961,21 +961,21 @@ Public Class fm_0600_gestion_tareas
         For Each orow As DataRow In otb_info_accion_padre.Rows
             ocmd.Parameters.Add("@f0600_id_cia", NpgsqlDbType.Varchar).Value = orow("f0600_id_cia")
             If IsDBNull(orow("f0600_id_accion_principal")) = True Then
-                ocmd.Parameters.Add("@f0600_id_accion_principal", NpgsqlDbType.Integer).Value = orow("f0600_id_accion")
+                ocmd.Parameters.Add("@f0600_id_accion_principal", NpgsqlDbType.Integer).Value = cl_db_helpers.SafeIntZero(orow("f0600_id_accion"))
             Else
-                ocmd.Parameters.Add("@f0600_id_accion_principal", NpgsqlDbType.Integer).Value = orow("f0600_id_accion_principal")
+                ocmd.Parameters.Add("@f0600_id_accion_principal", NpgsqlDbType.Integer).Value = cl_db_helpers.SafeIntZero(orow("f0600_id_accion_principal"))
             End If
-            ocmd.Parameters.Add("@f0600_id_accion_padre", NpgsqlDbType.Integer).Value = orow("f0600_id_accion")
+            ocmd.Parameters.Add("@f0600_id_accion_padre", NpgsqlDbType.Integer).Value = cl_db_helpers.SafeIntZero(orow("f0600_id_accion"))
             ocmd.Parameters.Add("@f0600_path", NpgsqlDbType.Varchar).Value = orow("f0600_path") & id_accion_padre & "-"
-            ocmd.Parameters.Add("@f0600_id_estructura", NpgsqlDbType.Integer).Value = orow("f0600_id_estructura")
+            ocmd.Parameters.Add("@f0600_id_estructura", NpgsqlDbType.Integer).Value = cl_db_helpers.SafeIntZero(orow("f0600_id_estructura"))
             ocmd.Parameters.Add("@f0600_titulo", NpgsqlDbType.Varchar).Value = orow("f0600_titulo")
             ocmd.Parameters.Add("@f0600_descripcion", NpgsqlDbType.Varchar).Value = orow("f0600_descripcion")
             ocmd.Parameters.Add("@f0600_id_tipo_registro", NpgsqlDbType.Varchar).Value = "03" 'es una tarea normal
-            ocmd.Parameters.Add("@f0600_id_fuente_accion", NpgsqlDbType.Integer).Value = orow("f0600_id_fuente_accion")
+            ocmd.Parameters.Add("@f0600_id_fuente_accion", NpgsqlDbType.Integer).Value = cl_db_helpers.SafeIntZero(orow("f0600_id_fuente_accion"))
             ocmd.Parameters.Add("@f0600_id_tipo_accion", NpgsqlDbType.Varchar).Value = orow("f0600_id_tipo_accion")
-            ocmd.Parameters.Add("@f0600_id_estado_accion", NpgsqlDbType.Varchar).Value = "01" '01 = Programada , 03 = implementacion 'orow("f0600_id_estado_accion")
+            ocmd.Parameters.Add("@f0600_id_estado_accion", NpgsqlDbType.Varchar).Value = "01" '01 = Programada
             ocmd.Parameters.Add("@f0600_unidad_duracion", NpgsqlDbType.Varchar).Value = orow("f0600_unidad_duracion")
-            ocmd.Parameters.Add("@f0600_duracion", NpgsqlDbType.Integer).Value = orow("f0600_duracion")
+            ocmd.Parameters.Add("@f0600_duracion", NpgsqlDbType.Integer).Value = cl_db_helpers.SafeIntZero(orow("f0600_duracion"))
             ocmd.Parameters.Add("@f0600_responsable", NpgsqlDbType.Varchar).Value = orow("f0600_responsable")
             ocmd.Parameters.Add("@f0600_evaluador", NpgsqlDbType.Varchar).Value = orow("f0600_evaluador")
             ocmd.Parameters.Add("@f0600_emisor", NpgsqlDbType.Varchar).Value = orow("f0600_emisor")
@@ -992,12 +992,12 @@ Public Class fm_0600_gestion_tareas
             For Each orow2 As DataRow In odatarow
                 nueva_fecha_limite = DateAdd(DateInterval.Second, (orow2("f0002_factor_conversion") * orow("f0600_duracion")), nueva_fecha_inicio)
             Next
-            ocmd.Parameters.Add("@f0600_periodo_repeticion", NpgsqlDbType.Integer).Value = 0
+            ocmd.Parameters.Add("@f0600_periodo_repeticion", NpgsqlDbType.Integer).Value = cl_db_helpers.SafeIntZero(0)
             ocmd.Parameters.Add("@f0600_repeticiones_indefinidas", NpgsqlDbType.Varchar).Value = "N"
             ocmd.Parameters.Add("@f0600_fecha_limite", NpgsqlDbType.Timestamp).Value = nueva_fecha_limite
             ocmd.Parameters.Add("@f0600_repetitiva", NpgsqlDbType.Varchar).Value = "S"
-            ocmd.Parameters.Add("@f0600_repeticiones_ejecutadas", NpgsqlDbType.Integer).Value = repeticiones_ejecutadas + 1
-            ocmd.Parameters.Add("@f0600_repeticiones_programadas", NpgsqlDbType.Integer).Value = repeticiones_programadas
+            ocmd.Parameters.Add("@f0600_repeticiones_ejecutadas", NpgsqlDbType.Integer).Value = cl_db_helpers.SafeIntZero(repeticiones_ejecutadas + 1)
+            ocmd.Parameters.Add("@f0600_repeticiones_programadas", NpgsqlDbType.Integer).Value = cl_db_helpers.SafeIntZero(repeticiones_programadas)
         Next
     End Sub
     Private Sub bt_cambiar_infraestructura_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles bt_cambiar_infraestructura.Click
@@ -1446,8 +1446,6 @@ Public Class fm_0600_gestion_tareas
         Dim oform_mostrar_datos As New camocontrol.fm_visor_datos
         oform_mostrar_datos.vf_oform_padre = Me
         oform_mostrar_datos.csql = csql
-        'definimos el contexto para habilitar el boton nuevo
-        oform_mostrar_datos.ocontexto_form = "salida de insumos de almacen desde una actividad"
         oform_mostrar_datos.titulo_formulario = "Salidas del almacen de Mantenimiento - Consulta"
         oform_mostrar_datos.vg_id_cia = vg_id_cia
         oform_mostrar_datos.vg_usuario_autoriza = vg_usuario_autoriza

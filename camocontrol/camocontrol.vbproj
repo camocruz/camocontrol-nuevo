@@ -75,6 +75,25 @@
   <PropertyGroup>
     <ApplicationManifest>My Project\app.manifest</ApplicationManifest>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DocumentationFile>camocontrol.xml</DocumentationFile>
+    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'">
+    <DefineTrace>true</DefineTrace>
+    <OutputPath>bin\Release\</OutputPath>
+    <DocumentationFile>camocontrol.xml</DocumentationFile>
+    <Optimize>true</Optimize>
+    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="CrystalDecisions.CrystalReports.Design, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
     <Reference Include="CrystalDecisions.CrystalReports.Engine, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
@@ -169,6 +188,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ClasesT\DtoTercero.vb" />
+    <Compile Include="clases\cl_db_helpers.vb" />
     <Compile Include="clases\cl_estructuras_variables.vb" />
     <Compile Include="clases\cl_gestion_anotaciones.vb" />
     <Compile Include="clases\cl_gestion_permisos.vb" />
@@ -232,6 +252,12 @@
       <DependentUpon>fm_0300_facturas_compras.vb</DependentUpon>
     </Compile>
     <Compile Include="formularios\Compras\SC-OC-RC-SA\fm_0300_facturas_compras.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="formularios\Compras\SC-OC-RC-SA\fm_0300_Oc_ListadoSiesaApi.Designer.vb">
+      <DependentUpon>fm_0300_Oc_ListadoSiesaApi.vb</DependentUpon>
+    </Compile>
+    <Compile Include="formularios\Compras\SC-OC-RC-SA\fm_0300_Oc_ListadoSiesaApi.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="formularios\Compras\SC-OC-RC-SA\fm_0300_recepcion_compras.Designer.vb">
@@ -889,6 +915,9 @@
     <EmbeddedResource Include="formularios\Compras\SC-OC-RC-SA\fm_0300_facturas_compras.resx">
       <DependentUpon>fm_0300_facturas_compras.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="formularios\Compras\SC-OC-RC-SA\fm_0300_Oc_ListadoSiesaApi.resx">
+      <DependentUpon>fm_0300_Oc_ListadoSiesaApi.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="formularios\Compras\SC-OC-RC-SA\fm_0300_recepcion_compras.resx">
       <DependentUpon>fm_0300_recepcion_compras.vb</DependentUpon>
     </EmbeddedResource>
@@ -1459,6 +1488,12 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="tools\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\App.ApiClient.CS\App.ApiClient.CS.csproj">
+      <Project>{fe045115-6717-4d1c-9473-ab8539189774}</Project>
+      <Name>App.ApiClient.CS</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

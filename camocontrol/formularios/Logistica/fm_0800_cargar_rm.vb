@@ -1116,6 +1116,7 @@ Public Class fm_0800_cargar_rm
         Dim client As New RestClient(options)
 
         Dim filtro As String = "(f350_id_cia = 1 and f350_consec_docto >" & UltimoDoctoCia1.ToString() & ") or (f350_id_cia = 2 and f350_consec_docto > " & UltimoDoctoCia2.ToString() & ")"
+
         Dim filtroCodificado As String = Uri.EscapeDataString(filtro)
 
         Dim fullUrl As String =

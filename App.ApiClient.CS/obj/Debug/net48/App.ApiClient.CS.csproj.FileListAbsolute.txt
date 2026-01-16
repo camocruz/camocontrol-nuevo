@@ -1,0 +1,12 @@
+C:\Repos\camocontrol\App.ApiClient.CS\bin\Debug\net48\App.ApiClient.CS.dll
+C:\Repos\camocontrol\App.ApiClient.CS\bin\Debug\net48\App.ApiClient.CS.pdb
+C:\Repos\camocontrol\App.ApiClient.CS\bin\Debug\net48\Newtonsoft.Json.dll
+C:\Repos\camocontrol\App.ApiClient.CS\obj\Debug\net48\App.ApiClient.CS.csproj.AssemblyReference.cache
+C:\Repos\camocontrol\App.ApiClient.CS\obj\Debug\net48\App.ApiClient.CS.GeneratedMSBuildEditorConfig.editorconfig
+C:\Repos\camocontrol\App.ApiClient.CS\obj\Debug\net48\App.ApiClient.CS.AssemblyInfoInputs.cache
+C:\Repos\camocontrol\App.ApiClient.CS\obj\Debug\net48\App.ApiClient.CS.AssemblyInfo.cs
+C:\Repos\camocontrol\App.ApiClient.CS\obj\Debug\net48\App.ApiClient.CS.csproj.CoreCompileInputs.cache
+C:\Repos\camocontrol\App.ApiClient.CS\obj\Debug\net48\App.ApiClient.CS.sourcelink.json
+C:\Repos\camocontrol\App.ApiClient.CS\obj\Debug\net48\App.ApiC.6FEFEB97.Up2Date
+C:\Repos\camocontrol\App.ApiClient.CS\obj\Debug\net48\App.ApiClient.CS.dll
+C:\Repos\camocontrol\App.ApiClient.CS\obj\Debug\net48\App.ApiClient.CS.pdb
