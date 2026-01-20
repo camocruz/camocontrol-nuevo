@@ -1,8 +1,13 @@
 ﻿Imports System.Windows.Forms
+Imports App.ApiClient.CS.Services.SpecificServices
 
 Public Class formulario_inicio
     'Objeto para manejar la configuración Regional hola
     Protected oregioninfo As System.Globalization.RegionInfo
+
+    'Para el manejo de servicios Siesa API
+    Dim baseService = App.ApiClient.CS.AppServices.SiesaFactory.CreateBaseService()
+    Dim servicio = New OrdenCompraApiService(baseService)
 
     Private vcerrar As String = "N"
     Private vf_otabla_permisos As DataTable

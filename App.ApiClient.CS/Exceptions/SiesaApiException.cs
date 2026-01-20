@@ -7,9 +7,10 @@ namespace App.ApiClient.CS.Exceptions
         public int Codigo { get; }
 
         public SiesaApiException(int codigo, string mensaje)
-            : base($"Error Siesa (código {codigo}): {mensaje}")
+            : base(mensaje)
         {
             Codigo = codigo;
         }
     }
+
 }

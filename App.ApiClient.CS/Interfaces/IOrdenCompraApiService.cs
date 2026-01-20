@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using App.ApiClient.CS.DTOs;
+using App.ApiClient.CS.DTOs.SpecificDtos;
 
 namespace App.ApiClient.CS.Interfaces
 {
@@ -9,9 +9,9 @@ namespace App.ApiClient.CS.Interfaces
     {
         Task<List<OrdenCompraDto>> ObtenerOrdenesCompraAsync(
             int idCompania,
-            int numeroPagina,
-            int tamanoPagina,
-            int rowidMinimo,
+            string filtro,
+            int numeroPagina = 1,
+            int tamanoPagina = 100,
             CancellationToken cancellationToken = default);
     }
 }

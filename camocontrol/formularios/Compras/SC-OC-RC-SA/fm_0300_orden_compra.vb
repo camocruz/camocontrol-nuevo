@@ -1,4 +1,7 @@
 ﻿Imports System.ComponentModel
+Imports App.ApiClient.CS.Services
+Imports App.ApiClient.CS.Services.SpecificServices
+Imports App.ApiClient.CS.Helpers.Commons
 
 Public Class fm_0300_orden_compra
     'Objetos publicos que reciben valores desde el Formulario padre
@@ -32,6 +35,7 @@ Public Class fm_0300_orden_compra
     Private csql As String
     Private otipo_nota As String
 
+    Private otb_items_servicios_camo As DataTable
     Private otb_proveedores As DataTable
     Private otb_solicitudes As DataTable
     Private otb_items_programados As DataTable
@@ -87,6 +91,7 @@ Public Class fm_0300_orden_compra
         bt_generar_informe.Enabled = False
         bt_aprobar.Enabled = False
         bt_desaprobar_oc.Enabled = False
+        cargar_otb_items_servicios_camo()
         'cargar_proveedores()
         csql = "SELECT *" _
             & " FROM " & database.obtener_esquema & ".tb0005_bodegas"
@@ -110,6 +115,14 @@ Public Class fm_0300_orden_compra
             'new_name_file += "-" & tx_id_factura.Text.PadLeft(8, "0")
         End If
         formatear_grilla()
+    End Sub
+
+    Private Sub cargar_otb_items_servicios_camo()
+        'Para calcular la cantidad de cajas a despachar debo traer la informacion de los
+        'items del cg, e identificar el factor de empaque.
+        csql = "select * from " & database.obtener_esquema & ".tb0300_items"
+        csql += " where f0300_id_cia = '" & vg_id_cia & "' and f0300_id_tipo_item = 4"
+        otb_items_servicios_camo = cl_utilidades_datatables.cargar_informacion_postgres(csql)
     End Sub
     Private Sub formatear_grilla()
         dg_listado.AlternatingRowsDefaultCellStyle.BackColor = System.Drawing.Color.Beige
@@ -1695,19 +1708,26 @@ Public Class fm_0300_orden_compra
             MsgBox("La OC debe estar aprobada", MsgBoxStyle.Information)
             Exit Sub
         End If
-        csql = comunes.suministrar_valor_variable_configuracion("ST-0300-45", vg_id_cia)
-        csql = Replace(csql, "$df001$", database.obtener_esquema)
-        csql = Replace(csql, "$001$", vg_id_cia)
-        csql = Replace(csql, "$002$", id_orden_compra)
-        Dim path1 As String = comunes.suministrar_valor_variable_configuracion("ST-0300-46", vg_id_cia)
-        csql = Replace(csql, "$003$", path1)
-        cl_utilidades_datatables.cargar_informacion_postgres(csql)
-        Dim path2 As String = comunes.suministrar_valor_variable_configuracion("ST-0300-47", vg_id_cia)
-        'Se debe usar path3 debido a que hay que garantizar que la aplicacion funcione cuendo el camo esta instalado
-        'localmente, el path1 se debe usar pues la instruccion SQL se corre local en el servidor.
-        Dim path3 As String = comunes.suministrar_valor_variable_configuracion("ST-0300-48", vg_id_cia)
-        FileCopy(path3, path2)
-        MsgBox("Ejecute cargar plano en SIESA", MsgBoxStyle.Information)
+
+        Dim dlg As New OpenFileDialog()
+
+        dlg.Title = "Seleccione un archivo"
+        dlg.Filter = "Todos los archivos (*.*)|*.*"
+        'dlg.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments)
+        Dim txtPath As String
+
+        If dlg.ShowDialog() = DialogResult.OK Then
+            txtPath = dlg.FileName   ' ← Aquí obtienes el path completo
+        Else
+            MsgBox("No se seleccionó ninguna archivo.", MsgBoxStyle.Information)
+            Exit Sub
+        End If
+
+        GenerarArchivoTexto(txtPath) '"\oc_siesa.txt"
+
+        MessageBox.Show("Archivo generado correctamente.")
+
+        MsgBox("Ejecute cargar archivo en SIESA", MsgBoxStyle.Information)
     End Sub
     Private Sub actualizar_oc_siesa_encabezado_oc()
         'Instancia la conexión que estará vigente para todas las operaciones CRUD
@@ -1791,17 +1811,9 @@ Public Class fm_0300_orden_compra
     ''' <summary>
     ''' Genera un archivo de texto con N líneas construidas mediante las funciones de línea fija.
     ''' </summary>
-    Public Sub GenerarArchivoTexto(rutaArchivo As String,
-                                   cantidadLineas As Integer,
-                                   longitudLinea As Integer)
+    Public Sub GenerarArchivoTexto(rutaArchivo As String)
 
         Dim lineas As New List(Of String)
-
-        Dim lineaApertura As String = "000000100000001001"
-        Dim lineaDocumento As String = "0000002045000020011001SI 0000001120251231               06110SALDOS INICIALES                                                                                                                                                                                                                                               601                               00000000                                                                                                                                          0000000000.0000000000000000000.0000000000000000000.0000000000000000000.0000                                                                                                                                                                                                                                                               "
-        Dim LineaItem As String = "000001304700003001001SI 000000304700005001001SI 000000110000000001                                                       0179                          60199001                                UND 000000000000006.0000000000000000000.0000000000000035739.5800"
-        Dim LineaCierre As String = "000001299990001001"
-
 
         'asegurarte de que siempre use la cultura invariable (útil en sistemas configurados con distintos formatos regionales):
         Dim fechaActual As String = DateTime.Now.ToString("yyyyMMdd", System.Globalization.CultureInfo.InvariantCulture)
@@ -1980,7 +1992,22 @@ Public Class fm_0300_orden_compra
             f421_cant_pedida_base = Formatear4Decimales(CDbl(row.Cells("dgocell_cantidad_solicitada").Value.ToString))
             f421_precio_unitario = Formatear4Decimales(CDbl(row.Cells("dgocell_costo_unitario").Value.ToString))
             f421_referencia_item = row.Cells("dgocell_cod_uno").Value.ToString
-            f421_id_motivo = "01" '01 PARA PRODUCTOS Y 73 PARA SERVICIOS
+
+
+            ' Buscar items en el datatable de items servicios camo
+            Dim t_item = (From c In otb_items_servicios_camo.AsEnumerable()
+                          Where c.Field(Of Integer)("f0300_id_item") = row.Cells("dgocell_item").Value
+                          Select c).FirstOrDefault()
+            If t_item IsNot Nothing Then
+                If t_item.Field(Of Integer)("f0300_id_tipo_item") <> 4 Then
+                    f421_id_motivo = "01" '01 PARA PRODUCTOS Y 73 PARA SERVICIOS
+                Else
+                    f421_id_motivo = "73" '01 PARA PRODUCTOS Y 73 PARA SERVICIOS
+                End If
+
+            End If
+
+
             Dim notas As String = "RSC-" & tx_id_orden_compra.Text.Trim & "-" & row.Cells("dgocell_id_sc_item").Value.ToString.Trim & " " &
                 row.Cells("dgocell_descripcion_complementaria").Value.ToString.Trim &
                                 " " & row.Cells("dgocell_nota").Value.ToString.Trim
@@ -2104,23 +2131,6 @@ Public Class fm_0300_orden_compra
         Return New String(resultado)
     End Function
 
-    Private Sub usar()
-        Dim ruta As String = "C:\Data\oc_siesa.txt"
-        Dim cantidad As Integer = 10
-        Dim longitud As Integer = 80
-
-        GenerarArchivoTexto(ruta, cantidad, longitud)
-
-        MessageBox.Show("Archivo generado correctamente.")
-
-
-
-    End Sub
-
-    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
-        usar()
-
-    End Sub
 
     Public Function ConvertirMatriz(matriz(,) As String) As IEnumerable(Of CampoDto)
 
@@ -2146,19 +2156,39 @@ Public Class fm_0300_orden_compra
         Return campos.FirstOrDefault(Function(c) c.Nombre.Equals(nombreBuscado, StringComparison.OrdinalIgnoreCase))
     End Function
 
-    Private Sub btn_consultarOcUnoEE_Click(sender As Object, e As EventArgs) Handles btn_consultarOcUnoEE.Click
-        Using frm As New camocontrol.fm_0300_Oc_ListadoSiesaApi
-            frm.vf_oform_padre = Me
-            frm.vg_id_cia = vg_id_cia
-            frm.vg_usuario_autoriza = vg_usuario_autoriza
-            frm.vf_elemento_nuevo = "N"
+    Private Async Sub btn_consultarOcUnoEE_Click(sender As Object, e As EventArgs) Handles btn_consultarOcUnoEE.Click
+        'Using frm As New camocontrol.fm_0300_Oc_ListadoSiesaApi
+        '    frm.vf_oform_padre = Me
+        '    frm.vg_id_cia = vg_id_cia
+        '    frm.vg_usuario_autoriza = vg_usuario_autoriza
+        '    frm.vf_elemento_nuevo = "N"
 
-            If frm.ShowDialog() = DialogResult.OK Then
-                'DtoDgEnEdicion = frm.Resultado 'NO ES NECESARIO RETORNAR EL DTO PORUQE SOLO SE ACTUALIZO LA CIUDAD Y DIRECCION Y BORRA EL ID_RM
-            Else
-                MessageBox.Show("Operación Cancelada")
-            End If
-        End Using
+        '    If frm.ShowDialog() = DialogResult.OK Then
+        '        'DtoDgEnEdicion = frm.Resultado 'NO ES NECESARIO RETORNAR EL DTO PORUQE SOLO SE ACTUALIZO LA CIUDAD Y DIRECCION Y BORRA EL ID_RM
+        '    Else
+        '        MessageBox.Show("Operación Cancelada")
+        '    End If
+        'End Using
+        Dim baseService = App.ApiClient.CS.AppServices.SiesaFactory.CreateBaseService()
+        Dim servicio = New OrdenCompraApiService(baseService)
+
+        Dim ordenes = Await servicio.ObtenerOrdenesCompraAsync(9174, "f420_rowid > 7")
+
+        Dim dt As DataTable = ordenes.ToDataTable()
+
+        cl_utilidades_datatables.visualizar_datos_visor("", vg_id_cia, vg_usuario_autoriza, "Ordenes de Compra", {}, dt,,,,,,, "N")
+
+    End Sub
+
+    Private Async Sub btn_ItemsUnoEE_Click(sender As Object, e As EventArgs) Handles btn_ItemsUnoEE.Click
+        Dim baseService = App.ApiClient.CS.AppServices.SiesaFactory.CreateBaseService()
+        Dim servicio = New ItemsReferenciasApiService(baseService)
+
+        Dim items = Await servicio.ObtenerAsync(9174, "")
+        Dim dt As DataTable = items.ToDataTable()
+
+        cl_utilidades_datatables.visualizar_datos_visor("", vg_id_cia, vg_usuario_autoriza, "Items UnoEE", {}, dt,,,,,,, "N")
+
     End Sub
 End Class
 Public Class CampoDto

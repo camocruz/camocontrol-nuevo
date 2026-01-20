@@ -88,9 +88,9 @@ Partial Class fm_0300_orden_compra
         Me.Label15 = New System.Windows.Forms.Label()
         Me.bt_gen_plano_oc_uno = New System.Windows.Forms.Button()
         Me.bt_actualizar_info_oc_siesa = New System.Windows.Forms.Button()
-        Me.Button1 = New System.Windows.Forms.Button()
         Me.tx_oc_uno = New System.Windows.Forms.TextBox()
         Me.btn_consultarOcUnoEE = New System.Windows.Forms.Button()
+        Me.btn_ItemsUnoEE = New System.Windows.Forms.Button()
         Me.GroupBox1.SuspendLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.dg_listado, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -307,7 +307,7 @@ Partial Class fm_0300_orden_compra
         '
         Me.bt_gestionar_tercero.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center
         Me.bt_gestionar_tercero.Image = Global.camocontrol.My.Resources.Resources.terceros
-        Me.bt_gestionar_tercero.Location = New System.Drawing.Point(1018, 300)
+        Me.bt_gestionar_tercero.Location = New System.Drawing.Point(1018, 264)
         Me.bt_gestionar_tercero.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
         Me.bt_gestionar_tercero.Name = "bt_gestionar_tercero"
         Me.bt_gestionar_tercero.Size = New System.Drawing.Size(176, 60)
@@ -321,7 +321,7 @@ Partial Class fm_0300_orden_compra
         '
         Me.bt_catalago_items.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center
         Me.bt_catalago_items.Image = Global.camocontrol.My.Resources.Resources.icono_herramientas
-        Me.bt_catalago_items.Location = New System.Drawing.Point(1203, 300)
+        Me.bt_catalago_items.Location = New System.Drawing.Point(1203, 264)
         Me.bt_catalago_items.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
         Me.bt_catalago_items.Name = "bt_catalago_items"
         Me.bt_catalago_items.Size = New System.Drawing.Size(176, 60)
@@ -357,7 +357,7 @@ Partial Class fm_0300_orden_compra
         '
         Me.bt_aprobar.BackColor = System.Drawing.Color.Gainsboro
         Me.bt_aprobar.Image = Global.camocontrol.My.Resources.Resources.dinero01
-        Me.bt_aprobar.Location = New System.Drawing.Point(790, 235)
+        Me.bt_aprobar.Location = New System.Drawing.Point(790, 199)
         Me.bt_aprobar.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
         Me.bt_aprobar.Name = "bt_aprobar"
         Me.bt_aprobar.Size = New System.Drawing.Size(176, 60)
@@ -714,7 +714,7 @@ Partial Class fm_0300_orden_compra
         '
         Me.bt_desaprobar_oc.BackColor = System.Drawing.Color.Gainsboro
         Me.bt_desaprobar_oc.Image = Global.camocontrol.My.Resources.Resources.dinero01
-        Me.bt_desaprobar_oc.Location = New System.Drawing.Point(1014, 238)
+        Me.bt_desaprobar_oc.Location = New System.Drawing.Point(1014, 202)
         Me.bt_desaprobar_oc.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
         Me.bt_desaprobar_oc.Name = "bt_desaprobar_oc"
         Me.bt_desaprobar_oc.Size = New System.Drawing.Size(176, 60)
@@ -788,7 +788,7 @@ Partial Class fm_0300_orden_compra
         '
         Me.lb_fecha_aprob.AutoSize = True
         Me.lb_fecha_aprob.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lb_fecha_aprob.Location = New System.Drawing.Point(840, 300)
+        Me.lb_fecha_aprob.Location = New System.Drawing.Point(795, 265)
         Me.lb_fecha_aprob.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.lb_fecha_aprob.Name = "lb_fecha_aprob"
         Me.lb_fecha_aprob.Size = New System.Drawing.Size(27, 25)
@@ -810,7 +810,7 @@ Partial Class fm_0300_orden_compra
         '
         Me.Label15.AutoSize = True
         Me.Label15.Font = New System.Drawing.Font("Microsoft Sans Serif", 6.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label15.Location = New System.Drawing.Point(1232, 234)
+        Me.Label15.Location = New System.Drawing.Point(1232, 198)
         Me.Label15.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label15.Name = "Label15"
         Me.Label15.Size = New System.Drawing.Size(80, 17)
@@ -820,7 +820,7 @@ Partial Class fm_0300_orden_compra
         'bt_gen_plano_oc_uno
         '
         Me.bt_gen_plano_oc_uno.BackgroundImage = Global.camocontrol.My.Resources.Resources.chatarra2
-        Me.bt_gen_plano_oc_uno.Location = New System.Drawing.Point(966, 238)
+        Me.bt_gen_plano_oc_uno.Location = New System.Drawing.Point(966, 202)
         Me.bt_gen_plano_oc_uno.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
         Me.bt_gen_plano_oc_uno.Name = "bt_gen_plano_oc_uno"
         Me.bt_gen_plano_oc_uno.Size = New System.Drawing.Size(48, 52)
@@ -830,45 +830,45 @@ Partial Class fm_0300_orden_compra
         'bt_actualizar_info_oc_siesa
         '
         Me.bt_actualizar_info_oc_siesa.BackgroundImage = Global.camocontrol.My.Resources.Resources.chatarra2
-        Me.bt_actualizar_info_oc_siesa.Location = New System.Drawing.Point(1329, 243)
+        Me.bt_actualizar_info_oc_siesa.Location = New System.Drawing.Point(1329, 207)
         Me.bt_actualizar_info_oc_siesa.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
         Me.bt_actualizar_info_oc_siesa.Name = "bt_actualizar_info_oc_siesa"
         Me.bt_actualizar_info_oc_siesa.Size = New System.Drawing.Size(48, 52)
         Me.bt_actualizar_info_oc_siesa.TabIndex = 369
         Me.bt_actualizar_info_oc_siesa.UseVisualStyleBackColor = True
         '
-        'Button1
-        '
-        Me.Button1.Location = New System.Drawing.Point(679, 212)
-        Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(88, 48)
-        Me.Button1.TabIndex = 370
-        Me.Button1.Text = "Button1"
-        Me.Button1.UseVisualStyleBackColor = True
-        '
         'tx_oc_uno
         '
-        Me.tx_oc_uno.Location = New System.Drawing.Point(1218, 256)
+        Me.tx_oc_uno.Location = New System.Drawing.Point(1218, 220)
         Me.tx_oc_uno.Name = "tx_oc_uno"
         Me.tx_oc_uno.Size = New System.Drawing.Size(104, 26)
         Me.tx_oc_uno.TabIndex = 371
         '
         'btn_consultarOcUnoEE
         '
-        Me.btn_consultarOcUnoEE.Location = New System.Drawing.Point(648, 267)
+        Me.btn_consultarOcUnoEE.Location = New System.Drawing.Point(1018, 325)
         Me.btn_consultarOcUnoEE.Name = "btn_consultarOcUnoEE"
-        Me.btn_consultarOcUnoEE.Size = New System.Drawing.Size(118, 44)
+        Me.btn_consultarOcUnoEE.Size = New System.Drawing.Size(176, 44)
         Me.btn_consultarOcUnoEE.TabIndex = 372
         Me.btn_consultarOcUnoEE.Text = "OC UnoEE"
         Me.btn_consultarOcUnoEE.UseVisualStyleBackColor = True
+        '
+        'btn_ItemsUnoEE
+        '
+        Me.btn_ItemsUnoEE.Location = New System.Drawing.Point(1203, 325)
+        Me.btn_ItemsUnoEE.Name = "btn_ItemsUnoEE"
+        Me.btn_ItemsUnoEE.Size = New System.Drawing.Size(176, 44)
+        Me.btn_ItemsUnoEE.TabIndex = 373
+        Me.btn_ItemsUnoEE.Text = "Items UnoEE"
+        Me.btn_ItemsUnoEE.UseVisualStyleBackColor = True
         '
         'fm_0300_orden_compra
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(9.0!, 20.0!)
         Me.ClientSize = New System.Drawing.Size(1474, 815)
+        Me.Controls.Add(Me.btn_ItemsUnoEE)
         Me.Controls.Add(Me.btn_consultarOcUnoEE)
         Me.Controls.Add(Me.tx_oc_uno)
-        Me.Controls.Add(Me.Button1)
         Me.Controls.Add(Me.bt_actualizar_info_oc_siesa)
         Me.Controls.Add(Me.bt_gen_plano_oc_uno)
         Me.Controls.Add(Me.Label15)
@@ -969,9 +969,9 @@ Partial Class fm_0300_orden_compra
         Me.Controls.SetChildIndex(Me.Label15, 0)
         Me.Controls.SetChildIndex(Me.bt_gen_plano_oc_uno, 0)
         Me.Controls.SetChildIndex(Me.bt_actualizar_info_oc_siesa, 0)
-        Me.Controls.SetChildIndex(Me.Button1, 0)
         Me.Controls.SetChildIndex(Me.tx_oc_uno, 0)
         Me.Controls.SetChildIndex(Me.btn_consultarOcUnoEE, 0)
+        Me.Controls.SetChildIndex(Me.btn_ItemsUnoEE, 0)
         Me.GroupBox1.ResumeLayout(False)
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.dg_listado, System.ComponentModel.ISupportInitialize).EndInit()
@@ -1049,7 +1049,7 @@ Partial Class fm_0300_orden_compra
     Friend WithEvents Label15 As Label
     Friend WithEvents bt_gen_plano_oc_uno As Button
     Friend WithEvents bt_actualizar_info_oc_siesa As Button
-    Friend WithEvents Button1 As Button
     Friend WithEvents tx_oc_uno As TextBox
     Friend WithEvents btn_consultarOcUnoEE As Button
+    Friend WithEvents btn_ItemsUnoEE As Button
 End Class

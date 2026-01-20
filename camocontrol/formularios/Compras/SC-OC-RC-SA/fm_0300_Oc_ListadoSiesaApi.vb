@@ -1,11 +1,14 @@
 ﻿Imports System.Net.Http
-Imports App.ApiClient.CS.DTOs
 Imports App.ApiClient.CS.Exceptions
 Imports App.ApiClient.CS.Http
 Imports App.ApiClient.CS.Interfaces
 Imports App.ApiClient.CS.Services
+Imports App.ApiClient.CS.Services.SpecificServices
 Imports App.ApiClient.CS.Helpers
 Imports System.Linq
+Imports App.ApiClient.CS.DTOs.SpecificDtos
+Imports App.ApiClient.CS.Helpers.Commons
+
 
 Public Class fm_0300_Oc_ListadoSiesaApi
     Private _ordenes As List(Of OrdenCompraDto)
@@ -14,15 +17,23 @@ Public Class fm_0300_Oc_ListadoSiesaApi
 
 
     Private Sub fm_0300_Oc_ListadoSiesaApi_Load(sender As Object, e As EventArgs) Handles Me.Load
-        cargar_listadoApi()
+        cargar_proveedores_siesa()
+    End Sub
+
+    Private Async Sub cargar_proveedores_siesa()
+        Dim baseService = App.ApiClient.CS.AppServices.SiesaFactory.CreateBaseService()
+        Dim servicio = New OrdenCompraApiService(baseService)
+
+        Dim ordenes = Await servicio.ObtenerOrdenesCompraAsync(9174, "f420_rowid > 7")
+
+        'Dim dt As DataTable = ordenes.ToDataTable()
+        'cl_utilidades_datatables.visualizar_datos_visor("", vg_id_cia, vg_usuario_autoriza, "Ordenes de Compra", {}, dt,,,,,,, "N")
+
     End Sub
 
 
-    Private Async Sub btnCargar_Click(sender As Object, e As EventArgs) Handles btnCargar.Click
-        cargar_listadoApi()
-    End Sub
-    Private Async Sub cargar_listadoApi()
-        btnCargar.Enabled = False
+
+    Private Async Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
 
         Try
             Dim baseUrl As String = "https://api.siesacloud.com/"
@@ -33,29 +44,28 @@ Public Class fm_0300_Oc_ListadoSiesaApi
             Dim http = HttpClientFactory.Crear(baseUrl, conniKey, conniToken, clientId)
 
             Dim apiClient As New SiesaApiClient(http)
-            Dim servicio As New OrdenCompraApiService(apiClient)
+            ' Crear servicio base
+            Dim baseService As New SiesaApiServiceBase(apiClient)
 
-            Dim idCompania As Integer = 9174
-            Dim tamPag As Integer = 100
-            Dim rowidMinimo As Integer = 7
+            ' Crear servicio específico
+            Dim servicio As New OrdenCompraApiService(baseService)
 
-            ' Cargar TODAS las páginas
-            Dim lista As List(Of OrdenCompraDto) =
-                Await servicio.ObtenerOrdenesCompraAsync(idCompania, 1, tamPag, rowidMinimo)
 
-            _ordenes = lista
+            ' Llamar la API con un filtro libre
+            Dim ordenes As List(Of OrdenCompraDto) =
+                Await servicio.ObtenerOrdenesCompraAsync(
+                idCompania:=9174,
+                filtro:="f420_rowid > 0"
+            )
+            If ordenes Is Nothing Then
+                MsgBox("ORDENES ES NULL")
+            Else
+                'MsgBox("ORDENES TIENE " & ordenes.Count & " ELEMENTOS")
+            End If
 
-            ' Construir tablas auxiliares a partir de _ordenes
-            _encabezados = ConstruirEncabezados()
-            _detalles = ConstruirDetalles()
+            dgvEncabezado.DataSource = ordenes
 
-            ' Evitar disparos prematuros del evento SelectionChanged al asignar DataSource
-            RemoveHandler dgvEncabezado.SelectionChanged, AddressOf dgvEncabezado_SelectionChanged
-            dgvEncabezado.DataSource = _encabezados
-            AddHandler dgvEncabezado.SelectionChanged, AddressOf dgvEncabezado_SelectionChanged
-
-            'dgvOrdenes.DataSource = lista
-            lblTotal.Text = $"Total: {lista.Count} registros"
+            MsgBox($"Se cargaron {ordenes.Count} registros de órdenes de compra.")
 
         Catch ex As SiesaApiException
             MessageBox.Show(ex.Message, "Error de negocio Siesa")
@@ -67,98 +77,13 @@ Public Class fm_0300_Oc_ListadoSiesaApi
             MessageBox.Show("Error inesperado: " & ex.Message)
 
         Finally
-            btnCargar.Enabled = True
+            'btnCargar.Enabled = True
         End Try
-    End Sub
-    Private Sub dgvEncabezado_SelectionChanged(sender As Object, e As EventArgs) Handles dgvEncabezado.SelectionChanged
-        If dgvEncabezado.CurrentRow Is Nothing Then Exit Sub
-        If _ordenes Is Nothing OrElse _ordenes.Count = 0 Then
-            dgvDetalle.DataSource = Nothing
-            Exit Sub
-        End If
 
-        Dim rowid As Integer = CInt(dgvEncabezado.CurrentRow.Cells("RowID").Value)
-
-        ' Filtrar usando LINQ sobre _ordenes en lugar de iterar sobre _detalles
-        Dim matches = _ordenes.Where(Function(o) o.f420_rowid = rowid).ToList()
-
-        If matches.Count = 0 Then
-            dgvDetalle.DataSource = Nothing
-            Exit Sub
-        End If
-
-        ' Construir un DataTable con las columnas de detalle y llenarlo desde los matches
-        Dim dtFiltrado As New DataTable()
-        dtFiltrado.Columns.Add("RowID", GetType(Integer))
-        dtFiltrado.Columns.Add("Referencia", GetType(String))
-        dtFiltrado.Columns.Add("Descripción", GetType(String))
-        dtFiltrado.Columns.Add("Cantidad", GetType(Decimal))
-        dtFiltrado.Columns.Add("Precio", GetType(Decimal))
-        dtFiltrado.Columns.Add("ValorNeto", GetType(Decimal))
-
-        For Each oc In matches
-            dtFiltrado.Rows.Add(
-                oc.f420_rowid,
-                oc.f120_referencia,
-                oc.f120_descripcion,
-                oc.f421_cant_pedida,
-                oc.f421_precio_unitario,
-                oc.f421_vlr_neto
-            )
-        Next
-
-        dgvDetalle.DataSource = dtFiltrado
     End Sub
 
+    Private Async Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
 
-    Private Function ConstruirEncabezados() As DataTable
-        Dim dt As New DataTable()
-        dt.Columns.Add("RowID", GetType(Integer))
-        dt.Columns.Add("Proveedor", GetType(String))
-        dt.Columns.Add("Fecha", GetType(String))
-        dt.Columns.Add("Tipo Documento", GetType(String))
-        dt.Columns.Add("Consecutivo", GetType(Integer))
-        dt.Columns.Add("Estado", GetType(String))
 
-        Dim grupos = _ordenes.
-            GroupBy(Function(x) x.f420_rowid).
-            Select(Function(g) g.First()).
-            OrderByDescending(Function(o) o.f420_rowid) ' Orden descendente por rowid
-
-        For Each oc In grupos
-            dt.Rows.Add(
-                oc.f420_rowid,
-                oc.f200_razon_social_prov,
-                oc.f420_fecha,
-                oc.f420_id_tipo_docto,
-                oc.f420_consec_docto,
-                oc.f420_desc_estado
-            )
-        Next
-
-        Return dt
-    End Function
-    Private Function ConstruirDetalles() As DataTable
-        Dim dt As New DataTable()
-
-        dt.Columns.Add("RowID", GetType(Integer))
-        dt.Columns.Add("Referencia", GetType(String))
-        dt.Columns.Add("Descripción", GetType(String))
-        dt.Columns.Add("Cantidad", GetType(Decimal))
-        dt.Columns.Add("Precio", GetType(Decimal))
-        dt.Columns.Add("ValorNeto", GetType(Decimal))
-
-        For Each oc In _ordenes
-            dt.Rows.Add(
-                oc.f420_rowid,
-                oc.f120_referencia,
-                oc.f120_descripcion,
-                oc.f421_cant_pedida,
-                oc.f421_precio_unitario,
-                oc.f421_vlr_neto
-            )
-        Next
-
-        Return dt
-    End Function
+    End Sub
 End Class

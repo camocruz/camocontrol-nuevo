@@ -19,10 +19,11 @@ Partial Class fm_0300_Oc_ListadoSiesaApi
     'No lo modifique con el editor de código.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Me.btnCargar = New System.Windows.Forms.Button()
         Me.dgvEncabezado = New System.Windows.Forms.DataGridView()
         Me.lblTotal = New System.Windows.Forms.Label()
         Me.dgvDetalle = New System.Windows.Forms.DataGridView()
+        Me.Button1 = New System.Windows.Forms.Button()
+        Me.Button2 = New System.Windows.Forms.Button()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.dgvEncabezado, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.dgvDetalle, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -32,15 +33,6 @@ Partial Class fm_0300_Oc_ListadoSiesaApi
         '
         Me.lb_fecha.Size = New System.Drawing.Size(112, 25)
         Me.lb_fecha.Text = "2026/01/12"
-        '
-        'btnCargar
-        '
-        Me.btnCargar.Location = New System.Drawing.Point(900, 628)
-        Me.btnCargar.Name = "btnCargar"
-        Me.btnCargar.Size = New System.Drawing.Size(98, 36)
-        Me.btnCargar.TabIndex = 63
-        Me.btnCargar.Text = "Button1"
-        Me.btnCargar.UseVisualStyleBackColor = True
         '
         'dgvEncabezado
         '
@@ -77,14 +69,33 @@ Partial Class fm_0300_Oc_ListadoSiesaApi
         Me.dgvDetalle.Size = New System.Drawing.Size(1095, 237)
         Me.dgvDetalle.TabIndex = 66
         '
+        'Button1
+        '
+        Me.Button1.Location = New System.Drawing.Point(641, 615)
+        Me.Button1.Name = "Button1"
+        Me.Button1.Size = New System.Drawing.Size(162, 41)
+        Me.Button1.TabIndex = 67
+        Me.Button1.Text = "ProbarGenericos"
+        Me.Button1.UseVisualStyleBackColor = True
+        '
+        'Button2
+        '
+        Me.Button2.Location = New System.Drawing.Point(909, 632)
+        Me.Button2.Name = "Button2"
+        Me.Button2.Size = New System.Drawing.Size(108, 54)
+        Me.Button2.TabIndex = 68
+        Me.Button2.Text = "Button2"
+        Me.Button2.UseVisualStyleBackColor = True
+        '
         'fm_0300_Oc_ListadoSiesaApi
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(9.0!, 20.0!)
         Me.ClientSize = New System.Drawing.Size(1113, 705)
+        Me.Controls.Add(Me.Button2)
+        Me.Controls.Add(Me.Button1)
         Me.Controls.Add(Me.dgvDetalle)
         Me.Controls.Add(Me.lblTotal)
         Me.Controls.Add(Me.dgvEncabezado)
-        Me.Controls.Add(Me.btnCargar)
         Me.Name = "fm_0300_Oc_ListadoSiesaApi"
         Me.Controls.SetChildIndex(Me.lb_titulo, 0)
         Me.Controls.SetChildIndex(Me.ll_linea1, 0)
@@ -93,10 +104,11 @@ Partial Class fm_0300_Oc_ListadoSiesaApi
         Me.Controls.SetChildIndex(Me.PictureBox1, 0)
         Me.Controls.SetChildIndex(Me.lb_diseñador_programa, 0)
         Me.Controls.SetChildIndex(Me.bt_salir, 0)
-        Me.Controls.SetChildIndex(Me.btnCargar, 0)
         Me.Controls.SetChildIndex(Me.dgvEncabezado, 0)
         Me.Controls.SetChildIndex(Me.lblTotal, 0)
         Me.Controls.SetChildIndex(Me.dgvDetalle, 0)
+        Me.Controls.SetChildIndex(Me.Button1, 0)
+        Me.Controls.SetChildIndex(Me.Button2, 0)
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.dgvEncabezado, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.dgvDetalle, System.ComponentModel.ISupportInitialize).EndInit()
@@ -104,9 +116,9 @@ Partial Class fm_0300_Oc_ListadoSiesaApi
         Me.PerformLayout()
 
     End Sub
-
-    Friend WithEvents btnCargar As Button
     Friend WithEvents dgvEncabezado As DataGridView
     Friend WithEvents lblTotal As Label
     Friend WithEvents dgvDetalle As DataGridView
+    Friend WithEvents Button1 As Button
+    Friend WithEvents Button2 As Button
 End Class

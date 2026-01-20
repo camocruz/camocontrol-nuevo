@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Reflection;
-using App.ApiClient.CS.DTOs;
+using App.ApiClient.CS.DTOs.SpecificDtos;
 
 namespace App.ApiClient.CS.Helpers
 {
