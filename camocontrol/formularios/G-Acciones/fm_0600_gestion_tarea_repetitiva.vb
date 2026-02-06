@@ -311,8 +311,8 @@
         ocmd.Parameters.Add("@f0600_id_tipo_accion", NpgsqlDbType.Varchar).Value = "02" '02 = preventiva
         ocmd.Parameters.Add("@f0600_id_estado_accion", NpgsqlDbType.Varchar).Value = "03" '03 = implementacion
         ocmd.Parameters.Add("@f0600_unidad_duracion", NpgsqlDbType.Varchar).Value = cm_unidad_duracion.SelectedValue.ToString
-        ocmd.Parameters.Add("@f0600_duracion", NpgsqlDbType.Integer).Value = tx_duracion.Text.ToString.Trim
-        ocmd.Parameters.Add("@f0600_periodo_repeticion", NpgsqlDbType.Integer).Value = tx_periodo.Text.ToString.Trim
+        ocmd.Parameters.Add("@f0600_duracion", NpgsqlDbType.Integer).Value = CInt(tx_duracion.Text.ToString.Trim)
+        ocmd.Parameters.Add("@f0600_periodo_repeticion", NpgsqlDbType.Integer).Value = CInt(tx_periodo.Text.ToString.Trim)
         ocmd.Parameters.Add("@f0600_responsable", NpgsqlDbType.Varchar).Value = "00000001" 'el administrador, no definido.
         ocmd.Parameters.Add("@f0600_evaluador", NpgsqlDbType.Varchar).Value = cm_evaluador.SelectedValue.ToString
         ocmd.Parameters.Add("@f0600_emisor", NpgsqlDbType.Varchar).Value = vg_usuario_autoriza

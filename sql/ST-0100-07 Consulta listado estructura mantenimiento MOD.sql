@@ -8,7 +8,7 @@
 	      and array_length(string_to_array(tb0100_estructura_mantenimiento.f0100_path,'-'), 1)>1
 )
 SELECT f0100_id_estructura as id, 
-       f0100_nombre as nombre, 
+       f0100_nombre || ' ( ' || f0100_id_estructura || ' - ' || f0100_codigo || ' )' as nombre, 
        f0100_descripcion as descripcion, 
        f0100_codigo as codigo, 
        f0107_tipo_estructura as tipo, 

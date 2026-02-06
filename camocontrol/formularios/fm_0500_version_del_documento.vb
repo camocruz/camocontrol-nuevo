@@ -244,7 +244,7 @@
         ocmd.CommandText = csql
         'crear_parametros_formula(ocmd)
         ocmd.Parameters.Clear()
-        ocmd.Parameters.Add("f0502_id_ed", NpgsqlDbType.Integer).Value = tx_id_doc_ed.Text
+        ocmd.Parameters.Add("f0502_id_ed", NpgsqlDbType.Integer).Value = CInt(tx_id_doc_ed.Text)
         ocmd.Parameters.Add("@f0502_descripcion_ed", NpgsqlDbType.Varchar).Value = tx_cambio.Text.Trim
         If tx_fecha_revision.Text = "" Or cm_revisadopor.SelectedValue = vg_usuario_nn Then
             ocmd.Parameters.Add("@f0502_fecha_revision", NpgsqlDbType.Timestamp).Value = DBNull.Value

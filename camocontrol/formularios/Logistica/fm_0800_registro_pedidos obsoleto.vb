@@ -627,10 +627,10 @@ line1:
         ocmd.Parameters.Add("@f0800_cliente", NpgsqlDbType.Varchar).Value = cm_razon_social.SelectedValue
         ocmd.Parameters.Add("@f0800_id_ciudad_destino", NpgsqlDbType.Varchar).Value = cm_ciudad_destino.SelectedValue
         ocmd.Parameters.Add("@f0800_costo_total_cotizado", NpgsqlDbType.Numeric).Value = CDec(tx_valor_pedido_cliente.Text)
-        ocmd.Parameters.Add("@f0800_tot_cajas_cotizadas", NpgsqlDbType.Integer).Value = tx_unidades_pedidas.Text
+        ocmd.Parameters.Add("@f0800_tot_cajas_cotizadas", NpgsqlDbType.Integer).Value = CInt(tx_unidades_pedidas.Text)
         ocmd.Parameters.Add("@f0800_transportadora_programada", NpgsqlDbType.Varchar).Value = cm_transportadora.SelectedValue
         ocmd.Parameters.Add("@f0800_fecha_programacion_despacho", NpgsqlDbType.Timestamp).Value = dtp_programacion_despacho.Value
-        ocmd.Parameters.Add("@f0800_tot_cajas_bono_cotizadas", NpgsqlDbType.Integer).Value = tx_unidades_bono_pedido.Text
+        ocmd.Parameters.Add("@f0800_tot_cajas_bono_cotizadas", NpgsqlDbType.Integer).Value = CInt(tx_unidades_bono_pedido.Text)
         ocmd.Parameters.Add("@f0800_costo_total_bono_cotizado", NpgsqlDbType.Numeric).Value = CDec(tx_valor_bono_pedido.Text)
         ocmd.Parameters.Add("@f0800_usuario_modificar", NpgsqlDbType.Varchar).Value = vg_usuario_autoriza
         ocmd.Parameters.Add("@f0800_usuario_crear", NpgsqlDbType.Varchar).Value = vg_usuario_autoriza
@@ -699,7 +699,7 @@ line1:
         ocmd.Parameters.Add("@f0800_cliente", NpgsqlDbType.Varchar).Value = cm_razon_social.SelectedValue
         ocmd.Parameters.Add("@f0800_id_ciudad_destino", NpgsqlDbType.Varchar).Value = cm_ciudad_destino.SelectedValue
         ocmd.Parameters.Add("@f0800_costo_total_cotizado", NpgsqlDbType.Numeric).Value = CDec(tx_valor_pedido_cliente.Text)
-        ocmd.Parameters.Add("@f0800_tot_cajas_cotizadas", NpgsqlDbType.Integer).Value = tx_unidades_pedidas.Text
+        ocmd.Parameters.Add("@f0800_tot_cajas_cotizadas", NpgsqlDbType.Integer).Value = CInt(tx_unidades_pedidas.Text)
         ocmd.Parameters.Add("@f0800_transportadora_programada", NpgsqlDbType.Varchar).Value = cm_transportadora.SelectedValue
         ocmd.Parameters.Add("@f0800_fecha_programacion_despacho", NpgsqlDbType.Timestamp).Value = dtp_programacion_despacho.Value
         ocmd.Parameters.Add("@f0800_aprobado", NpgsqlDbType.Varchar).Value = "N"
@@ -708,7 +708,7 @@ line1:
         ocmd.Parameters.Add("@f0800_id_cumplido_transp", NpgsqlDbType.Varchar).Value = DBNull.Value
         ocmd.Parameters.Add("@f0800_id_factura", NpgsqlDbType.Varchar).Value = DBNull.Value
         ocmd.Parameters.Add("@f0800_id_remision", NpgsqlDbType.Varchar).Value = DBNull.Value
-        ocmd.Parameters.Add("@f0800_tot_cajas_bono_cotizadas", NpgsqlDbType.Integer).Value = tx_unidades_bono_pedido.Text
+        ocmd.Parameters.Add("@f0800_tot_cajas_bono_cotizadas", NpgsqlDbType.Integer).Value = CInt(tx_unidades_bono_pedido.Text)
         ocmd.Parameters.Add("@f0800_costo_total_bono_cotizado", NpgsqlDbType.Numeric).Value = CDec(tx_valor_bono_pedido.Text)
         ocmd.Parameters.Add("@f0800_usuario_modificar", NpgsqlDbType.Varchar).Value = vg_usuario_autoriza
         ocmd.Parameters.Add("@f0800_fm", NpgsqlDbType.Timestamp).Value = fecha_actual
@@ -964,10 +964,10 @@ line1:
         ocmd.Parameters.Add("@f0800_funcionario_aprueba", NpgsqlDbType.Varchar).Value = vg_usuario_autoriza
         ocmd.Parameters.Add("@f0800_fecha_aprobacion", NpgsqlDbType.Timestamp).Value = fecha_actual
         ocmd.Parameters.Add("@f0800_aprobado", NpgsqlDbType.Varchar).Value = "S"
-        ocmd.Parameters.Add("@f0800_tot_cajas_aprobadas", NpgsqlDbType.Integer).Value = tx_unidades_aprobadas.Text
+        ocmd.Parameters.Add("@f0800_tot_cajas_aprobadas", NpgsqlDbType.Integer).Value = CInt(tx_unidades_aprobadas.Text)
         ocmd.Parameters.Add("@f0800_costo_total_aprobado", NpgsqlDbType.Numeric).Value = CDec(tx_valor_aprobado.Text)
 
-        ocmd.Parameters.Add("@f0800_tot_cajas_bono_aprobadas", NpgsqlDbType.Integer).Value = tx_unidades_bono_aprobadas.Text
+        ocmd.Parameters.Add("@f0800_tot_cajas_bono_aprobadas", NpgsqlDbType.Integer).Value = CInt(tx_unidades_bono_aprobadas.Text)
         ocmd.Parameters.Add("@f0800_costo_total_bono_aprobado", NpgsqlDbType.Numeric).Value = CDec(tx_valor_bono_aprobado.Text)
 
         ocmd.Parameters.Add("@f0800_usuario_modificar", NpgsqlDbType.Varchar).Value = vg_usuario_autoriza
@@ -1271,7 +1271,7 @@ line1:
         ocmd.Parameters.Add("@f0800_funcionario_factura", NpgsqlDbType.Varchar).Value = vg_usuario_autoriza
         ocmd.Parameters.Add("@f0800_fecha_factura", NpgsqlDbType.Timestamp).Value = fecha_actual
         ocmd.Parameters.Add("@f0800_facturado", NpgsqlDbType.Varchar).Value = "S"
-        ocmd.Parameters.Add("@f0800_total_cajas_facturadas", NpgsqlDbType.Integer).Value = tx_unidades_facturadas.Text
+        ocmd.Parameters.Add("@f0800_total_cajas_facturadas", NpgsqlDbType.Integer).Value = CInt(tx_unidades_facturadas.Text)
         ocmd.Parameters.Add("@f0800_costo_total_facturado", NpgsqlDbType.Numeric).Value = CDec(tx_valor_facturado.Text)
         ocmd.Parameters.Add("@f0800_costo_flete_calculado", NpgsqlDbType.Numeric).Value = CDec(tx_flete_calculado.Text)
         If tx_remision.Text.ToString.Trim = "" Then
@@ -1290,7 +1290,7 @@ line1:
         Else
             ocmd.Parameters.Add("@f0800_id_doc_bono", NpgsqlDbType.Varchar).Value = tx_id_bono.Text.ToString
         End If
-        ocmd.Parameters.Add("@f0800_tot_cajas_bono_factura", NpgsqlDbType.Integer).Value = tx_unidades_bono_facturadas.Text
+        ocmd.Parameters.Add("@f0800_tot_cajas_bono_factura", NpgsqlDbType.Integer).Value = CInt(tx_unidades_bono_facturadas.Text)
         ocmd.Parameters.Add("@f0800_costo_total_bono_factura", NpgsqlDbType.Numeric).Value = CDec(tx_valor_bono_factura.Text)
         ocmd.Parameters.Add("@f0800_usuario_modificar", NpgsqlDbType.Varchar).Value = vg_usuario_autoriza
         ocmd.Parameters.Add("@f0800_fm", NpgsqlDbType.Timestamp).Value = fecha_actual
@@ -1466,7 +1466,7 @@ line1:
         ocmd.Parameters.Add("@f0800_fecha_registro_guia_transp", NpgsqlDbType.Timestamp).Value = fecha_actual
         ocmd.Parameters.Add("@f0800_transportadora", NpgsqlDbType.Varchar).Value = cm_transportadora_despacho.SelectedValue
         ocmd.Parameters.Add("@f0800_guia_transportadora", NpgsqlDbType.Varchar).Value = tx_guia_transportadora.Text.ToString.Trim
-        ocmd.Parameters.Add("@f0800_tot_cajas_despachadas", NpgsqlDbType.Integer).Value = tx_unidades_despachadas.Text
+        ocmd.Parameters.Add("@f0800_tot_cajas_despachadas", NpgsqlDbType.Integer).Value = CInt(tx_unidades_despachadas.Text)
         ocmd.Parameters.Add("@f0800_guia_registrada", NpgsqlDbType.Varchar).Value = "S"
         ocmd.Parameters.Add("@f0800_usuario_modificar", NpgsqlDbType.Varchar).Value = vg_usuario_autoriza
         ocmd.Parameters.Add("@f0800_fm", NpgsqlDbType.Timestamp).Value = fecha_actual

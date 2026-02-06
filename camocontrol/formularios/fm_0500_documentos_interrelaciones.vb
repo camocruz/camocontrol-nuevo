@@ -155,9 +155,9 @@
         ocmd.Parameters.Clear()
         If otipo_rel = "hijo" Then
             ocmd.Parameters.Add("@f0504_id_documento_padre", NpgsqlDbType.Integer).Value = id_documento
-            ocmd.Parameters.Add("@f0504_id_documento_hijo", NpgsqlDbType.Integer).Value = cm_codigo_documento.SelectedValue
+            ocmd.Parameters.Add("@f0504_id_documento_hijo", NpgsqlDbType.Integer).Value = CInt(cm_codigo_documento.SelectedValue)
         Else
-            ocmd.Parameters.Add("@f0504_id_documento_padre", NpgsqlDbType.Integer).Value = cm_codigo_documento.SelectedValue
+            ocmd.Parameters.Add("@f0504_id_documento_padre", NpgsqlDbType.Integer).Value = CInt(cm_codigo_documento.SelectedValue)
             ocmd.Parameters.Add("@f0504_id_documento_hijo", NpgsqlDbType.Integer).Value = id_documento
         End If
 
@@ -203,9 +203,9 @@
         ocmd.Parameters.Clear()
         If otipo_rel = "hijo" Then
             ocmd.Parameters.Add("@f0504_id_documento_padre", NpgsqlDbType.Integer).Value = id_documento
-            ocmd.Parameters.Add("@f0504_id_documento_hijo", NpgsqlDbType.Integer).Value = tx_id_documento_relacion.Text
+            ocmd.Parameters.Add("@f0504_id_documento_hijo", NpgsqlDbType.Integer).Value = CInt(tx_id_documento_relacion.Text)
         Else
-            ocmd.Parameters.Add("@f0504_id_documento_padre", NpgsqlDbType.Integer).Value = tx_id_documento_relacion.Text
+            ocmd.Parameters.Add("@f0504_id_documento_padre", NpgsqlDbType.Integer).Value = CInt(tx_id_documento_relacion.Text)
             ocmd.Parameters.Add("@f0504_id_documento_hijo", NpgsqlDbType.Integer).Value = id_documento
         End If
 

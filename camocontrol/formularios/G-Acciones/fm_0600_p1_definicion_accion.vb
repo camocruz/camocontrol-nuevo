@@ -609,7 +609,7 @@
         ocmd.Parameters.Add("@f0600_titulo", NpgsqlDbType.Varchar).Value = UCase(tx_titulo.Text.ToString.Trim)
 
         ocmd.Parameters.Add("@f0600_id_tipo_accion", NpgsqlDbType.Varchar).Value = cm_tipo_accion.SelectedValue.ToString
-        ocmd.Parameters.Add("@f0600_id_fuente_accion", NpgsqlDbType.Integer).Value = cm_fuente_accion.SelectedValue.ToString
+        ocmd.Parameters.Add("@f0600_id_fuente_accion", NpgsqlDbType.Integer).Value = CInt(cm_fuente_accion.SelectedValue.ToString)
         If cm_razon_social.SelectedIndex = -1 Then
             ocmd.Parameters.Add("@f0600_tercero_relacionado", NpgsqlDbType.Varchar).Value = ""
         Else
@@ -764,7 +764,7 @@
         ocmd.Parameters.Add("@f0600_descripcion", NpgsqlDbType.Varchar).Value = UCase(tx_modo_efecto_falla.Text.ToString.Trim)
         ocmd.Parameters.Add("@f0600_titulo", NpgsqlDbType.Varchar).Value = UCase(tx_titulo.Text.ToString.Trim)
 
-        ocmd.Parameters.Add("@f0600_id_fuente_accion", NpgsqlDbType.Integer).Value = cm_fuente_accion.SelectedValue
+        ocmd.Parameters.Add("@f0600_id_fuente_accion", NpgsqlDbType.Integer).Value = CInt(cm_fuente_accion.SelectedValue)
         If cm_razon_social.SelectedIndex = -1 Then
             ocmd.Parameters.Add("@f0600_tercero_relacionado", NpgsqlDbType.Varchar).Value = ""
         Else

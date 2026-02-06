@@ -445,7 +445,7 @@
     End Sub
     Private Sub Crear_parametros_item(ByVal ocmd As NpgsqlCommand)
         ocmd.Parameters.Clear()
-        ocmd.Parameters.Add("f0305_id_item_solicitud", NpgsqlDbType.Integer).Value = dg_listado.CurrentRow.Cells("dgocell_id_sc_item").Value
+        ocmd.Parameters.Add("f0305_id_item_solicitud", NpgsqlDbType.Integer).Value = CInt(dg_listado.CurrentRow.Cells("dgocell_id_sc_item").Value)
         ocmd.Parameters.Add("@f0305_cantidad", NpgsqlDbType.Numeric).Value = dg_listado.CurrentRow.Cells("dgocell_cantidad_solicitada").Value
         ocmd.Parameters.Add("@f0305_iva", NpgsqlDbType.Numeric).Value = dg_listado.CurrentRow.Cells("dgocell_iva").Value / 100
         ocmd.Parameters.Add("@f0305_descuento", NpgsqlDbType.Numeric).Value = dg_listado.CurrentRow.Cells("dgocell_descuento").Value / 100
@@ -962,13 +962,13 @@
     Private Sub Crear_parametros_solicitud(ByVal ocmd As NpgsqlCommand)
         ocmd.Parameters.Clear()
         If vf_elemento_nuevo = "N" Then
-            ocmd.Parameters.Add("f0304_id_solicitud", NpgsqlDbType.Integer).Value = tx_solicitud.Text.ToString
+            ocmd.Parameters.Add("f0304_id_solicitud", NpgsqlDbType.Integer).Value = CInt(tx_solicitud.Text.ToString)
         End If
         ocmd.Parameters.Add("@f0304_id_cia", NpgsqlDbType.Varchar).Value = vg_id_cia
         'ocmd.Parameters.Add("@f0304_id_estado", NpgsqlDbType.Integer).Value = cm_estado.SelectedValue
         ocmd.Parameters.Add("@f0304_id_accion", NpgsqlDbType.Integer).Value = id_accion
         ocmd.Parameters.Add("@f0304_id_estructura", NpgsqlDbType.Integer).Value = id_estructura
-        ocmd.Parameters.Add("@f0304_id_centro_costo", NpgsqlDbType.Integer).Value = cm_centro_costo.SelectedValue
+        ocmd.Parameters.Add("@f0304_id_centro_costo", NpgsqlDbType.Integer).Value = CInt(cm_centro_costo.SelectedValue)
         ocmd.Parameters.Add("@f0304_anotacion", NpgsqlDbType.Varchar).Value = tx_anotacion.Text.ToString
         ocmd.Parameters.Add("@f0304_usuario_modificar", NpgsqlDbType.Varchar).Value = vg_usuario_autoriza
         ocmd.Parameters.Add("@f0304_usuario_crear", NpgsqlDbType.Varchar).Value = vg_usuario_autoriza

@@ -1,4 +1,8 @@
-﻿Public Class fm_0100_estructura_mantenimiento
+﻿'Imports System.Web.UI.WebControls
+
+Imports System.ComponentModel
+
+Public Class fm_0100_estructura_mantenimiento
     'Objetos publicos que reciben valores desde el Formulario padre
     'Public vf_oform_padre As Object
     Public ocontexto_form As String = ""
@@ -110,7 +114,6 @@
             CrearNodosDelPadre(otb_estructura_mantenimiento, "0", Nothing)
             TreeView1.Nodes.Item(0).Expand()
             tx_elemento_seleccionado.Text = "N/D"
-            llenar_combo_elementos()
         Else
             llenar_rama_arbol()
             TreeView1.Nodes.Item(0).Expand()
@@ -165,41 +168,7 @@
         llenar_arbol() 'Actualiza la info con los nuevos cambios
         mostrar_nodo(nodo_padre_tag)
     End Sub
-    Private Sub llenar_combo_elementos()
-        If rb_nombre.Checked = True Then
-            llenar_combo_elementos_nombre()
-        Else
-            llenar_combo_elementos_codigo()
-        End If
-    End Sub
-    Private Sub llenar_combo_elementos_codigo()
-        With cm_elementos
-            'Valor que se muestra al usuario
-            .DisplayMember = "descripcion_codigo"
-            'Valor interno que almacena el objeto
-            .ValueMember = "f0100_id_estructura"
-            'Origen de Datos del ComboBox
-            .DataSource = otb_estructura_mantenimiento
-            .DropDownStyle = ComboBoxStyle.DropDown
-            .AutoCompleteMode = AutoCompleteMode.Suggest
-            .AutoCompleteSource = AutoCompleteSource.ListItems
-            .SelectedIndex = -1
-        End With
-    End Sub
-    Private Sub llenar_combo_elementos_nombre()
-        With cm_elementos
-            'Valor que se muestra al usuario
-            .DisplayMember = "descripcion_nombre"
-            'Valor interno que almacena el objeto
-            .ValueMember = "f0100_id_estructura"
-            'Origen de Datos del ComboBox
-            .DataSource = otb_estructura_mantenimiento
-            .DropDownStyle = ComboBoxStyle.DropDown
-            .AutoCompleteMode = AutoCompleteMode.Suggest
-            .AutoCompleteSource = AutoCompleteSource.ListItems
-            .SelectedIndex = -1
-        End With
-    End Sub
+
     Private Sub CrearNodosDelPadre(ByVal odatatable As DataTable, ByVal indicePadre As String, ByVal nodePadre As TreeNode)
         Dim ods As New DataSet
         Dim dataViewHijos As New DataView
@@ -453,13 +422,7 @@
         End If
         ruta_critica(id_estructura)
     End Sub
-    Private Sub cm_elementos_Validating(ByVal sender As Object, ByVal e As System.ComponentModel.CancelEventArgs) Handles cm_elementos.Validating
-        If cm_elementos.SelectedIndex = -1 Then
-            cm_elementos.Text = ""
-            Exit Sub
-        End If
-        ruta_critica(cm_elementos.SelectedValue)
-    End Sub
+
     Private Sub ruta_critica(id_nodo As String)
         'MsgBox("entro")
         TreeView1.Nodes.Clear()
@@ -525,9 +488,7 @@
         Next dataRowCurrent
         Return nuevoNodo
     End Function
-    Private Sub rb_nombre_CheckedChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles rb_nombre.CheckedChanged
-        llenar_combo_elementos()
-    End Sub
+
 
     Private Sub bt_mantenimientos_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles bt_mantenimientos.Click
 
@@ -663,5 +624,56 @@
         Dim campo_id As String = "f0100_id_estructura"
         cl_utilidades_datatables.copiar_ramal(ocampos, otabla, id_rama, campo_rama, campo_id)
     End Sub
+    Private Sub ejecutar_modo_busqueda_item()
+        If tx_BuscadorEstructura.Text.Trim() = "" Then
+            MsgBox("Ingrese un criterio de búsqueda", MsgBoxStyle.Exclamation, "Buscar")
+            Exit Sub
+        End If
 
+        Dim filtro As String = comunes.generador_filtro_like("nombre", tx_BuscadorEstructura.Text.Trim())
+
+        Dim otb_items_selected As DataTable = Nothing
+        Dim otb_tablas_array() As DataTable = Nothing
+        otb_tablas_array = cl_utilidades_datatables.visualizar_datos_visor("ST-0100-07", vg_id_cia, vg_usuario_autoriza,
+                                                        "Estructura Mantenimiento",
+                                                        {vg_id_cia},
+                                                            , "Items",,, "S", "id",, "S", "N", filtro)
+
+        If IsNothing(otb_tablas_array(2)) = False Then
+            otb_items_selected = otb_tablas_array(2)
+        Else
+            Exit Sub
+        End If
+        'agrego el tercero seleccionado
+        For Each orow As DataRow In otb_items_selected.Rows
+            'MsgBox("ID seleccionado: " & orow("id"))
+            ruta_critica(orow("id"))
+        Next
+    End Sub
+
+    Private Sub tx_BuscadorEstructura_KeyDown(sender As Object, e As KeyEventArgs) Handles tx_BuscadorEstructura.KeyDown
+        If e.KeyCode = Keys.Enter Then
+            e.SuppressKeyPress = True ' evita el beep o salto de línea
+            ejecutar_modo_busqueda_item()
+        End If
+
+    End Sub
+
+    Private Sub bt_nueva_no_recurrente_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles bt_nueva_actividad.Click
+        If id_estructura = 0 Then
+            MsgBox("Seleccione un elemento", MsgBoxStyle.Critical, "Error")
+            Exit Sub
+        End If
+        'Instanciamos el formulario como un objeto de la clase fm_0100_estructura_mantenimiento
+        'Esto es necesario hacerlo cuando antes de mostrar el formulario debemos configurarle valores previos
+        Dim oform_programar_actividad As New camocontrol.fm_0600_gestion_tareas
+        'oform_grilla_programacion.ods_hijo = ods
+        oform_programar_actividad.vf_oform_padre = Me
+        oform_programar_actividad.vg_id_cia = vg_id_cia
+        oform_programar_actividad.vg_usuario_autoriza = vg_usuario_autoriza
+        oform_programar_actividad.cm_emisor.Enabled = False
+        oform_programar_actividad.id_estructura = id_estructura
+        oform_programar_actividad.vf_elemento_nuevo = "S"
+        oform_programar_actividad.ShowDialog()
+    End Sub
 End Class

@@ -158,8 +158,8 @@
     End Sub
     Private Sub Crear_parametros_item(ByVal ocmd As NpgsqlCommand)
         ocmd.Parameters.Clear()
-        ocmd.Parameters.Add("@f0841_id_det_cv", NpgsqlDbType.Integer).Value = dg_cv_detalle.CurrentRow.Cells("id").Value
-        ocmd.Parameters.Add("@f0841_id_motivo", NpgsqlDbType.Integer).Value = dg_cv_detalle.CurrentRow.Cells("id_motivo").Value
+        ocmd.Parameters.Add("@f0841_id_det_cv", NpgsqlDbType.Integer).Value = CInt(dg_cv_detalle.CurrentRow.Cells("id").Value)
+        ocmd.Parameters.Add("@f0841_id_motivo", NpgsqlDbType.Integer).Value = CInt(dg_cv_detalle.CurrentRow.Cells("id_motivo").Value)
     End Sub
     Private Sub MostrarDescipcionMotivo()
         If verror = "N" Then

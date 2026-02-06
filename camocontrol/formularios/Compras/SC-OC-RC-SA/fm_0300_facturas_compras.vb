@@ -377,7 +377,7 @@
     End Sub
     Private Sub Crear_parametros_item(ByVal ocmd As NpgsqlCommand)
         ocmd.Parameters.Clear()
-        ocmd.Parameters.Add("f0305_id_item_solicitud", NpgsqlDbType.Integer).Value = dg_listado.CurrentRow.Cells("dgocell_id_sc_item").Value
+        ocmd.Parameters.Add("f0305_id_item_solicitud", NpgsqlDbType.Integer).Value = CInt(dg_listado.CurrentRow.Cells("dgocell_id_sc_item").Value)
         ocmd.Parameters.Add("@f0305_cantidad", NpgsqlDbType.Numeric).Value = dg_listado.CurrentRow.Cells("dgocell_cantidad_solicitada").Value
         ocmd.Parameters.Add("@f0305_iva", NpgsqlDbType.Numeric).Value = dg_listado.CurrentRow.Cells("dgocell_iva").Value / 100
         ocmd.Parameters.Add("@f0305_descuento", NpgsqlDbType.Numeric).Value = dg_listado.CurrentRow.Cells("dgocell_descuento").Value / 100
@@ -920,7 +920,7 @@
     Private Sub Crear_parametros_facturas(ByVal ocmd As NpgsqlCommand)
         ocmd.Parameters.Clear()
         If vf_elemento_nuevo = "N" Then
-            ocmd.Parameters.Add("@f0307_id_factura_compras", NpgsqlDbType.Integer).Value = tx_id_factura.Text.ToString
+            ocmd.Parameters.Add("@f0307_id_factura_compras", NpgsqlDbType.Integer).Value = CInt(tx_id_factura.Text.ToString)
         End If
         ocmd.Parameters.Add("@f0307_id_cia", NpgsqlDbType.Varchar).Value = vg_id_cia
         ocmd.Parameters.Add("@f0307_id_tercero", NpgsqlDbType.Varchar).Value = tx_id_tercero.Text
@@ -1128,7 +1128,7 @@
         Dim ofecha As Date = comunes.g_fechahora
         ocmd.Parameters.Clear()
         If vf_elemento_nuevo = "N" Then
-            ocmd.Parameters.Add("@f0307_id_factura_compras", NpgsqlDbType.Integer).Value = tx_id_factura.Text.ToString
+            ocmd.Parameters.Add("@f0307_id_factura_compras", NpgsqlDbType.Integer).Value = CInt(tx_id_factura.Text.ToString)
         End If
         ocmd.Parameters.Add("@f0307_aprobada", NpgsqlDbType.Varchar).Value = "S"
         ocmd.Parameters.Add("@f0307_valor_factura", NpgsqlDbType.Numeric).Value = ocosto
@@ -1218,7 +1218,7 @@
         Dim ofecha As Date = comunes.g_fechahora
         ocmd.Parameters.Clear()
         If vf_elemento_nuevo = "N" Then
-            ocmd.Parameters.Add("@f0307_id_factura_compras", NpgsqlDbType.Integer).Value = tx_id_factura.Text.ToString
+            ocmd.Parameters.Add("@f0307_id_factura_compras", NpgsqlDbType.Integer).Value = CInt(tx_id_factura.Text.ToString)
         End If
         ocmd.Parameters.Add("@f0307_fecha_aprobacion_recepcion", NpgsqlDbType.Timestamp).Value = ofecha
         ocmd.Parameters.Add("@f0307_usuario_aprobar_recepcion", NpgsqlDbType.Varchar).Value = vg_usuario_autoriza
@@ -1337,7 +1337,7 @@
         Dim ofecha As Date = comunes.g_fechahora
         ocmd.Parameters.Clear()
         If vincular = "S" Then
-            ocmd.Parameters.Add("@f0309_id_factura_costo", NpgsqlDbType.Integer).Value = tx_id_factura.Text.ToString
+            ocmd.Parameters.Add("@f0309_id_factura_costo", NpgsqlDbType.Integer).Value = CInt(tx_id_factura.Text.ToString)
         Else
             ocmd.Parameters.Add("@f0309_id_factura_costo", NpgsqlDbType.Integer).Value = 0
         End If
@@ -1487,7 +1487,7 @@
         Dim ofecha As Date = comunes.g_fechahora
         ocmd.Parameters.Clear()
         ocmd.Parameters.Add("@f0307_numero_factura", NpgsqlDbType.Varchar).Value = "ANU" & tx_id_factura.Text.ToString
-        ocmd.Parameters.Add("@f0307_id_factura_compras", NpgsqlDbType.Integer).Value = tx_id_factura.Text.ToString
+        ocmd.Parameters.Add("@f0307_id_factura_compras", NpgsqlDbType.Integer).Value = CInt(tx_id_factura.Text.ToString)
         ocmd.Parameters.Add("@f0307_usuario_modificar", NpgsqlDbType.Varchar).Value = vg_usuario_autoriza
         ocmd.Parameters.Add("@f0307_fm", NpgsqlDbType.Timestamp).Value = ofecha
         verror = "N"
@@ -1526,7 +1526,7 @@
         'crear_parametros_aprobar_facturas(ocmd)
         Dim ofecha As Date = comunes.g_fechahora
         ocmd.Parameters.Clear()
-        ocmd.Parameters.Add("@f0305_id_factura_compras", NpgsqlDbType.Integer).Value = tx_id_factura.Text.ToString
+        ocmd.Parameters.Add("@f0305_id_factura_compras", NpgsqlDbType.Integer).Value = CInt(tx_id_factura.Text.ToString)
         ocmd.Parameters.Add("@f0305_usuario_modificar", NpgsqlDbType.Varchar).Value = vg_usuario_autoriza
         ocmd.Parameters.Add("@f0305_fm", NpgsqlDbType.Timestamp).Value = ofecha
         verror = "N"

@@ -362,19 +362,19 @@ Public Class fm_0023_01_ausentismo
         ocmd.Parameters.Clear()
         ocmd.Parameters.Add("@f0216_id_cia", NpgsqlDbType.Varchar).Value = vg_id_cia
         ocmd.Parameters.Add("@f0216_id_tercero", NpgsqlDbType.Varchar).Value = id_tercero
-        ocmd.Parameters.Add("@f0216_id_causa", NpgsqlDbType.Integer).Value = cm_causa.SelectedValue
+        ocmd.Parameters.Add("@f0216_id_causa", NpgsqlDbType.Integer).Value = CInt(cm_causa.SelectedValue)
         ocmd.Parameters.Add("@f0216_observacion", NpgsqlDbType.Varchar).Value = tx_observacion.Text.ToString.Trim.ToUpper
         ocmd.Parameters.Add("@f0216_edad", NpgsqlDbType.Numeric).Value = tx_edad_evento.Text
         ocmd.Parameters.Add("@f0216_id_cargo", NpgsqlDbType.Integer).Value = id_cargo
         ocmd.Parameters.Add("@f0216_antiguedad_ini", NpgsqlDbType.Numeric).Value = tx_antiguedad_total.Text
         ocmd.Parameters.Add("@f0216_antiguedad_act", NpgsqlDbType.Numeric).Value = tx_antiguedad_total.Text
         ocmd.Parameters.Add("@f0216_fecha_inicio_tnl", NpgsqlDbType.Timestamp).Value = dtp_fecha_inicio_tnl.Value
-        ocmd.Parameters.Add("@f0216_id_tipo", NpgsqlDbType.Integer).Value = cm_tipo.SelectedValue
+        ocmd.Parameters.Add("@f0216_id_tipo", NpgsqlDbType.Integer).Value = CInt(cm_tipo.SelectedValue)
 
         If cm_planta_produccion.SelectedIndex = -1 Then
             ocmd.Parameters.Add("@f0216_planta", NpgsqlDbType.Integer).Value = 0
         Else
-            ocmd.Parameters.Add("@f0216_planta", NpgsqlDbType.Integer).Value = cm_planta_produccion.SelectedValue
+            ocmd.Parameters.Add("@f0216_planta", NpgsqlDbType.Integer).Value = CInt(cm_planta_produccion.SelectedValue)
         End If
         ocmd.Parameters.Add("@f0216_maquina", NpgsqlDbType.Integer).Value = id_estructura
 
@@ -385,11 +385,11 @@ Public Class fm_0023_01_ausentismo
         End If
         ocmd.Parameters.Add("@f0216_nombre_dia_ini_tnl", NpgsqlDbType.Varchar).Value = comunes.devolver_nombre_dia_semana(dtp_fecha_inicio_tnl.Value)
         ocmd.Parameters.Add("@f0216_nombre_mes_ini_tnl", NpgsqlDbType.Varchar).Value = comunes.devolver_nombre_mes_ano(dtp_fecha_inicio_tnl.Value)
-        ocmd.Parameters.Add("@f0216_dias_incap_inicial", NpgsqlDbType.Integer).Value = tx_incapacidad_ini.Text
-        ocmd.Parameters.Add("@f0216_dias_prorroga", NpgsqlDbType.Integer).Value = tx_dias_prorroga.Text
+        ocmd.Parameters.Add("@f0216_dias_incap_inicial", NpgsqlDbType.Integer).Value = CInt(tx_incapacidad_ini.Text)
+        ocmd.Parameters.Add("@f0216_dias_prorroga", NpgsqlDbType.Integer).Value = CInt(tx_dias_prorroga.Text)
         ocmd.Parameters.Add("@f0216_horas_tnl", NpgsqlDbType.Integer).Value = CInt(tx_tnl.Text)
         ocmd.Parameters.Add("@f0216_lugar_ocurrencia", NpgsqlDbType.Varchar).Value = tx_lugar_ocurrencia.Text
-        ocmd.Parameters.Add("@f0216_cant_prorrogas", NpgsqlDbType.Integer).Value = tx_cant_prorrogas.Text
+        ocmd.Parameters.Add("@f0216_cant_prorrogas", NpgsqlDbType.Integer).Value = CInt(tx_cant_prorrogas.Text)
         ocmd.Parameters.Add("@f0216_usuario_modificar", NpgsqlDbType.Varchar).Value = vg_usuario_autoriza
         ocmd.Parameters.Add("@f0216_usuario_crear", NpgsqlDbType.Varchar).Value = vg_usuario_autoriza
         ocmd.Parameters.Add("@f0216_fm", NpgsqlDbType.Timestamp).Value = comunes.g_fechahora
@@ -446,19 +446,19 @@ Public Class fm_0023_01_ausentismo
         ocmd.Parameters.Add("@f0216_id_ausentismo", NpgsqlDbType.Integer).Value = id_ausnt
         ocmd.Parameters.Add("@f0216_id_cia", NpgsqlDbType.Varchar).Value = vg_id_cia
         ocmd.Parameters.Add("@f0216_id_tercero", NpgsqlDbType.Varchar).Value = id_tercero
-        ocmd.Parameters.Add("@f0216_id_causa", NpgsqlDbType.Integer).Value = cm_causa.SelectedValue
+        ocmd.Parameters.Add("@f0216_id_causa", NpgsqlDbType.Integer).Value = CInt(cm_causa.SelectedValue)
         ocmd.Parameters.Add("@f0216_observacion", NpgsqlDbType.Varchar).Value = tx_observacion.Text.ToString.Trim.ToUpper
         ocmd.Parameters.Add("@f0216_edad", NpgsqlDbType.Numeric).Value = tx_edad_evento.Text
         ocmd.Parameters.Add("@f0216_id_cargo", NpgsqlDbType.Integer).Value = id_cargo
         ocmd.Parameters.Add("@f0216_antiguedad_ini", NpgsqlDbType.Numeric).Value = tx_antiguedad_total.Text
         ocmd.Parameters.Add("@f0216_antiguedad_act", NpgsqlDbType.Numeric).Value = tx_antiguedad_total.Text
         ocmd.Parameters.Add("@f0216_fecha_inicio_tnl", NpgsqlDbType.Timestamp).Value = dtp_fecha_inicio_tnl.Value
-        ocmd.Parameters.Add("@f0216_id_tipo", NpgsqlDbType.Integer).Value = cm_tipo.SelectedValue
+        ocmd.Parameters.Add("@f0216_id_tipo", NpgsqlDbType.Integer).Value = CInt(cm_tipo.SelectedValue)
 
         If cm_planta_produccion.SelectedIndex = -1 Then
             ocmd.Parameters.Add("@f0216_planta", NpgsqlDbType.Integer).Value = 0
         Else
-            ocmd.Parameters.Add("@f0216_planta", NpgsqlDbType.Integer).Value = cm_planta_produccion.SelectedValue
+            ocmd.Parameters.Add("@f0216_planta", NpgsqlDbType.Integer).Value = CInt(cm_planta_produccion.SelectedValue)
         End If
         ocmd.Parameters.Add("@f0216_maquina", NpgsqlDbType.Integer).Value = id_estructura
 
@@ -469,11 +469,11 @@ Public Class fm_0023_01_ausentismo
         End If
         ocmd.Parameters.Add("@f0216_nombre_dia_ini_tnl", NpgsqlDbType.Varchar).Value = comunes.devolver_nombre_dia_semana(dtp_fecha_inicio_tnl.Value)
         ocmd.Parameters.Add("@f0216_nombre_mes_ini_tnl", NpgsqlDbType.Varchar).Value = comunes.devolver_nombre_mes_ano(dtp_fecha_inicio_tnl.Value)
-        ocmd.Parameters.Add("@f0216_dias_incap_inicial", NpgsqlDbType.Integer).Value = tx_incapacidad_ini.Text
-        ocmd.Parameters.Add("@f0216_dias_prorroga", NpgsqlDbType.Integer).Value = tx_dias_prorroga.Text
+        ocmd.Parameters.Add("@f0216_dias_incap_inicial", NpgsqlDbType.Integer).Value = CInt(tx_incapacidad_ini.Text)
+        ocmd.Parameters.Add("@f0216_dias_prorroga", NpgsqlDbType.Integer).Value = CInt(tx_dias_prorroga.Text)
         ocmd.Parameters.Add("@f0216_horas_tnl", NpgsqlDbType.Integer).Value = CInt(tx_tnl.Text)
         ocmd.Parameters.Add("@f0216_lugar_ocurrencia", NpgsqlDbType.Varchar).Value = tx_lugar_ocurrencia.Text
-        ocmd.Parameters.Add("@f0216_cant_prorrogas", NpgsqlDbType.Integer).Value = tx_cant_prorrogas.Text
+        ocmd.Parameters.Add("@f0216_cant_prorrogas", NpgsqlDbType.Integer).Value = CInt(tx_cant_prorrogas.Text)
         ocmd.Parameters.Add("@f0216_usuario_modificar", NpgsqlDbType.Varchar).Value = vg_usuario_autoriza
         ocmd.Parameters.Add("@f0216_usuario_crear", NpgsqlDbType.Varchar).Value = vg_usuario_autoriza
         ocmd.Parameters.Add("@f0216_fm", NpgsqlDbType.Timestamp).Value = comunes.g_fechahora

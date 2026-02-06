@@ -265,7 +265,7 @@
     End Sub
     Private Sub crear_parametros_reejecucion(ByVal ocmd As NpgsqlCommand)
         ocmd.Parameters.Clear()
-        ocmd.Parameters.Add("f0600_id_accion", NpgsqlDbType.Integer).Value = txt_id_hijo.Text
+        ocmd.Parameters.Add("f0600_id_accion", NpgsqlDbType.Integer).Value = CInt(txt_id_hijo.Text)
         ocmd.Parameters.Add("@f0600_re_ejecucion", NpgsqlDbType.Varchar).Value = "S"
         ocmd.Parameters.Add("@f0600_funcionario_re_ejecucion", NpgsqlDbType.Varchar).Value = cm_responsable.SelectedValue.ToString
     End Sub

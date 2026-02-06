@@ -116,7 +116,7 @@ Public Class fm_0300_unificar_items
         ocmd.CommandText = csql
         'crear_parametros_facturas(ocmd)
         ocmd.Parameters.Clear()
-        ocmd.Parameters.Add("@f0300_id_item_new", NpgsqlDbType.Integer).Value = tx_id_item_queda.Text
+        ocmd.Parameters.Add("@f0300_id_item_new", NpgsqlDbType.Integer).Value = CInt(tx_id_item_queda.Text)
         ocmd.Parameters.Add("@f0300_id_item", NpgsqlDbType.Integer).Value = id_item
         ocmd.Parameters.Add("@f0300_usuario_modificar", NpgsqlDbType.Varchar).Value = vg_usuario_autoriza
         ocmd.Parameters.Add("@f0300_fm", NpgsqlDbType.Timestamp).Value = comunes.g_fechahora

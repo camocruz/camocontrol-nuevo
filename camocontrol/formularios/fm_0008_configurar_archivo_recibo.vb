@@ -351,27 +351,27 @@
             ocmd.Parameters.Add("@f0008_id_config", NpgsqlDbType.Integer).Value = id_config
         End If
         ocmd.Parameters.Add("@f0008_id_cia", NpgsqlDbType.Varchar).Value = vg_id_cia
-        ocmd.Parameters.Add("@f0008_id_banco", NpgsqlDbType.Integer).Value = cm_banco.SelectedValue
+        ocmd.Parameters.Add("@f0008_id_banco", NpgsqlDbType.Integer).Value = CInt(cm_banco.SelectedValue)
         ocmd.Parameters.Add("@f0008_descripcion_banco", NpgsqlDbType.Varchar).Value = UCase(tx_descripcion.Text.ToString.Trim)
-        ocmd.Parameters.Add("@f0008_columnas_archivo", NpgsqlDbType.Integer).Value = tx_columnas_archivo.Text
+        ocmd.Parameters.Add("@f0008_columnas_archivo", NpgsqlDbType.Integer).Value = CInt(tx_columnas_archivo.Text)
         ocmd.Parameters.Add("@f0008_identificador_columnas", NpgsqlDbType.Varchar).Value = tx_identificador.Text.Trim()
-        ocmd.Parameters.Add("@f0008_col_verificacion", NpgsqlDbType.Integer).Value = tx_col_verificacion.Text
-        ocmd.Parameters.Add("@f0008_long_col_verificacion", NpgsqlDbType.Integer).Value = tx_long_verificacion.Text
+        ocmd.Parameters.Add("@f0008_col_verificacion", NpgsqlDbType.Integer).Value = CInt(tx_col_verificacion.Text)
+        ocmd.Parameters.Add("@f0008_long_col_verificacion", NpgsqlDbType.Integer).Value = CInt(tx_long_verificacion.Text)
         ocmd.Parameters.Add("@f0008_format_fecha", NpgsqlDbType.Varchar).Value = cm_format_fecha.Text
-        ocmd.Parameters.Add("@f0008_col_fecha", NpgsqlDbType.Integer).Value = tx_col_fecha.Text
-        ocmd.Parameters.Add("@f0008_col_transaccion", NpgsqlDbType.Integer).Value = tx_col_transaccion.Text
-        ocmd.Parameters.Add("@f0008_col_oficina", NpgsqlDbType.Integer).Value = tx_col_oficina.Text
-        ocmd.Parameters.Add("@f0008_col_documento", NpgsqlDbType.Integer).Value = tx_col_documento.Text
-        ocmd.Parameters.Add("@f0008_col_credito", NpgsqlDbType.Integer).Value = tx_col_credito.Text
-        ocmd.Parameters.Add("@f0008_col_efectivo", NpgsqlDbType.Integer).Value = tx_col_efectivo.Text
-        ocmd.Parameters.Add("@f0008_col_cheque", NpgsqlDbType.Integer).Value = tx_col_cheque.Text
+        ocmd.Parameters.Add("@f0008_col_fecha", NpgsqlDbType.Integer).Value = CInt(tx_col_fecha.Text)
+        ocmd.Parameters.Add("@f0008_col_transaccion", NpgsqlDbType.Integer).Value = CInt(tx_col_transaccion.Text)
+        ocmd.Parameters.Add("@f0008_col_oficina", NpgsqlDbType.Integer).Value = CInt(tx_col_oficina.Text)
+        ocmd.Parameters.Add("@f0008_col_documento", NpgsqlDbType.Integer).Value = CInt(tx_col_documento.Text)
+        ocmd.Parameters.Add("@f0008_col_credito", NpgsqlDbType.Integer).Value = CInt(tx_col_credito.Text)
+        ocmd.Parameters.Add("@f0008_col_efectivo", NpgsqlDbType.Integer).Value = CInt(tx_col_efectivo.Text)
+        ocmd.Parameters.Add("@f0008_col_cheque", NpgsqlDbType.Integer).Value = CInt(tx_col_cheque.Text)
         If chk_convenio.Checked = True Then
             ocmd.Parameters.Add("@f0008_req_soporte", NpgsqlDbType.Varchar).Value = "N"
         Else
             ocmd.Parameters.Add("@f0008_req_soporte", NpgsqlDbType.Varchar).Value = "S"
         End If
-        ocmd.Parameters.Add("@f0008_col_nit", NpgsqlDbType.Integer).Value = tx_col_nit.Text
-        ocmd.Parameters.Add("@f0008_col_cliente", NpgsqlDbType.Integer).Value = tx_col_cliente.Text
+        ocmd.Parameters.Add("@f0008_col_nit", NpgsqlDbType.Integer).Value = CInt(tx_col_nit.Text)
+        ocmd.Parameters.Add("@f0008_col_cliente", NpgsqlDbType.Integer).Value = CInt(tx_col_cliente.Text)
 
         ocmd.Parameters.Add("@f0008_fm", NpgsqlDbType.Timestamp).Value = fecha_actual
         ocmd.Parameters.Add("@f0008_fr", NpgsqlDbType.Timestamp).Value = fecha_actual
@@ -500,7 +500,7 @@
         Dim fecha_actual As Date = comunes.g_fechahora
         ocmd.Parameters.Clear()
         ocmd.Parameters.Add("@f0009_id_cia", NpgsqlDbType.Varchar).Value = vg_id_cia
-        ocmd.Parameters.Add("@f0009_id_banco", NpgsqlDbType.Integer).Value = cm_banco.SelectedValue
+        ocmd.Parameters.Add("@f0009_id_banco", NpgsqlDbType.Integer).Value = CInt(cm_banco.SelectedValue)
         ocmd.Parameters.Add("@f0009_descripcion_tipo", NpgsqlDbType.Varchar).Value = nueva_descripcion.Trim
         ocmd.Parameters.Add("@f0009_id_config", NpgsqlDbType.Integer).Value = id_config
         ocmd.Parameters.Add("@f0009_fm", NpgsqlDbType.Timestamp).Value = fecha_actual

@@ -329,7 +329,7 @@
         ocmd.Parameters.Add("@f0402_id_ipp", NpgsqlDbType.Integer).Value = 0
         ocmd.Parameters.Add("@f0402_id_item", NpgsqlDbType.Integer).Value = 0
         ocmd.Parameters.Add("@f0402_id_cia", NpgsqlDbType.Varchar).Value = vg_id_cia
-        ocmd.Parameters.Add("@f0402_id_act_alterna", NpgsqlDbType.Integer).Value = cm_actividad_alterna.SelectedValue
+        ocmd.Parameters.Add("@f0402_id_act_alterna", NpgsqlDbType.Integer).Value = CInt(cm_actividad_alterna.SelectedValue)
 
         ocmd.Parameters.Add("@f0402_ampliacion", NpgsqlDbType.Varchar).Value = tx_ampliacion.Text.Trim
         ocmd.Parameters.Add("@f0402_fecha_vence", NpgsqlDbType.Timestamp).Value = dtp_fecha.Value
@@ -395,7 +395,7 @@
         'crear_parametros_solicitud(ocmd)
         Dim fecha_act As Date = comunes.g_fechahora
         ocmd.Parameters.Clear()
-        ocmd.Parameters.Add("@f0402_id_rp", NpgsqlDbType.Integer).Value = tx_id_rp.Text
+        ocmd.Parameters.Add("@f0402_id_rp", NpgsqlDbType.Integer).Value = CInt(tx_id_rp.Text)
         'ocmd.Parameters.Add("@f0402_cantidad_producida", NpgsqlDbType.Numeric).Value = tx_cant_produccion.Text
         'ocmd.Parameters.Add("@f0402_tiempo_produccion", NpgsqlDbType.Numeric).Value = tx_tiempo_produccion.Text
         ocmd.Parameters.Add("@f0402_horas_hombre", NpgsqlDbType.Numeric).Value = tx_horas_hombre.Text
@@ -445,7 +445,7 @@
         'crear_parametros_solicitud(ocmd)
         Dim fecha_act As Date = comunes.g_fechahora
         ocmd.Parameters.Clear()
-        ocmd.Parameters.Add("@f0402_id_rp", NpgsqlDbType.Integer).Value = tx_id_rp.Text
+        ocmd.Parameters.Add("@f0402_id_rp", NpgsqlDbType.Integer).Value = CInt(tx_id_rp.Text)
         ocmd.Parameters.Add("@f0402_id_bodega_consumo_insumos", NpgsqlDbType.Numeric).Value = cm_bodegas.SelectedValue
         ocmd.Parameters.Add("@f0402_usuario_modificar", NpgsqlDbType.Varchar).Value = vg_usuario_autoriza
         ocmd.Parameters.Add("@f0402_fm", NpgsqlDbType.Timestamp).Value = fecha_act
@@ -508,7 +508,7 @@
         'crear_parametros_solicitud(ocmd)
         Dim fecha_act As Date = comunes.g_fechahora
         ocmd.Parameters.Clear()
-        ocmd.Parameters.Add("@f0402_id_rp", NpgsqlDbType.Integer).Value = tx_id_rp.Text
+        ocmd.Parameters.Add("@f0402_id_rp", NpgsqlDbType.Integer).Value = CInt(tx_id_rp.Text)
         If vg_usuario_autoriza = "00000001" Then
             'Cuando se va a cerrar un reporte sin importar la informacion que contenga.
             ocmd.Parameters.Add("@f0402_estado", NpgsqlDbType.Varchar).Value = "B"
@@ -557,7 +557,7 @@
         'crear_parametros_solicitud(ocmd)
         Dim fecha_act As Date = comunes.g_fechahora
         ocmd.Parameters.Clear()
-        ocmd.Parameters.Add("@f0402_id_rp", NpgsqlDbType.Integer).Value = tx_id_rp.Text
+        ocmd.Parameters.Add("@f0402_id_rp", NpgsqlDbType.Integer).Value = CInt(tx_id_rp.Text)
         ocmd.Parameters.Add("@f0402_anulado", NpgsqlDbType.Varchar).Value = "S"
         ocmd.Parameters.Add("@f0402_usuario_anular", NpgsqlDbType.Varchar).Value = vg_usuario_autoriza
         ocmd.Parameters.Add("@f0402_usuario_modificar", NpgsqlDbType.Varchar).Value = vg_usuario_autoriza
@@ -668,7 +668,7 @@
         'crear_parametros_solicitud(ocmd)
         Dim fecha_act As Date = comunes.g_fechahora
         ocmd.Parameters.Clear()
-        ocmd.Parameters.Add("@f0402_id_rp", NpgsqlDbType.Integer).Value = tx_id_rp.Text
+        ocmd.Parameters.Add("@f0402_id_rp", NpgsqlDbType.Integer).Value = CInt(tx_id_rp.Text)
         ocmd.Parameters.Add("@f0402_estado", NpgsqlDbType.Varchar).Value = "A"
         ocmd.Parameters.Add("@f0402_usuario_modificar", NpgsqlDbType.Varchar).Value = vg_usuario_autoriza
         ocmd.Parameters.Add("@f0402_fm", NpgsqlDbType.Timestamp).Value = fecha_act
@@ -795,7 +795,7 @@
     End Sub
     Private Sub crear_parametros_personal(ByVal ocmd As NpgsqlCommand)
         ocmd.Parameters.Clear()
-        ocmd.Parameters.Add("@f0403_id_personal_rp", NpgsqlDbType.Integer).Value = dg_row_id_personal_rp
+        ocmd.Parameters.Add("@f0403_id_personal_rp", NpgsqlDbType.Integer).Value = CInt(dg_row_id_personal_rp)
         ocmd.Parameters.Add("@f0403_id_rp", NpgsqlDbType.Integer).Value = id_rp
         ocmd.Parameters.Add("@f0403_id_cia", NpgsqlDbType.Varchar).Value = vg_id_cia
         ocmd.Parameters.Add("@f0403_id_tercero", NpgsqlDbType.Varchar).Value = dg_row_id_tercero
@@ -959,7 +959,7 @@
         ocmd.CommandText = csql
         'crear_parametros_personal(ocmd)
         ocmd.Parameters.Clear()
-        ocmd.Parameters.Add("@f0402_num_funcionarios", NpgsqlDbType.Integer).Value = dg_personal.Rows.Count - 1
+        ocmd.Parameters.Add("@f0402_num_funcionarios", NpgsqlDbType.Integer).Value = CInt(dg_personal.Rows.Count - 1)
         ocmd.Parameters.Add("@f0402_horas_hombre", NpgsqlDbType.Numeric).Value = tx_horas_hombre.Text
         ocmd.Parameters.Add("@f0402_id_rp", NpgsqlDbType.Integer).Value = id_rp
         verror = "N"

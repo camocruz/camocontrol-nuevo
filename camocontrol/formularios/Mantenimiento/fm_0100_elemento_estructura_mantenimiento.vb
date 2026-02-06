@@ -392,7 +392,7 @@
                 ocmd.CommandText = csql
 
                 ocmd.Parameters.Clear()
-                ocmd.Parameters.Add("@f0100_consecutivo_hijos", NpgsqlDbType.Varchar).Value = consecutivo_hermanos
+                ocmd.Parameters.Add("@f0100_consecutivo_hijos", NpgsqlDbType.Varchar).Value = consecutivo_hermanos.ToString()
 
                 Try
                     ocmd.ExecuteNonQuery()
@@ -464,38 +464,32 @@
         oconn_form.Close()
     End Sub
     Private Sub crear_parametros_grabar_elemento_mantenimiento(ByVal ocmd As NpgsqlCommand)
+        Dim _f0100_estructura_padre As Integer = 0
+        If cm_nombre_e_padre.Text = "RAIZ" Then
+            _f0100_estructura_padre = 0
+        Else
+            _f0100_estructura_padre = CInt(cm_nombre_e_padre.SelectedValue.ToString)
+        End If
+        Dim _f0100_id_item As Integer = CInt(cm_item.SelectedValue.ToString)
+        Dim _f0100_cantidad_item As Integer = CInt(tx_cantidad_item.Text.ToString.Trim)
+
         ocmd.Parameters.Clear()
         '& " , , f0100_id_file," _
         ocmd.Parameters.Add("@f0100_id_cia", NpgsqlDbType.Varchar).Value = vg_id_cia.ToString.Trim.PadLeft(8, "0")
         ocmd.Parameters.Add("@f0100_nombre", NpgsqlDbType.Varchar).Value = UCase(cm_nombre_elemento.Text.ToString.Trim)
         ocmd.Parameters.Add("@f0100_descripcion", NpgsqlDbType.Varchar).Value = tx_descripcion.Text.ToString.Trim
         ocmd.Parameters.Add("@f0100_codigo", NpgsqlDbType.Varchar).Value = id_codigo.ToString.Trim
-        If cm_nombre_e_padre.Text = "RAIZ" Then
-            ocmd.Parameters.Add("@f0100_estructura_padre", NpgsqlDbType.Integer).Value = 0
-        Else
-            ocmd.Parameters.Add("@f0100_estructura_padre", NpgsqlDbType.Integer).Value = cm_nombre_e_padre.SelectedValue.ToString
-        End If
+        ocmd.Parameters.Add("@f0100_estructura_padre", NpgsqlDbType.Integer).Value = _f0100_estructura_padre
 
         ocmd.Parameters.Add("@f0100_texto_codigo_hijos", NpgsqlDbType.Varchar).Value = tx_texto_elementos_hijo.Text.ToString.Trim
-        ocmd.Parameters.Add("@f0100_consecutivo_hijos", NpgsqlDbType.Varchar).Value = CInt(tx_consecutivo_actual_hijos.Text.ToString.Trim)
-        ocmd.Parameters.Add("@f0100_consecutivo_h_caracteres", NpgsqlDbType.Varchar).Value = CInt(tx_caracteres_consecutivo_hijos.Text.ToString.Trim)
-        If chk_consecutivo.Checked = True Then
-            ocmd.Parameters.Add("@f0100_consecutivo_h_habilitado", NpgsqlDbType.Varchar).Value = "S"
-        Else
-            ocmd.Parameters.Add("@f0100_consecutivo_h_habilitado", NpgsqlDbType.Varchar).Value = "N"
-        End If
-        If chk_codigo_padre.Checked = True Then
-            ocmd.Parameters.Add("@f0100_anexar_codigo_padre", NpgsqlDbType.Varchar).Value = "S"
-        Else
-            ocmd.Parameters.Add("@f0100_anexar_codigo_padre", NpgsqlDbType.Varchar).Value = "N"
-        End If
+        ocmd.Parameters.Add("@f0100_consecutivo_hijos", NpgsqlDbType.Varchar).Value = tx_consecutivo_actual_hijos.Text.ToString.Trim
+        ocmd.Parameters.Add("@f0100_consecutivo_h_caracteres", NpgsqlDbType.Varchar).Value = tx_caracteres_consecutivo_hijos.Text.ToString.Trim
+        ocmd.Parameters.Add("@f0100_consecutivo_h_habilitado", NpgsqlDbType.Char).Value = If(chk_consecutivo.Checked, "S", "N")
+        ocmd.Parameters.Add("@f0100_anexar_codigo_padre", NpgsqlDbType.Char).Value = If(chk_codigo_padre.Checked, "S", "N")
         ocmd.Parameters.Add("@f0100_id_tipo_estructura", NpgsqlDbType.Varchar).Value = cm_tipo_estructura.SelectedValue.ToString
         ocmd.Parameters.Add("@f0100_ubicacion", NpgsqlDbType.Varchar).Value = tx_ubicacion.Text.ToString.Trim
-        If tx_ano_fabricacion.Text.ToString.Trim = "" Then
-            ocmd.Parameters.Add("@f0100_ano_fabricacion", NpgsqlDbType.Varchar).Value = "1800"
-        Else
-            ocmd.Parameters.Add("@f0100_ano_fabricacion", NpgsqlDbType.Varchar).Value = tx_ano_fabricacion.Text.ToString.Trim
-        End If
+        ocmd.Parameters.Add("@f0100_ano_fabricacion", NpgsqlDbType.Char).Value = If(tx_ano_fabricacion.Text.Trim = "", "1800", tx_ano_fabricacion.Text.Trim)
+
         ocmd.Parameters.Add("@f0100_fecha_entrada_operacion", NpgsqlDbType.Timestamp).Value = dtp_fecha_inicio_operacion.Value
         If cm_proyectos.SelectedIndex = -1 Then
             ocmd.Parameters.Add("@f0100_codigo_proyecto", NpgsqlDbType.Varchar).Value = "00000000"
@@ -507,8 +501,8 @@
         ocmd.Parameters.Add("@f0100_modelo", NpgsqlDbType.Varchar).Value = tx_modelo.Text.ToString.Trim
         ocmd.Parameters.Add("@f0100_serial", NpgsqlDbType.Varchar).Value = tx_serial.Text.ToString.Trim
         ocmd.Parameters.Add("@f0100_path", NpgsqlDbType.Varchar).Value = path_estructura_padre '& "-" & id_estructura_padre 'sumarle el id de la estructura nueva para completar la direccion
-        ocmd.Parameters.Add("@f0100_id_item", NpgsqlDbType.Integer).Value = cm_item.SelectedValue.ToString
-        ocmd.Parameters.Add("@f0100_cantidad_item", NpgsqlDbType.Integer).Value = tx_cantidad_item.Text.ToString.Trim
+        ocmd.Parameters.Add("@f0100_id_item", NpgsqlDbType.Integer).Value = _f0100_id_item
+        ocmd.Parameters.Add("@f0100_cantidad_item", NpgsqlDbType.Integer).Value = _f0100_cantidad_item
         ocmd.Parameters.Add("@f0100_valor_nuevo", NpgsqlDbType.Numeric).Value = CDec(tx_valor_nuevo.Text)
         ocmd.Parameters.Add("@f0100_valor_actual", NpgsqlDbType.Numeric).Value = CDec(tx_valor_actual.Text)
         ocmd.Parameters.Add("@f0100_fecha_valor_actual", NpgsqlDbType.Timestamp).Value = dtp_fecha_valor_actual.Value
@@ -516,7 +510,8 @@
         ocmd.Parameters.Add("@f0100_funcion_requerida", NpgsqlDbType.Varchar).Value = tx_funcion_requerida.Text.ToString.Trim
         ocmd.Parameters.Add("@f0100_usuario_crear", NpgsqlDbType.Varchar).Value = vg_usuario_autoriza.ToString.Trim
         ocmd.Parameters.Add("@f0100_usuario_modificar", NpgsqlDbType.Varchar).Value = vg_usuario_autoriza.ToString.Trim
-        ocmd.Parameters.Add("@f0100_fm", NpgsqlDbType.Timestamp).Value = comunes.g_fechahora
+        ocmd.Parameters.Add("@f0100_fm", NpgsqlDbType.Timestamp).Value = comunes.g_fechahora.ToLocalTime()
+
     End Sub
     Private Sub validar_tipo_estructura()
         If cm_tipo_estructura.SelectedIndex = -1 Then
@@ -562,7 +557,7 @@
             Exit Sub
         End If
         If vf_elemento_nuevo = "S" Then
-            csql = "select max(f0100_consecutivo_hijos) as hermanos" _
+            csql = "Select max(f0100_consecutivo_hijos) As hermanos" _
                 & " from " & database.obtener_esquema & ".tb0100_estructura_mantenimiento" _
                 & " where f0100_id_estructura = '" & id_estructura_padre & "'"
             Dim otb_hermanos As DataTable
@@ -726,7 +721,7 @@
         ocmd.CommandText = csql
         'crear_parametros_grabar_elemento_mantenimiento(ocmd)
         ocmd.Parameters.Clear()
-        ocmd.Parameters.Add("@f0100_id_file_imagen", NpgsqlDbType.Integer).Value = oreturn(0)
+        ocmd.Parameters.Add("@f0100_id_file_imagen", NpgsqlDbType.Integer).Value = CInt(oreturn(0))
         ocmd.Parameters.Add("@f0100_path_file_imagen", NpgsqlDbType.Varchar).Value = oreturn(1)
         ocmd.Parameters.Add("@f0100_usuario_modificar", NpgsqlDbType.Varchar).Value = vg_usuario_autoriza.ToString.Trim
         ocmd.Parameters.Add("@f0100_fm", NpgsqlDbType.Timestamp).Value = comunes.g_fechahora

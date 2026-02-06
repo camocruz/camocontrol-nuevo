@@ -649,7 +649,7 @@ Public Class fm_0300_solicitud_mp_produccion
     Private Sub crear_parametros_encabezado(ByVal ocmd As NpgsqlCommand)
         ocmd.Parameters.Clear()
         ocmd.Parameters.Add("@f0316_id_cia", NpgsqlDbType.Varchar).Value = vg_id_cia
-        ocmd.Parameters.Add("@f0316_bodega_solicita", NpgsqlDbType.Integer).Value = cm_bodega_solicitante.SelectedValue
+        ocmd.Parameters.Add("@f0316_bodega_solicita", NpgsqlDbType.Integer).Value = CInt(cm_bodega_solicitante.SelectedValue)
         If IsDBNull(id_accion) = False Then
             ocmd.Parameters.Add("@f0316_id_accion", NpgsqlDbType.Integer).Value = id_accion
         Else
@@ -680,9 +680,9 @@ Public Class fm_0300_solicitud_mp_produccion
         ocmd.Parameters.Clear()
         ocmd.Parameters.Add("@f0317_id_sol_alm", NpgsqlDbType.Integer).Value = id_sol_almacen
         ocmd.Parameters.Add("@f0317_id_cia", NpgsqlDbType.Varchar).Value = vg_id_cia
-        ocmd.Parameters.Add("@f0317_bodega_solicita", NpgsqlDbType.Integer).Value = cm_bodega_solicitante.SelectedValue
-        ocmd.Parameters.Add("@f0317_bodega_entrega", NpgsqlDbType.Integer).Value = orow.Cells("dgocell_ppal_id_bodega").Value
-        ocmd.Parameters.Add("@f0317_id_item", NpgsqlDbType.Integer).Value = orow.Cells("dgocell_ppal_id_item").Value
+        ocmd.Parameters.Add("@f0317_bodega_solicita", NpgsqlDbType.Integer).Value = CInt(cm_bodega_solicitante.SelectedValue)
+        ocmd.Parameters.Add("@f0317_bodega_entrega", NpgsqlDbType.Integer).Value = CInt(orow.Cells("dgocell_ppal_id_bodega").Value)
+        ocmd.Parameters.Add("@f0317_id_item", NpgsqlDbType.Integer).Value = CInt(orow.Cells("dgocell_ppal_id_item").Value)
         ocmd.Parameters.Add("@f0317_cantidad_solicitada", NpgsqlDbType.Numeric).Value = orow.Cells("dgocell_ppal_cant_solicitada").Value
         ocmd.Parameters.Add("@f0317_fecha_req_entrega", NpgsqlDbType.Timestamp).Value = CDate(orow.Cells("dgocell_ppal_fecha_entrega_requerida").Value)
         ocmd.Parameters.Add("@f0317_usuario_modificar", NpgsqlDbType.Varchar).Value = vg_usuario_autoriza

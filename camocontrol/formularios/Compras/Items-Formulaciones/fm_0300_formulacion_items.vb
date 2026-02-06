@@ -144,7 +144,7 @@
         ocmd.Parameters.Clear()
         ocmd.Parameters.Add("@f0351_id_plantilla", NpgsqlDbType.Integer).Value = id_plantilla
         ocmd.Parameters.Add("@f0351_id_cia", NpgsqlDbType.Varchar).Value = vg_id_cia
-        ocmd.Parameters.Add("@f0351_id_item", NpgsqlDbType.Integer).Value = tx_id_item.Text
+        ocmd.Parameters.Add("@f0351_id_item", NpgsqlDbType.Integer).Value = CInt(tx_id_item.Text)
         ocmd.Parameters.Add("@f0351_cantidad", NpgsqlDbType.Numeric).Value = tx_cantidad.Text
         ocmd.Parameters.Add("@f0351_usuario_modificar", NpgsqlDbType.Varchar).Value = vg_usuario_autoriza
         ocmd.Parameters.Add("@f0351_usuario_crear", NpgsqlDbType.Varchar).Value = vg_usuario_autoriza
@@ -188,7 +188,7 @@
         If vf_elemento_nuevo = "N" Then
             ocmd.Parameters.Add("f0351_id_elemento", NpgsqlDbType.Integer).Value = id_lmnto
         End If
-        ocmd.Parameters.Add("@f0351_id_item", NpgsqlDbType.Integer).Value = tx_id_item.Text
+        ocmd.Parameters.Add("@f0351_id_item", NpgsqlDbType.Integer).Value = CInt(tx_id_item.Text)
         ocmd.Parameters.Add("@f0351_cantidad", NpgsqlDbType.Numeric).Value = tx_cantidad.Text
         ocmd.Parameters.Add("@f0351_usuario_modificar", NpgsqlDbType.Varchar).Value = vg_usuario_autoriza
         ocmd.Parameters.Add("@f0351_fm", NpgsqlDbType.Timestamp).Value = comunes.g_fechahora

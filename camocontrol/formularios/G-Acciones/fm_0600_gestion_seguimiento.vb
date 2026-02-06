@@ -617,7 +617,7 @@ Public Class fm_0600_gestion_seguimiento
         ocmd.Parameters.Add("@f0606_nivel_cumplimiento", NpgsqlDbType.Varchar).Value = CInt(tx_cumplimiento.Text.Trim).ToString.PadLeft(3, "0")
         ocmd.Parameters.Add("@f0606_fecha_inicio", NpgsqlDbType.Timestamp).Value = dtp_fecha_inicio.Value
         ocmd.Parameters.Add("@f0606_fecha_fin", NpgsqlDbType.Timestamp).Value = dtp_fecha_fin.Value
-        ocmd.Parameters.Add("@f0606_id_tipo_seguimiento", NpgsqlDbType.Integer).Value = cm_tipo_seguimiento.SelectedValue
+        ocmd.Parameters.Add("@f0606_id_tipo_seguimiento", NpgsqlDbType.Integer).Value = CInt(cm_tipo_seguimiento.SelectedValue)
         ocmd.Parameters.Add("@f0606_tipo_nota", NpgsqlDbType.Varchar).Value = tipo_nota
         ocmd.Parameters.Add("@f0606_usuario_crear", NpgsqlDbType.Varchar).Value = vg_usuario_autoriza
         ocmd.Parameters.Add("@f0606_usuario_modificar", NpgsqlDbType.Varchar).Value = vg_usuario_autoriza
@@ -1096,18 +1096,18 @@ Public Class fm_0600_gestion_seguimiento
 
         For Each orow As DataRow In otb_info_accion_padre.Rows
             ocmd.Parameters.Add("@f0600_id_cia", NpgsqlDbType.Varchar).Value = orow("f0600_id_cia")
-            ocmd.Parameters.Add("@f0600_id_accion_principal", NpgsqlDbType.Integer).Value = orow("f0600_id_accion")
-            ocmd.Parameters.Add("@f0600_id_accion_padre", NpgsqlDbType.Integer).Value = orow("f0600_id_accion")
+            ocmd.Parameters.Add("@f0600_id_accion_principal", NpgsqlDbType.Integer).Value = CInt(orow("f0600_id_accion"))
+            ocmd.Parameters.Add("@f0600_id_accion_padre", NpgsqlDbType.Integer).Value = CInt(orow("f0600_id_accion"))
             ocmd.Parameters.Add("@f0600_path", NpgsqlDbType.Varchar).Value = orow("f0600_path") & id_accion_padre & "-"
-            ocmd.Parameters.Add("@f0600_id_estructura", NpgsqlDbType.Integer).Value = orow("f0600_id_estructura")
+            ocmd.Parameters.Add("@f0600_id_estructura", NpgsqlDbType.Integer).Value = CInt(orow("f0600_id_estructura"))
             ocmd.Parameters.Add("@f0600_titulo", NpgsqlDbType.Varchar).Value = orow("f0600_titulo")
             ocmd.Parameters.Add("@f0600_descripcion", NpgsqlDbType.Varchar).Value = orow("f0600_descripcion")
             ocmd.Parameters.Add("@f0600_id_tipo_registro", NpgsqlDbType.Varchar).Value = "03" 'es una tarea normal
-            ocmd.Parameters.Add("@f0600_id_fuente_accion", NpgsqlDbType.Integer).Value = orow("f0600_id_fuente_accion")
+            ocmd.Parameters.Add("@f0600_id_fuente_accion", NpgsqlDbType.Integer).Value = CInt(orow("f0600_id_fuente_accion"))
             ocmd.Parameters.Add("@f0600_id_tipo_accion", NpgsqlDbType.Varchar).Value = orow("f0600_id_tipo_accion")
             ocmd.Parameters.Add("@f0600_id_estado_accion", NpgsqlDbType.Varchar).Value = "03" '03 = implementacion 'orow("f0600_id_estado_accion")
             ocmd.Parameters.Add("@f0600_unidad_duracion", NpgsqlDbType.Varchar).Value = orow("f0600_unidad_duracion")
-            ocmd.Parameters.Add("@f0600_duracion", NpgsqlDbType.Integer).Value = orow("f0600_duracion")
+            ocmd.Parameters.Add("@f0600_duracion", NpgsqlDbType.Integer).Value = CInt(orow("f0600_duracion"))
             ocmd.Parameters.Add("@f0600_responsable", NpgsqlDbType.Varchar).Value = orow("f0600_responsable")
             ocmd.Parameters.Add("@f0600_evaluador", NpgsqlDbType.Varchar).Value = orow("f0600_evaluador")
             ocmd.Parameters.Add("@f0600_emisor", NpgsqlDbType.Varchar).Value = orow("f0600_emisor")

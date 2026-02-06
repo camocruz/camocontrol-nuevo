@@ -431,7 +431,7 @@ Public Class fm_0008_importar_plano_bancos
         Dim fecha_actual As Date = comunes.g_fechahora
         ocmd.Parameters.Clear()
         ocmd.Parameters.Add("@f0010_id_cia", NpgsqlDbType.Varchar).Value = vg_id_cia
-        ocmd.Parameters.Add("@f0010_id_config", NpgsqlDbType.Integer).Value = cm_id_config.SelectedValue
+        ocmd.Parameters.Add("@f0010_id_config", NpgsqlDbType.Integer).Value = CInt(cm_id_config.SelectedValue)
         Dim txt_fecha_armada As String = ""
 Dim tx As String = orow_dg.Cells.Item("fecha").Value.ToString
         Select Case formato_fecha

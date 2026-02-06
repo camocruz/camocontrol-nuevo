@@ -170,6 +170,7 @@ Public Class fm_0300_orden_compra
                 oform_item.vg_usuario_autoriza = vg_usuario_autoriza
                 oform_item.vf_elemento_nuevo = "N"
                 oform_item.ShowDialog()
+                llenar_items_solicitados()
             Case "dgocell_id_sc"
                 'me esta generando un error incosntante, tengo que averiguar por que
                 'Esta operación no se puede realizar cuando se está cambiando de tamaño una columna de relleno automático.
@@ -390,7 +391,7 @@ Public Class fm_0300_orden_compra
     End Sub
     Private Sub crear_parametros_item(ByVal ocmd As NpgsqlCommand)
         ocmd.Parameters.Clear()
-        ocmd.Parameters.Add("f0305_id_item_solicitud", NpgsqlDbType.Integer).Value = dg_listado.CurrentRow.Cells("dgocell_id_sc_item").Value
+        ocmd.Parameters.Add("f0305_id_item_solicitud", NpgsqlDbType.Integer).Value = CInt(dg_listado.CurrentRow.Cells("dgocell_id_sc_item").Value)
         ocmd.Parameters.Add("@f0305_cantidad", NpgsqlDbType.Numeric).Value = dg_listado.CurrentRow.Cells("dgocell_cantidad_solicitada").Value
         ocmd.Parameters.Add("@f0305_iva", NpgsqlDbType.Numeric).Value = dg_listado.CurrentRow.Cells("dgocell_iva").Value / 100
         ocmd.Parameters.Add("@f0305_descuento", NpgsqlDbType.Numeric).Value = dg_listado.CurrentRow.Cells("dgocell_descuento").Value / 100
@@ -534,8 +535,8 @@ Public Class fm_0300_orden_compra
             activar_botones_aprobaciones()
         Next
     End Sub
-    Private Sub cargar_info_tercero()
-        csql = "select f0200_id_tercero, f0200_id as nit," _
+    Private Async Sub cargar_info_tercero()
+        csql = "select f0200_id_tercero, f0200_id as nit, f0200_id_sucursal_unoee," _
             & "trim(both ' ' from f0200_nombres || ' ' || f0200_apellido1 || ' ' || f0200_apellido2 || ' - ' || f0200_id) as razon_social" _
             & " FROM " & database.obtener_esquema & ".tb0200_terceros" _
             & " where f0200_ind_principal = 'S' and f0200_id_tercero = '" & id_tercero & "'"
@@ -545,9 +546,58 @@ Public Class fm_0300_orden_compra
             tx_id_tercero.Text = orow("f0200_id_tercero")
             Tx_Nit.Text = orow("nit")
             Tx_Nombre_Tercero.Text = orow("razon_social")
+
+            'Busco informacion adicional del tercero en Siesa
+            Dim baseService = App.ApiClient.CS.AppServices.SiesaFactory.CreateBaseService()
+            Dim servicio = New ProveedoresApiService(baseService)
+            Dim filtro As String = "f200_id_cia = 1 and f200_id like " & orow("nit")
+            Dim items = Await servicio.ObtenerAsync(9174, filtro)  'f200_id_cia = 1 and f200_id like 890903790
+            Dim dt As DataTable = items.ToDataTable()
+            If dt.Rows.Count = 0 Then
+                Tx_SucursalUnoEE.Text = "ND"
+                Exit Sub
+            End If
+            Tx_SucursalUnoEE.Text = dt.Rows(0).Item("f202_id_sucursal").ToString()
+            If orow("f0200_id_sucursal_unoee").ToString() <> dt.Rows(0).Item("f202_id_sucursal").ToString() Then
+                actualizar_sucursal_tercero(orow("f0200_id_tercero").ToString(), dt.Rows(0).Item("f202_id_sucursal").ToString())
+            End If
         Next
 
     End Sub
+    Private Sub actualizar_sucursal_tercero(ByVal id_tercero As String, ByVal sucursalEE As String)
+        'Instancia la conexión que estará vigente para todas las operaciones CRUD
+        oconn_form = database.obtener_conexion()
+        'actualizacion parametrizada
+        csql = "update " + database.obtener_esquema + ".tb0200_terceros set "
+        csql += "f0200_id_sucursal_unoee = '" & sucursalEE & "'"
+        csql += " where f0200_id_tercero = '" & id_tercero & "'"
+
+        ocmd = database.obtener_comando(oconn_form)
+        ocmd.CommandText = csql
+        'crear_parametros_item(ocmd)
+        verror = "N"
+        Try
+            'Compila el comando en la Base de datos.
+            'ocmd.Prepare()
+        Catch ex As Exception
+            verror = "S"
+            MsgBox("Hubo un error al Compilar comando! " + ex.ToString)
+        End Try
+        If verror = "N" Then
+            Try
+                ocmd.ExecuteNonQuery()
+            Catch ex As Exception
+                verror = "S"
+                MsgBox("Hubo un error al Actualizar ! " + vbCrLf + ex.ToString)
+            End Try
+        End If
+        ocmd = Nothing
+        oconn_form.Close()
+    End Sub
+
+
+
+
     Private Sub Tx_Nombre_Tercero_KeyDown(sender As Object, e As KeyEventArgs) Handles Tx_Nombre_Tercero.KeyDown
         If (e.KeyCode = Keys.B AndAlso e.Modifiers = Keys.Control) Then
             'PARA USAR CUANDO EL FORMULARIO ES PARA SELECCIONAR UN DATO
@@ -567,7 +617,7 @@ Public Class fm_0300_orden_compra
         Dim filtro As String = ""
 
         If Tx_Nombre_Tercero.Text <> "" And tipofiltro = 1 Then
-            filtro = "razon_social LIKE '%" & Tx_Nombre_Tercero.Text.Trim & "%'"
+            filtro = "razon_social Like '%" & Tx_Nombre_Tercero.Text.Trim & "%'"
         End If
         If Tx_Nit.Text <> "" And tipofiltro = 2 Then
             filtro = "nit LIKE '%" & Tx_Nit.Text.Trim & "%'"
@@ -900,7 +950,7 @@ Public Class fm_0300_orden_compra
     Private Sub crear_parametros_oc(ByVal ocmd As NpgsqlCommand)
         ocmd.Parameters.Clear()
         If vf_elemento_nuevo = "N" Then
-            ocmd.Parameters.Add("@f0319_id_oc", NpgsqlDbType.Integer).Value = tx_id_orden_compra.Text.ToString
+            ocmd.Parameters.Add("@f0319_id_oc", NpgsqlDbType.Integer).Value = CInt(tx_id_orden_compra.Text.ToString)
         End If
         ocmd.Parameters.Add("@f0319_id_cia", NpgsqlDbType.Varchar).Value = vg_id_cia
         ocmd.Parameters.Add("@f0319_id_tercero", NpgsqlDbType.Varchar).Value = tx_id_tercero.Text
@@ -1134,7 +1184,7 @@ Public Class fm_0300_orden_compra
         Dim ofecha As Date = comunes.g_fechahora
         ocmd.Parameters.Clear()
         If vincular = "S" Then
-            ocmd.Parameters.Add("@f0305_id_oc", NpgsqlDbType.Integer).Value = tx_id_orden_compra.Text.ToString
+            ocmd.Parameters.Add("@f0305_id_oc", NpgsqlDbType.Integer).Value = CInt(tx_id_orden_compra.Text.ToString)
         Else
             ocmd.Parameters.Add("@f0305_id_oc", NpgsqlDbType.Integer).Value = DBNull.Value
         End If
@@ -1708,6 +1758,11 @@ Public Class fm_0300_orden_compra
             MsgBox("La OC debe estar aprobada", MsgBoxStyle.Information)
             Exit Sub
         End If
+        If Tx_SucursalUnoEE.Text.Trim() = "ND" Or Tx_SucursalUnoEE.Text.Trim() = "" Then
+            MsgBox("La sucursal uno EE no está definida", MsgBoxStyle.Information)
+            Exit Sub
+        End If
+
 
         Dim dlg As New OpenFileDialog()
 
@@ -1733,7 +1788,7 @@ Public Class fm_0300_orden_compra
         'Instancia la conexión que estará vigente para todas las operaciones CRUD
         oconn_form = database.obtener_conexion()
         'actualizacion parametrizada
-        csql = "update " + database.obtener_esquema + ".tb0319_ordenes_compra set "
+        csql = "update " + database.obtener_esquema + ".tb0319_ordenes_compra Set "
         csql += "f0319_oc_uno = '" & tx_oc_uno.Text.ToString & "'"
         csql += " where f0319_id_oc = '" & tx_id_orden_compra.Text.ToString & "' and f0319_anulado = 'N'"
 
@@ -1846,7 +1901,7 @@ Public Class fm_0300_orden_compra
         Dim id_tipo_docto As String = "OC" 'OC o OS SEGÚN LO QUE ESTE HACIENDO debe tener tamaño 3
         Dim f420_id_tercero_sol_comp As String = "94492746" ''CEDULA DEL COMPRADOR
         Dim f420_id_tercero_prov As String = Tx_Nit.Text.Trim '"800034768"  ' NIT DEL PROVEEDOR
-        Dim f420_id_sucursal_prov As String = "000" 'CODIGO DE LA SUCURSAL DEL PROVEEDOR
+        Dim f420_id_sucursal_prov As String = Tx_SucursalUnoEE.Text.Trim() '"000" 'CODIGO DE LA SUCURSAL DEL PROVEEDOR
         Dim f420_notas As String = "" '"ESTA ES LA NOTA DEL DOCUMENTO" 'NOTA DEL DOCUMENTO
         Dim f420_num_docto_referencia As String = "RSC-" & tx_id_orden_compra.Text.Trim ' PARA REFERENCIAR EL RSC DEL CAMO
 
@@ -1943,7 +1998,7 @@ Public Class fm_0300_orden_compra
         Dim f421_cant_pedida_base As String = vbEmpty
         Dim f421_precio_unitario As String = vbEmpty
         Dim f421_referencia_item As String = vbEmpty
-        Dim f421_id_motivo As String = vbEmpty '01 PARA PRODUCTOS Y 73 PARA SERVICIOS
+        Dim f421_id_motivo As String = "01" '01 PARA PRODUCTOS Y 73 PARA SERVICIOS
         Dim f421_notas As String = vbEmpty
 
         'CONVIERTO LA MATRIZ EN UNA LISTA DE OBJETOS DTO PARA LINEA MOVIIENTO DEL DOCUMENTO (MOVIMIENTO VERSION 04)
@@ -2012,6 +2067,7 @@ Public Class fm_0300_orden_compra
                 row.Cells("dgocell_descripcion_complementaria").Value.ToString.Trim &
                                 " " & row.Cells("dgocell_nota").Value.ToString.Trim
             f421_notas = notas.PadLeft(255) 'NOTA DEL MOVIMIENTO LIMITADA A 255 CARACTERES
+            f421_notas = f421_notas.Replace(vbCrLf, " ").Replace(vbLf, " ")
 
             ' 1. Crear una línea inicial con espacios
             lineaDinamica = CrearLineaInicial(2654)
@@ -2190,6 +2246,24 @@ Public Class fm_0300_orden_compra
         cl_utilidades_datatables.visualizar_datos_visor("", vg_id_cia, vg_usuario_autoriza, "Items UnoEE", {}, dt,,,,,,, "N")
 
     End Sub
+    Private Async Sub btn_proveedoresSiesa_Click(sender As Object, e As EventArgs) Handles btn_proveedoresSiesa.Click
+        Dim baseService = App.ApiClient.CS.AppServices.SiesaFactory.CreateBaseService()
+        Dim servicio = New ProveedoresApiService(baseService)
+
+        Dim items = Await servicio.ObtenerAsync(9174, "")  'f200_id_cia = 1 and f200_id like 890903790
+        Dim dt As DataTable = items.ToDataTable()
+
+        cl_utilidades_datatables.visualizar_datos_visor("", vg_id_cia, vg_usuario_autoriza, "Proveedores UnoEE", {}, dt,,,,,,, "N")
+
+    End Sub
+    Private Sub btn_listado_items_Click(sender As Object, e As EventArgs) Handles btn_listado_items.Click
+        cl_utilidades_datatables.visualizar_datos_visor("ST-0300-34", vg_id_cia, vg_usuario_autoriza,
+                                                        "Listado de Items",
+                                                        {vg_id_cia},
+                                                            , "Items",,, "S", "id_item",, "S", "N")
+    End Sub
+
+
 End Class
 Public Class CampoDto
     Public Property Nombre As String

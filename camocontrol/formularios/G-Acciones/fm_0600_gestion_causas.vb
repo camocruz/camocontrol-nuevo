@@ -6,7 +6,7 @@
     Public nombre_usuario_autoriza As String = ""
     Public autoriza As String = "N"
     '$Public$vg_id_cia As String = ""
-    Public id_estructura As String = "0"
+    Public id_estructura As Integer = 0
     '$Public$vf_elemento_nuevo As String = "N"
     Public id_accion As Integer
     Public id_accion_principal As Integer
@@ -128,6 +128,7 @@
             MsgBox("Hubo un error al Compilar comando nueva falla! " + vbCrLf + ex.ToString + vbCrLf + csql)
         End Try
         If verror = "N" Then
+            ocmd.ExecuteNonQuery()
             Try
                 ocmd.ExecuteNonQuery()
             Catch ex As Exception
@@ -185,7 +186,7 @@
             ocmd.Parameters.Add("@f0600_id_accion_principal", NpgsqlDbType.Integer).Value = id_accion_principal
         End If
         ocmd.Parameters.Add("@f0600_path", NpgsqlDbType.Varchar).Value = path_padre & id_accion_padre & "-"
-        ocmd.Parameters.Add("@f0600_id_fuente_accion", NpgsqlDbType.Integer).Value = orow_info_accion("f0600_id_fuente_accion")
+        ocmd.Parameters.Add("@f0600_id_fuente_accion", NpgsqlDbType.Integer).Value = CInt(orow_info_accion("f0600_id_fuente_accion"))
         ocmd.Parameters.Add("@f0600_id_estado_accion", NpgsqlDbType.Varchar).Value = "03" '03=implementacion
         ocmd.Parameters.Add("@f0600_id_estructura", NpgsqlDbType.Integer).Value = id_estructura
         ocmd.Parameters.Add("@f0600_descripcion", NpgsqlDbType.Varchar).Value = UCase(tx_texto_tarea.Text.ToString.Trim)

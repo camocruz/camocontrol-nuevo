@@ -211,7 +211,7 @@
         ocmd.Parameters.Clear()
         ocmd.Parameters.Add("f0600_id_accion", NpgsqlDbType.Integer).Value = id_accion
         ocmd.Parameters.Add("@f0600_unidad_duracion", NpgsqlDbType.Varchar).Value = cm_unidad_duracion.SelectedValue.ToString
-        ocmd.Parameters.Add("@f0600_duracion", NpgsqlDbType.Integer).Value = tx_duracion.Text.ToString.Trim
+        ocmd.Parameters.Add("@f0600_duracion", NpgsqlDbType.Integer).Value = CInt(tx_duracion.Text.ToString.Trim)
         ocmd.Parameters.Add("@f0600_fecha_inicio", NpgsqlDbType.Timestamp).Value = dtp_fecha_inicio_prog.Value
         ocmd.Parameters.Add("@f0600_usuario_modificar", NpgsqlDbType.Varchar).Value = vg_usuario_autoriza
         ocmd.Parameters.Add("@f0600_fm", NpgsqlDbType.Timestamp).Value = comunes.g_fechahora

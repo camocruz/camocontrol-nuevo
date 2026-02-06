@@ -661,7 +661,7 @@
         ocmd = database.obtener_comando(oconn_form)
         ocmd.CommandText = csql
         ocmd.Parameters.Clear()
-        ocmd.Parameters.Add("@f0305_id_item_solicitud", NpgsqlDbType.Integer).Value = tx_id_registro.Text.ToString
+        ocmd.Parameters.Add("@f0305_id_item_solicitud", NpgsqlDbType.Integer).Value = CInt(tx_id_registro.Text.ToString)
         ocmd.Parameters.Add("@f0305_usuario_anular", NpgsqlDbType.Varchar).Value = vg_usuario_autoriza
         ocmd.Parameters.Add("@f0305_anulado", NpgsqlDbType.Varchar).Value = "S"
         ocmd.Parameters.Add("@f0305_fm", NpgsqlDbType.Timestamp).Value = comunes.g_fechahora
@@ -765,10 +765,10 @@
         Dim factual As Date = comunes.g_fechahora
         ocmd.Parameters.Clear()
         If vf_elemento_nuevo = "N" Then
-            ocmd.Parameters.Add("f0308_id_item_recepcion", NpgsqlDbType.Integer).Value = tx_id_registro.Text.ToString
+            ocmd.Parameters.Add("f0308_id_item_recepcion", NpgsqlDbType.Integer).Value = CInt(tx_id_registro.Text.ToString)
         End If
         ocmd.Parameters.Add("@f0308_id_cia", NpgsqlDbType.Varchar).Value = vg_id_cia
-        ocmd.Parameters.Add("@f0308_id_item_solicitud", NpgsqlDbType.Integer).Value = tx_id_item_sc.Text
+        ocmd.Parameters.Add("@f0308_id_item_solicitud", NpgsqlDbType.Integer).Value = CInt(tx_id_item_sc.Text)
         ocmd.Parameters.Add("@f0308_id_factura_compras", NpgsqlDbType.Integer).Value = "" 'tx_id_fact_compras.Text.ToString.Trim
         'ocmd.Parameters.Add("@f0305_id_item", NpgsqlDbType.Integer).Value = CInt(tx_id_item.Text.ToString)
         ocmd.Parameters.Add("@f0308_observacion", NpgsqlDbType.Varchar).Value = tx_observacion.Text.ToString

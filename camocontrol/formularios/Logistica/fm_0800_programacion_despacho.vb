@@ -1620,7 +1620,7 @@ line1:
             ocmd.Parameters.Add("@f0850_bonificado", NpgsqlDbType.Varchar).Value = "N"
         End If
         ocmd.Parameters.Add("@f0850_id_cia", NpgsqlDbType.Varchar).Value = vg_id_cia
-        ocmd.Parameters.Add("@f0850_id_rm", NpgsqlDbType.Integer).Value = dg_remisiones.CurrentRow.Cells("dgocell_rms_id_rem").Value
+        ocmd.Parameters.Add("@f0850_id_rm", NpgsqlDbType.Integer).Value = CInt(dg_remisiones.CurrentRow.Cells("dgocell_rms_id_rem").Value)
     End Sub
 
     Private Sub dg_remisiones_CellEnter(sender As Object, e As DataGridViewCellEventArgs) Handles dg_remisiones.CellEnter

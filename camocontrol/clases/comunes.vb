@@ -401,13 +401,18 @@ Public Class comunes
         Dim odr As NpgsqlDataReader
         Dim csql As String = ""
         Dim vfecha As DateTime
+
         csql = "SELECT CURRENT_TIMESTAMP as fechahora"
         odr = database.get_data_reader(csql)
         odr.Read()
-        vfecha = odr(0)
+
+        ' Convertir a Unspecified para que Npgsql lo acepte en timestamp without time zone
+        vfecha = DateTime.SpecifyKind(CDate(odr(0)), DateTimeKind.Unspecified)
+
         odr.Close()
         Return vfecha
     End Function
+
     Public Shared Function devolver_nombre_dia_semana(ByVal fecha As Date)
         Dim dia_sem As String = ""
         Select Case Weekday(fecha)

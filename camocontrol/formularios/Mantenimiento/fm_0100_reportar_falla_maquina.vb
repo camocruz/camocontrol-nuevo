@@ -412,8 +412,8 @@ Public Class fm_0100_reportar_falla_maquina
         ocmd.Parameters.Clear()
         ocmd.Parameters.Add("@f0600_id_accion", NpgsqlDbType.Integer).Value = id_accion
         ocmd.Parameters.Add("@f0600_descripcion", NpgsqlDbType.Varchar).Value = UCase(tx_modo_efecto_falla.Text.ToString.Trim)
-        ocmd.Parameters.Add("@f0600_id_subfuente", NpgsqlDbType.Integer).Value = cm_subfuente_accion.SelectedValue
-        ocmd.Parameters.Add("@f0600_id_mef", NpgsqlDbType.Integer).Value = cm_mef.SelectedValue
+        ocmd.Parameters.Add("@f0600_id_subfuente", NpgsqlDbType.Integer).Value = CInt(cm_subfuente_accion.SelectedValue)
+        ocmd.Parameters.Add("@f0600_id_mef", NpgsqlDbType.Integer).Value = CInt(cm_mef.SelectedValue)
         ocmd.Parameters.Add("@f0600_responsable", NpgsqlDbType.Varchar).Value = cm_responsable.SelectedValue
 
         If dtp_fecha_ocurrencia.Visible = True Then
@@ -452,9 +452,9 @@ Public Class fm_0100_reportar_falla_maquina
         ocmd.Parameters.Add("@f0600_id_cia", NpgsqlDbType.Varchar).Value = vg_id_cia
         ocmd.Parameters.Add("@f0600_id_estructura", NpgsqlDbType.Integer).Value = id_estructura
         ocmd.Parameters.Add("@f0600_descripcion", NpgsqlDbType.Varchar).Value = UCase(tx_modo_efecto_falla.Text.ToString.Trim)
-        ocmd.Parameters.Add("@f0600_id_mef", NpgsqlDbType.Integer).Value = cm_mef.SelectedValue
-        ocmd.Parameters.Add("@f0600_id_fuente_accion", NpgsqlDbType.Integer).Value = cm_fuente_accion.SelectedValue
-        ocmd.Parameters.Add("@f0600_id_subfuente", NpgsqlDbType.Integer).Value = cm_subfuente_accion.SelectedValue
+        ocmd.Parameters.Add("@f0600_id_mef", NpgsqlDbType.Integer).Value = CInt(cm_mef.SelectedValue)
+        ocmd.Parameters.Add("@f0600_id_fuente_accion", NpgsqlDbType.Integer).Value = CInt(cm_fuente_accion.SelectedValue)
+        ocmd.Parameters.Add("@f0600_id_subfuente", NpgsqlDbType.Integer).Value = CInt(cm_subfuente_accion.SelectedValue)
         If cm_razon_social.SelectedIndex = -1 Then
             ocmd.Parameters.Add("@f0600_tercero_relacionado", NpgsqlDbType.Varchar).Value = ""
         Else

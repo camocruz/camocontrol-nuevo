@@ -190,7 +190,7 @@
     Private Sub crear_parametros_registro(ByVal ocmd As NpgsqlCommand)
         ocmd.Parameters.Clear()
         ocmd.Parameters.Add("f0550_id_cia", NpgsqlDbType.Varchar).Value = vg_id_cia
-        ocmd.Parameters.Add("f0550_id_documento", NpgsqlDbType.Integer).Value = cm_codigo_documento.SelectedValue
+        ocmd.Parameters.Add("f0550_id_documento", NpgsqlDbType.Integer).Value = CInt(cm_codigo_documento.SelectedValue)
         ocmd.Parameters.Add("f0550_fecha_registro", NpgsqlDbType.Timestamp).Value = dtp_fecha_registro.Value
         ocmd.Parameters.Add("f0550_turno", NpgsqlDbType.Varchar).Value = tx_turno.Text.ToString.Trim
         ocmd.Parameters.Add("f0550_nota", NpgsqlDbType.Varchar).Value = tx_anotacion.Text.ToString.Trim

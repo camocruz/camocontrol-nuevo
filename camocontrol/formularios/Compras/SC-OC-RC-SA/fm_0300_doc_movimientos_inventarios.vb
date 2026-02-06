@@ -630,8 +630,8 @@
                         ocmd.Parameters.Add("@f0318_id_cia", NpgsqlDbType.Varchar).Value = vg_id_cia
                         ocmd.Parameters.Add("@f0318_id_mov_item", NpgsqlDbType.Numeric).Value = id_mov_item
                         ocmd.Parameters.Add("@f0318_id_mov_docto", NpgsqlDbType.Numeric).Value = dg_items.CurrentRow.Cells("dgocell_ident_doc").Value
-                        ocmd.Parameters.Add("@f0318_id_item", NpgsqlDbType.Integer).Value = dg_items.CurrentRow.Cells("dgocell_id_item").Value
-                        ocmd.Parameters.Add("@f0318_id_bodega", NpgsqlDbType.Integer).Value = cm_bodegas.SelectedValue
+                        ocmd.Parameters.Add("@f0318_id_item", NpgsqlDbType.Integer).Value = CInt(dg_items.CurrentRow.Cells("dgocell_id_item").Value)
+                        ocmd.Parameters.Add("@f0318_id_bodega", NpgsqlDbType.Integer).Value = CInt(cm_bodegas.SelectedValue)
                         ocmd.Parameters.Add("@f0318_id_documento", NpgsqlDbType.Varchar).Value = codigo_documento
                         ocmd.Parameters.Add("@f0318_fecha_movimiento", NpgsqlDbType.Timestamp).Value = dtp_fecha.Value
                         ocmd.Parameters.Add("@f0318_info_trazable", NpgsqlDbType.Varchar).Value = orow("info_trazable")

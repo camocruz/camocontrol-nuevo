@@ -91,6 +91,10 @@ Partial Class fm_0300_orden_compra
         Me.tx_oc_uno = New System.Windows.Forms.TextBox()
         Me.btn_consultarOcUnoEE = New System.Windows.Forms.Button()
         Me.btn_ItemsUnoEE = New System.Windows.Forms.Button()
+        Me.btn_listado_items = New System.Windows.Forms.Button()
+        Me.btn_proveedoresSiesa = New System.Windows.Forms.Button()
+        Me.Tx_SucursalUnoEE = New System.Windows.Forms.TextBox()
+        Me.Label6 = New System.Windows.Forms.Label()
         Me.GroupBox1.SuspendLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.dg_listado, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -310,7 +314,7 @@ Partial Class fm_0300_orden_compra
         Me.bt_gestionar_tercero.Location = New System.Drawing.Point(1018, 264)
         Me.bt_gestionar_tercero.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
         Me.bt_gestionar_tercero.Name = "bt_gestionar_tercero"
-        Me.bt_gestionar_tercero.Size = New System.Drawing.Size(176, 60)
+        Me.bt_gestionar_tercero.Size = New System.Drawing.Size(113, 60)
         Me.bt_gestionar_tercero.TabIndex = 274
         Me.bt_gestionar_tercero.Text = "Gestion Terceros"
         Me.bt_gestionar_tercero.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -862,10 +866,58 @@ Partial Class fm_0300_orden_compra
         Me.btn_ItemsUnoEE.Text = "Items UnoEE"
         Me.btn_ItemsUnoEE.UseVisualStyleBackColor = True
         '
+        'btn_listado_items
+        '
+        Me.btn_listado_items.Location = New System.Drawing.Point(571, 361)
+        Me.btn_listado_items.Name = "btn_listado_items"
+        Me.btn_listado_items.Size = New System.Drawing.Size(38, 34)
+        Me.btn_listado_items.TabIndex = 374
+        Me.btn_listado_items.Text = "IT"
+        Me.btn_listado_items.UseVisualStyleBackColor = True
+        '
+        'btn_proveedoresSiesa
+        '
+        Me.btn_proveedoresSiesa.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center
+        Me.btn_proveedoresSiesa.Image = Global.camocontrol.My.Resources.Resources.terceros
+        Me.btn_proveedoresSiesa.Location = New System.Drawing.Point(1133, 264)
+        Me.btn_proveedoresSiesa.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
+        Me.btn_proveedoresSiesa.Name = "btn_proveedoresSiesa"
+        Me.btn_proveedoresSiesa.Size = New System.Drawing.Size(62, 60)
+        Me.btn_proveedoresSiesa.TabIndex = 375
+        Me.btn_proveedoresSiesa.Text = "TS"
+        Me.btn_proveedoresSiesa.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.btn_proveedoresSiesa.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage
+        Me.btn_proveedoresSiesa.UseVisualStyleBackColor = True
+        '
+        'Tx_SucursalUnoEE
+        '
+        Me.Tx_SucursalUnoEE.Enabled = False
+        Me.Tx_SucursalUnoEE.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Tx_SucursalUnoEE.Location = New System.Drawing.Point(987, 103)
+        Me.Tx_SucursalUnoEE.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
+        Me.Tx_SucursalUnoEE.Name = "Tx_SucursalUnoEE"
+        Me.Tx_SucursalUnoEE.Size = New System.Drawing.Size(141, 30)
+        Me.Tx_SucursalUnoEE.TabIndex = 376
+        '
+        'Label6
+        '
+        Me.Label6.AutoSize = True
+        Me.Label6.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label6.Location = New System.Drawing.Point(887, 108)
+        Me.Label6.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label6.Name = "Label6"
+        Me.Label6.Size = New System.Drawing.Size(79, 25)
+        Me.Label6.TabIndex = 377
+        Me.Label6.Text = "SucEE:"
+        '
         'fm_0300_orden_compra
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(9.0!, 20.0!)
         Me.ClientSize = New System.Drawing.Size(1474, 815)
+        Me.Controls.Add(Me.Label6)
+        Me.Controls.Add(Me.Tx_SucursalUnoEE)
+        Me.Controls.Add(Me.btn_proveedoresSiesa)
+        Me.Controls.Add(Me.btn_listado_items)
         Me.Controls.Add(Me.btn_ItemsUnoEE)
         Me.Controls.Add(Me.btn_consultarOcUnoEE)
         Me.Controls.Add(Me.tx_oc_uno)
@@ -972,6 +1024,10 @@ Partial Class fm_0300_orden_compra
         Me.Controls.SetChildIndex(Me.tx_oc_uno, 0)
         Me.Controls.SetChildIndex(Me.btn_consultarOcUnoEE, 0)
         Me.Controls.SetChildIndex(Me.btn_ItemsUnoEE, 0)
+        Me.Controls.SetChildIndex(Me.btn_listado_items, 0)
+        Me.Controls.SetChildIndex(Me.btn_proveedoresSiesa, 0)
+        Me.Controls.SetChildIndex(Me.Tx_SucursalUnoEE, 0)
+        Me.Controls.SetChildIndex(Me.Label6, 0)
         Me.GroupBox1.ResumeLayout(False)
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.dg_listado, System.ComponentModel.ISupportInitialize).EndInit()
@@ -1052,4 +1108,8 @@ Partial Class fm_0300_orden_compra
     Friend WithEvents tx_oc_uno As TextBox
     Friend WithEvents btn_consultarOcUnoEE As Button
     Friend WithEvents btn_ItemsUnoEE As Button
+    Friend WithEvents btn_listado_items As Button
+    Friend WithEvents btn_proveedoresSiesa As Button
+    Friend WithEvents Tx_SucursalUnoEE As TextBox
+    Friend WithEvents Label6 As Label
 End Class

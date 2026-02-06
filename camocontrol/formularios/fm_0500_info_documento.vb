@@ -139,7 +139,7 @@
         ocmd.Parameters.Clear()
         ocmd.Parameters.Add("@f0501_id_cia", NpgsqlDbType.Varchar).Value = vg_id_cia
         ocmd.Parameters.Add("@f0501_id_tipo_documento", NpgsqlDbType.Integer).Value = id_tipo_documento
-        ocmd.Parameters.Add("@f0501_proceso", NpgsqlDbType.Integer).Value = cm_proceso.SelectedValue
+        ocmd.Parameters.Add("@f0501_proceso", NpgsqlDbType.Integer).Value = CInt(cm_proceso.SelectedValue)
         ocmd.Parameters.Add("@f0501_codigo_documento", NpgsqlDbType.Varchar).Value = UCase(cm_codigo_documento.Text.Trim)
         ocmd.Parameters.Add("@f0501_conservacion", NpgsqlDbType.Varchar).Value = UCase(tx_conservacion.Text.Trim)
         ocmd.Parameters.Add("@f0501_titulo_documento", NpgsqlDbType.Varchar).Value = tx_titulo_documento.Text.Trim.ToUpper
@@ -187,7 +187,7 @@
         'crear_parametros_formula(ocmd)
         ocmd.Parameters.Clear()
         ocmd.Parameters.Add("f0501_id_documento", NpgsqlDbType.Integer).Value = id_documento
-        ocmd.Parameters.Add("@f0501_proceso", NpgsqlDbType.Integer).Value = cm_proceso.SelectedValue
+        ocmd.Parameters.Add("@f0501_proceso", NpgsqlDbType.Integer).Value = CInt(cm_proceso.SelectedValue)
         ocmd.Parameters.Add("@f0501_codigo_documento", NpgsqlDbType.Varchar).Value = cm_codigo_documento.Text.ToUpper.Trim
         ocmd.Parameters.Add("@f0501_titulo_documento", NpgsqlDbType.Varchar).Value = tx_titulo_documento.Text.ToUpper.Trim
         ocmd.Parameters.Add("@f0501_conservacion", NpgsqlDbType.Varchar).Value = UCase(tx_conservacion.Text.Trim)

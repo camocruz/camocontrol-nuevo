@@ -399,7 +399,7 @@ Public Class fm_0023_informacion_personal
         Else
             ocmd.Parameters.Add("f0200_estado", NpgsqlDbType.Varchar).Value = "I"
         End If
-        ocmd.Parameters.Add("f0200_id_cargo", NpgsqlDbType.Integer).Value = cm_cargo.SelectedValue
+        ocmd.Parameters.Add("f0200_id_cargo", NpgsqlDbType.Integer).Value = CInt(cm_cargo.SelectedValue)
         ocmd.Parameters.Add("f0200_codigo_empleado", NpgsqlDbType.Varchar).Value = tx_codigo.Text
         ocmd.Parameters.Add("f0200_ciudad_residencia", NpgsqlDbType.Varchar).Value = cm_ciudad_residencia.SelectedValue
         ocmd.Parameters.Add("f0200_ciudad_nacimiento", NpgsqlDbType.Varchar).Value = cm_ciudad_nacimiento.SelectedValue
@@ -583,7 +583,7 @@ Public Class fm_0023_informacion_personal
         ocmd.CommandText = csql
         'crear_parametros_grabar_elemento_mantenimiento(ocmd)
         ocmd.Parameters.Clear()
-        ocmd.Parameters.Add("@f0200_id_file_imagen", NpgsqlDbType.Integer).Value = oreturn(0)
+        ocmd.Parameters.Add("@f0200_id_file_imagen", NpgsqlDbType.Integer).Value = CInt(oreturn(0))
         ocmd.Parameters.Add("@f0200_path_file_imagen", NpgsqlDbType.Varchar).Value = oreturn(1)
         ocmd.Parameters.Add("@f0200_usuario_modificar", NpgsqlDbType.Varchar).Value = vg_usuario_autoriza.ToString.Trim
         ocmd.Parameters.Add("@f0200_fm", NpgsqlDbType.Timestamp).Value = comunes.g_fechahora

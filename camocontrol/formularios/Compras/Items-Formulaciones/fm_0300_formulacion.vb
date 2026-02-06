@@ -1061,7 +1061,7 @@ Public Class fm_0300_formulacion
         ocmd.Parameters.Clear()
         ocmd.Parameters.Add("@f0352_id_plantilla", NpgsqlDbType.Integer).Value = id_plantilla
         ocmd.Parameters.Add("@f0352_id_cia", NpgsqlDbType.Varchar).Value = vg_id_cia
-        ocmd.Parameters.Add("@f0352_id_elemento", NpgsqlDbType.Integer).Value = dg_items.CurrentRow.Cells("dgocell_id_elemento").Value
+        ocmd.Parameters.Add("@f0352_id_elemento", NpgsqlDbType.Integer).Value = CInt(dg_items.CurrentRow.Cells("dgocell_id_elemento").Value)
         ocmd.Parameters.Add("@f0352_id_item", NpgsqlDbType.Integer).Value = id_item_alterno
         ocmd.Parameters.Add("@f0352_cantidad", NpgsqlDbType.Numeric).Value = cantidad_item_alterno
         ocmd.Parameters.Add("@f0352_usuario_modificar", NpgsqlDbType.Varchar).Value = vg_usuario_autoriza
@@ -1088,7 +1088,7 @@ Public Class fm_0300_formulacion
         Dim fecha_act As Date = comunes.g_fechahora
         ocmd.Parameters.Clear()
         ocmd.Parameters.Add("@f0352_id_plantilla", NpgsqlDbType.Integer).Value = id_plantilla
-        ocmd.Parameters.Add("@f0352_id_item", NpgsqlDbType.Integer).Value = dg_items_opcionales.CurrentRow.Cells("dgocell_dgopcional_id_item").Value
+        ocmd.Parameters.Add("@f0352_id_item", NpgsqlDbType.Integer).Value = CInt(dg_items_opcionales.CurrentRow.Cells("dgocell_dgopcional_id_item").Value)
         ocmd.Parameters.Add("@f0352_usuario_modificar", NpgsqlDbType.Varchar).Value = vg_usuario_autoriza
         ocmd.Parameters.Add("@f0352_fm", NpgsqlDbType.Timestamp).Value = comunes.g_fechahora
         verror = "N"
