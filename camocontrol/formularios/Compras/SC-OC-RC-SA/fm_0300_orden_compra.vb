@@ -2261,6 +2261,7 @@ Public Class fm_0300_orden_compra
                                                         "Listado de Items",
                                                         {vg_id_cia},
                                                             , "Items",,, "S", "id_item",, "S", "N")
+        llenar_items_solicitados()
     End Sub
 
 

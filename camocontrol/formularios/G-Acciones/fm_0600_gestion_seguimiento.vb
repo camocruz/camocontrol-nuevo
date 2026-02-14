@@ -1141,6 +1141,7 @@ Public Class fm_0600_gestion_seguimiento
                    vg_usuario_autoriza = "00000001" Or
                    oforzar_cierre = "S" Or
                    evaluador_lider = "S" Then
+                '& " f0600_repeticiones_indefinidas = 'N'," _
                 csql = "update " + database.obtener_esquema + ".tb0600_acciones set" _
                 & " f0600_id_estado_accion = '08'," _
                 & " f0600_repeticion_programada = '" & repeticion_programada & "'," _

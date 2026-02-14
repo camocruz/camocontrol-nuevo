@@ -1,4 +1,8 @@
-﻿Public Class FM_PLANTILLA
+﻿Imports System.ComponentModel
+Imports System.Globalization
+Imports System.Threading
+
+Public Class FM_PLANTILLA
     Public vg_id_cia As String = ""
     Public vg_usuario_nn As String = ""
     Public vg_usuario_autoriza As String = ""
@@ -18,7 +22,15 @@
     'Objeto para manejar la configuración Regional
     Protected oregioninfo As System.Globalization.RegionInfo
 
+    Private Function IsInDesignMode() As Boolean
+        Return LicenseManager.UsageMode = LicenseUsageMode.Designtime
+    End Function
     Private Sub Form1_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
+        If IsInDesignMode() Then
+            Exit Sub
+        End If
+
+
         'Establece la configuración Regional a "US"
         System.Threading.Thread.CurrentThread.CurrentCulture = New System.Globalization.CultureInfo("en-us")
         oregioninfo = New System.Globalization.RegionInfo("us")

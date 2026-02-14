@@ -399,19 +399,16 @@ Public Class comunes
     End Function
     Public Shared Function g_fechahora() As DateTime
         Dim odr As NpgsqlDataReader
-        Dim csql As String = ""
-        Dim vfecha As DateTime
-
-        csql = "SELECT CURRENT_TIMESTAMP as fechahora"
+        Dim csql As String = "SELECT now()::timestamp AS fechahora"
         odr = database.get_data_reader(csql)
         odr.Read()
 
-        ' Convertir a Unspecified para que Npgsql lo acepte en timestamp without time zone
-        vfecha = DateTime.SpecifyKind(CDate(odr(0)), DateTimeKind.Unspecified)
+        Dim vfecha As DateTime = CDate(odr("fechahora"))
 
         odr.Close()
         Return vfecha
     End Function
+
 
     Public Shared Function devolver_nombre_dia_semana(ByVal fecha As Date)
         Dim dia_sem As String = ""

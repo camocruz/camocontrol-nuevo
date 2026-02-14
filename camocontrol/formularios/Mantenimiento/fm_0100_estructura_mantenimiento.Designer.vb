@@ -31,6 +31,9 @@ Partial Class fm_0100_estructura_mantenimiento
         Me.mi_quitar_filtro_rama = New System.Windows.Forms.ToolStripMenuItem()
         Me.mi_ruta_estructura = New System.Windows.Forms.ToolStripMenuItem()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
+        Me.NumericTxAbrirAccion = New camocontrol.NumericTextBox()
+        Me.Label3 = New System.Windows.Forms.Label()
+        Me.bt_nueva_actividad = New System.Windows.Forms.Button()
         Me.bt_comprar = New System.Windows.Forms.Button()
         Me.bt_trasladar = New System.Windows.Forms.Button()
         Me.bt_reportar_falla = New System.Windows.Forms.Button()
@@ -46,7 +49,6 @@ Partial Class fm_0100_estructura_mantenimiento
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
         Me.tx_BuscadorEstructura = New System.Windows.Forms.TextBox()
         Me.Label1 = New System.Windows.Forms.Label()
-        Me.bt_nueva_actividad = New System.Windows.Forms.Button()
         Me.GroupBox1.SuspendLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.ContextMenuStrip1.SuspendLayout()
@@ -159,6 +161,8 @@ Partial Class fm_0100_estructura_mantenimiento
         '
         'GroupBox2
         '
+        Me.GroupBox2.Controls.Add(Me.NumericTxAbrirAccion)
+        Me.GroupBox2.Controls.Add(Me.Label3)
         Me.GroupBox2.Controls.Add(Me.bt_nueva_actividad)
         Me.GroupBox2.Controls.Add(Me.bt_comprar)
         Me.GroupBox2.Controls.Add(Me.bt_trasladar)
@@ -174,10 +178,40 @@ Partial Class fm_0100_estructura_mantenimiento
         Me.GroupBox2.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
         Me.GroupBox2.Name = "GroupBox2"
         Me.GroupBox2.Padding = New System.Windows.Forms.Padding(4, 5, 4, 5)
-        Me.GroupBox2.Size = New System.Drawing.Size(388, 388)
+        Me.GroupBox2.Size = New System.Drawing.Size(388, 429)
         Me.GroupBox2.TabIndex = 62
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "Acciones"
+        '
+        'NumericTxAbrirAccion
+        '
+        Me.NumericTxAbrirAccion.Location = New System.Drawing.Point(272, 383)
+        Me.NumericTxAbrirAccion.Name = "NumericTxAbrirAccion"
+        Me.NumericTxAbrirAccion.Size = New System.Drawing.Size(92, 26)
+        Me.NumericTxAbrirAccion.TabIndex = 91
+        '
+        'Label3
+        '
+        Me.Label3.AutoSize = True
+        Me.Label3.Location = New System.Drawing.Point(158, 386)
+        Me.Label3.Name = "Label3"
+        Me.Label3.Size = New System.Drawing.Size(106, 20)
+        Me.Label3.TabIndex = 91
+        Me.Label3.Text = "Consultar OT:"
+        '
+        'bt_nueva_actividad
+        '
+        Me.bt_nueva_actividad.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.bt_nueva_actividad.Image = Global.camocontrol.My.Resources.Resources.nuevo
+        Me.bt_nueva_actividad.Location = New System.Drawing.Point(194, 308)
+        Me.bt_nueva_actividad.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
+        Me.bt_nueva_actividad.Name = "bt_nueva_actividad"
+        Me.bt_nueva_actividad.Size = New System.Drawing.Size(173, 70)
+        Me.bt_nueva_actividad.TabIndex = 107
+        Me.bt_nueva_actividad.Text = "Programar Actividad"
+        Me.bt_nueva_actividad.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.bt_nueva_actividad.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
+        Me.bt_nueva_actividad.UseVisualStyleBackColor = True
         '
         'bt_comprar
         '
@@ -335,20 +369,6 @@ Partial Class fm_0100_estructura_mantenimiento
         Me.Label1.TabIndex = 90
         Me.Label1.Text = "Estructura:"
         '
-        'bt_nueva_actividad
-        '
-        Me.bt_nueva_actividad.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.bt_nueva_actividad.Image = Global.camocontrol.My.Resources.Resources.nuevo
-        Me.bt_nueva_actividad.Location = New System.Drawing.Point(194, 308)
-        Me.bt_nueva_actividad.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
-        Me.bt_nueva_actividad.Name = "bt_nueva_actividad"
-        Me.bt_nueva_actividad.Size = New System.Drawing.Size(173, 70)
-        Me.bt_nueva_actividad.TabIndex = 107
-        Me.bt_nueva_actividad.Text = "Programar Actividad"
-        Me.bt_nueva_actividad.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.bt_nueva_actividad.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
-        Me.bt_nueva_actividad.UseVisualStyleBackColor = True
-        '
         'fm_0100_estructura_mantenimiento
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(9.0!, 20.0!)
@@ -411,4 +431,6 @@ Partial Class fm_0100_estructura_mantenimiento
     Friend WithEvents tx_BuscadorEstructura As TextBox
     Friend WithEvents Label1 As Label
     Friend WithEvents bt_nueva_actividad As Button
+    Friend WithEvents Label3 As Label
+    Friend WithEvents NumericTxAbrirAccion As NumericTextBox
 End Class

@@ -1343,11 +1343,12 @@ Public Class fm_0600_gestion_tareas
         csql = "update " + database.obtener_esquema + ".tb0600_acciones set "
         csql += " f0600_nivel_cumplimiento = '100',"
         csql += " f0600_id_estado_accion = '08',"
+        csql += " f0600_fecha_cierre = @fecha_actual,"
         If tarea_repetitiva = "S" Then
             csql += " f0600_repeticion_programada = 'S',"
         End If
         csql += " f0600_usuario_modificar = @f0600_usuario_modificar,"
-        csql += " f0600_fm = @f0600_fm"
+        csql += " f0600_fm = @fecha_actual"
         csql += " where f0600_id_accion = '" & id_accion & "'"
 
         'Crear el comando
@@ -1357,7 +1358,8 @@ Public Class fm_0600_gestion_tareas
         'crear_parametros_tarea(ocmd)
         ocmd.Parameters.Clear()
         ocmd.Parameters.Add("@f0600_usuario_modificar", NpgsqlDbType.Varchar).Value = vg_usuario_autoriza
-        ocmd.Parameters.Add("@f0600_fm", NpgsqlDbType.Timestamp).Value = comunes.g_fechahora
+        'ocmd.Parameters.Add("@f0600_fm", NpgsqlDbType.Timestamp).Value = comunes.g_fechahora
+        ocmd.Parameters.Add("@fecha_actual", NpgsqlDbType.Timestamp).Value = comunes.g_fechahora
         verror = "N"
         Try
             'Compila el comando en la Base de datos.

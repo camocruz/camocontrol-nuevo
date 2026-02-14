@@ -73,18 +73,18 @@
         Dim ctrls As List(Of Control) = cl_gestion_permisos.habilitarcontroles(Of Control)(Me, True, vf_otabla_permisos, ocontexto_form)
         '**********************
 
-        'Identifico permisos basicos de gestion de registros
-        P_editar = cl_gestion_permisos.identificar_permisos_especiales_formularios("bt_editar", vf_otabla_permisos, vg_usuario_autoriza)
-        P_grabar = cl_gestion_permisos.identificar_permisos_especiales_formularios("bt_grabar", vf_otabla_permisos, vg_usuario_autoriza)
-        P_nuevos_r = cl_gestion_permisos.identificar_permisos_especiales_formularios("bt_nuevo", vf_otabla_permisos, vg_usuario_autoriza)
+        ''Identifico permisos basicos de gestion de registros
+        'P_editar = cl_gestion_permisos.identificar_permisos_especiales_formularios("bt_editar", vf_otabla_permisos, vg_usuario_autoriza)
+        'P_grabar = cl_gestion_permisos.identificar_permisos_especiales_formularios("bt_grabar", vf_otabla_permisos, vg_usuario_autoriza)
+        'P_nuevos_r = cl_gestion_permisos.identificar_permisos_especiales_formularios("bt_nuevo", vf_otabla_permisos, vg_usuario_autoriza)
 
-        bt_anular.Enabled = False
-        bt_grabar.Enabled = False
-        bt_nuevo.Enabled = False
-        bt_editar.Enabled = False
+        'bt_anular.Enabled = False
+        'bt_grabar.Enabled = False
+        'bt_nuevo.Enabled = False
+        'bt_editar.Enabled = False
 
         'gestiono_permisos_basicos
-        cl_gestion_permisos.gestionar_permisos_botones_basicos(vg_id_cia, vf_otabla_permisos, vf_elemento_nuevo, vg_usuario_autoriza, Me)
+        'cl_gestion_permisos.gestionar_permisos_botones_basicos(vg_id_cia, vf_otabla_permisos, vf_elemento_nuevo, vg_usuario_autoriza, Me)
 
         llenar_tabla_terceros()
 
@@ -306,7 +306,7 @@
         ocmd.Parameters.Add("f0200_ind_proveedor", NpgsqlDbType.Varchar).Value = f0200_ind_proveedor
         ocmd.Parameters.Add("f0200_ind_empleado", NpgsqlDbType.Varchar).Value = f0200_ind_empleado
         ocmd.Parameters.Add("f0200_ind_aspirante", NpgsqlDbType.Varchar).Value = f0200_ind_aspirante
-        ocmd.Parameters.Add("f0200_id_sucursal", NpgsqlDbType.Integer).Value = f0200_id_tercero
+        ocmd.Parameters.Add("f0200_id_sucursal", NpgsqlDbType.Integer).Value = CInt(f0200_id_tercero)
         If total_sucursales >= 1 Then
             ocmd.Parameters.Add("f0200_ind_principal", NpgsqlDbType.Varchar).Value = "N"
         Else

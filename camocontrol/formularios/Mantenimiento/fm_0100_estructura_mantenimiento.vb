@@ -1,6 +1,7 @@
 ﻿'Imports System.Web.UI.WebControls
 
-Imports System.ComponentModel
+'Imports System.ComponentModel
+'Imports System.Web.UI.WebControls
 
 Public Class fm_0100_estructura_mantenimiento
     'Objetos publicos que reciben valores desde el Formulario padre
@@ -101,7 +102,6 @@ Public Class fm_0100_estructura_mantenimiento
                     & " where estructura.f0100_id_cia = '" & vg_id_cia & "' and estructura.f0100_anulado = 'N'" _
                     & " order by estructura.f0100_estructura_padre;"
         otb_estructura_mantenimiento = cl_utilidades_datatables.cargar_informacion_postgres(csql)
-        Clipboard.SetText(csql)
         Dim orow As DataRow()
         orow = otb_estructura_mantenimiento.Select("f0100_path = ''")
         'MsgBox(orow.Length & " - " & orow(0)("f0100_id_estructura").ToString)
@@ -675,5 +675,13 @@ Public Class fm_0100_estructura_mantenimiento
         oform_programar_actividad.id_estructura = id_estructura
         oform_programar_actividad.vf_elemento_nuevo = "S"
         oform_programar_actividad.ShowDialog()
+    End Sub
+
+    Private Sub NumericTxAbrirAccion_EnterPressed(value As Integer) Handles NumericTxAbrirAccion.EnterPressed
+        'Estoy aprovechando el control personalizado NumericTextBox para que al ingresar un ID 
+        ' de acción y presionar Enter, se abra directamente la actividad correspondiente.
+        ' Esto es útil para usuarios avanzados que conocen los IDs de las acciones
+        ' y quieren acceder rápidamente a ellas sin tener que navegar por el árbol.
+        cl_utilidades_gestion_acciones.abrir_actividad(value, vg_usuario_autoriza, vg_id_cia)
     End Sub
 End Class
