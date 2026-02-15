@@ -1,71 +1,118 @@
 ﻿Imports System.ComponentModel
 Imports System.Globalization
 Imports System.Threading
+Imports App.ApiClient.CS.Services
 
 Public Class FM_PLANTILLA
-    Public vg_id_cia As String = ""
-    Public vg_usuario_nn As String = ""
-    Public vg_usuario_autoriza As String = ""
+    Public Property vg_id_cia As String = ""
+    Public Property vg_usuario_nn As String = ""
+    Public Property vg_usuario_autoriza As String = ""
+    Public Property vf_elemento_nuevo As String = "S"
+    Public Property vcerrar As String = "N"
+
+    Private _vf_id_notas_archivos As String = ""
+    Public Property vf_id_notas_archivos As String
+        Get
+            Return _vf_id_notas_archivos
+        End Get
+        Set(value As String)
+            If Not IsNumeric(value) AndAlso value <> "" Then
+                Throw New ArgumentException("El ID de notas debe ser numérico.")
+            End If
+            _vf_id_notas_archivos = value
+        End Set
+    End Property
+
+    Private _vf_var_config_notas As String = ""
+    Private _vf_otipo_nota As String = ""
+
+    Public Property vf_var_config_notas As String
+        Get
+            Return _vf_var_config_notas
+        End Get
+        Set(value As String)
+
+            If _vf_var_config_notas = value Then Exit Property
+
+            _vf_var_config_notas = value
+
+            If String.IsNullOrWhiteSpace(value) Then
+                _vf_otipo_nota = ""
+                Exit Property
+            End If
+
+            If String.IsNullOrWhiteSpace(vg_id_cia) Then Exit Property
+
+            _vf_otipo_nota = comunes.suministrar_valor_variable_configuracion(value, vg_id_cia)
+
+        End Set
+    End Property
+
+    Public Property vf_otipo_nota As String
+        Get
+            Return _vf_otipo_nota
+        End Get
+        Set(value As String)
+            _vf_otipo_nota = value
+        End Set
+    End Property
+
+    'Public vg_id_cia As String = ""
+    'Public vg_usuario_nn As String = ""
+    'Public vg_usuario_autoriza As String = ""
     Public vg_path_carg_aut As String = ""
     Public vf_oform_padre As Object = Nothing
-    Public vf_var_config_notas As String
+    'Public vf_var_config_notas As String
     Public vf_var_config_archivos As String
     Public vf_name_files As String
     Public vf_var_config_sql_notas As String = "ST-0606-02"
-    Public vf_otipo_nota As String = ""
-    Public vf_id_notas_archivos As String = ""
+    ' vf_otipo_nota As String = ""
+    'Public vf_id_notas_archivos As String = ""
     Public vf_tot_notas As Integer
-    Public vf_elemento_nuevo As String = "S"
+    'Public vf_elemento_nuevo As String = "S"
     Public vf_otabla_permisos As DataTable
     Public vf_t_string As String = "" 'variable que se usara para almacenar datos de intercambio entre formularios
-    Public vcerrar As String = "N"
+    'Public vcerrar As String = "N"
     'Objeto para manejar la configuración Regional
     Protected oregioninfo As System.Globalization.RegionInfo
+
+
 
     Private Function IsInDesignMode() As Boolean
         Return LicenseManager.UsageMode = LicenseUsageMode.Designtime
     End Function
     Private Sub Form1_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
+
         If IsInDesignMode() Then
             Exit Sub
         End If
 
 
-        'Establece la configuración Regional a "US"
-        System.Threading.Thread.CurrentThread.CurrentCulture = New System.Globalization.CultureInfo("en-us")
-        oregioninfo = New System.Globalization.RegionInfo("us")
+        ConfigurarCultura()
+        InicializarFecha()
+        InicializarTooltips()
+        InicializarNotas()
+        InicializarArchivos()
 
-        'Establece el separador de Decimales para formato moneda
-        System.Threading.Thread.CurrentThread.CurrentCulture.NumberFormat.CurrencyDecimalSeparator = "."
-        'Establece el separador de Decimales para formato numerico
-        System.Threading.Thread.CurrentThread.CurrentCulture.NumberFormat.NumberDecimalSeparator = "."
+    End Sub
 
-        'Establece el separador de miles para formato numerico
-        System.Threading.Thread.CurrentThread.CurrentCulture.NumberFormat.NumberGroupSeparator = ","
+    Private Sub ConfigurarCultura()
+        Dim c = New CultureInfo("en-US")
 
-        'Usuario NN
-        'vg_usuario_nn = comunes.suministrar_valor_variable_configuracion("CONFIG-0500-01", vg_id_cia)
+        c.NumberFormat.CurrencyDecimalSeparator = "."
+        c.NumberFormat.NumberDecimalSeparator = "."
+        c.NumberFormat.NumberGroupSeparator = ","
+        c.NumberFormat.NumberDecimalDigits = 0
 
-        'Inicializa la variable para control de anotaciones
-        'Para registrar las notas asociadas.
-        If vf_var_config_notas <> "" Then
-            'MsgBox(vf_var_config_notas)
-            vf_otipo_nota = comunes.suministrar_valor_variable_configuracion(vf_var_config_notas, vg_id_cia)
-            'MsgBox(vf_otipo_nota)
-            'If vf_id_notas_archivos <> "" Then
-            'MsgBox("hola")
-            'vf_tot_notas = cl_gestion_anotaciones.calcular_cantidad_notas_asociadas(vf_otipo_nota, vf_id_notas_archivos, vg_id_cia)
-            'bt_g_notas.Text = vf_tot_notas
-            'End If
-        End If
-        If vf_var_config_archivos <> "" Then
-            'vf_name_files = comunes.suministrar_valor_variable_configuracion(vf_var_config_archivos, vg_id_cia)
-            'vf_name_files += "-" & vf_id_notas_archivos.ToString.PadLeft(8, "0")
-        End If
+        Thread.CurrentThread.CurrentCulture = c
+        oregioninfo = New RegionInfo("US")
+    End Sub
 
-        'Establece el número de Decimales para formato numerico
-        System.Threading.Thread.CurrentThread.CurrentCulture.NumberFormat.NumberDecimalDigits = 0
-        Me.lb_fecha.Text = Now.ToString("yyyy/MM/dd")
+    Private Sub InicializarFecha()
+        Me.lb_fecha.Text = DateTime.Now.ToString("yyyy/MM/dd")
+    End Sub
+
+    Private Sub InicializarTooltips()
         fm_plantilla_ToolTip1.SetToolTip(bt_nuevo, "Nuevo Registro")
         fm_plantilla_ToolTip1.SetToolTip(bt_grabar, "Grabar Registro")
         fm_plantilla_ToolTip1.SetToolTip(bt_anular, "Eliminar Registro")
@@ -73,6 +120,22 @@ Public Class FM_PLANTILLA
         fm_plantilla_ToolTip1.SetToolTip(bt_editar, "Editar")
         fm_plantilla_ToolTip1.SetToolTip(bt_generar_informe, "Imprimir")
         fm_plantilla_ToolTip1.SetToolTip(bt_g_notas, "Anotaciones")
+    End Sub
+
+    Private Sub InicializarNotas()
+        If String.IsNullOrWhiteSpace(vf_var_config_notas) Then Exit Sub
+
+        vf_otipo_nota = comunes.suministrar_valor_variable_configuracion(
+                        vf_var_config_notas,
+                        vg_id_cia)
+    End Sub
+
+    Private Sub InicializarArchivos()
+        If String.IsNullOrWhiteSpace(vf_var_config_archivos) Then Exit Sub
+
+        ' Aquí irá la lógica real cuando la quieras activar de nuevo
+        ' vf_name_files = comunes.suministrar_valor_variable_configuracion(vf_var_config_archivos, vg_id_cia)
+        ' vf_name_files += "-" & vf_id_notas_archivos.ToString().PadLeft(8, "0"c)
     End Sub
 
     Private Sub FM_PLANTILLA_FormClosing(ByVal sender As Object, ByVal e As System.Windows.Forms.FormClosingEventArgs) Handles Me.FormClosing
@@ -99,35 +162,48 @@ Public Class FM_PLANTILLA
     End Sub
 
     Private Sub bt_g_notas_Click(sender As Object, e As EventArgs) Handles bt_g_notas.Click
-        'MsgBox(vf_otipo_nota)
+        GestionarNotas()
+    End Sub
+    Private Sub GestionarNotas()
         If vf_elemento_nuevo = "S" Then
             MsgBox("No se pueden crear notas sin un dato asociativo")
             Exit Sub
         End If
-        If vf_id_notas_archivos.Trim <> "" And vf_id_notas_archivos <> "0" Then
-            cl_gestion_anotaciones.consultar_anotaciones_acciones(vf_id_notas_archivos, vf_otipo_nota,
-                                                                  vg_usuario_autoriza, vg_id_cia,
-                                                                  vf_var_config_sql_notas, "2",
-                                                                  vf_otabla_permisos)
-            bt_g_notas.Text = cl_gestion_anotaciones.calcular_cantidad_notas_asociadas(vf_otipo_nota,
-                                                                                       vf_id_notas_archivos,
-                                                                                       vg_id_cia)
+
+        If vf_id_notas_archivos.Trim <> "" AndAlso vf_id_notas_archivos <> "0" Then
+            cl_gestion_anotaciones.consultar_anotaciones_acciones(
+            vf_id_notas_archivos,
+            vf_otipo_nota,
+            vg_usuario_autoriza,
+            vg_id_cia,
+            vf_var_config_sql_notas,
+            "2",
+            vf_otabla_permisos
+        )
+
+            bt_g_notas.Text = cl_gestion_anotaciones.calcular_cantidad_notas_asociadas(
+            vf_otipo_nota,
+            vf_id_notas_archivos,
+            vg_id_cia
+        )
         Else
             MsgBox("No ha definido un Item", MsgBoxStyle.Information, "Info")
         End If
     End Sub
-
     Private Sub bt_g_archivos_Click(sender As Object, e As EventArgs) Handles bt_g_archivos.Click
-        If vf_var_config_archivos = "" Then
-            Exit Sub
-        End If
+        GestionarArchivos()
+    End Sub
+    Private Sub GestionarArchivos()
+        If vf_var_config_archivos = "" Then Exit Sub
 
-        bt_g_archivos.Text = cl_utilidades_gestion_documentos.mostrar_listado_archivos_asociados(vf_var_config_archivos,
-                                                                                                 vf_id_notas_archivos,
-                                                                                                 vf_name_files,
-                                                                                                 vg_usuario_autoriza,
-                                                                                                 vg_id_cia,
-                                                                                                 vf_otabla_permisos)
+        bt_g_archivos.Text = cl_utilidades_gestion_documentos.mostrar_listado_archivos_asociados(
+        vf_var_config_archivos,
+        vf_id_notas_archivos,
+        vf_name_files,
+        vg_usuario_autoriza,
+        vg_id_cia,
+        vf_otabla_permisos
+    )
     End Sub
     Private Sub bt_g_archivos_MouseDown(sender As Object, e As MouseEventArgs) Handles bt_g_archivos.MouseDown
         If e.Button = Windows.Forms.MouseButtons.Right Then

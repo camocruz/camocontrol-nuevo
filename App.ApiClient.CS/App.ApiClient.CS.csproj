@@ -20,4 +20,8 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Base\" />
+  </ItemGroup>
+
 </Project>

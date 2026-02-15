@@ -1452,6 +1452,7 @@ Public Class fm_0600_gestion_tareas
         oform_mostrar_datos.vg_id_cia = vg_id_cia
         oform_mostrar_datos.vg_usuario_autoriza = vg_usuario_autoriza
         oform_mostrar_datos.id_accion = tx_id_tarea.Text
+        oform_mostrar_datos.ocontexto_form = "salida de insumos de almacen desde una actividad"
         oform_mostrar_datos.ShowDialog()
 
 
