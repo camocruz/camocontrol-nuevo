@@ -2,6 +2,8 @@
 Imports App.ApiClient.CS.Services
 Imports App.ApiClient.CS.Services.SpecificServices
 Imports App.ApiClient.CS.Helpers.Commons
+Imports App.ApiClient.CS.Utilities
+Imports App.ApiClient.CS.DTOs.SpecificDtos
 
 Public Class fm_0300_orden_compra
     'Objetos publicos que reciben valores desde el Formulario padre
@@ -594,10 +596,6 @@ Public Class fm_0300_orden_compra
         ocmd = Nothing
         oconn_form.Close()
     End Sub
-
-
-
-
     Private Sub Tx_Nombre_Tercero_KeyDown(sender As Object, e As KeyEventArgs) Handles Tx_Nombre_Tercero.KeyDown
         If (e.KeyCode = Keys.B AndAlso e.Modifiers = Keys.Control) Then
             'PARA USAR CUANDO EL FORMULARIO ES PARA SELECCIONAR UN DATO
@@ -637,7 +635,6 @@ Public Class fm_0300_orden_compra
             'tx_cantidad.Focus()
         End If
     End Sub
-
     Private Sub llenar_items_solicitados()
         dg_listado.Rows.Clear()
         csql = "select tb0305_items_solicitados.*, f0304_id_estado, f0300_id_item, f0300_codigo_cguno," _
@@ -1846,18 +1843,18 @@ Public Class fm_0300_orden_compra
             Exit Sub
         End If
         If IsNumeric(tx_oc_uno.Text) = False Then
-            'MsgBox("Solo valores numericos", MsgBoxStyle.Critical)
-            'Exit Sub
+            MsgBox("Solo valores numericos", MsgBoxStyle.Critical)
+            Exit Sub
         End If
-        Dim t_doc As String = ""
-
+        'Dim t_doc As String = ""
+        tx_oc_uno.Text = "EOC-" & tx_oc_uno.Text
 
         actualizar_oc_siesa_encabezado_oc()
         actualizar_oc_siesa_items()
         If verror = "N" Then
             MsgBox("Listo")
         End If
-        tx_oc_uno.Text = tx_oc_uno.Text '"OC-" & tx_oc_uno.Text
+
         'MsgBox("Actualizado", MsgBoxStyle.Information)
     End Sub
 
@@ -1867,6 +1864,9 @@ Public Class fm_0300_orden_compra
     ''' Genera un archivo de texto con N líneas construidas mediante las funciones de línea fija.
     ''' </summary>
     Public Sub GenerarArchivoTexto(rutaArchivo As String)
+
+        'Para usar los servicios de EstructuraSiesaService, creo la variable de servicio svc
+        Dim svc As New EstructuraSiesaService()
 
         Dim lineas As New List(Of String)
 
@@ -1884,15 +1884,15 @@ Public Class fm_0300_orden_compra
             {"F_CIA", "Numérico", "16", "3", "0", "001"}
         }
         'CONVIERTO LA MATRIZ EN UNA LISTA DE OBJETOS DTO PARA LINEA INICIAL
-        Dim ListaDtosSeccion As IEnumerable(Of CampoDto) = ConvertirMatriz(MatSeccion)
+        Dim ListaDtosSeccion As IEnumerable(Of DefinicionEstructuraSiesaDto) = svc.ConvertirMatriz(MatSeccion)
         ' 1. Crear una línea inicial con espacios
-        Dim lineaDinamica As String = CrearLineaInicial(18)
+        Dim lineaDinamica As String = svc.CrearLineaInicial(18)
         'Apartir de aqui se pueden usar los campos para construir la linea inicial dinamicamente
-        lineaDinamica = ReemplazarValores(ListaDtosSeccion, lineaDinamica, "F_NUMERO_REG", "1")
-        lineaDinamica = ReemplazarValores(ListaDtosSeccion, lineaDinamica, "F_TIPO_REG", "0")
-        lineaDinamica = ReemplazarValores(ListaDtosSeccion, lineaDinamica, "F_SUBTIPO_REG", "00")
-        lineaDinamica = ReemplazarValores(ListaDtosSeccion, lineaDinamica, "F_VERSION_REG", "01")
-        lineaDinamica = ReemplazarValores(ListaDtosSeccion, lineaDinamica, "F_CIA", "1")
+        lineaDinamica = svc.ReemplazarValores(ListaDtosSeccion, lineaDinamica, "F_NUMERO_REG", "1")
+        lineaDinamica = svc.ReemplazarValores(ListaDtosSeccion, lineaDinamica, "F_TIPO_REG", "0")
+        lineaDinamica = svc.ReemplazarValores(ListaDtosSeccion, lineaDinamica, "F_SUBTIPO_REG", "00")
+        lineaDinamica = svc.ReemplazarValores(ListaDtosSeccion, lineaDinamica, "F_VERSION_REG", "01")
+        lineaDinamica = svc.ReemplazarValores(ListaDtosSeccion, lineaDinamica, "F_CIA", "1")
         lineas.Add(lineaDinamica)
 #End Region
 
@@ -1953,41 +1953,41 @@ Public Class fm_0300_orden_compra
             {"f420_id_mandato", "Alfanumérico", "731", "15", " ", " "}
         }
         'CONVIERTO LA MATRIZ EN UNA LISTA DE OBJETOS DTO PARA LINEA INICIO
-        ListaDtosSeccion = ConvertirMatriz(MatSeccion)
+        ListaDtosSeccion = svc.ConvertirMatriz(MatSeccion)
         ' 1. Crear una línea inicial con espacios
-        lineaDinamica = CrearLineaInicial(745)
+        lineaDinamica = svc.CrearLineaInicial(745)
         'Apartir de aqui se pueden usar los campos para construir la linea inicial dinamicamente
-        lineaDinamica = ReemplazarValores(ListaDtosSeccion, lineaDinamica, "F_NUMERO_REG", "2")
-        lineaDinamica = ReemplazarValores(ListaDtosSeccion, lineaDinamica, "F_TIPO_REG", "")
-        lineaDinamica = ReemplazarValores(ListaDtosSeccion, lineaDinamica, "F_SUBTIPO_REG", "")
-        lineaDinamica = ReemplazarValores(ListaDtosSeccion, lineaDinamica, "F_VERSION_REG", "")
-        lineaDinamica = ReemplazarValores(ListaDtosSeccion, lineaDinamica, "F_CIA", "")
-        lineaDinamica = ReemplazarValores(ListaDtosSeccion, lineaDinamica, "F_LIQUIDA_IMPUESTO", "")
-        lineaDinamica = ReemplazarValores(ListaDtosSeccion, lineaDinamica, "F_CONSEC_AUTO_REG", "")
-        lineaDinamica = ReemplazarValores(ListaDtosSeccion, lineaDinamica, "f420_id_co", "")
-        lineaDinamica = ReemplazarValores(ListaDtosSeccion, lineaDinamica, "f420_id_tipo_docto", id_tipo_docto) 'Cambiar a OS cuando corresponda
-        lineaDinamica = ReemplazarValores(ListaDtosSeccion, lineaDinamica, "f420_consec_docto", "")
-        lineaDinamica = ReemplazarValores(ListaDtosSeccion, lineaDinamica, "f420_fecha", fechaActual)
-        lineaDinamica = ReemplazarValores(ListaDtosSeccion, lineaDinamica, "f420_id_concepto", "")
-        lineaDinamica = ReemplazarValores(ListaDtosSeccion, lineaDinamica, "f420_id_grupo_clase_docto", "")
-        lineaDinamica = ReemplazarValores(ListaDtosSeccion, lineaDinamica, "f420_id_clase_docto", "")
-        lineaDinamica = ReemplazarValores(ListaDtosSeccion, lineaDinamica, "f420_ind_estado", "")
-        lineaDinamica = ReemplazarValores(ListaDtosSeccion, lineaDinamica, "f420_ind_impresion", "")
-        lineaDinamica = ReemplazarValores(ListaDtosSeccion, lineaDinamica, "f420_id_tercero_sol_comp", f420_id_tercero_sol_comp) 'CEDULA DEL COMPRADOR
-        lineaDinamica = ReemplazarValores(ListaDtosSeccion, lineaDinamica, "f420_id_tercero_prov", f420_id_tercero_prov) 'NIT DEL TERCERO
-        lineaDinamica = ReemplazarValores(ListaDtosSeccion, lineaDinamica, "f420_id_sucursal_prov", f420_id_sucursal_prov) 'implementar consulta de api para obtener esta informacion
-        lineaDinamica = ReemplazarValores(ListaDtosSeccion, lineaDinamica, "f420_id_cond_pago", "")
-        lineaDinamica = ReemplazarValores(ListaDtosSeccion, lineaDinamica, "f420_ind_tasa", "")
-        lineaDinamica = ReemplazarValores(ListaDtosSeccion, lineaDinamica, "f420_id_moneda_docto", "")
-        lineaDinamica = ReemplazarValores(ListaDtosSeccion, lineaDinamica, "f420_id_moneda_conv", "")
-        lineaDinamica = ReemplazarValores(ListaDtosSeccion, lineaDinamica, "f420_tasa_conv", "")
-        lineaDinamica = ReemplazarValores(ListaDtosSeccion, lineaDinamica, "f420_id_moneda_local", "COP") 'CAMBIE "" 00000000.0000
-        lineaDinamica = ReemplazarValores(ListaDtosSeccion, lineaDinamica, "f420_tasa_local", "")
-        lineaDinamica = ReemplazarValores(ListaDtosSeccion, lineaDinamica, "f420_tasa_dscto_global1", "")
-        lineaDinamica = ReemplazarValores(ListaDtosSeccion, lineaDinamica, "f420_tasa_dscto_global2", "")
-        lineaDinamica = ReemplazarValores(ListaDtosSeccion, lineaDinamica, "f420_notas", f420_notas) 'ESPACIO PARA NOTAS
-        lineaDinamica = ReemplazarValores(ListaDtosSeccion, lineaDinamica, "F_IND_CONTACTO", "") 'LO METI PARA PROBAR
-        lineaDinamica = ReemplazarValores(ListaDtosSeccion, lineaDinamica, "f420_num_docto_referencia", f420_num_docto_referencia) 'USAR OC DATO CAMO
+        lineaDinamica = svc.ReemplazarValores(ListaDtosSeccion, lineaDinamica, "F_NUMERO_REG", "2")
+        lineaDinamica = svc.ReemplazarValores(ListaDtosSeccion, lineaDinamica, "F_TIPO_REG", "")
+        lineaDinamica = svc.ReemplazarValores(ListaDtosSeccion, lineaDinamica, "F_SUBTIPO_REG", "")
+        lineaDinamica = svc.ReemplazarValores(ListaDtosSeccion, lineaDinamica, "F_VERSION_REG", "")
+        lineaDinamica = svc.ReemplazarValores(ListaDtosSeccion, lineaDinamica, "F_CIA", "")
+        lineaDinamica = svc.ReemplazarValores(ListaDtosSeccion, lineaDinamica, "F_LIQUIDA_IMPUESTO", "")
+        lineaDinamica = svc.ReemplazarValores(ListaDtosSeccion, lineaDinamica, "F_CONSEC_AUTO_REG", "")
+        lineaDinamica = svc.ReemplazarValores(ListaDtosSeccion, lineaDinamica, "f420_id_co", "")
+        lineaDinamica = svc.ReemplazarValores(ListaDtosSeccion, lineaDinamica, "f420_id_tipo_docto", id_tipo_docto) 'Cambiar a OS cuando corresponda
+        lineaDinamica = svc.ReemplazarValores(ListaDtosSeccion, lineaDinamica, "f420_consec_docto", "")
+        lineaDinamica = svc.ReemplazarValores(ListaDtosSeccion, lineaDinamica, "f420_fecha", fechaActual)
+        lineaDinamica = svc.ReemplazarValores(ListaDtosSeccion, lineaDinamica, "f420_id_concepto", "")
+        lineaDinamica = svc.ReemplazarValores(ListaDtosSeccion, lineaDinamica, "f420_id_grupo_clase_docto", "")
+        lineaDinamica = svc.ReemplazarValores(ListaDtosSeccion, lineaDinamica, "f420_id_clase_docto", "")
+        lineaDinamica = svc.ReemplazarValores(ListaDtosSeccion, lineaDinamica, "f420_ind_estado", "")
+        lineaDinamica = svc.ReemplazarValores(ListaDtosSeccion, lineaDinamica, "f420_ind_impresion", "")
+        lineaDinamica = svc.ReemplazarValores(ListaDtosSeccion, lineaDinamica, "f420_id_tercero_sol_comp", f420_id_tercero_sol_comp) 'CEDULA DEL COMPRADOR
+        lineaDinamica = svc.ReemplazarValores(ListaDtosSeccion, lineaDinamica, "f420_id_tercero_prov", f420_id_tercero_prov) 'NIT DEL TERCERO
+        lineaDinamica = svc.ReemplazarValores(ListaDtosSeccion, lineaDinamica, "f420_id_sucursal_prov", f420_id_sucursal_prov) 'implementar consulta de api para obtener esta informacion
+        lineaDinamica = svc.ReemplazarValores(ListaDtosSeccion, lineaDinamica, "f420_id_cond_pago", "")
+        lineaDinamica = svc.ReemplazarValores(ListaDtosSeccion, lineaDinamica, "f420_ind_tasa", "")
+        lineaDinamica = svc.ReemplazarValores(ListaDtosSeccion, lineaDinamica, "f420_id_moneda_docto", "")
+        lineaDinamica = svc.ReemplazarValores(ListaDtosSeccion, lineaDinamica, "f420_id_moneda_conv", "")
+        lineaDinamica = svc.ReemplazarValores(ListaDtosSeccion, lineaDinamica, "f420_tasa_conv", "")
+        lineaDinamica = svc.ReemplazarValores(ListaDtosSeccion, lineaDinamica, "f420_id_moneda_local", "COP") 'CAMBIE "" 00000000.0000
+        lineaDinamica = svc.ReemplazarValores(ListaDtosSeccion, lineaDinamica, "f420_tasa_local", "")
+        lineaDinamica = svc.ReemplazarValores(ListaDtosSeccion, lineaDinamica, "f420_tasa_dscto_global1", "")
+        lineaDinamica = svc.ReemplazarValores(ListaDtosSeccion, lineaDinamica, "f420_tasa_dscto_global2", "")
+        lineaDinamica = svc.ReemplazarValores(ListaDtosSeccion, lineaDinamica, "f420_notas", f420_notas) 'ESPACIO PARA NOTAS
+        lineaDinamica = svc.ReemplazarValores(ListaDtosSeccion, lineaDinamica, "F_IND_CONTACTO", "") 'LO METI PARA PROBAR
+        lineaDinamica = svc.ReemplazarValores(ListaDtosSeccion, lineaDinamica, "f420_num_docto_referencia", f420_num_docto_referencia) 'USAR OC DATO CAMO
         lineas.Add(lineaDinamica)
 #End Region
 
@@ -2039,13 +2039,13 @@ Public Class fm_0300_orden_compra
             {"f421_tasa_dscto_condicionado", "Numérico", "2647", "8", "0", "000.0000"}
         }
         'CONVIERTO LA MATRIZ EN UNA LISTA DE OBJETOS DTO PARA LINEA INICIO
-        ListaDtosSeccion = ConvertirMatriz(MatSeccion)
+        ListaDtosSeccion = svc.ConvertirMatriz(MatSeccion)
         lineaItemContador = 3 'INICIA EN 3 PORQUE LA LINEA 1 ES INICIO Y LA 2 ES DOCUMENTO
 
         'Hago un recorrido por cada item del datagridview para crear las lineas de items
         For Each row As DataGridViewRow In dg_listado.Rows
-            f421_cant_pedida_base = Formatear4Decimales(CDbl(row.Cells("dgocell_cantidad_solicitada").Value.ToString))
-            f421_precio_unitario = Formatear4Decimales(CDbl(row.Cells("dgocell_costo_unitario").Value.ToString))
+            f421_cant_pedida_base = DecimalFormatter.Format(CDbl(row.Cells("dgocell_cantidad_solicitada").Value.ToString), 4)
+            f421_precio_unitario = DecimalFormatter.Format(CDbl(Math.Round(row.Cells("dgocell_costo_unitario").Value, 2).ToString), 4)
             f421_referencia_item = row.Cells("dgocell_cod_uno").Value.ToString
 
 
@@ -2070,32 +2070,32 @@ Public Class fm_0300_orden_compra
             f421_notas = f421_notas.Replace(vbCrLf, " ").Replace(vbLf, " ")
 
             ' 1. Crear una línea inicial con espacios
-            lineaDinamica = CrearLineaInicial(2654)
+            lineaDinamica = svc.CrearLineaInicial(2654)
 
             'Apartir de aqui se pueden usar los campos para construir la linea inicial dinamicamente
-            lineaDinamica = ReemplazarValores(ListaDtosSeccion, lineaDinamica, "F_NUMERO_REG", lineaItemContador.ToString) 'CONTEO DE LINEA INICIA EN 3 Y AUMENTA
-            lineaDinamica = ReemplazarValores(ListaDtosSeccion, lineaDinamica, "F_TIPO_REG", "")
-            lineaDinamica = ReemplazarValores(ListaDtosSeccion, lineaDinamica, "F_SUBTIPO_REG", "")
-            lineaDinamica = ReemplazarValores(ListaDtosSeccion, lineaDinamica, "F_VERSION_REG", "")
-            lineaDinamica = ReemplazarValores(ListaDtosSeccion, lineaDinamica, "F_CIA", "")
-            lineaDinamica = ReemplazarValores(ListaDtosSeccion, lineaDinamica, "f421_id_co", "")
-            lineaDinamica = ReemplazarValores(ListaDtosSeccion, lineaDinamica, "f421_id_tipo_docto", id_tipo_docto) 'Cambiar a OS cuando corresponda
-            lineaDinamica = ReemplazarValores(ListaDtosSeccion, lineaDinamica, "f421_consec_docto", "")
-            lineaDinamica = ReemplazarValores(ListaDtosSeccion, lineaDinamica, "f421_nro_registro", "")
-            lineaDinamica = ReemplazarValores(ListaDtosSeccion, lineaDinamica, "f421_id_bodega", "")
-            lineaDinamica = ReemplazarValores(ListaDtosSeccion, lineaDinamica, "f421_id_concepto", "")
-            lineaDinamica = ReemplazarValores(ListaDtosSeccion, lineaDinamica, "f421_id_motivo", f421_id_motivo) '01 PARA PRODUCTOS Y 73 PARA SERVICIOS
-            lineaDinamica = ReemplazarValores(ListaDtosSeccion, lineaDinamica, "f421_ind_obsequio", "")
-            lineaDinamica = ReemplazarValores(ListaDtosSeccion, lineaDinamica, "f421_id_co_movto", "")
-            lineaDinamica = ReemplazarValores(ListaDtosSeccion, lineaDinamica, "f421_id_unidad_medida", "") 'UNIDAD DE MEDIDA
-            lineaDinamica = ReemplazarValores(ListaDtosSeccion, lineaDinamica, "f421_cant_pedida_base", f421_cant_pedida_base) 'Cantidad pedida
-            lineaDinamica = ReemplazarValores(ListaDtosSeccion, lineaDinamica, "f421_fecha_entrega", fechaActual)
-            lineaDinamica = ReemplazarValores(ListaDtosSeccion, lineaDinamica, "f421_precio_unitario", f421_precio_unitario)
-            lineaDinamica = ReemplazarValores(ListaDtosSeccion, lineaDinamica, "f421_notas", f421_notas) 'NOTA DEL MOVIMIENTO
-            lineaDinamica = ReemplazarValores(ListaDtosSeccion, lineaDinamica, "f421_id_item", "") 'ID DEL PRODUCTO SE LO METI
-            lineaDinamica = ReemplazarValores(ListaDtosSeccion, lineaDinamica, "f421_referencia_item", f421_referencia_item) 'REFERENCIA DEL PRODUCTO
-            lineaDinamica = ReemplazarValores(ListaDtosSeccion, lineaDinamica, "f421_id_un_movto", "")
-            lineaDinamica = ReemplazarValores(ListaDtosSeccion, lineaDinamica, "f421_tasa_dscto_condicionado", "")
+            lineaDinamica = svc.ReemplazarValores(ListaDtosSeccion, lineaDinamica, "F_NUMERO_REG", lineaItemContador.ToString) 'CONTEO DE LINEA INICIA EN 3 Y AUMENTA
+            lineaDinamica = svc.ReemplazarValores(ListaDtosSeccion, lineaDinamica, "F_TIPO_REG", "")
+            lineaDinamica = svc.ReemplazarValores(ListaDtosSeccion, lineaDinamica, "F_SUBTIPO_REG", "")
+            lineaDinamica = svc.ReemplazarValores(ListaDtosSeccion, lineaDinamica, "F_VERSION_REG", "")
+            lineaDinamica = svc.ReemplazarValores(ListaDtosSeccion, lineaDinamica, "F_CIA", "")
+            lineaDinamica = svc.ReemplazarValores(ListaDtosSeccion, lineaDinamica, "f421_id_co", "")
+            lineaDinamica = svc.ReemplazarValores(ListaDtosSeccion, lineaDinamica, "f421_id_tipo_docto", id_tipo_docto) 'Cambiar a OS cuando corresponda
+            lineaDinamica = svc.ReemplazarValores(ListaDtosSeccion, lineaDinamica, "f421_consec_docto", "")
+            lineaDinamica = svc.ReemplazarValores(ListaDtosSeccion, lineaDinamica, "f421_nro_registro", "")
+            lineaDinamica = svc.ReemplazarValores(ListaDtosSeccion, lineaDinamica, "f421_id_bodega", "")
+            lineaDinamica = svc.ReemplazarValores(ListaDtosSeccion, lineaDinamica, "f421_id_concepto", "")
+            lineaDinamica = svc.ReemplazarValores(ListaDtosSeccion, lineaDinamica, "f421_id_motivo", f421_id_motivo) '01 PARA PRODUCTOS Y 73 PARA SERVICIOS
+            lineaDinamica = svc.ReemplazarValores(ListaDtosSeccion, lineaDinamica, "f421_ind_obsequio", "")
+            lineaDinamica = svc.ReemplazarValores(ListaDtosSeccion, lineaDinamica, "f421_id_co_movto", "")
+            lineaDinamica = svc.ReemplazarValores(ListaDtosSeccion, lineaDinamica, "f421_id_unidad_medida", "") 'UNIDAD DE MEDIDA
+            lineaDinamica = svc.ReemplazarValores(ListaDtosSeccion, lineaDinamica, "f421_cant_pedida_base", f421_cant_pedida_base) 'Cantidad pedida
+            lineaDinamica = svc.ReemplazarValores(ListaDtosSeccion, lineaDinamica, "f421_fecha_entrega", fechaActual)
+            lineaDinamica = svc.ReemplazarValores(ListaDtosSeccion, lineaDinamica, "f421_precio_unitario", f421_precio_unitario)
+            lineaDinamica = svc.ReemplazarValores(ListaDtosSeccion, lineaDinamica, "f421_notas", f421_notas) 'NOTA DEL MOVIMIENTO
+            lineaDinamica = svc.ReemplazarValores(ListaDtosSeccion, lineaDinamica, "f421_id_item", "") 'ID DEL PRODUCTO SE LO METI
+            lineaDinamica = svc.ReemplazarValores(ListaDtosSeccion, lineaDinamica, "f421_referencia_item", f421_referencia_item) 'REFERENCIA DEL PRODUCTO
+            lineaDinamica = svc.ReemplazarValores(ListaDtosSeccion, lineaDinamica, "f421_id_un_movto", "")
+            lineaDinamica = svc.ReemplazarValores(ListaDtosSeccion, lineaDinamica, "f421_tasa_dscto_condicionado", "")
             lineas.Add(lineaDinamica)
 
             lineaItemContador += 1
@@ -2116,115 +2116,23 @@ Public Class fm_0300_orden_compra
             {"F_CIA", "Numérico", "16", "3", "0", "001"}
         }
         'CONVIERTO LA MATRIZ EN UNA LISTA DE OBJETOS DTO PARA LINEA INICIO
-        ListaDtosSeccion = ConvertirMatriz(MatSeccion)
+        ListaDtosSeccion = svc.ConvertirMatriz(MatSeccion)
         ' 1. Crear una línea inicial con espacios
-        lineaDinamica = CrearLineaInicial(18)
+        lineaDinamica = svc.CrearLineaInicial(18)
         'Apartir de aqui se pueden usar los campos para construir la linea inicial dinamicamente
-        lineaDinamica = ReemplazarValores(ListaDtosSeccion, lineaDinamica, "F_NUMERO_REG", lineaItemContador.ToString) 'CONTEO DE LINEA INICIA EN 3 Y AUMENTA
-        lineaDinamica = ReemplazarValores(ListaDtosSeccion, lineaDinamica, "F_TIPO_REG", "")
-        lineaDinamica = ReemplazarValores(ListaDtosSeccion, lineaDinamica, "F_SUBTIPO_REG", "")
-        lineaDinamica = ReemplazarValores(ListaDtosSeccion, lineaDinamica, "F_VERSION_REG", "")
-        lineaDinamica = ReemplazarValores(ListaDtosSeccion, lineaDinamica, "F_CIA", "")
+        lineaDinamica = svc.ReemplazarValores(ListaDtosSeccion, lineaDinamica, "F_NUMERO_REG", lineaItemContador.ToString) 'CONTEO DE LINEA INICIA EN 3 Y AUMENTA
+        lineaDinamica = svc.ReemplazarValores(ListaDtosSeccion, lineaDinamica, "F_TIPO_REG", "")
+        lineaDinamica = svc.ReemplazarValores(ListaDtosSeccion, lineaDinamica, "F_SUBTIPO_REG", "")
+        lineaDinamica = svc.ReemplazarValores(ListaDtosSeccion, lineaDinamica, "F_VERSION_REG", "")
+        lineaDinamica = svc.ReemplazarValores(ListaDtosSeccion, lineaDinamica, "F_CIA", "")
         lineas.Add(lineaDinamica)
 #End Region
 
         System.IO.File.WriteAllLines(rutaArchivo, lineas, System.Text.Encoding.UTF8)
     End Sub
-    Public Function Formatear4Decimales(valor As Object) As String
-        If valor Is Nothing Then
-            Return "0.0000"
-        End If
-
-        Dim numero As Decimal
-
-        ' Intenta convertir cualquier tipo (String, Integer, Decimal, DBNull, etc.)
-        If Decimal.TryParse(Convert.ToString(valor),
-                        Globalization.NumberStyles.Any,
-                        Globalization.CultureInfo.InvariantCulture,
-                        numero) Then
-
-            Return numero.ToString("0.0000", Globalization.CultureInfo.InvariantCulture)
-        End If
-
-        ' Si no se puede convertir, devuelve un valor seguro
-        Return "0.0000"
-    End Function
-
-    Private Function ReemplazarValores(ListaDtosSecc As IEnumerable(Of CampoDto), LineaEdicion As String, Nombre As String, valor As String)
-        Dim campoNumReg As CampoDto = ObtenerCampoPorNombre(ListaDtosSecc, Nombre)
-        If valor <> "" Then
-            campoNumReg.Valor = valor
-        End If
-        If campoNumReg.Tipo.ToUpper() = "NUMÉRICO" Then
-            'Rellenar con ceros a la izquierda
-            campoNumReg.Valor = campoNumReg.Valor.PadLeft(CInt(campoNumReg.Tamaño), "0"c)
-        Else
-            'Rellenar con espacios a la derecha
-            campoNumReg.Valor = campoNumReg.Valor.PadRight(CInt(campoNumReg.Tamaño), " "c)
-        End If
-        LineaEdicion = ReemplazarFragmento(LineaEdicion, campoNumReg.Valor.PadLeft(CInt(campoNumReg.Tamaño), campoNumReg.DigRelleno), CInt(campoNumReg.Inicio) - 1)
-        Return LineaEdicion
-    End Function
-    Private Function CrearLineaInicial(longitud As Integer) As String
-        If longitud <= 0 Then Return String.Empty
-        Return New String(" "c, longitud)
-    End Function
-    Private Function ReemplazarFragmento(LineaTotal As String,
-                                         FragmentoLinea As String,
-                                         posicionInicio As Integer) As String
-
-        If posicionInicio < 0 Then Throw New ArgumentOutOfRangeException(NameOf(posicionInicio))
-        If posicionInicio + FragmentoLinea.Length > LineaTotal.Length Then
-            Throw New ArgumentException("El fragmento excede la longitud de la línea.")
-        End If
-
-        Dim resultado As Char() = LineaTotal.ToCharArray()
-
-        For i As Integer = 0 To FragmentoLinea.Length - 1
-            resultado(posicionInicio + i) = FragmentoLinea(i)
-        Next
-
-        Return New String(resultado)
-    End Function
-
-
-    Public Function ConvertirMatriz(matriz(,) As String) As IEnumerable(Of CampoDto)
-
-        Dim filas = matriz.GetLength(0)
-        Dim columnas = matriz.GetLength(1)
-
-        Dim lista As New List(Of CampoDto)
-
-        For i = 0 To filas - 1
-            lista.Add(New CampoDto With {
-                .Nombre = matriz(i, 0),
-                .Tipo = matriz(i, 1),
-                .Inicio = matriz(i, 2),
-                .Tamaño = matriz(i, 3),
-                .DigRelleno = matriz(i, 4),
-                .Valor = matriz(i, 5)
-            })
-        Next
-
-        Return lista
-    End Function
-    Public Function ObtenerCampoPorNombre(campos As IEnumerable(Of CampoDto), nombreBuscado As String) As CampoDto
-        Return campos.FirstOrDefault(Function(c) c.Nombre.Equals(nombreBuscado, StringComparison.OrdinalIgnoreCase))
-    End Function
 
     Private Async Sub btn_consultarOcUnoEE_Click(sender As Object, e As EventArgs) Handles btn_consultarOcUnoEE.Click
-        'Using frm As New camocontrol.fm_0300_Oc_ListadoSiesaApi
-        '    frm.vf_oform_padre = Me
-        '    frm.vg_id_cia = vg_id_cia
-        '    frm.vg_usuario_autoriza = vg_usuario_autoriza
-        '    frm.vf_elemento_nuevo = "N"
 
-        '    If frm.ShowDialog() = DialogResult.OK Then
-        '        'DtoDgEnEdicion = frm.Resultado 'NO ES NECESARIO RETORNAR EL DTO PORUQE SOLO SE ACTUALIZO LA CIUDAD Y DIRECCION Y BORRA EL ID_RM
-        '    Else
-        '        MessageBox.Show("Operación Cancelada")
-        '    End If
-        'End Using
         Dim baseService = App.ApiClient.CS.AppServices.SiesaFactory.CreateBaseService()
         Dim servicio = New OrdenCompraApiService(baseService)
 
@@ -2265,12 +2173,4 @@ Public Class fm_0300_orden_compra
     End Sub
 
 
-End Class
-Public Class CampoDto
-    Public Property Nombre As String
-    Public Property Tipo As String
-    Public Property Inicio As String
-    Public Property Tamaño As String
-    Public Property DigRelleno As String
-    Public Property Valor As String
 End Class

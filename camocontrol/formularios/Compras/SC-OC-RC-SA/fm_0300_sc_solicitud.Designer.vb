@@ -81,26 +81,32 @@ Partial Class fm_0300_sc_solicitud
         '
         'll_linea1
         '
-        Me.ll_linea1.Size = New System.Drawing.Size(637, 6)
+        Me.ll_linea1.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
+        Me.ll_linea1.Size = New System.Drawing.Size(849, 7)
         '
         'lb_mi_marca
         '
-        Me.lb_mi_marca.Location = New System.Drawing.Point(735, 9)
+        Me.lb_mi_marca.Location = New System.Drawing.Point(980, 11)
+        Me.lb_mi_marca.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
         '
         'lb_fecha
         '
-        Me.lb_fecha.Location = New System.Drawing.Point(736, 36)
-        Me.lb_fecha.Size = New System.Drawing.Size(72, 16)
+        Me.lb_fecha.Location = New System.Drawing.Point(981, 44)
+        Me.lb_fecha.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
+        Me.lb_fecha.Size = New System.Drawing.Size(91, 20)
         Me.lb_fecha.Text = "2014/04/01"
         '
         'lb_titulo
         '
-        Me.lb_titulo.Size = New System.Drawing.Size(268, 32)
+        Me.lb_titulo.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
+        Me.lb_titulo.Size = New System.Drawing.Size(342, 42)
         Me.lb_titulo.Text = "Solicitud de Compra"
         '
         'GroupBox1
         '
-        Me.GroupBox1.Location = New System.Drawing.Point(210, 458)
+        Me.GroupBox1.Location = New System.Drawing.Point(280, 564)
+        Me.GroupBox1.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
+        Me.GroupBox1.Padding = New System.Windows.Forms.Padding(5, 5, 5, 5)
         '
         'bt_grabar
         '
@@ -113,7 +119,8 @@ Partial Class fm_0300_sc_solicitud
         '
         'lb_diseñador_programa
         '
-        Me.lb_diseñador_programa.Location = New System.Drawing.Point(0, 518)
+        Me.lb_diseñador_programa.Location = New System.Drawing.Point(0, 639)
+        Me.lb_diseñador_programa.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
         '
         'bt_generar_informe
         '
@@ -121,18 +128,20 @@ Partial Class fm_0300_sc_solicitud
         'tx_solicitud
         '
         Me.tx_solicitud.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.tx_solicitud.Location = New System.Drawing.Point(122, 61)
+        Me.tx_solicitud.Location = New System.Drawing.Point(163, 75)
+        Me.tx_solicitud.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.tx_solicitud.Name = "tx_solicitud"
-        Me.tx_solicitud.Size = New System.Drawing.Size(79, 22)
+        Me.tx_solicitud.Size = New System.Drawing.Size(104, 26)
         Me.tx_solicitud.TabIndex = 130
         '
         'Label8
         '
         Me.Label8.AutoSize = True
         Me.Label8.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label8.Location = New System.Drawing.Point(14, 64)
+        Me.Label8.Location = New System.Drawing.Point(19, 79)
+        Me.Label8.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label8.Name = "Label8"
-        Me.Label8.Size = New System.Drawing.Size(72, 16)
+        Me.Label8.Size = New System.Drawing.Size(92, 20)
         Me.Label8.TabIndex = 129
         Me.Label8.Text = "Solicitud #:"
         '
@@ -140,18 +149,20 @@ Partial Class fm_0300_sc_solicitud
         '
         Me.cm_estado.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cm_estado.FormattingEnabled = True
-        Me.cm_estado.Location = New System.Drawing.Point(446, 61)
+        Me.cm_estado.Location = New System.Drawing.Point(595, 75)
+        Me.cm_estado.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.cm_estado.Name = "cm_estado"
-        Me.cm_estado.Size = New System.Drawing.Size(164, 24)
+        Me.cm_estado.Size = New System.Drawing.Size(217, 28)
         Me.cm_estado.TabIndex = 132
         '
         'Label2
         '
         Me.Label2.AutoSize = True
         Me.Label2.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label2.Location = New System.Drawing.Point(338, 64)
+        Me.Label2.Location = New System.Drawing.Point(451, 79)
+        Me.Label2.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(54, 16)
+        Me.Label2.Size = New System.Drawing.Size(66, 20)
         Me.Label2.TabIndex = 131
         Me.Label2.Text = "Estado:"
         '
@@ -159,18 +170,20 @@ Partial Class fm_0300_sc_solicitud
         '
         Me.cm_centro_costo.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cm_centro_costo.FormattingEnabled = True
-        Me.cm_centro_costo.Location = New System.Drawing.Point(122, 119)
+        Me.cm_centro_costo.Location = New System.Drawing.Point(163, 146)
+        Me.cm_centro_costo.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.cm_centro_costo.Name = "cm_centro_costo"
-        Me.cm_centro_costo.Size = New System.Drawing.Size(209, 24)
+        Me.cm_centro_costo.Size = New System.Drawing.Size(277, 28)
         Me.cm_centro_costo.TabIndex = 134
         '
         'Label1
         '
         Me.Label1.AutoSize = True
         Me.Label1.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label1.Location = New System.Drawing.Point(14, 122)
+        Me.Label1.Location = New System.Drawing.Point(19, 150)
+        Me.Label1.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(107, 16)
+        Me.Label1.Size = New System.Drawing.Size(136, 20)
         Me.Label1.TabIndex = 133
         Me.Label1.Text = "Centro de Costo:"
         '
@@ -180,19 +193,21 @@ Partial Class fm_0300_sc_solicitud
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.tx_anotacion.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
         Me.tx_anotacion.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.tx_anotacion.Location = New System.Drawing.Point(17, 207)
+        Me.tx_anotacion.Location = New System.Drawing.Point(23, 255)
+        Me.tx_anotacion.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.tx_anotacion.Multiline = True
         Me.tx_anotacion.Name = "tx_anotacion"
-        Me.tx_anotacion.Size = New System.Drawing.Size(797, 58)
+        Me.tx_anotacion.Size = New System.Drawing.Size(1061, 70)
         Me.tx_anotacion.TabIndex = 141
         '
         'Label3
         '
         Me.Label3.AutoSize = True
         Me.Label3.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label3.Location = New System.Drawing.Point(14, 191)
+        Me.Label3.Location = New System.Drawing.Point(19, 235)
+        Me.Label3.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(71, 16)
+        Me.Label3.Size = New System.Drawing.Size(88, 20)
         Me.Label3.TabIndex = 140
         Me.Label3.Text = "Anotacion:"
         '
@@ -200,9 +215,10 @@ Partial Class fm_0300_sc_solicitud
         '
         Me.Label4.AutoSize = True
         Me.Label4.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label4.Location = New System.Drawing.Point(14, 287)
+        Me.Label4.Location = New System.Drawing.Point(19, 353)
+        Me.Label4.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(111, 16)
+        Me.Label4.Size = New System.Drawing.Size(140, 20)
         Me.Label4.TabIndex = 143
         Me.Label4.Text = "Items solicitados:"
         '
@@ -210,27 +226,30 @@ Partial Class fm_0300_sc_solicitud
         '
         Me.Label5.AutoSize = True
         Me.Label5.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label5.Location = New System.Drawing.Point(337, 92)
+        Me.Label5.Location = New System.Drawing.Point(449, 113)
+        Me.Label5.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(95, 16)
+        Me.Label5.Size = New System.Drawing.Size(118, 20)
         Me.Label5.TabIndex = 144
         Me.Label5.Text = "Solicitado Por:"
         '
         'dtp_fecha_solicitud
         '
         Me.dtp_fecha_solicitud.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.dtp_fecha_solicitud.Location = New System.Drawing.Point(446, 119)
+        Me.dtp_fecha_solicitud.Location = New System.Drawing.Point(595, 146)
+        Me.dtp_fecha_solicitud.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.dtp_fecha_solicitud.Name = "dtp_fecha_solicitud"
-        Me.dtp_fecha_solicitud.Size = New System.Drawing.Size(287, 22)
+        Me.dtp_fecha_solicitud.Size = New System.Drawing.Size(381, 26)
         Me.dtp_fecha_solicitud.TabIndex = 147
         '
         'Label6
         '
         Me.Label6.AutoSize = True
         Me.Label6.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label6.Location = New System.Drawing.Point(337, 122)
+        Me.Label6.Location = New System.Drawing.Point(449, 150)
+        Me.Label6.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label6.Name = "Label6"
-        Me.Label6.Size = New System.Drawing.Size(103, 16)
+        Me.Label6.Size = New System.Drawing.Size(129, 20)
         Me.Label6.TabIndex = 146
         Me.Label6.Text = "Fecha Solicitud:"
         '
@@ -238,18 +257,20 @@ Partial Class fm_0300_sc_solicitud
         '
         Me.tx_id_accion.Enabled = False
         Me.tx_id_accion.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.tx_id_accion.Location = New System.Drawing.Point(122, 89)
+        Me.tx_id_accion.Location = New System.Drawing.Point(163, 110)
+        Me.tx_id_accion.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.tx_id_accion.Name = "tx_id_accion"
-        Me.tx_id_accion.Size = New System.Drawing.Size(79, 22)
+        Me.tx_id_accion.Size = New System.Drawing.Size(104, 26)
         Me.tx_id_accion.TabIndex = 150
         '
         'Label7
         '
         Me.Label7.AutoSize = True
         Me.Label7.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label7.Location = New System.Drawing.Point(14, 92)
+        Me.Label7.Location = New System.Drawing.Point(19, 113)
+        Me.Label7.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label7.Name = "Label7"
-        Me.Label7.Size = New System.Drawing.Size(77, 16)
+        Me.Label7.Size = New System.Drawing.Size(96, 20)
         Me.Label7.TabIndex = 149
         Me.Label7.Text = "Actividad #:"
         '
@@ -259,9 +280,10 @@ Partial Class fm_0300_sc_solicitud
         Me.bt_catalago_items.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center
         Me.bt_catalago_items.Image = Global.camocontrol.My.Resources.Resources.CANCELAR
         Me.bt_catalago_items.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.bt_catalago_items.Location = New System.Drawing.Point(17, 458)
+        Me.bt_catalago_items.Location = New System.Drawing.Point(23, 564)
+        Me.bt_catalago_items.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.bt_catalago_items.Name = "bt_catalago_items"
-        Me.bt_catalago_items.Size = New System.Drawing.Size(117, 39)
+        Me.bt_catalago_items.Size = New System.Drawing.Size(156, 48)
         Me.bt_catalago_items.TabIndex = 151
         Me.bt_catalago_items.Text = "Agregar Item a Catalogo"
         Me.bt_catalago_items.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -272,9 +294,10 @@ Partial Class fm_0300_sc_solicitud
         '
         Me.Label15.AutoSize = True
         Me.Label15.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label15.Location = New System.Drawing.Point(14, 152)
+        Me.Label15.Location = New System.Drawing.Point(19, 187)
+        Me.Label15.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label15.Name = "Label15"
-        Me.Label15.Size = New System.Drawing.Size(98, 16)
+        Me.Label15.Size = New System.Drawing.Size(124, 20)
         Me.Label15.TabIndex = 164
         Me.Label15.Text = "Equipo/Estruct:"
         '
@@ -282,28 +305,31 @@ Partial Class fm_0300_sc_solicitud
         '
         Me.tx_estructura.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
         Me.tx_estructura.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.tx_estructura.Location = New System.Drawing.Point(122, 149)
+        Me.tx_estructura.Location = New System.Drawing.Point(163, 183)
+        Me.tx_estructura.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.tx_estructura.Multiline = True
         Me.tx_estructura.Name = "tx_estructura"
         Me.tx_estructura.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
-        Me.tx_estructura.Size = New System.Drawing.Size(659, 52)
+        Me.tx_estructura.Size = New System.Drawing.Size(877, 63)
         Me.tx_estructura.TabIndex = 163
         '
         'bt_cambiar_infraestructura
         '
         Me.bt_cambiar_infraestructura.BackgroundImage = Global.camocontrol.My.Resources.Resources.cargarplano
         Me.bt_cambiar_infraestructura.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
-        Me.bt_cambiar_infraestructura.Location = New System.Drawing.Point(787, 147)
+        Me.bt_cambiar_infraestructura.Location = New System.Drawing.Point(1049, 181)
+        Me.bt_cambiar_infraestructura.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.bt_cambiar_infraestructura.Name = "bt_cambiar_infraestructura"
-        Me.bt_cambiar_infraestructura.Size = New System.Drawing.Size(21, 22)
+        Me.bt_cambiar_infraestructura.Size = New System.Drawing.Size(28, 27)
         Me.bt_cambiar_infraestructura.TabIndex = 162
         Me.bt_cambiar_infraestructura.UseVisualStyleBackColor = True
         '
         'bt_cambiar_estado
         '
-        Me.bt_cambiar_estado.Location = New System.Drawing.Point(616, 62)
+        Me.bt_cambiar_estado.Location = New System.Drawing.Point(821, 76)
+        Me.bt_cambiar_estado.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.bt_cambiar_estado.Name = "bt_cambiar_estado"
-        Me.bt_cambiar_estado.Size = New System.Drawing.Size(115, 23)
+        Me.bt_cambiar_estado.Size = New System.Drawing.Size(153, 28)
         Me.bt_cambiar_estado.TabIndex = 165
         Me.bt_cambiar_estado.Text = "Cambiar Estado"
         Me.bt_cambiar_estado.UseVisualStyleBackColor = True
@@ -311,9 +337,10 @@ Partial Class fm_0300_sc_solicitud
         'bt_agregar_item
         '
         Me.bt_agregar_item.BackgroundImage = Global.camocontrol.My.Resources.Resources.Full_shopping_cart_Icon_32
-        Me.bt_agregar_item.Location = New System.Drawing.Point(146, 268)
+        Me.bt_agregar_item.Location = New System.Drawing.Point(195, 330)
+        Me.bt_agregar_item.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.bt_agregar_item.Name = "bt_agregar_item"
-        Me.bt_agregar_item.Size = New System.Drawing.Size(55, 35)
+        Me.bt_agregar_item.Size = New System.Drawing.Size(73, 43)
         Me.bt_agregar_item.TabIndex = 166
         Me.bt_agregar_item.Text = "Add"
         Me.bt_agregar_item.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
@@ -323,28 +350,31 @@ Partial Class fm_0300_sc_solicitud
         '
         Me.bt_historico_compras.BackgroundImage = Global.camocontrol.My.Resources.Resources.nuevo2
         Me.bt_historico_compras.Image = Global.camocontrol.My.Resources.Resources.icono_estadisticas
-        Me.bt_historico_compras.Location = New System.Drawing.Point(326, 267)
+        Me.bt_historico_compras.Location = New System.Drawing.Point(435, 329)
+        Me.bt_historico_compras.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.bt_historico_compras.Name = "bt_historico_compras"
-        Me.bt_historico_compras.Size = New System.Drawing.Size(32, 34)
+        Me.bt_historico_compras.Size = New System.Drawing.Size(43, 42)
         Me.bt_historico_compras.TabIndex = 202
         Me.bt_historico_compras.UseVisualStyleBackColor = True
         '
         'tx_id_item_cons_mov
         '
         Me.tx_id_item_cons_mov.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.tx_id_item_cons_mov.Location = New System.Drawing.Point(267, 278)
+        Me.tx_id_item_cons_mov.Location = New System.Drawing.Point(356, 342)
+        Me.tx_id_item_cons_mov.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.tx_id_item_cons_mov.Name = "tx_id_item_cons_mov"
         Me.tx_id_item_cons_mov.ReadOnly = True
-        Me.tx_id_item_cons_mov.Size = New System.Drawing.Size(57, 22)
+        Me.tx_id_item_cons_mov.Size = New System.Drawing.Size(75, 26)
         Me.tx_id_item_cons_mov.TabIndex = 201
         '
         'Label9
         '
         Me.Label9.AutoSize = True
         Me.Label9.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label9.Location = New System.Drawing.Point(207, 281)
+        Me.Label9.Location = New System.Drawing.Point(276, 346)
+        Me.Label9.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label9.Name = "Label9"
-        Me.Label9.Size = New System.Drawing.Size(54, 16)
+        Me.Label9.Size = New System.Drawing.Size(68, 20)
         Me.Label9.TabIndex = 200
         Me.Label9.Text = "Id_item:"
         '
@@ -352,9 +382,10 @@ Partial Class fm_0300_sc_solicitud
         '
         Me.bt_generar_recepcion.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center
         Me.bt_generar_recepcion.Image = Global.camocontrol.My.Resources.Resources.dinero01
-        Me.bt_generar_recepcion.Location = New System.Drawing.Point(402, 268)
+        Me.bt_generar_recepcion.Location = New System.Drawing.Point(536, 330)
+        Me.bt_generar_recepcion.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.bt_generar_recepcion.Name = "bt_generar_recepcion"
-        Me.bt_generar_recepcion.Size = New System.Drawing.Size(36, 34)
+        Me.bt_generar_recepcion.Size = New System.Drawing.Size(48, 42)
         Me.bt_generar_recepcion.TabIndex = 203
         Me.bt_generar_recepcion.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.bt_generar_recepcion.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage
@@ -364,9 +395,10 @@ Partial Class fm_0300_sc_solicitud
         '
         Me.lb_valor_subtotal.AutoSize = True
         Me.lb_valor_subtotal.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lb_valor_subtotal.Location = New System.Drawing.Point(571, 268)
+        Me.lb_valor_subtotal.Location = New System.Drawing.Point(761, 330)
+        Me.lb_valor_subtotal.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.lb_valor_subtotal.Name = "lb_valor_subtotal"
-        Me.lb_valor_subtotal.Size = New System.Drawing.Size(16, 18)
+        Me.lb_valor_subtotal.Size = New System.Drawing.Size(20, 24)
         Me.lb_valor_subtotal.TabIndex = 250
         Me.lb_valor_subtotal.Text = "0"
         '
@@ -374,9 +406,10 @@ Partial Class fm_0300_sc_solicitud
         '
         Me.Label19.AutoSize = True
         Me.Label19.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label19.Location = New System.Drawing.Point(470, 268)
+        Me.Label19.Location = New System.Drawing.Point(627, 330)
+        Me.Label19.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label19.Name = "Label19"
-        Me.Label19.Size = New System.Drawing.Size(104, 18)
+        Me.Label19.Size = New System.Drawing.Size(131, 24)
         Me.Label19.TabIndex = 249
         Me.Label19.Text = "Valor Subtotal:"
         '
@@ -384,9 +417,10 @@ Partial Class fm_0300_sc_solicitud
         '
         Me.lb_valor_factura.AutoSize = True
         Me.lb_valor_factura.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lb_valor_factura.Location = New System.Drawing.Point(571, 283)
+        Me.lb_valor_factura.Location = New System.Drawing.Point(761, 348)
+        Me.lb_valor_factura.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.lb_valor_factura.Name = "lb_valor_factura"
-        Me.lb_valor_factura.Size = New System.Drawing.Size(16, 18)
+        Me.lb_valor_factura.Size = New System.Drawing.Size(20, 24)
         Me.lb_valor_factura.TabIndex = 248
         Me.lb_valor_factura.Text = "0"
         '
@@ -394,9 +428,10 @@ Partial Class fm_0300_sc_solicitud
         '
         Me.Label10.AutoSize = True
         Me.Label10.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label10.Location = New System.Drawing.Point(470, 283)
+        Me.Label10.Location = New System.Drawing.Point(627, 348)
+        Me.Label10.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label10.Name = "Label10"
-        Me.Label10.Size = New System.Drawing.Size(100, 18)
+        Me.Label10.Size = New System.Drawing.Size(127, 24)
         Me.Label10.TabIndex = 247
         Me.Label10.Text = "Valor Factura:"
         '
@@ -410,38 +445,43 @@ Partial Class fm_0300_sc_solicitud
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.dg_listado.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dg_listado.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.dgocell_id_sc_item, Me.dgocell_item, Me.dgocell_cod_uno, Me.dgocell_descripcion_item, Me.dgocell_descripcion_complementaria, Me.dgocell_cantidad_solicitada, Me.dgocell_chk_inventario, Me.dgocell_inventario_total, Me.dgocell_unidad, Me.dgocell_var_costo, Me.dgocell_costo_unitario, Me.dgocell_descuento, Me.dgocell_costo_total, Me.dgocell_iva, Me.dgocell_costo_unit_iva, Me.dgocell_costo_total_iva, Me.dgocell_descripcion_estructura, Me.dgocell_id_accion, Me.dgocell_id_accion_raiz, Me.dgocell_nota, Me.dgocell_id_oc, Me.dgocell_oc_aprobada, Me.dgocell_id_fcc, Me.dgocell_doc_inv})
-        Me.dg_listado.Location = New System.Drawing.Point(17, 304)
+        Me.dg_listado.Location = New System.Drawing.Point(23, 374)
+        Me.dg_listado.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.dg_listado.Name = "dg_listado"
-        Me.dg_listado.Size = New System.Drawing.Size(797, 148)
+        Me.dg_listado.RowHeadersWidth = 51
+        Me.dg_listado.Size = New System.Drawing.Size(1063, 182)
         Me.dg_listado.TabIndex = 251
         '
         'dgocell_id_sc_item
         '
         Me.dgocell_id_sc_item.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader
         Me.dgocell_id_sc_item.HeaderText = "Id_sc_item"
+        Me.dgocell_id_sc_item.MinimumWidth = 6
         Me.dgocell_id_sc_item.Name = "dgocell_id_sc_item"
         Me.dgocell_id_sc_item.ReadOnly = True
-        Me.dgocell_id_sc_item.Width = 83
         '
         'dgocell_item
         '
         Me.dgocell_item.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCellsExceptHeader
         Me.dgocell_item.HeaderText = "Cod_Item"
+        Me.dgocell_item.MinimumWidth = 6
         Me.dgocell_item.Name = "dgocell_item"
         Me.dgocell_item.ReadOnly = True
-        Me.dgocell_item.Width = 5
+        Me.dgocell_item.Width = 6
         '
         'dgocell_cod_uno
         '
         Me.dgocell_cod_uno.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCellsExceptHeader
         Me.dgocell_cod_uno.HeaderText = "Cod_Uno"
+        Me.dgocell_cod_uno.MinimumWidth = 6
         Me.dgocell_cod_uno.Name = "dgocell_cod_uno"
         Me.dgocell_cod_uno.ReadOnly = True
-        Me.dgocell_cod_uno.Width = 5
+        Me.dgocell_cod_uno.Width = 6
         '
         'dgocell_descripcion_item
         '
         Me.dgocell_descripcion_item.HeaderText = "Item"
+        Me.dgocell_descripcion_item.MinimumWidth = 6
         Me.dgocell_descripcion_item.Name = "dgocell_descripcion_item"
         Me.dgocell_descripcion_item.ReadOnly = True
         Me.dgocell_descripcion_item.Width = 200
@@ -450,6 +490,7 @@ Partial Class fm_0300_sc_solicitud
         '
         Me.dgocell_descripcion_complementaria.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
         Me.dgocell_descripcion_complementaria.HeaderText = "Descripcion Complementaria"
+        Me.dgocell_descripcion_complementaria.MinimumWidth = 6
         Me.dgocell_descripcion_complementaria.Name = "dgocell_descripcion_complementaria"
         Me.dgocell_descripcion_complementaria.ReadOnly = True
         '
@@ -466,30 +507,34 @@ Partial Class fm_0300_sc_solicitud
         '
         Me.dgocell_chk_inventario.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
         Me.dgocell_chk_inventario.HeaderText = "Invt"
+        Me.dgocell_chk_inventario.MinimumWidth = 6
         Me.dgocell_chk_inventario.Name = "dgocell_chk_inventario"
         Me.dgocell_chk_inventario.ReadOnly = True
         Me.dgocell_chk_inventario.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
         Me.dgocell_chk_inventario.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic
-        Me.dgocell_chk_inventario.Width = 50
+        Me.dgocell_chk_inventario.Width = 56
         '
         'dgocell_inventario_total
         '
         Me.dgocell_inventario_total.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
         Me.dgocell_inventario_total.HeaderText = "Inventario"
+        Me.dgocell_inventario_total.MinimumWidth = 6
         Me.dgocell_inventario_total.Name = "dgocell_inventario_total"
-        Me.dgocell_inventario_total.Width = 79
+        Me.dgocell_inventario_total.Width = 94
         '
         'dgocell_unidad
         '
         Me.dgocell_unidad.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCellsExceptHeader
         Me.dgocell_unidad.HeaderText = "Unidad"
+        Me.dgocell_unidad.MinimumWidth = 6
         Me.dgocell_unidad.Name = "dgocell_unidad"
         Me.dgocell_unidad.ReadOnly = True
-        Me.dgocell_unidad.Width = 5
+        Me.dgocell_unidad.Width = 6
         '
         'dgocell_var_costo
         '
         Me.dgocell_var_costo.HeaderText = "%V"
+        Me.dgocell_var_costo.MinimumWidth = 6
         Me.dgocell_var_costo.Name = "dgocell_var_costo"
         Me.dgocell_var_costo.ReadOnly = True
         Me.dgocell_var_costo.Width = 40
@@ -549,14 +594,17 @@ Partial Class fm_0300_sc_solicitud
         '
         Me.dgocell_descripcion_estructura.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCellsExceptHeader
         Me.dgocell_descripcion_estructura.HeaderText = "Estructura"
+        Me.dgocell_descripcion_estructura.MinimumWidth = 6
         Me.dgocell_descripcion_estructura.Name = "dgocell_descripcion_estructura"
         Me.dgocell_descripcion_estructura.ReadOnly = True
         Me.dgocell_descripcion_estructura.Visible = False
+        Me.dgocell_descripcion_estructura.Width = 125
         '
         'dgocell_id_accion
         '
         Me.dgocell_id_accion.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None
         Me.dgocell_id_accion.HeaderText = "id_acc"
+        Me.dgocell_id_accion.MinimumWidth = 6
         Me.dgocell_id_accion.Name = "dgocell_id_accion"
         Me.dgocell_id_accion.ReadOnly = True
         Me.dgocell_id_accion.Width = 45
@@ -565,12 +613,14 @@ Partial Class fm_0300_sc_solicitud
         '
         Me.dgocell_id_accion_raiz.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCellsExceptHeader
         Me.dgocell_id_accion_raiz.HeaderText = "Raiz"
+        Me.dgocell_id_accion_raiz.MinimumWidth = 6
         Me.dgocell_id_accion_raiz.Name = "dgocell_id_accion_raiz"
-        Me.dgocell_id_accion_raiz.Width = 5
+        Me.dgocell_id_accion_raiz.Width = 6
         '
         'dgocell_nota
         '
         Me.dgocell_nota.HeaderText = "Nota"
+        Me.dgocell_nota.MinimumWidth = 6
         Me.dgocell_nota.Name = "dgocell_nota"
         Me.dgocell_nota.ReadOnly = True
         Me.dgocell_nota.Width = 150
@@ -579,6 +629,7 @@ Partial Class fm_0300_sc_solicitud
         '
         Me.dgocell_id_oc.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None
         Me.dgocell_id_oc.HeaderText = "O.C"
+        Me.dgocell_id_oc.MinimumWidth = 6
         Me.dgocell_id_oc.Name = "dgocell_id_oc"
         Me.dgocell_id_oc.Width = 40
         '
@@ -594,23 +645,26 @@ Partial Class fm_0300_sc_solicitud
         '
         Me.dgocell_id_fcc.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCellsExceptHeader
         Me.dgocell_id_fcc.HeaderText = "id_fcc"
+        Me.dgocell_id_fcc.MinimumWidth = 6
         Me.dgocell_id_fcc.Name = "dgocell_id_fcc"
-        Me.dgocell_id_fcc.Width = 5
+        Me.dgocell_id_fcc.Width = 6
         '
         'dgocell_doc_inv
         '
         Me.dgocell_doc_inv.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCellsExceptHeader
         Me.dgocell_doc_inv.HeaderText = "Doc_inv"
+        Me.dgocell_doc_inv.MinimumWidth = 6
         Me.dgocell_doc_inv.Name = "dgocell_doc_inv"
-        Me.dgocell_doc_inv.Width = 5
+        Me.dgocell_doc_inv.Width = 6
         '
         'bt_orden_compra
         '
         Me.bt_orden_compra.BackgroundImage = Global.camocontrol.My.Resources.Resources.icono_agenda_electronica
         Me.bt_orden_compra.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
-        Me.bt_orden_compra.Location = New System.Drawing.Point(364, 267)
+        Me.bt_orden_compra.Location = New System.Drawing.Point(485, 329)
+        Me.bt_orden_compra.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.bt_orden_compra.Name = "bt_orden_compra"
-        Me.bt_orden_compra.Size = New System.Drawing.Size(32, 34)
+        Me.bt_orden_compra.Size = New System.Drawing.Size(43, 42)
         Me.bt_orden_compra.TabIndex = 252
         Me.bt_orden_compra.Text = "OC"
         Me.bt_orden_compra.UseVisualStyleBackColor = True
@@ -619,15 +673,16 @@ Partial Class fm_0300_sc_solicitud
         '
         Me.tx_emisor.Enabled = False
         Me.tx_emisor.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.tx_emisor.Location = New System.Drawing.Point(446, 91)
+        Me.tx_emisor.Location = New System.Drawing.Point(595, 112)
+        Me.tx_emisor.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.tx_emisor.Name = "tx_emisor"
-        Me.tx_emisor.Size = New System.Drawing.Size(287, 22)
+        Me.tx_emisor.Size = New System.Drawing.Size(381, 26)
         Me.tx_emisor.TabIndex = 253
         '
         'fm_0300_sc_solicitud
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
-        Me.ClientSize = New System.Drawing.Size(822, 532)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
+        Me.ClientSize = New System.Drawing.Size(1096, 655)
         Me.Controls.Add(Me.tx_emisor)
         Me.Controls.Add(Me.bt_orden_compra)
         Me.Controls.Add(Me.dg_listado)
@@ -659,6 +714,7 @@ Partial Class fm_0300_sc_solicitud
         Me.Controls.Add(Me.Label2)
         Me.Controls.Add(Me.tx_solicitud)
         Me.Controls.Add(Me.Label8)
+        Me.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
         Me.Name = "fm_0300_sc_solicitud"
         Me.Text = "Solicitud de Compra"
         Me.Controls.SetChildIndex(Me.lb_titulo, 0)

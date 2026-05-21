@@ -446,9 +446,9 @@
     Private Sub Crear_parametros_item(ByVal ocmd As NpgsqlCommand)
         ocmd.Parameters.Clear()
         ocmd.Parameters.Add("f0305_id_item_solicitud", NpgsqlDbType.Integer).Value = CInt(dg_listado.CurrentRow.Cells("dgocell_id_sc_item").Value)
-        ocmd.Parameters.Add("@f0305_cantidad", NpgsqlDbType.Numeric).Value = dg_listado.CurrentRow.Cells("dgocell_cantidad_solicitada").Value
-        ocmd.Parameters.Add("@f0305_iva", NpgsqlDbType.Numeric).Value = dg_listado.CurrentRow.Cells("dgocell_iva").Value / 100
-        ocmd.Parameters.Add("@f0305_descuento", NpgsqlDbType.Numeric).Value = dg_listado.CurrentRow.Cells("dgocell_descuento").Value / 100
+        ocmd.Parameters.Add("@f0305_cantidad", NpgsqlDbType.Numeric).Value = CDec(dg_listado.CurrentRow.Cells("dgocell_cantidad_solicitada").Value)
+        ocmd.Parameters.Add("@f0305_iva", NpgsqlDbType.Numeric).Value = CDec(dg_listado.CurrentRow.Cells("dgocell_iva").Value / 100)
+        ocmd.Parameters.Add("@f0305_descuento", NpgsqlDbType.Numeric).Value = CDec(dg_listado.CurrentRow.Cells("dgocell_descuento").Value / 100)
         ocmd.Parameters.Add("@f0305_var_cost_prom", NpgsqlDbType.Numeric).Value = var_costo_promedio_actual
         ocmd.Parameters.Add("@f0305_costo_unitario_planificado", NpgsqlDbType.Numeric).Value = valores(1)
         ocmd.Parameters.Add("@f0305_costo_total_planificado", NpgsqlDbType.Numeric).Value = valores(4)

@@ -22,7 +22,7 @@ namespace App.ApiClient.CS.DTOs.SpecificDtos
         public string f420_id_co { get; set; }
 
         [ColumnOrder(4)]
-        [DisplayName("Tipo Documento")]
+        [DisplayName("TipoDocumento")]
         public string f420_id_tipo_docto { get; set; }
 
         [ColumnOrder(5)]
@@ -30,7 +30,7 @@ namespace App.ApiClient.CS.DTOs.SpecificDtos
         public int? f420_consec_docto { get; set; }
 
         [ColumnOrder(6)]
-        [DisplayName("Fecha Orden")]
+        [DisplayName("FechaOrden")]
         [DisplayFormat(DataFormatString = "dd/MM/yyyy")]
         public DateTime? f420_fecha { get; set; }
 
@@ -83,15 +83,15 @@ namespace App.ApiClient.CS.DTOs.SpecificDtos
         public string f200_id_prov { get; set; }
 
         [ColumnOrder(16)]
-        [DisplayName("NIT Proveedor")]
+        [DisplayName("NIT_Proveedor")]
         public string f200_nit_prov { get; set; }
 
         [ColumnOrder(17)]
-        [DisplayName("Razón Social Proveedor")]
+        [DisplayName("RazónSocialProveedor")]
         public string f200_razon_social_prov { get; set; }
 
         [ColumnOrder(18)]
-        [DisplayName("Sucursal Proveedor")]
+        [DisplayName("SucursalProveedor")]
         public string f202_id_sucursal_prov { get; set; }
 
         [ColumnIgnore]
@@ -103,11 +103,11 @@ namespace App.ApiClient.CS.DTOs.SpecificDtos
         // ============================
 
         [ColumnOrder(20)]
-        [DisplayName("Condición de Pago")]
+        [DisplayName("Condición_de_Pago")]
         public string f420_id_cond_pago { get; set; }
 
         [ColumnOrder(21)]
-        [DisplayName("Moneda Documento")]
+        [DisplayName("MonedaDocumento")]
         public string f420_id_moneda_docto { get; set; }
 
         [ColumnIgnore]
@@ -190,7 +190,7 @@ namespace App.ApiClient.CS.DTOs.SpecificDtos
         public string f420_notas { get; set; }
 
         [ColumnOrder(27)]
-        [DisplayName("Documento Referencia")]
+        [DisplayName("DocumentoReferencia")]
         public string f420_num_docto_referencia { get; set; }
 
 
@@ -199,7 +199,7 @@ namespace App.ApiClient.CS.DTOs.SpecificDtos
         // ============================
 
         [ColumnIgnore]
-        [DisplayName("ID Producto")]
+        [DisplayName("ID_Producto")]
         public int? f120_id { get; set; }
 
         [ColumnOrder(29)]
@@ -207,7 +207,7 @@ namespace App.ApiClient.CS.DTOs.SpecificDtos
         public string f120_referencia { get; set; }
 
         [ColumnOrder(30)]
-        [DisplayName("Descripción Producto")]
+        [DisplayName("DescripciónProducto")]
         public string f120_descripcion { get; set; }
 
         [ColumnIgnore]
@@ -222,30 +222,30 @@ namespace App.ApiClient.CS.DTOs.SpecificDtos
         // ============================
 
         [ColumnOrder(31)]
-        [DisplayName("Fecha Entrega")]
+        [DisplayName("FechaEntrega")]
         [DisplayFormat(DataFormatString = "dd/MM/yyyy")]
         public DateTime? f421_fecha_entrega { get; set; }
 
         [ColumnOrder(32)]
-        [DisplayName("Cantidad Pedida")]
+        [DisplayName("CantidadPedida")]
         public decimal? f421_cant_pedida { get; set; }
 
         [ColumnOrder(33)]
-        [DisplayName("Cantidad Entrada")]
+        [DisplayName("CantidadEntrada")]
         public decimal? f421_cant_entrada { get; set; }
 
         [ColumnOrder(34)]
-        [DisplayName("Precio Unitario")]
+        [DisplayName("PrecioUnitario")]
         [DisplayFormat(DataFormatString = "{0:C}")]
         public decimal? f421_precio_unitario { get; set; }
 
         [ColumnOrder(35)]
-        [DisplayName("Valor Neto")]
+        [DisplayName("ValorNeto")]
         [DisplayFormat(DataFormatString = "{0:C}")]
         public decimal? f421_vlr_neto { get; set; }
 
         [ColumnOrder(36)]
-        [DisplayName("Notas Detalle")]
+        [DisplayName("NotasDetalle")]
         public string f421_notas { get; set; }
 
         // Campos técnicos del detalle
