@@ -2066,8 +2066,12 @@ Public Class fm_0300_orden_compra
             Dim notas As String = "RSC-" & tx_id_orden_compra.Text.Trim & "-" & row.Cells("dgocell_id_sc_item").Value.ToString.Trim & " " &
                 row.Cells("dgocell_descripcion_complementaria").Value.ToString.Trim &
                                 " " & row.Cells("dgocell_nota").Value.ToString.Trim
-            f421_notas = notas.PadLeft(255) 'NOTA DEL MOVIMIENTO LIMITADA A 255 CARACTERES
-            f421_notas = f421_notas.Replace(vbCrLf, " ").Replace(vbLf, " ")
+
+            ' Normalizar saltos de línea, recortar espacios y truncar a 255 caracteres
+            notas = notas.Replace(vbCrLf, " ").Replace(vbLf, " ").Trim()
+            If notas.Length > 255 Then
+                notas = notas.Substring(0, 255)
+            End If
 
             ' 1. Crear una línea inicial con espacios
             lineaDinamica = svc.CrearLineaInicial(2654)
