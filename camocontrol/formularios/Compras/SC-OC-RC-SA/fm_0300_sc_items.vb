@@ -289,20 +289,58 @@
         End If
     End Sub
 
-
-
     Private Sub Tx_cantidad_Validating(ByVal sender As Object, ByVal e As System.ComponentModel.CancelEventArgs) Handles tx_cantidad.Validating
-        If tx_cantidad.Text.ToString = "" Or IsNumeric(tx_cantidad.Text.ToString) = False Then
-            tx_cantidad.Text = "0"
+        ' Validar y normalizar la cantidad ingresada
+        Dim texto As String = tx_cantidad.Text.Trim()
+        Dim cantidadValor As Decimal
+
+        'MsgBox(cantidad_inicial)
+
+        If Not Decimal.TryParse(texto, System.Globalization.NumberStyles.Any, System.Globalization.CultureInfo.CurrentCulture, cantidadValor) Then
+            cantidadValor = cantidad_inicial
         End If
-        If sc_aprobada = "S" Then
-            If tx_cantidad.Text > cantidad_inicial Or tx_cantidad.Text < 0 Then
-                MsgBox("La cantidad maxima aprobada es: " & cantidad_inicial, MsgBoxStyle.Exclamation, "Error")
-                tx_cantidad.Text = cantidad_inicial
+
+        ' No permitir valores negativos
+        If cantidadValor < 0D Then
+            MsgBox("La cantidad no puede ser negativa.", MsgBoxStyle.Exclamation, "Error")
+            cantidadValor = cantidad_inicial
+            'tx_cantidad.Text = cantidadValor.ToString(System.Globalization.CultureInfo.CurrentCulture)
+
+        End If
+
+        ' Si la variación de costo no está permitida y la solicitud ya está aprobada,
+        ' no permitir que la cantidad supere la cantidad inicialmente aprobada
+        If permitir_var_costo = "N" AndAlso sc_aprobada = "S" Then
+            If cantidadValor > cantidad_inicial Then
+                MsgBox("La cantidad máxima aprobada es: " & cantidad_inicial.ToString(), MsgBoxStyle.Exclamation, "Error")
+                cantidadValor = cantidad_inicial
+                'tx_cantidad.Text = cantidadValor.ToString(System.Globalization.CultureInfo.CurrentCulture)
+
             End If
         End If
+
+        ' Normalizar el texto del control con la cultura actual
+        tx_cantidad.Text = cantidadValor.ToString(System.Globalization.CultureInfo.CurrentCulture)
+        'MsgBox(tx_cantidad.Text)
+        ' Recalcular valores asociados
         Calcular_valores_1(1)
     End Sub
+
+    'Private Sub Tx_cantidad_Validating(ByVal sender As Object, ByVal e As System.ComponentModel.CancelEventArgs) Handles tx_cantidad.Validating
+    '    If tx_cantidad.Text.ToString = "" Or IsNumeric(tx_cantidad.Text.ToString) = False Then
+    '        tx_cantidad.Text = "0"
+    '    End If
+    '    'hola
+    '    If permitir_var_costo = "N" Then
+    '        If sc_aprobada = "S" Then
+    '            If tx_cantidad.Text > cantidad_inicial Or tx_cantidad.Text < 0 Then
+    '                MsgBox("La cantidad maxima aprobada es: " & cantidad_inicial, MsgBoxStyle.Exclamation, "Error")
+    '                tx_cantidad.Text = cantidad_inicial
+    '            End If
+    '        End If
+    '    End If
+    '    Calcular_valores_1(1)
+    'End Sub
     Private Sub Tx_costo_unit_planificado_Validating(ByVal sender As Object, ByVal e As System.ComponentModel.CancelEventArgs) Handles tx_cost_unit_planificado.Validating
         If tx_cost_unit_planificado.Text.ToString = "" Or IsNumeric(tx_cost_unit_planificado.Text.ToString) = False Then
             tx_cost_unit_planificado.Text = "0"

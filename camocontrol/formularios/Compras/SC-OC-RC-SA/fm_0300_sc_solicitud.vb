@@ -143,28 +143,31 @@
         End If
 
         If vf_elemento_nuevo = "N" Then
-            Cargar_datatables()
-
-            For Each orow As DataRow In otb_solicitudes.Rows
-                tx_id_accion.Text = orow("f0304_id_accion")
-                tx_solicitud.Text = orow("f0304_id_solicitud")
-                cm_estado.SelectedValue = orow("f0304_id_estado")
-                cm_centro_costo.SelectedValue = orow("f0304_id_centro_costo")
-                tx_anotacion.Text = orow("f0304_anotacion")
-                tx_emisor.Text = orow("nombre")
-                dtp_fecha_solicitud.Value = orow("f0304_fr")
-                id_estructura = orow("f0304_id_estructura")
-                id_accion = orow("f0304_id_accion")
-                tx_estructura.Text = comunes.traer_nombre_estructura(orow("f0304_id_estructura").ToString)
-            Next
-            'dg_listado.DataSource = otb_recursos
-            'crear_columnas_dg()
-            Llenar_items_solicitados()
+            cargar_info_existente()
             cl_gestion_permisos.gestionar_permisos_botones_basicos(vg_id_cia, vf_otabla_permisos, vf_elemento_nuevo,
                                                                vg_usuario_autoriza, Me,
                                                                vf_id_notas_archivos, vf_otipo_nota,
                                                                vf_var_config_archivos)
         End If
+    End Sub
+    Private Sub cargar_info_existente()
+        Cargar_datatables()
+
+        For Each orow As DataRow In otb_solicitudes.Rows
+            tx_id_accion.Text = orow("f0304_id_accion")
+            tx_solicitud.Text = orow("f0304_id_solicitud")
+            cm_estado.SelectedValue = orow("f0304_id_estado")
+            cm_centro_costo.SelectedValue = orow("f0304_id_centro_costo")
+            tx_anotacion.Text = orow("f0304_anotacion")
+            tx_emisor.Text = orow("nombre")
+            dtp_fecha_solicitud.Value = orow("f0304_fr")
+            id_estructura = orow("f0304_id_estructura")
+            id_accion = orow("f0304_id_accion")
+            tx_estructura.Text = comunes.traer_nombre_estructura(orow("f0304_id_estructura").ToString)
+        Next
+        'dg_listado.DataSource = otb_recursos
+        'crear_columnas_dg()
+        Llenar_items_solicitados()
     End Sub
     Private Sub Formatear_grilla()
         dg_listado.AlternatingRowsDefaultCellStyle.BackColor = System.Drawing.Color.Beige
@@ -271,10 +274,7 @@
                 }
                 oform_factura_compra.Show() 'Para que no sea un formulario modal
         End Select
-
-        If dg_listado.Columns(dg_listado.CurrentCell.ColumnIndex).Name = "dgocell_id_sc_item" Then
-
-        End If
+        cargar_info_existente()
     End Sub
 
     Private Sub Dg_listado_CellContentDoubleClick(sender As Object, e As DataGridViewCellEventArgs) Handles dg_listado.CellContentDoubleClick

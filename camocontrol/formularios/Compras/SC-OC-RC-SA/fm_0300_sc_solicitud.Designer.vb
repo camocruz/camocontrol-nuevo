@@ -105,8 +105,8 @@ Partial Class fm_0300_sc_solicitud
         'GroupBox1
         '
         Me.GroupBox1.Location = New System.Drawing.Point(280, 564)
-        Me.GroupBox1.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
-        Me.GroupBox1.Padding = New System.Windows.Forms.Padding(5, 5, 5, 5)
+        Me.GroupBox1.Margin = New System.Windows.Forms.Padding(5)
+        Me.GroupBox1.Padding = New System.Windows.Forms.Padding(5)
         '
         'bt_grabar
         '
@@ -129,7 +129,7 @@ Partial Class fm_0300_sc_solicitud
         '
         Me.tx_solicitud.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.tx_solicitud.Location = New System.Drawing.Point(163, 75)
-        Me.tx_solicitud.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.tx_solicitud.Margin = New System.Windows.Forms.Padding(4)
         Me.tx_solicitud.Name = "tx_solicitud"
         Me.tx_solicitud.Size = New System.Drawing.Size(104, 26)
         Me.tx_solicitud.TabIndex = 130
@@ -150,7 +150,7 @@ Partial Class fm_0300_sc_solicitud
         Me.cm_estado.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cm_estado.FormattingEnabled = True
         Me.cm_estado.Location = New System.Drawing.Point(595, 75)
-        Me.cm_estado.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.cm_estado.Margin = New System.Windows.Forms.Padding(4)
         Me.cm_estado.Name = "cm_estado"
         Me.cm_estado.Size = New System.Drawing.Size(217, 28)
         Me.cm_estado.TabIndex = 132
@@ -171,7 +171,7 @@ Partial Class fm_0300_sc_solicitud
         Me.cm_centro_costo.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cm_centro_costo.FormattingEnabled = True
         Me.cm_centro_costo.Location = New System.Drawing.Point(163, 146)
-        Me.cm_centro_costo.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.cm_centro_costo.Margin = New System.Windows.Forms.Padding(4)
         Me.cm_centro_costo.Name = "cm_centro_costo"
         Me.cm_centro_costo.Size = New System.Drawing.Size(277, 28)
         Me.cm_centro_costo.TabIndex = 134
@@ -194,7 +194,7 @@ Partial Class fm_0300_sc_solicitud
         Me.tx_anotacion.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
         Me.tx_anotacion.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.tx_anotacion.Location = New System.Drawing.Point(23, 255)
-        Me.tx_anotacion.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.tx_anotacion.Margin = New System.Windows.Forms.Padding(4)
         Me.tx_anotacion.Multiline = True
         Me.tx_anotacion.Name = "tx_anotacion"
         Me.tx_anotacion.Size = New System.Drawing.Size(1061, 70)
@@ -237,7 +237,7 @@ Partial Class fm_0300_sc_solicitud
         '
         Me.dtp_fecha_solicitud.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.dtp_fecha_solicitud.Location = New System.Drawing.Point(595, 146)
-        Me.dtp_fecha_solicitud.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.dtp_fecha_solicitud.Margin = New System.Windows.Forms.Padding(4)
         Me.dtp_fecha_solicitud.Name = "dtp_fecha_solicitud"
         Me.dtp_fecha_solicitud.Size = New System.Drawing.Size(381, 26)
         Me.dtp_fecha_solicitud.TabIndex = 147
@@ -258,7 +258,7 @@ Partial Class fm_0300_sc_solicitud
         Me.tx_id_accion.Enabled = False
         Me.tx_id_accion.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.tx_id_accion.Location = New System.Drawing.Point(163, 110)
-        Me.tx_id_accion.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.tx_id_accion.Margin = New System.Windows.Forms.Padding(4)
         Me.tx_id_accion.Name = "tx_id_accion"
         Me.tx_id_accion.Size = New System.Drawing.Size(104, 26)
         Me.tx_id_accion.TabIndex = 150
@@ -281,7 +281,7 @@ Partial Class fm_0300_sc_solicitud
         Me.bt_catalago_items.Image = Global.camocontrol.My.Resources.Resources.CANCELAR
         Me.bt_catalago_items.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.bt_catalago_items.Location = New System.Drawing.Point(23, 564)
-        Me.bt_catalago_items.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.bt_catalago_items.Margin = New System.Windows.Forms.Padding(4)
         Me.bt_catalago_items.Name = "bt_catalago_items"
         Me.bt_catalago_items.Size = New System.Drawing.Size(156, 48)
         Me.bt_catalago_items.TabIndex = 151
@@ -306,7 +306,7 @@ Partial Class fm_0300_sc_solicitud
         Me.tx_estructura.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
         Me.tx_estructura.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.tx_estructura.Location = New System.Drawing.Point(163, 183)
-        Me.tx_estructura.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.tx_estructura.Margin = New System.Windows.Forms.Padding(4)
         Me.tx_estructura.Multiline = True
         Me.tx_estructura.Name = "tx_estructura"
         Me.tx_estructura.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
@@ -318,7 +318,7 @@ Partial Class fm_0300_sc_solicitud
         Me.bt_cambiar_infraestructura.BackgroundImage = Global.camocontrol.My.Resources.Resources.cargarplano
         Me.bt_cambiar_infraestructura.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
         Me.bt_cambiar_infraestructura.Location = New System.Drawing.Point(1049, 181)
-        Me.bt_cambiar_infraestructura.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.bt_cambiar_infraestructura.Margin = New System.Windows.Forms.Padding(4)
         Me.bt_cambiar_infraestructura.Name = "bt_cambiar_infraestructura"
         Me.bt_cambiar_infraestructura.Size = New System.Drawing.Size(28, 27)
         Me.bt_cambiar_infraestructura.TabIndex = 162
@@ -327,7 +327,7 @@ Partial Class fm_0300_sc_solicitud
         'bt_cambiar_estado
         '
         Me.bt_cambiar_estado.Location = New System.Drawing.Point(821, 76)
-        Me.bt_cambiar_estado.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.bt_cambiar_estado.Margin = New System.Windows.Forms.Padding(4)
         Me.bt_cambiar_estado.Name = "bt_cambiar_estado"
         Me.bt_cambiar_estado.Size = New System.Drawing.Size(153, 28)
         Me.bt_cambiar_estado.TabIndex = 165
@@ -338,7 +338,7 @@ Partial Class fm_0300_sc_solicitud
         '
         Me.bt_agregar_item.BackgroundImage = Global.camocontrol.My.Resources.Resources.Full_shopping_cart_Icon_32
         Me.bt_agregar_item.Location = New System.Drawing.Point(195, 330)
-        Me.bt_agregar_item.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.bt_agregar_item.Margin = New System.Windows.Forms.Padding(4)
         Me.bt_agregar_item.Name = "bt_agregar_item"
         Me.bt_agregar_item.Size = New System.Drawing.Size(73, 43)
         Me.bt_agregar_item.TabIndex = 166
@@ -351,7 +351,7 @@ Partial Class fm_0300_sc_solicitud
         Me.bt_historico_compras.BackgroundImage = Global.camocontrol.My.Resources.Resources.nuevo2
         Me.bt_historico_compras.Image = Global.camocontrol.My.Resources.Resources.icono_estadisticas
         Me.bt_historico_compras.Location = New System.Drawing.Point(435, 329)
-        Me.bt_historico_compras.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.bt_historico_compras.Margin = New System.Windows.Forms.Padding(4)
         Me.bt_historico_compras.Name = "bt_historico_compras"
         Me.bt_historico_compras.Size = New System.Drawing.Size(43, 42)
         Me.bt_historico_compras.TabIndex = 202
@@ -361,7 +361,7 @@ Partial Class fm_0300_sc_solicitud
         '
         Me.tx_id_item_cons_mov.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.tx_id_item_cons_mov.Location = New System.Drawing.Point(356, 342)
-        Me.tx_id_item_cons_mov.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.tx_id_item_cons_mov.Margin = New System.Windows.Forms.Padding(4)
         Me.tx_id_item_cons_mov.Name = "tx_id_item_cons_mov"
         Me.tx_id_item_cons_mov.ReadOnly = True
         Me.tx_id_item_cons_mov.Size = New System.Drawing.Size(75, 26)
@@ -383,7 +383,7 @@ Partial Class fm_0300_sc_solicitud
         Me.bt_generar_recepcion.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center
         Me.bt_generar_recepcion.Image = Global.camocontrol.My.Resources.Resources.dinero01
         Me.bt_generar_recepcion.Location = New System.Drawing.Point(536, 330)
-        Me.bt_generar_recepcion.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.bt_generar_recepcion.Margin = New System.Windows.Forms.Padding(4)
         Me.bt_generar_recepcion.Name = "bt_generar_recepcion"
         Me.bt_generar_recepcion.Size = New System.Drawing.Size(48, 42)
         Me.bt_generar_recepcion.TabIndex = 203
@@ -446,7 +446,7 @@ Partial Class fm_0300_sc_solicitud
         Me.dg_listado.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dg_listado.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.dgocell_id_sc_item, Me.dgocell_item, Me.dgocell_cod_uno, Me.dgocell_descripcion_item, Me.dgocell_descripcion_complementaria, Me.dgocell_cantidad_solicitada, Me.dgocell_chk_inventario, Me.dgocell_inventario_total, Me.dgocell_unidad, Me.dgocell_var_costo, Me.dgocell_costo_unitario, Me.dgocell_descuento, Me.dgocell_costo_total, Me.dgocell_iva, Me.dgocell_costo_unit_iva, Me.dgocell_costo_total_iva, Me.dgocell_descripcion_estructura, Me.dgocell_id_accion, Me.dgocell_id_accion_raiz, Me.dgocell_nota, Me.dgocell_id_oc, Me.dgocell_oc_aprobada, Me.dgocell_id_fcc, Me.dgocell_doc_inv})
         Me.dg_listado.Location = New System.Drawing.Point(23, 374)
-        Me.dg_listado.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.dg_listado.Margin = New System.Windows.Forms.Padding(4)
         Me.dg_listado.Name = "dg_listado"
         Me.dg_listado.RowHeadersWidth = 51
         Me.dg_listado.Size = New System.Drawing.Size(1063, 182)
@@ -662,7 +662,7 @@ Partial Class fm_0300_sc_solicitud
         Me.bt_orden_compra.BackgroundImage = Global.camocontrol.My.Resources.Resources.icono_agenda_electronica
         Me.bt_orden_compra.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
         Me.bt_orden_compra.Location = New System.Drawing.Point(485, 329)
-        Me.bt_orden_compra.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.bt_orden_compra.Margin = New System.Windows.Forms.Padding(4)
         Me.bt_orden_compra.Name = "bt_orden_compra"
         Me.bt_orden_compra.Size = New System.Drawing.Size(43, 42)
         Me.bt_orden_compra.TabIndex = 252
@@ -674,7 +674,7 @@ Partial Class fm_0300_sc_solicitud
         Me.tx_emisor.Enabled = False
         Me.tx_emisor.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.tx_emisor.Location = New System.Drawing.Point(595, 112)
-        Me.tx_emisor.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.tx_emisor.Margin = New System.Windows.Forms.Padding(4)
         Me.tx_emisor.Name = "tx_emisor"
         Me.tx_emisor.Size = New System.Drawing.Size(381, 26)
         Me.tx_emisor.TabIndex = 253
@@ -714,7 +714,7 @@ Partial Class fm_0300_sc_solicitud
         Me.Controls.Add(Me.Label2)
         Me.Controls.Add(Me.tx_solicitud)
         Me.Controls.Add(Me.Label8)
-        Me.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
+        Me.Margin = New System.Windows.Forms.Padding(5)
         Me.Name = "fm_0300_sc_solicitud"
         Me.Text = "Solicitud de Compra"
         Me.Controls.SetChildIndex(Me.lb_titulo, 0)

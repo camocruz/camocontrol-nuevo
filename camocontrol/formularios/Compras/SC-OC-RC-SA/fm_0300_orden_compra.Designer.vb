@@ -151,7 +151,7 @@ Partial Class fm_0300_orden_compra
         Me.bt_nueva_sc.BackgroundImage = Global.camocontrol.My.Resources.Resources.Full_shopping_cart_Icon_32
         Me.bt_nueva_sc.Image = Global.camocontrol.My.Resources.Resources.nuevo
         Me.bt_nueva_sc.Location = New System.Drawing.Point(259, 258)
-        Me.bt_nueva_sc.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.bt_nueva_sc.Margin = New System.Windows.Forms.Padding(4)
         Me.bt_nueva_sc.Name = "bt_nueva_sc"
         Me.bt_nueva_sc.Size = New System.Drawing.Size(43, 42)
         Me.bt_nueva_sc.TabIndex = 294
@@ -161,7 +161,7 @@ Partial Class fm_0300_orden_compra
         '
         Me.bt_actualizar_grilla.Image = Global.camocontrol.My.Resources.Resources.actualizar
         Me.bt_actualizar_grilla.Location = New System.Drawing.Point(68, 171)
-        Me.bt_actualizar_grilla.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.bt_actualizar_grilla.Margin = New System.Windows.Forms.Padding(4)
         Me.bt_actualizar_grilla.Name = "bt_actualizar_grilla"
         Me.bt_actualizar_grilla.Size = New System.Drawing.Size(68, 66)
         Me.bt_actualizar_grilla.TabIndex = 293
@@ -172,7 +172,7 @@ Partial Class fm_0300_orden_compra
         '
         Me.bt_cargar_items_sc.BackgroundImage = Global.camocontrol.My.Resources.Resources.chatarra2
         Me.bt_cargar_items_sc.Location = New System.Drawing.Point(302, 258)
-        Me.bt_cargar_items_sc.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.bt_cargar_items_sc.Margin = New System.Windows.Forms.Padding(4)
         Me.bt_cargar_items_sc.Name = "bt_cargar_items_sc"
         Me.bt_cargar_items_sc.Size = New System.Drawing.Size(43, 42)
         Me.bt_cargar_items_sc.TabIndex = 292
@@ -206,7 +206,7 @@ Partial Class fm_0300_orden_compra
         Me.bt_historico_compras.BackgroundImage = Global.camocontrol.My.Resources.Resources.nuevo2
         Me.bt_historico_compras.Image = Global.camocontrol.My.Resources.Resources.icono_estadisticas
         Me.bt_historico_compras.Location = New System.Drawing.Point(1171, 534)
-        Me.bt_historico_compras.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.bt_historico_compras.Margin = New System.Windows.Forms.Padding(4)
         Me.bt_historico_compras.Name = "bt_historico_compras"
         Me.bt_historico_compras.Size = New System.Drawing.Size(43, 42)
         Me.bt_historico_compras.TabIndex = 288
@@ -217,7 +217,7 @@ Partial Class fm_0300_orden_compra
         Me.tx_id_item_cons_mov.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.tx_id_item_cons_mov.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.tx_id_item_cons_mov.Location = New System.Drawing.Point(1171, 506)
-        Me.tx_id_item_cons_mov.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.tx_id_item_cons_mov.Margin = New System.Windows.Forms.Padding(4)
         Me.tx_id_item_cons_mov.Name = "tx_id_item_cons_mov"
         Me.tx_id_item_cons_mov.Size = New System.Drawing.Size(104, 26)
         Me.tx_id_item_cons_mov.TabIndex = 287
@@ -250,7 +250,7 @@ Partial Class fm_0300_orden_compra
         Me.dtp_fecha.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.dtp_fecha.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
         Me.dtp_fecha.Location = New System.Drawing.Point(1079, 76)
-        Me.dtp_fecha.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.dtp_fecha.Margin = New System.Windows.Forms.Padding(4)
         Me.dtp_fecha.Name = "dtp_fecha"
         Me.dtp_fecha.Size = New System.Drawing.Size(196, 26)
         Me.dtp_fecha.TabIndex = 280
@@ -259,7 +259,7 @@ Partial Class fm_0300_orden_compra
         '
         Me.bt_solicitud_compra.BackgroundImage = Global.camocontrol.My.Resources.Resources.Full_shopping_cart_Icon_32
         Me.bt_solicitud_compra.Location = New System.Drawing.Point(216, 258)
-        Me.bt_solicitud_compra.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.bt_solicitud_compra.Margin = New System.Windows.Forms.Padding(4)
         Me.bt_solicitud_compra.Name = "bt_solicitud_compra"
         Me.bt_solicitud_compra.Size = New System.Drawing.Size(43, 42)
         Me.bt_solicitud_compra.TabIndex = 279
@@ -269,7 +269,7 @@ Partial Class fm_0300_orden_compra
         '
         Me.tx_sol_compra.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.tx_sol_compra.Location = New System.Drawing.Point(103, 260)
-        Me.tx_sol_compra.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.tx_sol_compra.Margin = New System.Windows.Forms.Padding(4)
         Me.tx_sol_compra.Name = "tx_sol_compra"
         Me.tx_sol_compra.Size = New System.Drawing.Size(104, 26)
         Me.tx_sol_compra.TabIndex = 2
@@ -312,7 +312,7 @@ Partial Class fm_0300_orden_compra
         Me.bt_gestionar_tercero.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center
         Me.bt_gestionar_tercero.Image = Global.camocontrol.My.Resources.Resources.terceros
         Me.bt_gestionar_tercero.Location = New System.Drawing.Point(905, 211)
-        Me.bt_gestionar_tercero.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.bt_gestionar_tercero.Margin = New System.Windows.Forms.Padding(4)
         Me.bt_gestionar_tercero.Name = "bt_gestionar_tercero"
         Me.bt_gestionar_tercero.Size = New System.Drawing.Size(100, 48)
         Me.bt_gestionar_tercero.TabIndex = 274
@@ -326,7 +326,7 @@ Partial Class fm_0300_orden_compra
         Me.bt_catalago_items.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center
         Me.bt_catalago_items.Image = Global.camocontrol.My.Resources.Resources.icono_herramientas
         Me.bt_catalago_items.Location = New System.Drawing.Point(1069, 211)
-        Me.bt_catalago_items.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.bt_catalago_items.Margin = New System.Windows.Forms.Padding(4)
         Me.bt_catalago_items.Name = "bt_catalago_items"
         Me.bt_catalago_items.Size = New System.Drawing.Size(156, 48)
         Me.bt_catalago_items.TabIndex = 273
@@ -362,7 +362,7 @@ Partial Class fm_0300_orden_compra
         Me.bt_aprobar.BackColor = System.Drawing.Color.Gainsboro
         Me.bt_aprobar.Image = Global.camocontrol.My.Resources.Resources.dinero01
         Me.bt_aprobar.Location = New System.Drawing.Point(702, 159)
-        Me.bt_aprobar.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.bt_aprobar.Margin = New System.Windows.Forms.Padding(4)
         Me.bt_aprobar.Name = "bt_aprobar"
         Me.bt_aprobar.Size = New System.Drawing.Size(156, 48)
         Me.bt_aprobar.TabIndex = 268
@@ -374,7 +374,7 @@ Partial Class fm_0300_orden_compra
         '
         Me.tx_estado.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.tx_estado.Location = New System.Drawing.Point(517, 75)
-        Me.tx_estado.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.tx_estado.Margin = New System.Windows.Forms.Padding(4)
         Me.tx_estado.Name = "tx_estado"
         Me.tx_estado.Size = New System.Drawing.Size(219, 26)
         Me.tx_estado.TabIndex = 267
@@ -394,7 +394,7 @@ Partial Class fm_0300_orden_compra
         '
         Me.bt_eliminar_item.BackgroundImage = Global.camocontrol.My.Resources.Resources.eliminar
         Me.bt_eliminar_item.Location = New System.Drawing.Point(642, 260)
-        Me.bt_eliminar_item.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.bt_eliminar_item.Margin = New System.Windows.Forms.Padding(4)
         Me.bt_eliminar_item.Name = "bt_eliminar_item"
         Me.bt_eliminar_item.Size = New System.Drawing.Size(43, 42)
         Me.bt_eliminar_item.TabIndex = 260
@@ -404,7 +404,7 @@ Partial Class fm_0300_orden_compra
         '
         Me.bt_add_item.BackgroundImage = Global.camocontrol.My.Resources.Resources.nuevo2
         Me.bt_add_item.Location = New System.Drawing.Point(590, 260)
-        Me.bt_add_item.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.bt_add_item.Margin = New System.Windows.Forms.Padding(4)
         Me.bt_add_item.Name = "bt_add_item"
         Me.bt_add_item.Size = New System.Drawing.Size(43, 42)
         Me.bt_add_item.TabIndex = 259
@@ -415,7 +415,7 @@ Partial Class fm_0300_orden_compra
         '
         Me.tx_id_item_sc.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.tx_id_item_sc.Location = New System.Drawing.Point(477, 260)
-        Me.tx_id_item_sc.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.tx_id_item_sc.Margin = New System.Windows.Forms.Padding(4)
         Me.tx_id_item_sc.Name = "tx_id_item_sc"
         Me.tx_id_item_sc.Size = New System.Drawing.Size(104, 26)
         Me.tx_id_item_sc.TabIndex = 3
@@ -453,7 +453,7 @@ Partial Class fm_0300_orden_compra
         Me.dg_listado.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dg_listado.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.dgocell_id_sc, Me.dgocell_id_sc_item, Me.dgocell_item, Me.dgocell_cod_uno, Me.dgocell_descripcion_item, Me.dgocell_descripcion_complementaria, Me.dgocell_cantidad_solicitada, Me.dgocell_inventario_total, Me.dgocell_unidad, Me.dgocell_chk_item_aprobado, Me.dgcocell_chk_item_recepcionado, Me.dgocell_var_costo, Me.dgocell_costo_unitario, Me.dgocell_descuento, Me.dgocell_costo_total, Me.dgocell_iva, Me.dgocell_costo_unit_iva, Me.dgocell_costo_total_iva, Me.dgocell_descripcion_estructura, Me.dgocell_id_accion, Me.dgocell_id_accion_raiz, Me.dgocell_nota, Me.dgocell_id_fcc, Me.dgocell_id_doc_inv})
         Me.dg_listado.Location = New System.Drawing.Point(37, 322)
-        Me.dg_listado.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.dg_listado.Margin = New System.Windows.Forms.Padding(4)
         Me.dg_listado.Name = "dg_listado"
         Me.dg_listado.RowHeadersWidth = 62
         Me.dg_listado.Size = New System.Drawing.Size(1239, 178)
@@ -687,7 +687,7 @@ Partial Class fm_0300_orden_compra
         '
         Me.tx_id_orden_compra.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.tx_id_orden_compra.Location = New System.Drawing.Point(155, 76)
-        Me.tx_id_orden_compra.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.tx_id_orden_compra.Margin = New System.Windows.Forms.Padding(4)
         Me.tx_id_orden_compra.Name = "tx_id_orden_compra"
         Me.tx_id_orden_compra.Size = New System.Drawing.Size(267, 34)
         Me.tx_id_orden_compra.TabIndex = 251
@@ -708,7 +708,7 @@ Partial Class fm_0300_orden_compra
         Me.bt_listado_items_pend.BackgroundImage = Global.camocontrol.My.Resources.Resources.Full_shopping_cart_Icon_32
         Me.bt_listado_items_pend.Image = Global.camocontrol.My.Resources.Resources.nuevo
         Me.bt_listado_items_pend.Location = New System.Drawing.Point(692, 260)
-        Me.bt_listado_items_pend.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.bt_listado_items_pend.Margin = New System.Windows.Forms.Padding(4)
         Me.bt_listado_items_pend.Name = "bt_listado_items_pend"
         Me.bt_listado_items_pend.Size = New System.Drawing.Size(43, 42)
         Me.bt_listado_items_pend.TabIndex = 295
@@ -719,7 +719,7 @@ Partial Class fm_0300_orden_compra
         Me.bt_desaprobar_oc.BackColor = System.Drawing.Color.Gainsboro
         Me.bt_desaprobar_oc.Image = Global.camocontrol.My.Resources.Resources.dinero01
         Me.bt_desaprobar_oc.Location = New System.Drawing.Point(901, 162)
-        Me.bt_desaprobar_oc.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.bt_desaprobar_oc.Margin = New System.Windows.Forms.Padding(4)
         Me.bt_desaprobar_oc.Name = "bt_desaprobar_oc"
         Me.bt_desaprobar_oc.Size = New System.Drawing.Size(156, 48)
         Me.bt_desaprobar_oc.TabIndex = 296
@@ -731,7 +731,7 @@ Partial Class fm_0300_orden_compra
         '
         Me.Tx_Nombre_Tercero.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Tx_Nombre_Tercero.Location = New System.Drawing.Point(155, 116)
-        Me.Tx_Nombre_Tercero.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.Tx_Nombre_Tercero.Margin = New System.Windows.Forms.Padding(4)
         Me.Tx_Nombre_Tercero.Name = "Tx_Nombre_Tercero"
         Me.Tx_Nombre_Tercero.Size = New System.Drawing.Size(528, 26)
         Me.Tx_Nombre_Tercero.TabIndex = 0
@@ -740,7 +740,7 @@ Partial Class fm_0300_orden_compra
         '
         Me.Tx_Nit.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Tx_Nit.Location = New System.Drawing.Point(877, 116)
-        Me.Tx_Nit.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.Tx_Nit.Margin = New System.Windows.Forms.Padding(4)
         Me.Tx_Nit.Name = "Tx_Nit"
         Me.Tx_Nit.Size = New System.Drawing.Size(207, 26)
         Me.Tx_Nit.TabIndex = 1
@@ -750,7 +750,7 @@ Partial Class fm_0300_orden_compra
         Me.tx_id_tercero.Enabled = False
         Me.tx_id_tercero.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.tx_id_tercero.Location = New System.Drawing.Point(1128, 116)
-        Me.tx_id_tercero.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.tx_id_tercero.Margin = New System.Windows.Forms.Padding(4)
         Me.tx_id_tercero.Name = "tx_id_tercero"
         Me.tx_id_tercero.Size = New System.Drawing.Size(146, 26)
         Me.tx_id_tercero.TabIndex = 299
@@ -825,7 +825,7 @@ Partial Class fm_0300_orden_compra
         '
         Me.bt_gen_plano_oc_uno.BackgroundImage = Global.camocontrol.My.Resources.Resources.chatarra2
         Me.bt_gen_plano_oc_uno.Location = New System.Drawing.Point(859, 162)
-        Me.bt_gen_plano_oc_uno.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.bt_gen_plano_oc_uno.Margin = New System.Windows.Forms.Padding(4)
         Me.bt_gen_plano_oc_uno.Name = "bt_gen_plano_oc_uno"
         Me.bt_gen_plano_oc_uno.Size = New System.Drawing.Size(43, 42)
         Me.bt_gen_plano_oc_uno.TabIndex = 368
@@ -835,7 +835,7 @@ Partial Class fm_0300_orden_compra
         '
         Me.bt_actualizar_info_oc_siesa.BackgroundImage = Global.camocontrol.My.Resources.Resources.chatarra2
         Me.bt_actualizar_info_oc_siesa.Location = New System.Drawing.Point(1181, 166)
-        Me.bt_actualizar_info_oc_siesa.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.bt_actualizar_info_oc_siesa.Margin = New System.Windows.Forms.Padding(4)
         Me.bt_actualizar_info_oc_siesa.Name = "bt_actualizar_info_oc_siesa"
         Me.bt_actualizar_info_oc_siesa.Size = New System.Drawing.Size(43, 42)
         Me.bt_actualizar_info_oc_siesa.TabIndex = 369
@@ -885,7 +885,7 @@ Partial Class fm_0300_orden_compra
         Me.btn_proveedoresSiesa.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center
         Me.btn_proveedoresSiesa.Image = Global.camocontrol.My.Resources.Resources.terceros
         Me.btn_proveedoresSiesa.Location = New System.Drawing.Point(1007, 211)
-        Me.btn_proveedoresSiesa.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.btn_proveedoresSiesa.Margin = New System.Windows.Forms.Padding(4)
         Me.btn_proveedoresSiesa.Name = "btn_proveedoresSiesa"
         Me.btn_proveedoresSiesa.Size = New System.Drawing.Size(55, 48)
         Me.btn_proveedoresSiesa.TabIndex = 375
@@ -899,7 +899,7 @@ Partial Class fm_0300_orden_compra
         Me.Tx_SucursalUnoEE.Enabled = False
         Me.Tx_SucursalUnoEE.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Tx_SucursalUnoEE.Location = New System.Drawing.Point(877, 82)
-        Me.Tx_SucursalUnoEE.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.Tx_SucursalUnoEE.Margin = New System.Windows.Forms.Padding(4)
         Me.Tx_SucursalUnoEE.Name = "Tx_SucursalUnoEE"
         Me.Tx_SucursalUnoEE.Size = New System.Drawing.Size(126, 26)
         Me.Tx_SucursalUnoEE.TabIndex = 376
