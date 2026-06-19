@@ -103,10 +103,12 @@ Public Class fm_0600_gestion_tareas
             lb_fecha_cierre.Visible = True
             If fuente_padre <> "" Then
                 cm_fuente_accion.SelectedValue = fuente_padre
+            Else
+                cm_fuente_accion.SelectedIndex = 0
             End If
             cm_estado.SelectedIndex = 1
-            cm_tipo_accion.SelectedIndex = -1
-            cm_unidad_duracion.SelectedIndex = 1
+            cm_tipo_accion.SelectedIndex = 2
+            cm_unidad_duracion.SelectedIndex = 0
             cm_responsable.SelectedIndex = -1
             cm_evaluador.SelectedIndex = -1
             cm_emisor.SelectedIndex = -1
