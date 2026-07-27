@@ -67,7 +67,7 @@
         otb_item = cl_utilidades_datatables.cargar_informacion_postgres(csql)
         If otb_item.Rows.Count = 0 Then
             MsgBox("La referencia no existe")
-            reset_campos()
+            'reset_campos()
             Exit Sub
         End If
         tx_planta.Text = otb_item(0)("f0408_planta").ToString
@@ -98,6 +98,53 @@
         tx_corrugado.Text = ""
     End Sub
     Private Sub actualizar_item()
+        'Instancia la conexión que estará vigente para todas las operaciones CRUD
+        oconn_form = database.obtener_conexion()
+        'actualizacion parametrizada
+        csql = "insert into " + database.obtener_esquema + ".tb0408_items_cg ("
+        csql += "f0408_referencia, f0408_planta, f0408_tip_produccion, f0408_tip_producto," _
+                & "f0408_id_linea, f0408_unid_medida, f0408_factor_empaque, f0408_factor_cobertura," _
+                & " f0408_peso, f0408_tip_venta, f0408_id_caja_corrugado)"
+        csql += " values ("
+        csql += "@f0408_referencia, @f0408_planta, @f0408_tip_produccion, @f0408_tip_producto," _
+                & "@f0408_id_linea, @f0408_unid_medida, @f0408_factor_empaque, @f0408_factor_cobertura," _
+                & " @f0408_peso, @f0408_tip_venta, @f0408_id_caja_corrugado)"
+        csql += " on conflict (f0408_referencia) do update set "
+        csql += "f0408_planta = @f0408_planta,"
+        csql += "f0408_tip_produccion = @f0408_tip_produccion,"
+        csql += "f0408_tip_producto = @f0408_tip_producto,"
+        csql += "f0408_id_linea = @f0408_id_linea,"
+        csql += "f0408_unid_medida = @f0408_unid_medida,"
+        csql += "f0408_factor_empaque = @f0408_factor_empaque,"
+        csql += "f0408_factor_cobertura = @f0408_factor_cobertura,"
+        csql += "f0408_peso = @f0408_peso,"
+        csql += "f0408_tip_venta = @f0408_tip_venta,"
+        csql += "f0408_id_caja_corrugado = @f0408_id_caja_corrugado"
+        'csql += " where f0408_referencia = @f0408_referencia"
+
+        ocmd = database.obtener_comando(oconn_form)
+        ocmd.CommandText = csql
+        crear_parametros_item(ocmd)
+        verror = "N"
+        Try
+            'Compila el comando en la Base de datos.
+            ocmd.Prepare()
+        Catch ex As Exception
+            verror = "S"
+            MsgBox("Hubo un error al Compilar comando! " + ex.ToString)
+        End Try
+        If verror = "N" Then
+            Try
+                ocmd.ExecuteNonQuery()
+            Catch ex As Exception
+                verror = "S"
+                MsgBox("Hubo un error al Actualizar ! " + vbCrLf + ex.ToString)
+            End Try
+        End If
+        ocmd = Nothing
+        oconn_form.Close()
+    End Sub
+    Private Sub actualizar_item222()
         'Instancia la conexión que estará vigente para todas las operaciones CRUD
         oconn_form = database.obtener_conexion()
         'actualizacion parametrizada
@@ -143,10 +190,10 @@
         ocmd.Parameters.Add("@f0408_tip_producto", NpgsqlDbType.Varchar).Value = UCase(tx_tipo_producto.Text.ToString.Trim)
         ocmd.Parameters.Add("@f0408_id_linea", NpgsqlDbType.Integer).Value = CInt(cm_linea.SelectedValue)
         ocmd.Parameters.Add("@f0408_referencia", NpgsqlDbType.Varchar).Value = UCase(tx_referencia.Text.ToString.Trim)
-        ocmd.Parameters.Add("@f0408_peso", NpgsqlDbType.Numeric).Value = tx_peso_unitario.Text
+        ocmd.Parameters.Add("@f0408_peso", NpgsqlDbType.Numeric).Value = CDec(tx_peso_unitario.Text)
         ocmd.Parameters.Add("@f0408_unid_medida", NpgsqlDbType.Varchar).Value = UCase(tx_unidad_medida.Text.ToString.Trim)
-        ocmd.Parameters.Add("@f0408_factor_empaque", NpgsqlDbType.Numeric).Value = tx_factor_empaque.Text
-        ocmd.Parameters.Add("@f0408_factor_cobertura", NpgsqlDbType.Numeric).Value = tx_factor_cobertura.Text
+        ocmd.Parameters.Add("@f0408_factor_empaque", NpgsqlDbType.Numeric).Value = CDec(tx_factor_empaque.Text)
+        ocmd.Parameters.Add("@f0408_factor_cobertura", NpgsqlDbType.Numeric).Value = CDec(tx_factor_cobertura.Text)
 
         'f0408_tip_venta
         Dim tventa As String = String.Empty
