@@ -104,54 +104,54 @@ Public Class formulario_inicio
         'cl_utilidades_datatables.visualizar_datos_visor("", "", "", "Permisos Usuario", {}, vf_otabla_permisos)
 
         'SECCION PARA CONTROLAR LA VERSION DEL PROGRAMA
-        Dim aprueba As String = comunes.suministrar_valor_variable_configuracion("AAPRUEBA", "00000001")
-        'SI ESTOY EN AMBIENTE DE PRUEBA NO VALIDO VERSIONES
-        'MsgBox(comunes.IdentificarIpEquipo())
-        If aprueba = "N" Then
-            'Primero Valido que no se este ejecutando el programa directamente en el servidor, pues estaria en otra localizacion
-            If "192.168.0.90" <> comunes.IdentificarIpEquipo() Then
-                'Al no estar en el servidor entonces inicio proceso de validacion de versiones
-                Dim rutaVersionLocal As String = "C:\dsfc\EJ\Release\camocontrol.log"
-                Dim rutaVersionServidor1 As String = "\\srv01\dsfc\EJ\Release\camocontrol.log"
-                Dim rutaVersionServidor2 As String = "\\192.168.0.90\dsfc\EJ\Release\camocontrol.log"
-                Dim rutaVersionServidor As String = ""
-                'Para que busque la ruta del servidor por los dos caminos
-                If File.Exists(rutaVersionServidor1) Then
-                    rutaVersionServidor = rutaVersionServidor1
-                Else
-                    If File.Exists(rutaVersionServidor) Then
-                        rutaVersionServidor = rutaVersionServidor2
-                    End If
-                End If
-                If rutaVersionServidor = "" Then
-                    MsgBox("Error: No tiene acceso al servidor", MsgBoxStyle.Critical)
-                    'salgo de la aplicacion
-                    vcerrar = "S"
-                    Me.Close()
-                End If
-                If File.Exists(rutaVersionLocal) = False Then
-                    MsgBox("Error: Revisar el path de instalacion en el computador local.", MsgBoxStyle.Critical)
-                    'salgo de la aplicacion
-                    vcerrar = "S"
-                    Me.Close()
-                End If
+        'Dim aprueba As String = comunes.suministrar_valor_variable_configuracion("AAPRUEBA", "00000001")
+        ''SI ESTOY EN AMBIENTE DE PRUEBA NO VALIDO VERSIONES
+        ''MsgBox(comunes.IdentificarIpEquipo())
+        'If aprueba = "N" Then
+        '    'Primero Valido que no se este ejecutando el programa directamente en el servidor, pues estaria en otra localizacion
+        '    If "192.168.0.90" <> comunes.IdentificarIpEquipo() Then
+        '        'Al no estar en el servidor entonces inicio proceso de validacion de versiones
+        '        Dim rutaVersionLocal As String = "C:\dsfc\EJ\Release\camocontrol.log"
+        '        Dim rutaVersionServidor1 As String = "\\srv01\dsfc\EJ\Release\camocontrol.log"
+        '        Dim rutaVersionServidor2 As String = "\\192.168.0.90\dsfc\EJ\Release\camocontrol.log"
+        '        Dim rutaVersionServidor As String = ""
+        '        'Para que busque la ruta del servidor por los dos caminos
+        '        If File.Exists(rutaVersionServidor1) Then
+        '            rutaVersionServidor = rutaVersionServidor1
+        '        Else
+        '            If File.Exists(rutaVersionServidor) Then
+        '                rutaVersionServidor = rutaVersionServidor2
+        '            End If
+        '        End If
+        '        If rutaVersionServidor = "" Then
+        '            MsgBox("Error: No tiene acceso al servidor", MsgBoxStyle.Critical)
+        '            'salgo de la aplicacion
+        '            vcerrar = "S"
+        '            Me.Close()
+        '        End If
+        '        If File.Exists(rutaVersionLocal) = False Then
+        '            MsgBox("Error: Revisar el path de instalacion en el computador local.", MsgBoxStyle.Critical)
+        '            'salgo de la aplicacion
+        '            vcerrar = "S"
+        '            Me.Close()
+        '        End If
 
-                ' Paso 1: Leer la versión actual
-                Dim versionLocal As String = LeerVersion(rutaVersionLocal)
-                Dim versionRemota As String = LeerVersion(rutaVersionServidor)
-                'MsgBox(versionLocal & " - " & versionRemota)
-                Dim mensaje As String = "DEBE ACTUALIZAR EL SOFTWARE, VERSION NUEVA DISPONIBLE"
-                mensaje = mensaje & vbCrLf & "Error: " & versionLocal & "-" & versionRemota
-                If versionLocal <> versionRemota Then
-                    MsgBox(mensaje, MsgBoxStyle.Critical)
-                    'salgo de la aplicacion
-                    vcerrar = "S"
-                    Me.Close()
-                Else
-                    Console.WriteLine("La aplicación ya está actualizada.")
-                End If
-            End If
-        End If
+        '        ' Paso 1: Leer la versión actual
+        '        Dim versionLocal As String = LeerVersion(rutaVersionLocal)
+        '        Dim versionRemota As String = LeerVersion(rutaVersionServidor)
+        '        'MsgBox(versionLocal & " - " & versionRemota)
+        '        Dim mensaje As String = "DEBE ACTUALIZAR EL SOFTWARE, VERSION NUEVA DISPONIBLE"
+        '        mensaje = mensaje & vbCrLf & "Error: " & versionLocal & "-" & versionRemota
+        '        If versionLocal <> versionRemota Then
+        '            MsgBox(mensaje, MsgBoxStyle.Critical)
+        '            'salgo de la aplicacion
+        '            vcerrar = "S"
+        '            Me.Close()
+        '        Else
+        '            Console.WriteLine("La aplicación ya está actualizada.")
+        '        End If
+        '    End If
+        'End If
 
         MenuStrip.Focus()
 

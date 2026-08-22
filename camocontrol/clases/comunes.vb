@@ -1,5 +1,6 @@
 Imports System.Globalization
 Imports System.Net
+Imports System.Net.Sockets
 Imports camocontrol.MisExtensiones
 Public Class comunes
     Public Shared vuser_email As String = ""
@@ -14,38 +15,58 @@ Public Class comunes
     Public Shared csql As String = ""
     Public Shared odr As NpgsqlDataReader
 
-    Public Shared Function IdentificarIpEquipo()
-        Dim DirIp As String = ""
+    Public Shared Function IdentificarIpEquipo() As String
         Try
-            ' Obtener el nombre del host
-            Dim hostName As String = Dns.GetHostName()
-            Console.WriteLine("Nombre del host: " & hostName)
-            ' Filtrar las direcciones IPv4 válidas (excluyendo loopback)
-            'Para que corra esto tubre que crear la carpeta modulos y dentro cree Extenciones.vb
-            'APRENDER ESTO COMO SE COME
-            ' Obtener las direcciones IP asociadas al host
-            Dim hostAddresses As IPAddress() = Dns.GetHostAddresses(hostName)
-            Dim validIPs As IEnumerable(Of IPAddress)
-            validIPs = hostAddresses.Where(Function(ip) ip.AddressFamily = Net.Sockets.AddressFamily.InterNetwork AndAlso Not ip.IsLoopback())
+            Dim hostAddresses = Dns.GetHostAddresses(Dns.GetHostName())
 
-            If validIPs.Any() Then
-                Console.WriteLine("Direcciones IP:")
-                For Each ip In validIPs
-                    Console.WriteLine("- " & ip.ToString())
-                    DirIp = ip.ToString()
-                Next
-            Else
-                Console.WriteLine("No se encontraron direcciones IPv4 válidas.")
+            ' Buscar la primera IPv4 válida que no sea loopback
+            Dim ipValida = hostAddresses.
+            Where(Function(ip) ip.AddressFamily = AddressFamily.InterNetwork AndAlso Not IPAddress.IsLoopback(ip)).
+            FirstOrDefault()
+
+            If ipValida IsNot Nothing Then
+                Return ipValida.ToString()
             End If
+
+            Return ""
         Catch ex As Exception
-            Console.WriteLine("Error al obtener la dirección IP: " & ex.Message)
+            ' Puedes registrar el error si quieres
+            Return ""
         End Try
-        'MsgBox("HOLA")
-        Console.WriteLine("Presione una tecla para salir...")
-        'Console.ReadKey()
-        Console.Read()
-        Return DirIp
     End Function
+
+    'Public Shared Function IdentificarIpEquipo()
+    '    Dim DirIp As String = ""
+    '    Try
+    '        ' Obtener el nombre del host
+    '        Dim hostName As String = Dns.GetHostName()
+    '        Console.WriteLine("Nombre del host: " & hostName)
+    '        ' Filtrar las direcciones IPv4 válidas (excluyendo loopback)
+    '        'Para que corra esto tubre que crear la carpeta modulos y dentro cree Extenciones.vb
+    '        'APRENDER ESTO COMO SE COME
+    '        ' Obtener las direcciones IP asociadas al host
+    '        Dim hostAddresses As IPAddress() = Dns.GetHostAddresses(hostName)
+    '        Dim validIPs As IEnumerable(Of IPAddress)
+    '        validIPs = hostAddresses.Where(Function(ip) ip.AddressFamily = Net.Sockets.AddressFamily.InterNetwork AndAlso Not ip.IsLoopback())
+
+    '        If validIPs.Any() Then
+    '            Console.WriteLine("Direcciones IP:")
+    '            For Each ip In validIPs
+    '                Console.WriteLine("- " & ip.ToString())
+    '                DirIp = ip.ToString()
+    '            Next
+    '        Else
+    '            Console.WriteLine("No se encontraron direcciones IPv4 válidas.")
+    '        End If
+    '    Catch ex As Exception
+    '        Console.WriteLine("Error al obtener la dirección IP: " & ex.Message)
+    '    End Try
+    '    'MsgBox("HOLA")
+    '    Console.WriteLine("Presione una tecla para salir...")
+    '    'Console.ReadKey()
+    '    Console.Read()
+    '    Return DirIp
+    'End Function
 
 
     Public Shared Function suministrar_valor_variable_configuracion(variable As String, vg_id_cia As String)

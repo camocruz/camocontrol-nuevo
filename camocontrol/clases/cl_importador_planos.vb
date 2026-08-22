@@ -113,6 +113,7 @@ Public Class cl_importador_planos
         Dim valor_referencial As String = ""
         Dim oconfig_secc() As String
         Dim otabla_name As String = ""
+        Dim contador_linea As Integer = 0
 
         'defino los objetos que seran anexados como datarow en los datatable
         Dim array_val_encabezado(oencabezado.GetUpperBound(0)) As Object
@@ -135,27 +136,27 @@ Public Class cl_importador_planos
             'busco datos del encabezado
             Dim orows_datable_actual As Integer
             orows_datable_actual = ds.Tables("otb_encabezado").Rows.Count
-            For index = 0 To oencabezado.GetUpperBound(0)
-                'MsgBox(oencabezado(index).ToString)
+            For contador_linea = 0 To oencabezado.GetUpperBound(0)
+                'MsgBox(oencabezado(contador_linea).ToString)
                 'MsgBox(oencabezado.GetUpperBound(0))
-                oconfigpartes = oencabezado(index).ToString.Split(";")
-                'MsgBox(linea & vbCrLf & vbCrLf & oencabezado(index).ToString)
+                oconfigpartes = oencabezado(contador_linea).ToString.Split(";")
+                'MsgBox(linea & vbCrLf & vbCrLf & oencabezado(contador_linea).ToString)
                 resultado_busqueda = buscar_campo(linea, oconfigpartes)
                 valor_encontrado = resultado_busqueda.valor_encontrado
                 texto_futuro = resultado_busqueda.texto_futuro
                 criterios_n_linea = resultado_busqueda.criterios_n_linea
                 If valor_encontrado <> "" Then
                     'MsgBox(valor_encontrado)
-                    'MsgBox("Indice actual: " & index & "total de campos. " & oencabezado.GetUpperBound(0))
+                    'MsgBox("Indice actual: " & contador_linea & "total de campos. " & oencabezado.GetUpperBound(0))
                     'MsgBox(oconfigpartes(0))
-                    'MsgBox(oencabezado(index).ToString & vbCrLf & oconfigpartes(0) & ": " & valor_encontrado)
+                    'MsgBox(oencabezado(contador_linea).ToString & vbCrLf & oconfigpartes(0) & ": " & valor_encontrado)
                     'identifico si es la columna referencial
-                    If index = ocolum_referencial Then
+                    If contador_linea = ocolum_referencial Then
                         valor_referencial = valor_encontrado
                         'MsgBox(valor_referencial)
                     End If
-                    array_val_encabezado(index) = valor_encontrado
-                    If index = oencabezado.GetUpperBound(0) Then
+                    array_val_encabezado(contador_linea) = valor_encontrado
+                    If contador_linea = oencabezado.GetUpperBound(0) Then
                         'MsgBox("LLegue al ultimo")
                         Try
                             otb_encabezado.Rows.Add(array_val_encabezado)
@@ -329,6 +330,7 @@ aaa:
         Dim oconfig_secc() As String
         Dim otabla_name As String = ""
         Dim ContRowsDtActual As Integer
+        Dim contador_linea As Integer = 0
         'defino los objetos que seran anexados como datarow en los datatable
         Dim array_val_encabezado(oencabezado.GetUpperBound(0) + 1) As Object
         Dim array_val_detalle(odetalle.GetUpperBound(0) + 1) As Object
@@ -363,15 +365,15 @@ aaa:
                     'Continue While
                 End If
                 'Aqui extraigo de cada linea los datos tabulares
-                For index = 0 To odetalle.GetUpperBound(0)
-                    oconfigpartes = odetalle(index).ToString.Split(";")
+                For contador_linea = 0 To odetalle.GetUpperBound(0)
+                    oconfigpartes = odetalle(contador_linea).ToString.Split(";")
                     resultado_busqueda = buscar_campo(linea, oconfigpartes)
                     valor_encontrado = resultado_busqueda.valor_encontrado
                     If valor_encontrado <> "" And otabla_name <> "" Then
                         Console.WriteLine(linea)
-                        'si el valor encontrado corresponde al index 0 es porque inicia nuevo registro
+                        'si el valor encontrado corresponde al contador_linea 0 es porque inicia nuevo registro
                         'identifico si es la columna referencial trabaja con el PK del registro
-                        If index = 0 Then
+                        If contador_linea = 0 Then
                             'Agrego el nuevo datorow en la otb
                             ds.Tables(otabla_name).Rows.Add()
                             'registro valor pk y referencial
@@ -379,7 +381,7 @@ aaa:
                             ds.Tables(otabla_name).Rows(ContRowsDtActual - 1)(0) = ContRowsDtActual
                             ds.Tables(otabla_name).Rows(ContRowsDtActual - 1)(1) = valor_referencial
                         End If
-                        ds.Tables(otabla_name).Rows(ContRowsDtActual - 1)(index + 2) = valor_encontrado
+                        ds.Tables(otabla_name).Rows(ContRowsDtActual - 1)(contador_linea + 2) = valor_encontrado
                     End If
                 Next
                 'Reinicia el bucle hasta que encuentre el final de la seccion tabular
@@ -389,16 +391,16 @@ aaa:
             'busco datos del encabezado
             Dim ContRowsDtEncabezado As Integer
 
-            For index = 0 To oencabezado.GetUpperBound(0)
-                oconfigpartes = oencabezado(index).ToString.Split(";")
+            For contador_linea = 0 To oencabezado.GetUpperBound(0)
+                oconfigpartes = oencabezado(contador_linea).ToString.Split(";")
                 resultado_busqueda = buscar_campo(linea, oconfigpartes)
                 valor_encontrado = resultado_busqueda.valor_encontrado
                 texto_futuro = resultado_busqueda.texto_futuro
                 criterios_n_linea = resultado_busqueda.criterios_n_linea
                 If valor_encontrado <> "" Then
-                    'si el valor encontrado corresponde al index 0 es porque inicia nuevo registro
+                    'si el valor encontrado corresponde al contador_linea 0 es porque inicia nuevo registro
                     'identifico si es la columna referencial trabaja con el PK del registro
-                    If index = 0 Then 'If index = ocolum_referencial Then
+                    If contador_linea = 0 Then 'If contador_linea = ocolum_referencial Then
                         Console.WriteLine(valor_encontrado)
                         valor_referencial = valor_encontrado
                         'Agrego el nuevo datorow en la otb
@@ -408,7 +410,7 @@ aaa:
                         otb_encabezado.Rows(ContRowsDtEncabezado - 1)(0) = ContRowsDtEncabezado
                         otb_encabezado.Rows(ContRowsDtEncabezado - 1)(1) = valor_referencial
                     End If
-                    otb_encabezado.Rows(ContRowsDtEncabezado - 1)(index + 1) = valor_encontrado
+                    otb_encabezado.Rows(ContRowsDtEncabezado - 1)(contador_linea + 1) = valor_encontrado
 
                     'linea y posicion de la que se traera un texto en las siguientes lecturas de linea
                     If texto_futuro = "S" Then
@@ -455,17 +457,17 @@ aaa:
             If seccion_continua = "N" Then
                 'busco datos del detalle
                 Dim ini_registro As String = "N"
-                For index = 0 To odetalle.GetUpperBound(0)
-                    oconfigpartes = odetalle(index).ToString.Split(";")
+                For contador_linea = 0 To odetalle.GetUpperBound(0)
+                    oconfigpartes = odetalle(contador_linea).ToString.Split(";")
                     resultado_busqueda = buscar_campo(linea, oconfigpartes)
                     valor_encontrado = resultado_busqueda.valor_encontrado
                     texto_futuro = resultado_busqueda.texto_futuro
                     criterios_n_linea = resultado_busqueda.criterios_n_linea
                     If valor_encontrado <> "" And otabla_name <> "" And tipo_seccion <> 2 Then
                         'Console.WriteLine(linea)
-                        'si el valor encontrado corresponde al index 0 es porque inicia nuevo registro
+                        'si el valor encontrado corresponde al contador_linea 0 es porque inicia nuevo registro
                         'identifico si es la columna referencial trabaja con el PK del registro
-                        If index = 0 Then 'If index = ocolum_referencial Then
+                        If contador_linea = 0 Then 'If contador_linea = ocolum_referencial Then
                             'valor_referencial = valor_encontrado
                             'Agrego el nuevo datorow en la otb
                             ds.Tables(otabla_name).Rows.Add()
@@ -474,7 +476,7 @@ aaa:
                             ds.Tables(otabla_name).Rows(ContRowsDtActual - 1)(0) = ContRowsDtActual
                             ds.Tables(otabla_name).Rows(ContRowsDtActual - 1)(1) = valor_referencial
                         End If
-                        ds.Tables(otabla_name).Rows(ContRowsDtActual - 1)(index + 2) = valor_encontrado
+                        ds.Tables(otabla_name).Rows(ContRowsDtActual - 1)(contador_linea + 2) = valor_encontrado
                         '' voy a buscar los valores del ultimo regsitro de la tabla encabezado para llenar
                         '' los valores de los campos pk varios
                         Dim orow_ultimo_encabezado As DataRow
@@ -482,6 +484,7 @@ aaa:
                         Dim NombreCampoOtbEncabezado As String
                         Dim IndiceTablaDetalle As Integer
                         Dim ValorCampoTablaEncabezado As String
+                        Dim contador_linea2 As Integer
 
                         'SECCION PARA LLENAR EN TABLA DETALLES VALORES DESDE LA TABLA ENCABEZADO
                         'Cuando requiero que aparezcen en la tabla detalles algunos valores tomados desde el ultimo datarow
@@ -490,14 +493,14 @@ aaa:
                         If oPkadicionalesDetalle <> "" Then
                             Dim ocoladicionales() As String
                             ocoladicionales = oPkadicionalesDetalle.ToString.Split(";")
-                            For index2 = 0 To ocoladicionales.GetUpperBound(0)
-                                NombreCampoOtbEncabezado = otb_encabezado.Columns.Item(CInt(ocoladicionales(index2)) - 1).ColumnName
+                            For contador_linea2 = 0 To ocoladicionales.GetUpperBound(0)
+                                NombreCampoOtbEncabezado = otb_encabezado.Columns.Item(CInt(ocoladicionales(contador_linea2)) - 1).ColumnName
                                 ValorCampoTablaEncabezado = orow_ultimo_encabezado(NombreCampoOtbEncabezado).ToString
                                 IndiceTablaDetalle = ds.Tables(otabla_name).Columns.Item(NombreCampoOtbEncabezado).Ordinal
                                 ds.Tables(otabla_name).Rows(ContRowsDtActual - 1)(IndiceTablaDetalle) = ValorCampoTablaEncabezado
                                 'MsgBox(NombreCampoOtbEncabezado)
-                                'MsgBox(otb_encabezado.Columns.Item(CInt(oPkadicionalesDetalle(index)) - 1).ColumnName)
-                                'MsgBox(otb_encabezado.Columns.Item(CInt(oPkadicionalesDetalle(index)) - 1).GetType.ToString)
+                                'MsgBox(otb_encabezado.Columns.Item(CInt(oPkadicionalesDetalle(contador_linea)) - 1).ColumnName)
+                                'MsgBox(otb_encabezado.Columns.Item(CInt(oPkadicionalesDetalle(contador_linea)) - 1).GetType.ToString)
                             Next
                         End If
 
@@ -659,7 +662,7 @@ aaa:
         'oadapter.InsertCommand.Parameters.Add(New NpgsqlParameter("cant", NpgsqlDbType.Numeric))
         'oadapter.InsertCommand.Parameters.Add(New NpgsqlParameter("cost", NpgsqlDbType.Numeric))
         'oadapter.InsertCommand.Parameters.Add(New NpgsqlParameter("lot", NpgsqlDbType.Varchar))
-
+        Dim i As Integer
         For i = 0 To dtestructura.Columns.Count - 1
             oadapter.InsertCommand.Parameters(i).Direction = ParameterDirection.Input
         Next
@@ -734,8 +737,9 @@ aaa:
         If col_vinculante = "S" Then
             odatatable.Columns.Add("id_referencial", GetType(String))
         End If
-        For index = 0 To oarray.GetUpperBound(0)
-            oconfigpartes = oarray(index).ToString.Split(";")
+        Dim contador_linea As Integer = 0
+        For contador_linea = 0 To oarray.GetUpperBound(0)
+            oconfigpartes = oarray(contador_linea).ToString.Split(";")
             Select Case oconfigpartes(1)
                 Case "text"
                     odatatable.Columns.Add(oconfigpartes(0).ToString, GetType(String))
@@ -759,11 +763,11 @@ aaa:
             'Anexo las columnas pk de la tabla encabezado que seran usadas para relacionar tablas
             Dim oPkadicionalesDetalle() As String
             oPkadicionalesDetalle = pkAdicionales.ToString.Split(";")
-            For index = 0 To oPkadicionalesDetalle.GetUpperBound(0)
-                odatatable.Columns.Add(otb_encabezado.Columns.Item(CInt(oPkadicionalesDetalle(index)) - 1).ColumnName,
+            For contador_linea = 0 To oPkadicionalesDetalle.GetUpperBound(0)
+                odatatable.Columns.Add(otb_encabezado.Columns.Item(CInt(oPkadicionalesDetalle(contador_linea)) - 1).ColumnName,
                                        GetType(String))
-                'MsgBox(otb_encabezado.Columns.Item(CInt(oPkadicionalesDetalle(index)) - 1).ColumnName)
-                'MsgBox(otb_encabezado.Columns.Item(CInt(oPkadicionalesDetalle(index)) - 1).GetType.ToString)
+                'MsgBox(otb_encabezado.Columns.Item(CInt(oPkadicionalesDetalle(contador_linea)) - 1).ColumnName)
+                'MsgBox(otb_encabezado.Columns.Item(CInt(oPkadicionalesDetalle(contador_linea)) - 1).GetType.ToString)
             Next
         End If
 

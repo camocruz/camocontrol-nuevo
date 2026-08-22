@@ -1,0 +1,15 @@
+C:\Repos\camocontrol\Updater\Updater\Updater\bin\Debug\net8.0\Updater.exe
+C:\Repos\camocontrol\Updater\Updater\Updater\bin\Debug\net8.0\Updater.deps.json
+C:\Repos\camocontrol\Updater\Updater\Updater\bin\Debug\net8.0\Updater.runtimeconfig.json
+C:\Repos\camocontrol\Updater\Updater\Updater\bin\Debug\net8.0\Updater.dll
+C:\Repos\camocontrol\Updater\Updater\Updater\bin\Debug\net8.0\Updater.pdb
+C:\Repos\camocontrol\Updater\Updater\Updater\obj\Debug\net8.0\Updater.GeneratedMSBuildEditorConfig.editorconfig
+C:\Repos\camocontrol\Updater\Updater\Updater\obj\Debug\net8.0\Updater.AssemblyInfoInputs.cache
+C:\Repos\camocontrol\Updater\Updater\Updater\obj\Debug\net8.0\Updater.AssemblyInfo.vb
+C:\Repos\camocontrol\Updater\Updater\Updater\obj\Debug\net8.0\Updater.vbproj.CoreCompileInputs.cache
+C:\Repos\camocontrol\Updater\Updater\Updater\obj\Debug\net8.0\Updater.sourcelink.json
+C:\Repos\camocontrol\Updater\Updater\Updater\obj\Debug\net8.0\Updater.dll
+C:\Repos\camocontrol\Updater\Updater\Updater\obj\Debug\net8.0\refint\Updater.dll
+C:\Repos\camocontrol\Updater\Updater\Updater\obj\Debug\net8.0\Updater.pdb
+C:\Repos\camocontrol\Updater\Updater\Updater\obj\Debug\net8.0\Updater.genruntimeconfig.cache
+C:\Repos\camocontrol\Updater\Updater\Updater\obj\Debug\net8.0\ref\Updater.dll

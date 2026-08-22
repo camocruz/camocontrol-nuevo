@@ -3,6 +3,8 @@ Imports System.Collections
 Imports System.Globalization
 Imports System.IO
 Imports System.Net.WebRequestMethods
+'Imports System.Data
+Imports System.Linq
 Imports System.Threading.Tasks
 Imports Newtonsoft.Json.Linq
 Imports RestSharp
@@ -411,9 +413,9 @@ Public Class fm_0800_cargar_rm
             'Identifico el vendedor
             ' Buscar id_tercero en tb_clientes que tiene todos los terceros
             Dim error_vendedor As String = "N"
-            Dim filavendedor = (From c In otb_clientes.AsEnumerable()
-                                Where c.Field(Of String)("f0200_id") = id_tercero_vendedor
-                                Select c).FirstOrDefault()
+            Dim filavendedor As DataRow = (From c In otb_clientes.AsEnumerable()
+                                           Where c.Field(Of String)("f0200_id") = id_tercero_vendedor
+                                           Select c).FirstOrDefault()
             If filavendedor IsNot Nothing Then
                 id_tercero_vendedor = filavendedor.Field(Of String)("f0200_id_tercero")
             Else
@@ -981,7 +983,7 @@ Public Class fm_0800_cargar_rm
 
     Private Function grabar_nuevo_despacho(ByVal id_tercero As String, ByVal id_vendedor As String, ByVal direccion_despacho As String, ByVal ciudad_despacho As String, ByVal id_bodega_despacho As String)
         Dim oid_despacho As Integer = 0
-        'los datos de la ciudad de destino ya los obtuve cuando indetifique el tercero en el sub gestionar_identificacion_cliente.
+        'los datos de la ciudad de destino ya los obtive cuando indetifique el tercero en el sub gestionar_identificacion_cliente.
 
         'Instancia la conexión que estará vigente para todas las operaciones CRUD
         oconn_form = database.obtener_conexion()
@@ -1181,8 +1183,10 @@ Public Class fm_0800_cargar_rm
 
         ' 1. Obtener total de páginas y registros
         Dim info = Await ObtenerTotalPaginasYRegistrosAsync()
-        Dim totalPaginas = info.totalPaginas
-        Dim totalRegistros = info.totalRegistros
+        'Dim totalPaginas = info.totalPaginas
+        'Dim totalRegistros = info.totalRegistros
+        Dim totalPaginas = info.Item1
+        Dim totalRegistros = info.Item2
 
         If totalPaginas = 0 Then
             Return Nothing
@@ -1241,20 +1245,21 @@ Public Class fm_0800_cargar_rm
         ' ============================
         ' 1. ENCABEZADO: valores únicos por combinación de campos
         ' ============================
-        Dim encabezadoQuery = dtOriginal.AsEnumerable().
-        GroupBy(Function(r) New With {
-            Key .cia = r("f350_id_cia"),
-            Key .tipo = r("f350_id_tipo_docto"),
-            Key .consec = r("f350_consec_docto"),
-            Key .fecha = r("f350_fecha"),
-            Key .notas = r("f350_notas"),
-            Key .nitFact = r("f200_nit_fact"),
-            Key .razonFact = r("f200_razon_social_fact"),
-            Key .sucursal = r("f461_id_sucursal_fact"),
-            Key .nitVend = r("f200_nit_vendedor"),
-            Key .razonVend = r("f200_razon_social_vendedor")
-        }).
-        Select(Function(g) g.First())
+        Dim encabezadoQuery As IEnumerable(Of DataRow) =
+    dtOriginal.AsEnumerable().
+    GroupBy(Function(r) New With {
+        Key .cia = r("f350_id_cia"),
+        Key .tipo = r("f350_id_tipo_docto"),
+        Key .consec = r("f350_consec_docto"),
+        Key .fecha = r("f350_fecha"),
+        Key .notas = r("f350_notas"),
+        Key .nitFact = r("f200_nit_fact"),
+        Key .razonFact = r("f200_razon_social_fact"),
+        Key .sucursal = r("f461_id_sucursal_fact"),
+        Key .nitVend = r("f200_nit_vendedor"),
+        Key .razonVend = r("f200_razon_social_vendedor")
+    }).
+    Select(Function(g) g.First())
 
         Dim dtEncabezado As DataTable = encabezadoQuery.CopyToDataTable()
 
@@ -1304,10 +1309,10 @@ Public Class fm_0800_cargar_rm
         Dim ultimos As Dictionary(Of Integer, Integer) = IdentificarUltimaFacturaImportada()
         UltimoDoctoCia1 = ultimos(1)
         UltimoDoctoCia2 = ultimos(2)
-        'MsgBox("Ultimo Cia 1: " & maxCia1 & vbCrLf & "Ultimo Cia 2: " & maxCia2)
+        'MsgBox("Ultimo Cia 1: " & UltimoDoctoCia1 & vbCrLf & "Ultimo Cia 2: " & UltimoDoctoCia2)
 
         Dim dt As DataTable = Await CargarTodasLasPaginasAsync()
-
+        MsgBox(dt.Rows.Count)
         If dt Is Nothing OrElse dt.Rows.Count = 0 Then
             MessageBox.Show("No se encontraron registros en ninguna página.")
             Exit Sub
@@ -1315,8 +1320,10 @@ Public Class fm_0800_cargar_rm
 
         Dim resultado = GenerarEncabezadoYDetalleLINQ(dt)
 
-        Dim dtEncabezado As DataTable = resultado.Encabezado
-        Dim dtDetalle As DataTable = resultado.Detalle
+        'Dim dtEncabezado As DataTable = resultado.Encabezado
+        'Dim dtDetalle As DataTable = resultado.Detalle
+        Dim dtEncabezado As DataTable = resultado.Item1
+        Dim dtDetalle As DataTable = resultado.Item2
 
         'RECORRER EL ENCABEZADO PARA GRABAR EN BD
 
@@ -1453,10 +1460,11 @@ Public Class fm_0800_cargar_rm
 
         Dim resultado As New DtoTercero()
 
-        ' Filtrar registros del cliente
-        Dim filas = From f In otb_clientes.AsEnumerable()
-                    Where f.Field(Of String)("f0200_id") = idBuscado
-                    Select f
+        ' 1. Filtrar registros del cliente
+        Dim filas As IEnumerable(Of DataRow) =
+        From f In otb_clientes.AsEnumerable()
+        Where f.Field(Of String)("f0200_id") = idBuscado
+        Select f
 
         Dim cantidad As Integer = filas.Count()
 
@@ -1472,15 +1480,14 @@ Public Class fm_0800_cargar_rm
 
         ' --- Caso 1 registro ---
         If cantidad = 1 Then
-            Dim fila = filas.First()
+            Dim fila As DataRow = filas.First()
             Return ConstruirResultadoDesdeFila(fila)
         End If
 
         ' --- Caso más de 1 registro ---
         ' Buscar si existe uno con la sucursal igual a id_sucursal_fact
-        Dim filaMatch = (From f In filas
-                         Where f.Field(Of String)("f0200_id_sucursal_unoee") = id_sucursal_fact
-                         Select f).FirstOrDefault()
+        Dim filaMatch As DataRow =
+        filas.FirstOrDefault(Function(f) f.Field(Of String)("f0200_id_sucursal_unoee") = id_sucursal_fact)
 
         If filaMatch IsNot Nothing Then
             Return ConstruirResultadoDesdeFila(filaMatch)
@@ -1499,12 +1506,19 @@ Public Class fm_0800_cargar_rm
     'Identificar la informacion de los items cg para calcular cajas a despachar
     Public Function ObtenerDatosItemCG(referencia As String) As DtoItemCg
         Dim resultado As New DtoItemCg()
-        ' Filtrar registros del item cg
-        Dim filas = From f In otb_items_cg.AsEnumerable()
-                    Where f.Field(Of String)("f0408_referencia") = referencia
-                    Select f
 
-        Dim fila = filas.First()
+        ' Buscar directamente la primera fila que cumpla la condición (tipado fuerte)
+        Dim fila As DataRow = otb_items_cg.
+        AsEnumerable().
+        FirstOrDefault(Function(f) f.Field(Of String)("f0408_referencia") = referencia)
+
+        If fila Is Nothing Then
+            ' manejar caso no encontrado (por ejemplo dejar Factor_empaque = 1 o lanzar excepción controlada)
+            resultado.Referencia = referencia
+            resultado.Factor_empaque = 1
+            Return resultado
+        End If
+
         resultado.Referencia = fila.Field(Of String)("f0408_referencia")
         resultado.Factor_empaque = fila.Field(Of Decimal)("f0408_factor_empaque")
         Return resultado
@@ -1537,9 +1551,9 @@ Public Class fm_0800_cargar_rm
 
         ' Buscar ciudad en tb_ciudades
         Dim ciudadNombre As String = ""
-        Dim filaCiudad = (From c In otb_ciudades.AsEnumerable()
-                          Where c.Field(Of String)("f0052_codigo_ciudad") = idCiudad
-                          Select c).FirstOrDefault()
+        Dim filaCiudad As DataRow = (From c In otb_ciudades.AsEnumerable()
+                                     Where c.Field(Of String)("f0052_codigo_ciudad").Trim() = idCiudad.Trim()
+                                     Select c).FirstOrDefault()
 
         If filaCiudad IsNot Nothing Then
             ciudadNombre = filaCiudad.Field(Of String)("destino")
@@ -1574,9 +1588,9 @@ Public Class fm_0800_cargar_rm
                 DtoDgEnEdicion.Id_Ciudad = _dto1.Id_Ciudad
                 DtoDgEnEdicion.Direccion = _dto1.Direccion
                 ' Buscar ciudad en tb_ciudades
-                Dim filaCiudad1 = (From c In otb_ciudades.AsEnumerable()
-                                   Where c.Field(Of String)("f0052_codigo_ciudad") = DtoDgEnEdicion.Id_Ciudad
-                                   Select c).FirstOrDefault()
+                Dim filaCiudad1 As DataRow = (From c In otb_ciudades.AsEnumerable()
+                                              Where c.Field(Of String)("f0052_codigo_ciudad") = DtoDgEnEdicion.Id_Ciudad
+                                              Select c).FirstOrDefault()
                 If filaCiudad1 IsNot Nothing Then
                     DtoDgEnEdicion.Ciudad = filaCiudad1.Field(Of String)("destino")
                 End If

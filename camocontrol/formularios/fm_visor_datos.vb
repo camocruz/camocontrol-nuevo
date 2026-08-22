@@ -234,67 +234,102 @@ Public Class fm_visor_datos
     End Sub
     Private Sub dg_datos_MouseClick(sender As Object, e As MouseEventArgs) Handles dg_datos.MouseClick
 
-        'Para realizar acciones dependiendo del contecto del formulario..
-        Select Case ocontexto_form
-            Case "salida de insumos de almacen desde una actividad"
-                Dim nombre_columna As String = dg_datos.Columns(dg_datos.CurrentCell.ColumnIndex).Name
-                Select Case nombre_columna
-                    Case "id_doc_inv"
-                        If e.Button = MouseButtons.Right Then
-                            Dim menu = New System.Windows.Forms.ContextMenuStrip()
-                            Dim posrow = dg_datos.HitTest(e.X, e.Y).RowIndex
-                            Dim poscol = dg_datos.HitTest(e.X, e.Y).ColumnIndex
+        ' Solo actuar si el clic fue derecho
+        If e.Button <> MouseButtons.Right Then Exit Sub
 
-                            If posrow > -1 Then
-                                menu.Items.Add("Modificar").Name = "Modificar" & posrow
-                                menu.Items.Add("Mostrar").Name = "Mostrar" & posrow
-                            End If
-                            menu.Show(dg_datos, e.X, e.Y)
-                            'dg_datos.Rows.Item(posicion).Selected = True
-                            'dg_datos.Rows.Item(posrow).Cells.Item(poscol).Selected = True
-                            'MsgBox(poscol)
+        ' Validar contexto del formulario
+        If ocontexto_form <> "salida de insumos de almacen desde una actividad" Then Exit Sub
 
+        ' Determinar la celda bajo el cursor
+        Dim hit As DataGridView.HitTestInfo = dg_datos.HitTest(e.X, e.Y)
 
-                            AddHandler menu.ItemClicked, AddressOf menuClic
-                        End If
-                    Case Else
-                        ' Coloca algo
-                End Select
-        End Select
+        ' Si no se hizo clic sobre una celda, salir
+        If hit.Type <> DataGridViewHitTestType.Cell Then Exit Sub
+
+        ' Obtener nombre de la columna
+        Dim nombre_columna As String = dg_datos.Columns(hit.ColumnIndex).Name
+
+        ' Solo mostrar menú si la columna es la correcta
+        If nombre_columna <> "id_doc_inv" Then Exit Sub
+
+        ' Crear menú contextual
+        Dim menu As New ContextMenuStrip()
+
+        ' Crear items y asignar la fila como Tag
+        Dim itemModificar As New ToolStripMenuItem("Modificar")
+        itemModificar.Tag = hit.RowIndex
+
+        Dim itemMostrar As New ToolStripMenuItem("Mostrar")
+        itemMostrar.Tag = hit.RowIndex
+
+        menu.Items.Add(itemModificar)
+        menu.Items.Add(itemMostrar)
+
+        ' Asociar evento
+        AddHandler menu.ItemClicked, AddressOf menuClic
+
+        ' Mostrar menú en la posición del cursor
+        menu.Show(dg_datos, e.X, e.Y)
+
     End Sub
 
     Private Sub menuClic(sender As Object, e As ToolStripItemClickedEventArgs)
-        Dim nombre = e.ClickedItem.Name.ToString
-        Dim documento = dg_datos.CurrentCell.Value.ToString.Trim
-        'Verifico si el documento existe
-        Dim otb_docto As DataTable
-        Dim csql As String = "select * from " & database.obtener_esquema & ".tb0310_documentos_movimientos_inventarios" _
-                             & " where f0310_anulado = 'N' and f0310_id_documento = '" & documento & "'"
-        otb_docto = cl_utilidades_datatables.cargar_informacion_postgres(csql)
-        If otb_docto.Rows.Count = 0 Then
-            Exit Sub
-        End If
-        If nombre.Contains("Mostrar") Then
-            ejecutar_accion()
-        End If
-        If nombre.Contains("Modificar") Then
 
-            Dim permiso As String
-            permiso = cl_gestion_permisos.identificar_un_permiso_especial_usuario("MOD-SAL-ALM-MTO", vg_usuario_autoriza)
+        ' Obtener la fila desde el Tag del menú
+        Dim fila As Integer = CInt(e.ClickedItem.Tag)
 
-            If permiso = "S" Then
-                cl_utilidades_gestion_compras.habilitar_documento(documento, vg_usuario_autoriza)
+        ' Obtener el documento desde la celda correspondiente
+        Dim documento As String = dg_datos.Rows(fila).Cells("id_doc_inv").Value.ToString.Trim()
 
-                cl_utilidades_gestion_compras.mostrar_documento_movimiento_inventario(documento,
-                                                                                  vg_usuario_autoriza,
-                                                                                  vg_id_cia,
-                                                                                  "N", "S", "D")
-            Else
-                MsgBox("No cuenta con los permisos para modificar una salida de almacen",, "Denegado")
-            End If
+        ' Validar documento
+        If String.IsNullOrWhiteSpace(documento) Then Exit Sub
 
+        ' Consultar si el documento existe y no está anulado
+        Dim csql As String =
+        "SELECT * FROM " & database.obtener_esquema & ".tb0310_documentos_movimientos_inventarios " &
+        "WHERE f0310_anulado = 'N' AND f0310_id_documento = @doc"
 
-        End If
+        Dim parametros As New Dictionary(Of String, Object) From {
+        {"@doc", documento}
+    }
+
+        Dim otb_docto As DataTable =
+        cl_utilidades_datatables.cargar_informacion_postgres(csql)
+
+        If otb_docto.Rows.Count = 0 Then Exit Sub
+
+        ' Determinar acción
+        Select Case e.ClickedItem.Text
+
+            Case "Mostrar"
+                ejecutar_accion()
+
+            Case "Modificar"
+
+                Dim permiso As String =
+                cl_gestion_permisos.identificar_un_permiso_especial_usuario("MOD-SAL-ALM-MTO", vg_usuario_autoriza)
+
+                If permiso = "S" Then
+
+                    ' Habilitar documento
+                    cl_utilidades_gestion_compras.habilitar_documento(documento, vg_usuario_autoriza)
+
+                    ' Mostrar documento
+                    cl_utilidades_gestion_compras.mostrar_documento_movimiento_inventario(
+                    documento,
+                    vg_usuario_autoriza,
+                    vg_id_cia,
+                    "N", "S", "D"
+                )
+
+                Else
+                    MsgBox("No cuenta con los permisos para modificar una salida de almacen",
+                       MsgBoxStyle.Exclamation,
+                       "Denegado")
+                End If
+
+        End Select
+
     End Sub
 
     Private Sub dg_datos_CellEnter(sender As Object, e As DataGridViewCellEventArgs) Handles dg_datos.CellEnter
@@ -1158,6 +1193,7 @@ filtro_ini:
         ' Agregamos Los datos que queremos agregar
         Dim ocolumnas As Integer = otb_datos.Columns.Count
         Dim nrow As Long = 1
+        Dim i As Integer = 1
         For Each orow As DataRow In otb_datos.Rows
             For i = 1 To ocolumnas
                 oSheet.cells(nrow + 1, i).value = orow(i - 1).ToString

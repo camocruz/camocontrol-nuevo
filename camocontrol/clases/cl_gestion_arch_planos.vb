@@ -82,6 +82,7 @@
         Dim oconfigpartes() As String
         Dim valor_encontrado As String = ""
         Dim valor_referencial As String = ""
+        Dim contador_linea As Integer = 0
 
         'defino los objetos que seran anexados como datarow en los datatable
         Dim array_val_encabezado(oencabezado.GetUpperBound(0)) As Object
@@ -97,18 +98,18 @@
             End If
 
             'busco datos del encabezado
-            For index = 0 To oencabezado.GetUpperBound(0)
-                oconfigpartes = oencabezado(index).ToString.Split(";")
+            For contador_linea = 0 To oencabezado.GetUpperBound(0)
+                oconfigpartes = oencabezado(contador_linea).ToString.Split(";")
                 valor_encontrado = buscar_campo(linea, oconfigpartes)
                 If valor_encontrado <> "" Then
                     'MsgBox(oconfigpartes(0))
                     'MsgBox(oconfigpartes(0) & ": " & valor_encontrado)
                     'identifico si es la columna referencial
-                    If index = ocolum_referencial Then
+                    If contador_linea = ocolum_referencial Then
                         valor_referencial = valor_encontrado
                     End If
-                    array_val_encabezado(index) = valor_encontrado
-                    If index = oencabezado.GetUpperBound(0) Then
+                    array_val_encabezado(contador_linea) = valor_encontrado
+                    If contador_linea = oencabezado.GetUpperBound(0) Then
                         Try
                             otb_encabezado.Rows.Add(array_val_encabezado)
                         Catch ex As Exception
@@ -119,15 +120,15 @@
                 End If
             Next
             'busco datos del detalle
-            For index = 0 To odetalle.GetUpperBound(0)
-                oconfigpartes = odetalle(index).ToString.Split(";")
+            For contador_linea = 0 To odetalle.GetUpperBound(0)
+                oconfigpartes = odetalle(contador_linea).ToString.Split(";")
                 valor_encontrado = buscar_campo(linea, oconfigpartes)
                 If valor_encontrado <> "" Then
                     'MsgBox(oconfigpartes(0))
                     'MsgBox(oconfigpartes(0) & ": " & valor_encontrado)
                     array_val_detalle(0) = valor_referencial
-                    array_val_detalle(index + 1) = valor_encontrado
-                    If index = odetalle.GetUpperBound(0) Then
+                    array_val_detalle(contador_linea + 1) = valor_encontrado
+                    If contador_linea = odetalle.GetUpperBound(0) Then
                         Try
                             otb_detalle.Rows.Add(array_val_detalle)
                         Catch ex As Exception
@@ -153,6 +154,7 @@
 
     Public Shared Function crear_tablas(ByVal oarray() As String, Optional ByVal col_vinculante As String = "N")
         Dim odatatable = New DataTable
+        Dim contador_linea As Integer = 0
         'Creo la estructura que tendran las tablas que almacenaran los datos
         Dim oconfigpartes As String()
         'creo estructura tabla encabezado
@@ -160,8 +162,8 @@
         If col_vinculante = "S" Then
             odatatable.Columns.Add("id_referencial", GetType(String))
         End If
-        For index = 0 To oarray.GetUpperBound(0)
-            oconfigpartes = oarray(index).ToString.Split(";")
+        For contador_linea = 0 To oarray.GetUpperBound(0)
+            oconfigpartes = oarray(contador_linea).ToString.Split(";")
             'MsgBox(oconfigpartes(1))
             Select Case oconfigpartes(1)
                 Case "text"

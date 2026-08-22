@@ -196,6 +196,7 @@ Public Class fm_0008_importar_plano_bancos
         txt_texto_evaluacion = vbCrLf & "LECTURA DEL RENGLON:" & vbCrLf & vbCrLf
         'Eliminamos caracter invalido
         Dim c1 As Integer = 0
+        Dim i As Integer
         For i = 1 To arreglo_campos.Length
             Try
                 arreglo_campos(i) = arreglo_campos(i).ToString.Replace("'", "")

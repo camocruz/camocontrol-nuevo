@@ -67,6 +67,7 @@
         otb_item = cl_utilidades_datatables.cargar_informacion_postgres(csql)
         If otb_item.Rows.Count = 0 Then
             MsgBox("La referencia no existe")
+            tx_descripcion.Text = "ND"
             'reset_campos()
             Exit Sub
         End If
@@ -74,7 +75,7 @@
         tx_tipo_produccion.Text = otb_item(0)("f0408_tip_produccion").ToString
         tx_tipo_producto.Text = otb_item(0)("f0408_tip_producto").ToString
         cm_linea.SelectedValue = otb_item(0)("f0408_id_linea").ToString
-        lb_descripcion.Text = otb_item(0)("f0408_descripcion").ToString
+        tx_descripcion.Text = otb_item(0)("f0408_descripcion").ToString
         tx_peso_unitario.Text = otb_item(0)("f0408_peso").ToString
         tx_unidad_medida.Text = otb_item(0)("f0408_unid_medida").ToString
         tx_factor_empaque.Text = otb_item(0)("f0408_factor_empaque").ToString
@@ -88,7 +89,7 @@
         tx_tipo_produccion.Text = ""
         tx_tipo_producto.Text = ""
         cm_linea.SelectedIndex = -1
-        lb_descripcion.Text = "ND"
+        tx_descripcion.Text = "ND"
         tx_peso_unitario.Text = ""
         tx_unidad_medida.Text = ""
         tx_factor_empaque.Text = ""
@@ -102,14 +103,15 @@
         oconn_form = database.obtener_conexion()
         'actualizacion parametrizada
         csql = "insert into " + database.obtener_esquema + ".tb0408_items_cg ("
-        csql += "f0408_referencia, f0408_planta, f0408_tip_produccion, f0408_tip_producto," _
+        csql += "f0408_referencia, f0408_descripcion, f0408_planta, f0408_tip_produccion, f0408_tip_producto," _
                 & "f0408_id_linea, f0408_unid_medida, f0408_factor_empaque, f0408_factor_cobertura," _
                 & " f0408_peso, f0408_tip_venta, f0408_id_caja_corrugado)"
         csql += " values ("
-        csql += "@f0408_referencia, @f0408_planta, @f0408_tip_produccion, @f0408_tip_producto," _
+        csql += "@f0408_referencia, @f0408_descripcion, @f0408_planta, @f0408_tip_produccion, @f0408_tip_producto," _
                 & "@f0408_id_linea, @f0408_unid_medida, @f0408_factor_empaque, @f0408_factor_cobertura," _
                 & " @f0408_peso, @f0408_tip_venta, @f0408_id_caja_corrugado)"
         csql += " on conflict (f0408_referencia) do update set "
+        csql += "f0408_descripcion = @f0408_descripcion,"
         csql += "f0408_planta = @f0408_planta,"
         csql += "f0408_tip_produccion = @f0408_tip_produccion,"
         csql += "f0408_tip_producto = @f0408_tip_producto,"
@@ -186,6 +188,7 @@
     Private Sub crear_parametros_item(ByVal ocmd As NpgsqlCommand)
         ocmd.Parameters.Clear()
         ocmd.Parameters.Add("@f0408_planta", NpgsqlDbType.Varchar).Value = UCase(tx_planta.Text.ToString.Trim)
+        ocmd.Parameters.Add("@f0408_descripcion", NpgsqlDbType.Varchar).Value = UCase(tx_descripcion.Text.ToString.Trim)
         ocmd.Parameters.Add("@f0408_tip_produccion", NpgsqlDbType.Varchar).Value = UCase(tx_tipo_produccion.Text.ToString.Trim)
         ocmd.Parameters.Add("@f0408_tip_producto", NpgsqlDbType.Varchar).Value = UCase(tx_tipo_producto.Text.ToString.Trim)
         ocmd.Parameters.Add("@f0408_id_linea", NpgsqlDbType.Integer).Value = CInt(cm_linea.SelectedValue)

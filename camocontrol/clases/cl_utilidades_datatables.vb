@@ -10,6 +10,7 @@ Public Class cl_utilidades_datatables
         Dim csql1 As String = ""
         Dim csql_campos_insertar As String = ""
         Dim i As Integer = 0
+        Dim index0 As Integer = 0
         ' Loop over the array.
         For index0 = 0 To ocampos.GetUpperBound(0)
             'MsgBox(ocampos(index0, 0) & " ---- " & ocampos(index0, 1))
@@ -457,6 +458,7 @@ Public Class cl_utilidades_datatables
         ' Agregamos Los datos que queremos agregar
         Dim ocolumnas As Integer = otb.Columns.Count
         Dim nrow As Long = 1
+        Dim i As Integer = 0
         For Each orow As DataRow In otb.Rows
             For i = 1 To ocolumnas
                 oSheet.cells(nrow + 1, i).value = orow(i - 1).ToString

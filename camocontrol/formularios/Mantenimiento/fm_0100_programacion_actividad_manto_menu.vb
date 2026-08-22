@@ -152,6 +152,7 @@
         '1 = variable que contiene el path para el archivo txt a donde se exportaran datos de programa manto
         Dim file_temp_path As String = comunes.suministrar_valor_variable_configuracion("DIR-I-001", vg_id_cia)
         Dim c1 As Integer = 0
+        Dim i As Integer = 0
         For Each orow As DataRow In otb_actividades_programadas.Rows
             fecha_ini = orow("f_inicio")
             fecha_fin = orow("f_fin")

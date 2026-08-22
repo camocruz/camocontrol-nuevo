@@ -30,7 +30,6 @@ Partial Class fm_0400_update_items_cg
         Me.tx_tipo_producto = New System.Windows.Forms.TextBox()
         Me.Label3 = New System.Windows.Forms.Label()
         Me.bt_actualizar = New System.Windows.Forms.Button()
-        Me.lb_descripcion = New System.Windows.Forms.Label()
         Me.tx_peso_unitario = New System.Windows.Forms.TextBox()
         Me.Label13 = New System.Windows.Forms.Label()
         Me.tx_unidad_medida = New System.Windows.Forms.TextBox()
@@ -43,6 +42,7 @@ Partial Class fm_0400_update_items_cg
         Me.Label9 = New System.Windows.Forms.Label()
         Me.tx_corrugado = New System.Windows.Forms.TextBox()
         Me.Label10 = New System.Windows.Forms.Label()
+        Me.tx_descripcion = New System.Windows.Forms.TextBox()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
@@ -77,7 +77,7 @@ Partial Class fm_0400_update_items_cg
         'bt_salir
         '
         Me.bt_salir.Location = New System.Drawing.Point(441, 314)
-        Me.bt_salir.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
+        Me.bt_salir.Margin = New System.Windows.Forms.Padding(5)
         Me.bt_salir.TabIndex = 9
         '
         'cm_linea
@@ -85,7 +85,7 @@ Partial Class fm_0400_update_items_cg
         Me.cm_linea.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cm_linea.FormattingEnabled = True
         Me.cm_linea.Location = New System.Drawing.Point(179, 144)
-        Me.cm_linea.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.cm_linea.Margin = New System.Windows.Forms.Padding(4)
         Me.cm_linea.Name = "cm_linea"
         Me.cm_linea.Size = New System.Drawing.Size(392, 28)
         Me.cm_linea.TabIndex = 1
@@ -103,9 +103,10 @@ Partial Class fm_0400_update_items_cg
         '
         'tx_referencia
         '
+        Me.tx_referencia.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
         Me.tx_referencia.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.tx_referencia.Location = New System.Drawing.Point(179, 106)
-        Me.tx_referencia.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.tx_referencia.Margin = New System.Windows.Forms.Padding(4)
         Me.tx_referencia.Name = "tx_referencia"
         Me.tx_referencia.Size = New System.Drawing.Size(103, 26)
         Me.tx_referencia.TabIndex = 0
@@ -123,9 +124,10 @@ Partial Class fm_0400_update_items_cg
         '
         'tx_planta
         '
+        Me.tx_planta.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
         Me.tx_planta.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.tx_planta.Location = New System.Drawing.Point(179, 181)
-        Me.tx_planta.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.tx_planta.Margin = New System.Windows.Forms.Padding(4)
         Me.tx_planta.Name = "tx_planta"
         Me.tx_planta.Size = New System.Drawing.Size(392, 26)
         Me.tx_planta.TabIndex = 2
@@ -143,9 +145,10 @@ Partial Class fm_0400_update_items_cg
         '
         'tx_tipo_produccion
         '
+        Me.tx_tipo_produccion.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
         Me.tx_tipo_produccion.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.tx_tipo_produccion.Location = New System.Drawing.Point(179, 215)
-        Me.tx_tipo_produccion.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.tx_tipo_produccion.Margin = New System.Windows.Forms.Padding(4)
         Me.tx_tipo_produccion.Name = "tx_tipo_produccion"
         Me.tx_tipo_produccion.Size = New System.Drawing.Size(392, 26)
         Me.tx_tipo_produccion.TabIndex = 3
@@ -163,9 +166,10 @@ Partial Class fm_0400_update_items_cg
         '
         'tx_tipo_producto
         '
+        Me.tx_tipo_producto.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
         Me.tx_tipo_producto.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.tx_tipo_producto.Location = New System.Drawing.Point(179, 250)
-        Me.tx_tipo_producto.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.tx_tipo_producto.Margin = New System.Windows.Forms.Padding(4)
         Me.tx_tipo_producto.Name = "tx_tipo_producto"
         Me.tx_tipo_producto.Size = New System.Drawing.Size(392, 26)
         Me.tx_tipo_producto.TabIndex = 4
@@ -184,29 +188,18 @@ Partial Class fm_0400_update_items_cg
         'bt_actualizar
         '
         Me.bt_actualizar.Location = New System.Drawing.Point(791, 319)
-        Me.bt_actualizar.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.bt_actualizar.Margin = New System.Windows.Forms.Padding(4)
         Me.bt_actualizar.Name = "bt_actualizar"
         Me.bt_actualizar.Size = New System.Drawing.Size(97, 46)
         Me.bt_actualizar.TabIndex = 8
         Me.bt_actualizar.Text = "Actualizar"
         Me.bt_actualizar.UseVisualStyleBackColor = True
         '
-        'lb_descripcion
-        '
-        Me.lb_descripcion.AutoSize = True
-        Me.lb_descripcion.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lb_descripcion.Location = New System.Drawing.Point(303, 113)
-        Me.lb_descripcion.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
-        Me.lb_descripcion.Name = "lb_descripcion"
-        Me.lb_descripcion.Size = New System.Drawing.Size(34, 20)
-        Me.lb_descripcion.TabIndex = 149
-        Me.lb_descripcion.Text = "ND"
-        '
         'tx_peso_unitario
         '
         Me.tx_peso_unitario.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.tx_peso_unitario.Location = New System.Drawing.Point(773, 181)
-        Me.tx_peso_unitario.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.tx_peso_unitario.Margin = New System.Windows.Forms.Padding(4)
         Me.tx_peso_unitario.Name = "tx_peso_unitario"
         Me.tx_peso_unitario.Size = New System.Drawing.Size(113, 26)
         Me.tx_peso_unitario.TabIndex = 6
@@ -224,9 +217,10 @@ Partial Class fm_0400_update_items_cg
         '
         'tx_unidad_medida
         '
+        Me.tx_unidad_medida.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
         Me.tx_unidad_medida.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.tx_unidad_medida.Location = New System.Drawing.Point(773, 146)
-        Me.tx_unidad_medida.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.tx_unidad_medida.Margin = New System.Windows.Forms.Padding(4)
         Me.tx_unidad_medida.Name = "tx_unidad_medida"
         Me.tx_unidad_medida.Size = New System.Drawing.Size(113, 26)
         Me.tx_unidad_medida.TabIndex = 5
@@ -246,7 +240,7 @@ Partial Class fm_0400_update_items_cg
         '
         Me.tx_factor_empaque.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.tx_factor_empaque.Location = New System.Drawing.Point(773, 215)
-        Me.tx_factor_empaque.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.tx_factor_empaque.Margin = New System.Windows.Forms.Padding(4)
         Me.tx_factor_empaque.Name = "tx_factor_empaque"
         Me.tx_factor_empaque.Size = New System.Drawing.Size(113, 26)
         Me.tx_factor_empaque.TabIndex = 7
@@ -266,7 +260,7 @@ Partial Class fm_0400_update_items_cg
         '
         Me.tx_factor_cobertura.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.tx_factor_cobertura.Location = New System.Drawing.Point(773, 250)
-        Me.tx_factor_cobertura.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.tx_factor_cobertura.Margin = New System.Windows.Forms.Padding(4)
         Me.tx_factor_cobertura.Name = "tx_factor_cobertura"
         Me.tx_factor_cobertura.Size = New System.Drawing.Size(113, 26)
         Me.tx_factor_cobertura.TabIndex = 166
@@ -284,9 +278,10 @@ Partial Class fm_0400_update_items_cg
         '
         'tx_tipo_venta
         '
+        Me.tx_tipo_venta.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
         Me.tx_tipo_venta.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.tx_tipo_venta.Location = New System.Drawing.Point(179, 284)
-        Me.tx_tipo_venta.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.tx_tipo_venta.Margin = New System.Windows.Forms.Padding(4)
         Me.tx_tipo_venta.MaxLength = 3
         Me.tx_tipo_venta.Name = "tx_tipo_venta"
         Me.tx_tipo_venta.Size = New System.Drawing.Size(103, 26)
@@ -307,7 +302,7 @@ Partial Class fm_0400_update_items_cg
         '
         Me.tx_corrugado.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.tx_corrugado.Location = New System.Drawing.Point(773, 284)
-        Me.tx_corrugado.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.tx_corrugado.Margin = New System.Windows.Forms.Padding(4)
         Me.tx_corrugado.Name = "tx_corrugado"
         Me.tx_corrugado.Size = New System.Drawing.Size(113, 26)
         Me.tx_corrugado.TabIndex = 170
@@ -323,10 +318,21 @@ Partial Class fm_0400_update_items_cg
         Me.Label10.TabIndex = 171
         Me.Label10.Text = "# Corrugado:"
         '
+        'tx_descripcion
+        '
+        Me.tx_descripcion.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
+        Me.tx_descripcion.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.tx_descripcion.Location = New System.Drawing.Point(288, 106)
+        Me.tx_descripcion.Margin = New System.Windows.Forms.Padding(4)
+        Me.tx_descripcion.Name = "tx_descripcion"
+        Me.tx_descripcion.Size = New System.Drawing.Size(598, 26)
+        Me.tx_descripcion.TabIndex = 172
+        '
         'fm_0400_update_items_cg
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.ClientSize = New System.Drawing.Size(912, 375)
+        Me.Controls.Add(Me.tx_descripcion)
         Me.Controls.Add(Me.tx_corrugado)
         Me.Controls.Add(Me.Label10)
         Me.Controls.Add(Me.tx_tipo_venta)
@@ -339,7 +345,6 @@ Partial Class fm_0400_update_items_cg
         Me.Controls.Add(Me.Label5)
         Me.Controls.Add(Me.tx_peso_unitario)
         Me.Controls.Add(Me.Label13)
-        Me.Controls.Add(Me.lb_descripcion)
         Me.Controls.Add(Me.bt_actualizar)
         Me.Controls.Add(Me.tx_tipo_producto)
         Me.Controls.Add(Me.Label3)
@@ -351,7 +356,7 @@ Partial Class fm_0400_update_items_cg
         Me.Controls.Add(Me.Label6)
         Me.Controls.Add(Me.cm_linea)
         Me.Controls.Add(Me.Label4)
-        Me.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
+        Me.Margin = New System.Windows.Forms.Padding(5)
         Me.Name = "fm_0400_update_items_cg"
         Me.Text = "ITEMS CG"
         Me.Controls.SetChildIndex(Me.lb_titulo, 0)
@@ -372,7 +377,6 @@ Partial Class fm_0400_update_items_cg
         Me.Controls.SetChildIndex(Me.Label3, 0)
         Me.Controls.SetChildIndex(Me.tx_tipo_producto, 0)
         Me.Controls.SetChildIndex(Me.bt_actualizar, 0)
-        Me.Controls.SetChildIndex(Me.lb_descripcion, 0)
         Me.Controls.SetChildIndex(Me.Label13, 0)
         Me.Controls.SetChildIndex(Me.tx_peso_unitario, 0)
         Me.Controls.SetChildIndex(Me.Label5, 0)
@@ -385,6 +389,7 @@ Partial Class fm_0400_update_items_cg
         Me.Controls.SetChildIndex(Me.tx_tipo_venta, 0)
         Me.Controls.SetChildIndex(Me.Label10, 0)
         Me.Controls.SetChildIndex(Me.tx_corrugado, 0)
+        Me.Controls.SetChildIndex(Me.tx_descripcion, 0)
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
@@ -401,7 +406,6 @@ Partial Class fm_0400_update_items_cg
     Friend WithEvents tx_tipo_producto As TextBox
     Friend WithEvents Label3 As Label
     Friend WithEvents bt_actualizar As Button
-    Friend WithEvents lb_descripcion As Label
     Friend WithEvents tx_peso_unitario As TextBox
     Friend WithEvents Label13 As Label
     Friend WithEvents tx_unidad_medida As TextBox
@@ -414,4 +418,5 @@ Partial Class fm_0400_update_items_cg
     Friend WithEvents Label9 As Label
     Friend WithEvents tx_corrugado As TextBox
     Friend WithEvents Label10 As Label
+    Friend WithEvents tx_descripcion As TextBox
 End Class

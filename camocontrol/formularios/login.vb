@@ -23,6 +23,9 @@ Public Class login
     Private odr As NpgsqlDataReader
 
     Private Sub login_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
+        'se verifica actualizaciones del programa
+        VerificarActualizacion()
+
         tx_compania.Text = "MASDULCES"
 
         csql = "select f0021_id_usuario, f0021_nombre_completo, f0200_estado" _
@@ -52,6 +55,45 @@ Public Class login
             .SelectedIndex = -1
         End With
         oconn_form.Close()
+    End Sub
+    Private Sub VerificarActualizacion()
+
+        Try
+            ' Si estás en modo Debug, no actualizar
+            If Debugger.IsAttached Then
+                MsgBox("El programa se está ejecutando en modo Debug. No se verificará la actualización.", MsgBoxStyle.Information, "Modo Debug")
+                Exit Sub
+            End If
+
+            Dim nombreProceso As String = Path.GetFileNameWithoutExtension(Application.ExecutablePath)
+            Dim procesos As Process() = Process.GetProcessesByName(nombreProceso)
+
+            ' Si hay más de un proceso, significa que ya está corriendo uno previamente
+            If procesos.Length > 1 Then
+                For Each p As Process In procesos
+                    If p.Id <> Process.GetCurrentProcess().Id Then
+                        Try
+                            p.Kill() ' Cerrar la instancia previa
+                        Catch ex As Exception
+                            MsgBox("No se pudo cerrar la instancia previa: " & ex.Message)
+                        End Try
+                    End If
+                Next
+            End If
+
+            Dim versionLocal As String = File.ReadAllText(Application.StartupPath & "\" & "camocontrol.log").Trim()
+            Dim versionServidor As String = File.ReadAllText("\\192.168.0.34\pub_macdulces\camo\dsfc\EJ\Release\camocontrol.log").Trim()
+
+            If versionServidor <> versionLocal Then
+                MsgBox("Se ha detectado una nueva versión del programa. Se iniciará el proceso de actualización.", MsgBoxStyle.Information, "Actualización disponible")
+                ' Ejecutar Updater
+                Process.Start(Application.StartupPath & "\Updater\" & "Updater.exe")
+                Application.Exit()
+            End If
+        Catch ex As Exception
+            MsgBox("Login. Error al verificar la actualización: " & ex.Message, MsgBoxStyle.Critical, "Error")
+            Application.Exit()
+        End Try
     End Sub
     Private Sub Button1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button1.Click
         ejecutar()

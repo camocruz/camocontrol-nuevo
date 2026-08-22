@@ -553,7 +553,10 @@ Public Class fm_0300_orden_compra
             Dim baseService = App.ApiClient.CS.AppServices.SiesaFactory.CreateBaseService()
             Dim servicio = New ProveedoresApiService(baseService)
             Dim filtro As String = "f200_id_cia = 1 and f200_id like " & orow("nit")
-            Dim items = Await servicio.ObtenerAsync(9174, filtro)  'f200_id_cia = 1 and f200_id like 890903790
+            'Dim items = Await servicio.ObtenerAsync(9174, filtro)  'f200_id_cia = 1 and f200_id like 890903790
+            'Dim dt As DataTable = items.ToDataTable()
+            Dim items As List(Of App.ApiClient.CS.DTOs.SpecificDtos.ProveedoresSiesaDto) _
+                        = Await servicio.ObtenerAsync(9174, filtro)
             Dim dt As DataTable = items.ToDataTable()
             If dt.Rows.Count = 0 Then
                 Tx_SucursalUnoEE.Text = "ND"
@@ -2050,9 +2053,9 @@ Public Class fm_0300_orden_compra
 
 
             ' Buscar items en el datatable de items servicios camo
-            Dim t_item = (From c In otb_items_servicios_camo.AsEnumerable()
-                          Where c.Field(Of Integer)("f0300_id_item") = row.Cells("dgocell_item").Value
-                          Select c).FirstOrDefault()
+            Dim t_item As DataRow = (From c In otb_items_servicios_camo.AsEnumerable()
+                                     Where c.Field(Of Integer)("f0300_id_item") = row.Cells("dgocell_item").Value
+                                     Select c).FirstOrDefault()
             If t_item IsNot Nothing Then
                 If t_item.Field(Of Integer)("f0300_id_tipo_item") <> 4 Then
                     f421_id_motivo = "01" '01 PARA PRODUCTOS Y 73 PARA SERVICIOS

@@ -15,8 +15,14 @@ Public Module JsonToTablesHelper
         Dim partes = rutaTabla.Split("."c)
         Dim token As JToken = root
 
-        For Each p In partes
+        For Each p As String In partes
+
+            If token Is Nothing Then
+                Throw New Exception($"Ruta inválida: el nodo '{p}' no existe en el JSON.")
+            End If
+
             token = token(p)
+
         Next
 
         Dim jArray As JArray = CType(token, JArray)
@@ -25,7 +31,7 @@ Public Module JsonToTablesHelper
         Dim dtDetalle As New DataTable("Detalle")
 
         ' Detectar columnas dinámicamente
-        For Each prop In jArray.First.Children(Of JProperty)()
+        For Each prop As JProperty In jArray.First.Children(Of JProperty)()
             dtDetalle.Columns.Add(prop.Name, GetType(Object))
         Next
 

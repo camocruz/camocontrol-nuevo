@@ -243,7 +243,7 @@ Public Class fm_0800_cargar_pedidos_unoee
             Key .razonVend = r("f200_razon_social_vendedor")
         }).Select(Function(g) g.First())
 
-        For Each row In encabezadosUnicos
+        For Each row As DataRow In encabezadosUnicos
             dtEncabezado.Rows.Add(
             row("f350_id_cia"),
             row("f350_id_tipo_docto"),
