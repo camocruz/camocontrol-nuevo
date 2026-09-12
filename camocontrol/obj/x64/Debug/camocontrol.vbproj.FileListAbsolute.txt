@@ -167,3 +167,5 @@ C:\Repos\camocontrol\camocontrol\obj\x64\Debug\camocontrol.exe
 C:\Repos\camocontrol\camocontrol\obj\x64\Debug\camocontrol.xml
 C:\Repos\camocontrol\camocontrol\obj\x64\Debug\camocontrol.pdb
 C:\Repos\camocontrol\camocontrol\obj\x64\Debug\camocontrol.exe.config
+C:\Repos\camocontrol\camocontrol\obj\x64\Debug\camocontrol.fm_0400_pp_nuevo_programa_produccion.resources
+C:\Repos\camocontrol\camocontrol\obj\x64\Debug\camocontrol.fm_0400_rp_reporte_lotes_produccion.resources

@@ -172,8 +172,8 @@ Public Class fm_0400_rp_reporte_produccion
             'Origen de Datos del ComboBox
             .DataSource = otb_bodega_consumos
             .DropDownStyle = ComboBoxStyle.DropDown
-            .AutoCompleteMode = AutoCompleteMode.Suggest
-            .AutoCompleteSource = AutoCompleteSource.ListItems
+            '.AutoCompleteMode = AutoCompleteMode.Suggest
+            '.AutoCompleteSource = AutoCompleteSource.ListItems
             .SelectedIndex = -1
         End With
         With cm_bodega_entrega_pt
@@ -184,8 +184,8 @@ Public Class fm_0400_rp_reporte_produccion
             'Origen de Datos del ComboBox
             .DataSource = otb_bodega_entradas_pt
             .DropDownStyle = ComboBoxStyle.DropDown
-            .AutoCompleteMode = AutoCompleteMode.Suggest
-            .AutoCompleteSource = AutoCompleteSource.ListItems
+            '.AutoCompleteMode = AutoCompleteMode.Suggest
+            '.AutoCompleteSource = AutoCompleteSource.ListItems
             .SelectedIndex = -1
         End With
 
@@ -203,8 +203,8 @@ Public Class fm_0400_rp_reporte_produccion
             'Origen de Datos del ComboBox
             .DataSource = otb_plantas_produccion
             .DropDownStyle = ComboBoxStyle.DropDown
-            .AutoCompleteMode = AutoCompleteMode.Suggest
-            .AutoCompleteSource = AutoCompleteSource.ListItems
+            '.AutoCompleteMode = AutoCompleteMode.Suggest
+            '.AutoCompleteSource = AutoCompleteSource.ListItems
             .SelectedIndex = -1
         End With
 
@@ -220,8 +220,8 @@ Public Class fm_0400_rp_reporte_produccion
             'Origen de Datos del ComboBox
             .DataSource = otb_plantilla_produccion
             .DropDownStyle = ComboBoxStyle.DropDown
-            .AutoCompleteMode = AutoCompleteMode.Suggest
-            .AutoCompleteSource = AutoCompleteSource.ListItems
+            '.AutoCompleteMode = AutoCompleteMode.Suggest
+            '.AutoCompleteSource = AutoCompleteSource.ListItems
             .SelectedIndex = -1
         End With
 
@@ -2200,11 +2200,10 @@ Public Class fm_0400_rp_reporte_produccion
         oform_impresion_etiquetas.generada = "PPROS"
         oform_impresion_etiquetas.id_item = id_item
         oform_impresion_etiquetas.id_ipp = id_ipp
-        oform_impresion_etiquetas.id_rp = "RP-" & id_rp
+        oform_impresion_etiquetas.id_rp_documento = "RP-" & id_rp
         oform_impresion_etiquetas.fecha_produccion = dtp_fecha.Value
         oform_impresion_etiquetas.fecha_vencimiento = dtp_fecha_vencimiento.Value
         oform_impresion_etiquetas.lote = tx_lote.Text
-        oform_impresion_etiquetas.bt_calcular_lote.Enabled = False
         oform_impresion_etiquetas.ShowDialog()
     End Sub
     Private Sub bt_cambiar_infraestructura_Click(sender As Object, e As EventArgs) Handles bt_cambiar_infraestructura.Click

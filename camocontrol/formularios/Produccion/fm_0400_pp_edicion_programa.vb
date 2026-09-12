@@ -129,8 +129,8 @@ Public Class fm_0400_pp_edicion_programa
             'Origen de Datos del ComboBox
             .DataSource = otb_plantas_produccion
             .DropDownStyle = ComboBoxStyle.DropDown
-            .AutoCompleteMode = AutoCompleteMode.Suggest
-            .AutoCompleteSource = AutoCompleteSource.ListItems
+            '.AutoCompleteMode = AutoCompleteMode.Suggest
+            '.AutoCompleteSource = AutoCompleteSource.ListItems
             .SelectedIndex = -1
         End With
         'Agrego la informacion del IPP que voy a editar

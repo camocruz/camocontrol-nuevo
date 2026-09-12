@@ -1124,6 +1124,16 @@ filtro_ini:
                 oform_exp_materiales.id_item_padre = id_oreg_padre
                 oform_exp_materiales.ShowDialog()
                 recargar_datos()
+            Case "Programas de Produccion"
+                'Instanciamos el formulario como un objeto de la clase fm_0100_estructura_mantenimiento
+                'Esto es necesario hacerlo cuando antes de mostrar el formulario debemos configurarle valores previos
+                Dim oform_prog_produccion As New camocontrol.fm_0400_pp_nuevo_programa_produccion
+                oform_prog_produccion.vf_oform_padre = Me
+                oform_prog_produccion.vg_usuario_autoriza = vg_usuario_autoriza
+                oform_prog_produccion.vg_id_cia = vg_id_cia
+                oform_prog_produccion.vf_elemento_nuevo = "S"
+                oform_prog_produccion.ShowDialog()
+                recargar_datos()
             Case "gestion de tiempos improductivos produccion"
                 'Pregunta si realmente desea reportar
                 Dim respuesta As String = "N"

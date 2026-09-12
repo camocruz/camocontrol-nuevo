@@ -2294,23 +2294,7 @@ reinicio:
 #End Region
 
 #Region "Menu Produccion"
-    Private Sub mi_imprimir_etiquetas_Click(sender As Object, e As EventArgs) Handles mi_imprimir_etiquetas.Click
-        'Debido a fallo en seguridad revalido permiso para uso del menu.
-        Dim permitir As String = "N"
-        permitir = verificar_permisos_menu(sender)
-        If permitir = "N" Then
-            MsgBox("Fallo en permisos de uso menu", MsgBoxStyle.Information, "Info")
-            Exit Sub
-        End If
-        'Instanciamos el formulario como un objeto de la clase fm_0100_estructura_mantenimiento
-        'Esto es necesario hacerlo cuando antes de mostrar el formulario debemos configurarle valores previos
-        Dim oform_impresion_etiquetas As New camocontrol.fm_0400_impresion_etiquetas
-        'oform_grilla_programacion.ods_hijo = ods
-        oform_impresion_etiquetas.vf_oform_padre = Me
-        oform_impresion_etiquetas.vg_id_cia = vg_id_cia
-        oform_impresion_etiquetas.vg_usuario_autoriza = vlogin
-        oform_impresion_etiquetas.ShowDialog()
-    End Sub
+
     Private Sub mi_explosionar_prog_prod_Click(sender As Object, e As EventArgs) Handles mi_explosionar_prog_prod.Click
         'Debido a fallo en seguridad revalido permiso para uso del menu.
         Dim permitir As String = "N"
@@ -2328,7 +2312,7 @@ reinicio:
         oform_explosionar_prog_prod.vg_usuario_autoriza = vlogin
         oform_explosionar_prog_prod.ShowDialog()
     End Sub
-    Private Sub mi_programas_produccion_Click(sender As Object, e As EventArgs) Handles mi_programas_produccion.Click
+    Private Async Sub mi_programas_produccion_Click(sender As Object, e As EventArgs) Handles mi_programas_produccion.Click
         'Debido a fallo en seguridad revalido permiso para uso del menu.
         Dim permitir As String = "N"
         permitir = verificar_permisos_menu(sender)
@@ -2336,8 +2320,25 @@ reinicio:
             MsgBox("Fallo en permisos de uso menu", MsgBoxStyle.Information, "Info")
             Exit Sub
         End If
-        cl_utilidades_datatables.visualizar_datos_visor("ST-0400-01", vg_id_cia, vlogin,
-                                                            "Todos los Programas", {vg_id_cia, "N"})
+
+        Dim config As New VisorDatosConfig With {
+        .IdSql = "ST-0400-01",
+        .Replacements = {vg_id_cia, "N"},
+        .Contexto = "Programas de Produccion",
+        .IdCia = vg_id_cia,
+        .IdUsuario = vlogin,
+        .Titulo = "Programas de Produccion"
+    }
+
+        Dim resultado = Await cl_utilidades_datatables.VisualizarDatosVisorAsync(config)
+
+        If resultado.TablaSeleccionados IsNot Nothing Then
+            MsgBox("Seleccionados: " & resultado.TablaSeleccionados.Rows.Count)
+        End If
+
+
+        'cl_utilidades_datatables.visualizar_datos_visor("ST-0400-01", vg_id_cia, vlogin,
+        '                                                    "Todos los Programas", {vg_id_cia, "N"})
     End Sub
     Private Sub mi_buscar_elemento_produccion_Click(sender As Object, e As EventArgs) Handles mi_buscar_elemento_produccion.Click
         cl_utilidades_gestion_produccion.desplegar_item_prog_prod(vg_id_cia, vlogin)

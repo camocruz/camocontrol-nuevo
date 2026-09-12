@@ -544,6 +544,7 @@ Public Class fm_0300_orden_compra
             & " where f0200_ind_principal = 'S' and f0200_id_tercero = '" & id_tercero & "'"
         '& " and f0200_id_cia ='" & vg_id_cia & "'"
         otb_proveedores = cl_utilidades_datatables.cargar_informacion_postgres(csql)
+        Dim dt As DataTable = Nothing
         For Each orow As DataRow In otb_proveedores.Rows
             tx_id_tercero.Text = orow("f0200_id_tercero")
             Tx_Nit.Text = orow("nit")
@@ -555,13 +556,19 @@ Public Class fm_0300_orden_compra
             Dim filtro As String = "f200_id_cia = 1 and f200_id like " & orow("nit")
             'Dim items = Await servicio.ObtenerAsync(9174, filtro)  'f200_id_cia = 1 and f200_id like 890903790
             'Dim dt As DataTable = items.ToDataTable()
-            Dim items As List(Of App.ApiClient.CS.DTOs.SpecificDtos.ProveedoresSiesaDto) _
+            Try
+                Dim items As List(Of App.ApiClient.CS.DTOs.SpecificDtos.ProveedoresSiesaDto) _
                         = Await servicio.ObtenerAsync(9174, filtro)
-            Dim dt As DataTable = items.ToDataTable()
-            If dt.Rows.Count = 0 Then
+                dt = items.ToDataTable()
+            Catch ex As System.Net.Http.HttpRequestException
+                Tx_SucursalUnoEE.Text = "ND"
+            End Try
+
+            If dt Is Nothing OrElse dt.Rows.Count = 0 Then
                 Tx_SucursalUnoEE.Text = "ND"
                 Exit Sub
             End If
+
             Tx_SucursalUnoEE.Text = dt.Rows(0).Item("f202_id_sucursal").ToString()
             If orow("f0200_id_sucursal_unoee").ToString() <> dt.Rows(0).Item("f202_id_sucursal").ToString() Then
                 actualizar_sucursal_tercero(orow("f0200_id_tercero").ToString(), dt.Rows(0).Item("f202_id_sucursal").ToString())

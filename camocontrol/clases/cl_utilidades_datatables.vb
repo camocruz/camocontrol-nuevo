@@ -1,9 +1,10 @@
-﻿Imports System.Data.OleDb
+﻿Imports System.Data
+Imports System.Data.OleDb
 Imports System.Data.SqlClient
-Imports System.Data
 Imports System.IO
-Imports System.Text
 Imports System.Linq
+Imports System.Text
+Imports System.Threading.Tasks
 Public Class cl_utilidades_datatables
     Public Shared Function copiar_ramal(ocampos As String(,), otabla As String, id_rama As String, campo_rama As String, campo_id As String)
 
@@ -222,7 +223,8 @@ Public Class cl_utilidades_datatables
                                              Optional id_tercero As String = "",
                                              Optional formulario_modal As String = "S",
                                              Optional seleccion_multiple As String = "S",
-                                             Optional dv_filter As String = "")
+                                             Optional dv_filter As String = "",
+                                             Optional ocontexto As String = "")
         '
         'arreglo de tablas (1)= tabla total de datos mostrados, (2) tabla datos seleccionados con el chk
         Dim otb_tablas_array(2) As DataTable
@@ -238,6 +240,11 @@ Public Class cl_utilidades_datatables
                 csql = csql.Replace(ovariable, oval)
                 i += 1
             Next
+        End If
+
+        'comprobar csql no este vacio
+        If String.IsNullOrWhiteSpace(csql) Then
+            Throw New InvalidOperationException("Consulta SQL vacía: compruebe id_sql/configuración antes de ejecutar.")
         End If
 
         'Instanciamos el formulario como un objeto de la clase fm_grilla_turnos
@@ -270,6 +277,117 @@ Public Class cl_utilidades_datatables
         End If
         Return otb_tablas_array
     End Function
+    Public Shared Async Function VisualizarDatosVisorAsync(config As VisorDatosConfig) As Task(Of VisorDatosResultado)
+        Dim resultado As New VisorDatosResultado()
+
+        'Construcción del SQL (rápida, no requiere async)
+        Dim csql As String = If(config.TablaDatos Is Nothing,
+                            ConstruirSql(config),
+                            String.Empty)
+
+        'Si no hay DataTable, cargarlo de forma asíncrona
+        Dim tablaDatos As DataTable = config.TablaDatos
+
+        'If tablaDatos Is Nothing Then
+        '    tablaDatos = Await Task.Run(Function()
+        '                                    Return database.ejecutar_consulta_dt(csql)
+        '                                End Function)
+        'End If
+
+        'Instanciar formulario
+        Dim frm As New camocontrol.fm_visor_datos With {
+        .vf_oform_padre = config.FormPadre,
+        .ocontexto_form = config.Contexto,
+        .csql = csql,
+        .P_exportar = If(config.PermitirExportar, "S", "N"),
+        .otb_datos = tablaDatos,
+        .titulo_formulario = config.Titulo,
+        .Text = config.NombreFormulario,
+        .vg_id_cia = config.IdCia,
+        .vg_usuario_autoriza = config.IdUsuario,
+        .oarray_var = config.Replacements,
+        .agregar_checkboxcolumn = If(config.AgregarCheckBox, "S", "N"),
+        .seleccionmultiple = If(config.SeleccionMultiple, "S", "N"),
+        .name_colum_id = config.NombreColumnaId,
+        .id_tercero = config.IdTercero,
+        .dv_filter = config.Filtro
+    }
+
+        'Mostrar formulario sin bloquear UI
+        If config.Modal Then
+            Await Task.Run(Sub() frm.ShowDialog())
+        Else
+            frm.Show()
+        End If
+
+        'Recuperar resultados
+        If config.AgregarCheckBox Then
+            resultado.TablaCompleta = frm.otb_datos
+            resultado.TablaSeleccionados = frm.otb_datos_checbox_selec
+        End If
+
+        frm.Dispose()
+        Return resultado
+    End Function
+    Public Shared Function VisualizarDatosVisor(config As VisorDatosConfig) As VisorDatosResultado
+        'Estoy refactorizando el método visualizar_datos_visor para que use la clase VisorDatosConfig y devuelva un objeto VisorDatosResultado
+        Dim resultado As New VisorDatosResultado()
+
+        Dim csql As String = If(config.TablaDatos Is Nothing,
+                            ConstruirSql(config),
+                            String.Empty)
+
+        Dim frm As New camocontrol.fm_visor_datos With {
+        .vf_oform_padre = config.FormPadre,
+        .ocontexto_form = config.Contexto,
+        .csql = csql,
+        .P_exportar = If(config.PermitirExportar, "S", "N"),
+        .otb_datos = config.TablaDatos,
+        .titulo_formulario = config.Titulo,
+        .Text = config.NombreFormulario,
+        .vg_id_cia = config.IdCia,
+        .vg_usuario_autoriza = config.IdUsuario,
+        .oarray_var = config.Replacements,
+        .agregar_checkboxcolumn = If(config.AgregarCheckBox, "S", "N"),
+        .seleccionmultiple = If(config.SeleccionMultiple, "S", "N"),
+        .name_colum_id = config.NombreColumnaId,
+        .id_tercero = config.IdTercero,
+        .dv_filter = config.Filtro
+    }
+
+        If config.Modal Then
+            frm.ShowDialog()
+        Else
+            frm.Show()
+        End If
+
+        If config.AgregarCheckBox Then
+            resultado.TablaCompleta = frm.otb_datos
+            resultado.TablaSeleccionados = frm.otb_datos_checbox_selec
+        End If
+
+        frm.Dispose()
+        Return resultado
+    End Function
+    Private Shared Function ConstruirSql(config As VisorDatosConfig) As String
+        Dim csql = comunes.suministrar_valor_variable_configuracion(config.IdSql, config.IdCia)
+
+        If String.IsNullOrWhiteSpace(csql) Then
+            Throw New InvalidOperationException("Consulta SQL vacía.")
+        End If
+
+        csql = csql.Replace("$VERDADERO$", "") _
+               .Replace("$df001$", database.obtener_esquema)
+        Dim i As Integer
+        For i = 1 To config.Replacements.Length
+            Dim token = $"${i.ToString.PadLeft(3, "0")}$"
+            csql = csql.Replace(token, config.Replacements(i - 1))
+        Next
+
+
+
+        Return csql
+    End Function
 
     Public Shared Function suministrar_datagridviewrows_visor(ByVal csql As String, ByVal vg_id_cia As String,
                                                              ByVal id_usuario As String,
@@ -300,30 +418,43 @@ Public Class cl_utilidades_datatables
         Return orow
     End Function
 
-    Public Shared Function cargar_informacion_postgres(ByVal csql As String)
-        Dim oconn_form As NpgsqlConnection
-        Dim oda As NpgsqlDataAdapter
-        Dim ods As New DataSet
-        oconn_form = database.obtener_conexion
-        oda = New NpgsqlDataAdapter(csql, oconn_form)
-        'Si ya existe el Data Table creado, lo borra
-        If ods.Tables.Contains("info_sidlog") Then
-            ods.Tables("info_sidlog").Clear()
+    'Public Shared Function cargar_informacion_postgres(ByVal csql As String)
+    '    Dim oconn_form As NpgsqlConnection
+    '    Dim oda As NpgsqlDataAdapter
+    '    Dim ods As New DataSet
+    '    oconn_form = database.obtener_conexion
+    '    oda = New NpgsqlDataAdapter(csql, oconn_form)
+    '    'Si ya existe el Data Table creado, lo borra
+    '    If ods.Tables.Contains("info_sidlog") Then
+    '        ods.Tables("info_sidlog").Clear()
+    '    End If
+    '    'Llenamos el dataAdapter con el query definido arriba, y le damos nombre a la tabla que se creará en memoria
+
+    '    'carga todos los metadatos sobre una tabla, como nombres de columnas, claves y contsrains
+    '    'oda.FillSchema(ods, SchemaType.Source, "info_sidlog")
+
+    '    'carga los datos propiamente dichos.
+    '    oda.Fill(ods, "info_sidlog")
+    '    Dim otb_info_sidlog As DataTable
+    '    otb_info_sidlog = ods.Tables("info_sidlog")
+    '    'cerrar coneccion
+    '    oconn_form.Close()
+    '    Return otb_info_sidlog
+    'End Function
+    Public Shared Function cargar_informacion_postgres(ByVal csql As String) As DataTable
+        If String.IsNullOrWhiteSpace(csql) Then
+            Throw New InvalidOperationException("Consulta SQL vacía: compruebe id_sql/configuración antes de ejecutar.")
         End If
-        'Llenamos el dataAdapter con el query definido arriba, y le damos nombre a la tabla que se creará en memoria
 
-        'carga todos los metadatos sobre una tabla, como nombres de columnas, claves y contsrains
-        'oda.FillSchema(ods, SchemaType.Source, "info_sidlog")
+        Dim ods As New DataSet()
+        Using oconn_form As Npgsql.NpgsqlConnection = database.obtener_conexion()
+            Using oda As New Npgsql.NpgsqlDataAdapter(csql, oconn_form)
+                oda.Fill(ods, "info_sidlog")
+            End Using
+        End Using
 
-        'carga los datos propiamente dichos.
-        oda.Fill(ods, "info_sidlog")
-        Dim otb_info_sidlog As DataTable
-        otb_info_sidlog = ods.Tables("info_sidlog")
-        'cerrar coneccion
-        oconn_form.Close()
-        Return otb_info_sidlog
+        Return ods.Tables("info_sidlog")
     End Function
-
     Public Shared Function cargar_informacion_access_despachos(ByVal csql As String)
         'datable de los despachos programados
         Dim ods As New DataSet

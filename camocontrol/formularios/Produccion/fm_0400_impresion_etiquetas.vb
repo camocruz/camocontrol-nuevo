@@ -12,8 +12,10 @@ Public Class fm_0400_impresion_etiquetas
 
     Public generada As String = "PTERM" '"N"
     Public id_item As Integer = 0
+    Public descripcion_item As String = "ND"
     Public id_ipp As Integer = 0
-    Public id_rp As String
+    Public id_rp As Integer = 0
+    Public id_rp_documento As String
     Public fecha_produccion As Date
     Public fecha_vencimiento As Date
     Public lote As String
@@ -51,6 +53,7 @@ Public Class fm_0400_impresion_etiquetas
     Private otb_formato_etiquetas As DataTable
     Private otb_items As DataTable
     Private otb_listado_etiq_creadas As DataTable
+    Private otb_reporte_produccion As DataTable
 
     Private oda As NpgsqlDataAdapter
     Private ods As New DataSet
@@ -75,6 +78,13 @@ Public Class fm_0400_impresion_etiquetas
         nud_cantidad.Maximum = comunes.suministrar_valor_variable_configuracion("CONFIG-0400-01", vg_id_cia)
         nud_cant_englobada.Enabled = False
 
+        tx_op_ppal.ReadOnly = True
+        tx_op_alterna.ReadOnly = True
+        tx_lote.ReadOnly = True
+        tx_id_item.ReadOnly = True
+        dtp_fecha_produccion.Enabled = False
+        dtp_fecha_vence.Enabled = False
+
         ' Set the Format type and the CustomFormat string.
         dtp_fecha_produccion.Format = DateTimePickerFormat.Custom
         dtp_fecha_produccion.CustomFormat = "yyyy/MM/dd"
@@ -83,43 +93,47 @@ Public Class fm_0400_impresion_etiquetas
         dtp_fecha_vence.Format = DateTimePickerFormat.Custom
         dtp_fecha_vence.CustomFormat = "yyyy/MM/dd"
         dtp_fecha_vence.Value = DateAdd(DateInterval.Year, 1, dtp_fecha_produccion.Value)
-        Select Case generada
-            Case "PTERM"
-                csql = "SELECT *, f0300_descripcion_item || ' - REF:(' || f0300_referencia || ') -" _
-                                        & " P:(' || f0300_contenido_x_empaque || ')' as descripcion_larga" _
-                                        & " FROM " & database.obtener_esquema & ".tb0300_items" _
-                                        & " where f0300_id_cia = '" & vg_id_cia & "' and " & "f0300_vende = 'S'" _
-                                        & " order by descripcion_larga"
-            Case "PPROS"
-                csql = "SELECT *, f0300_descripcion_item || ' - REF:(' || f0300_referencia || ') -" _
-                                        & " P:(' || f0300_contenido_x_empaque || ')' as descripcion_larga" _
-                                        & " FROM " & database.obtener_esquema & ".tb0300_items" _
-                                        & " where f0300_id_cia = '" & vg_id_cia & "'" _
-                                        & " order by descripcion_larga"
-            Case "MATPRIM"
-                csql = "SELECT *, f0300_descripcion_item || ' - REF:(' || f0300_referencia || ') -" _
-                                        & " P:(' || f0300_contenido_x_empaque || ')' as descripcion_larga" _
-                                        & " FROM " & database.obtener_esquema & ".tb0300_items" _
-                                        & " where f0300_id_cia = '" & vg_id_cia & "' and" _
-                                        & " f0300_id_tipo_item <> 15 and f0300_id_tipo_item <> 25" _
-                                        & " order by descripcion_larga"
-        End Select
-
+        'Select Case generada
+        '    Case "PTERM"
+        '        csql = "SELECT *, f0300_descripcion_item || ' - REF:(' || f0300_referencia || ') -" _
+        '                                & " P:(' || f0300_contenido_x_empaque || ')' as descripcion_larga" _
+        '                                & " FROM " & database.obtener_esquema & ".tb0300_items" _
+        '                                & " where f0300_id_cia = '" & vg_id_cia & "' and " & "f0300_vende = 'S'" _
+        '                                & " order by descripcion_larga"
+        '    Case "PPROS"
+        '        csql = "SELECT *, f0300_descripcion_item || ' - REF:(' || f0300_referencia || ') -" _
+        '                                & " P:(' || f0300_contenido_x_empaque || ')' as descripcion_larga" _
+        '                                & " FROM " & database.obtener_esquema & ".tb0300_items" _
+        '                                & " where f0300_id_cia = '" & vg_id_cia & "'" _
+        '                                & " order by descripcion_larga"
+        '    Case "MATPRIM"
+        '        csql = "SELECT *, f0300_descripcion_item || ' - REF:(' || f0300_referencia || ') -" _
+        '                                & " P:(' || f0300_contenido_x_empaque || ')' as descripcion_larga" _
+        '                                & " FROM " & database.obtener_esquema & ".tb0300_items" _
+        '                                & " where f0300_id_cia = '" & vg_id_cia & "' and" _
+        '                                & " f0300_id_tipo_item <> 15 and f0300_id_tipo_item <> 25" _
+        '                                & " order by descripcion_larga"
+        'End Select
+        csql = "SELECT *, f0300_descripcion_item || ' - REF:(' || f0300_referencia || ') -" _
+                                & " P:(' || f0300_contenido_x_empaque || ')' as descripcion_larga" _
+                                & " FROM " & database.obtener_esquema & ".tb0300_items" _
+                                & " where f0300_id_cia = '" & vg_id_cia & "'" _
+                                & " order by descripcion_larga"
         otb_items = cl_utilidades_datatables.cargar_informacion_postgres(csql)
-        With cm_producto
-            'Valor que se muestra al usuario
-            .DisplayMember = "descripcion_larga"
-            'Valor interno que almacena el objeto
-            .ValueMember = "f0300_id_item"
-            'Origen de Datos del ComboBox
-            .DataSource = otb_items
-            .DropDownStyle = ComboBoxStyle.DropDown
-            .AutoCompleteMode = AutoCompleteMode.Suggest
-            .AutoCompleteSource = AutoCompleteSource.ListItems
-            .SelectedIndex = -1
-        End With
-        If id_item <> 0 Then
-            cm_producto.SelectedValue = id_item
+        'With cm_producto
+        '    'Valor que se muestra al usuario
+        '    .DisplayMember = "descripcion_larga"
+        '    'Valor interno que almacena el objeto
+        '    .ValueMember = "f0300_id_item"
+        '    'Origen de Datos del ComboBox
+        '    .DataSource = otb_items
+        '    .DropDownStyle = ComboBoxStyle.DropDown
+        '    .AutoCompleteMode = AutoCompleteMode.Suggest
+        '    .AutoCompleteSource = AutoCompleteSource.ListItems
+        '    .SelectedIndex = -1
+        'End With
+        If id_rp <> 0 Then
+            Lb_DescripcionItem.Text = descripcion_item
         End If
 
         csql = "select * from " & database.obtener_esquema & ".tb0422_formato_etiquetas order by f0422_descripcion"
@@ -132,37 +146,58 @@ Public Class fm_0400_impresion_etiquetas
             'Origen de Datos del ComboBox
             .DataSource = otb_formato_etiquetas
             .DropDownStyle = ComboBoxStyle.DropDown
-            .AutoCompleteMode = AutoCompleteMode.Suggest
-            .AutoCompleteSource = AutoCompleteSource.ListItems
-            .SelectedIndex = -1
+            '.AutoCompleteMode = AutoCompleteMode.Suggest
+            '.AutoCompleteSource = AutoCompleteSource.ListItems
+            .SelectedIndex = 0
         End With
         'Controla la edicion de campos que deben partir desde la informacion de un reporte de produccion.
-        Select Case generada
-            Case "PTERM"
-                'no hago nada
-            Case "PPROS"
-                cm_producto.SelectedValue = id_item
-                tx_id_item.Text = id_item
-                tx_id_item.ReadOnly = True
-                cm_producto.Enabled = False
-                tx_op_alterna.Text = id_rp
-                tx_op_alterna.ReadOnly = True
-                tx_op_ppal.Text = id_ipp
-                tx_op_ppal.ReadOnly = True
-                dtp_fecha_produccion.Value = fecha_produccion
-                dtp_fecha_produccion.Enabled = False
-                dtp_fecha_vence.Enabled = False
-                tx_lote.Text = lote
-                tx_lote.Enabled = False
-                dtp_fecha_vence.Value = fecha_vencimiento 'DateAdd(DateInterval.Year, 1, fecha_produccion)
-            Case "MATPRIM"
-                tx_op_ppal.ReadOnly = True
-                tx_op_alterna.ReadOnly = True
-                cm_formato_etiqueta.SelectedValue = 5
-                cm_formato_etiqueta.Enabled = False
-                Label5.Text = "Cod CGUNO"
-                Label4.Text = "Cod. CAMO"
-        End Select
+        'Select Case generada
+        '    Case "PTERM"
+        '        'no hago nada
+        '    Case "PPROS"
+        '        'cm_producto.SelectedValue = id_item
+        '        tx_id_item.Text = id_item
+        '        tx_id_item.ReadOnly = True
+        '        'cm_producto.Enabled = False
+        '        tx_op_alterna.Text = id_rp_documento
+        '        tx_op_alterna.ReadOnly = True
+        '        tx_op_ppal.Text = id_ipp
+        '        tx_op_ppal.ReadOnly = True
+        '        dtp_fecha_produccion.Value = fecha_produccion
+        '        dtp_fecha_produccion.Enabled = False
+        '        dtp_fecha_vence.Enabled = False
+        '        tx_lote.Text = lote
+        '        tx_lote.Enabled = False
+        '        dtp_fecha_vence.Value = fecha_vencimiento 'DateAdd(DateInterval.Year, 1, fecha_produccion)
+        '    Case "MATPRIM"
+        '        tx_op_ppal.ReadOnly = True
+        '        tx_op_alterna.ReadOnly = True
+        '        cm_formato_etiqueta.SelectedValue = 5
+        '        cm_formato_etiqueta.Enabled = False
+        '        Label5.Text = "Cod CGUNO"
+        '        Label4.Text = "Cod. CAMO"
+        'End Select
+        cargar_info_rp()
+    End Sub
+
+    Private Sub cargar_info_rp()
+        If id_rp = 0 Then
+            Exit Sub
+        End If
+        csql = "select *" _
+                    & " FROM " & database.obtener_esquema & ".tb0402_reporte_produccion" _
+                    & " where f0402_id_cia = '" & vg_id_cia & "' and f0402_id_rp = '" & id_rp & "'"
+        otb_reporte_produccion = cl_utilidades_datatables.cargar_informacion_postgres(csql)
+        For Each orow As DataRow In otb_reporte_produccion.Rows
+            id_ipp = orow("f0402_id_ipp")
+            id_item = orow("f0402_id_item")
+            tx_id_item.Text = id_item
+            tx_op_ppal.Text = id_ipp
+            tx_op_alterna.Text = "RP-" & id_rp
+            dtp_fecha_produccion.Value = orow("f0402_fecha_produccion")
+            dtp_fecha_vence.Value = orow("f0402_fecha_vence")
+            tx_lote.Text = orow("f0402_lote")
+        Next
     End Sub
     Private Sub imprimir()
         Dim f, fs, i, nmro_tqtes
@@ -187,7 +222,7 @@ Public Class fm_0400_impresion_etiquetas
         'MsgBox(codigo_fuente_02)
         'traer datos del producto
         Dim orow_producto As DataRow()
-        orow_producto = otb_items.Select("f0300_id_item = '" & cm_producto.SelectedValue & "'")
+        orow_producto = otb_items.Select("f0300_id_item = '" & id_item & "'")
         For Each orow As DataRow In orow_producto
             oproducto = Mid(orow("f0300_descripcion_item").ToString, 1, 50)
             oreferencia = orow("f0300_referencia").ToString
@@ -349,7 +384,7 @@ Public Class fm_0400_impresion_etiquetas
 
         'Cooro la funcion en postgres que crea los registros en la base de datos
         csql = "select * from " & database.obtener_esquema & ".fnc_400_06_generar_etiquetas_pt("
-        csql += nud_cantidad.Value & ",'" & vg_id_cia & "'," & cm_producto.SelectedValue & "," & oop1 & ",'" & oop2 & "','"
+        csql += nud_cantidad.Value & ",'" & vg_id_cia & "'," & id_item & "," & oop1 & ",'" & oop2 & "','"
         csql += Format(dtp_fecha_produccion.Value, "dd/MM/yyyy") & "','" & olote & "','" & Format(dtp_fecha_vence.Value, "dd/MM/yyyy") & "'," & nud_cantidad.Value & ",'"
         csql += oenglobe & "'," & ounidenglobe & ",'" & vg_usuario_autoriza & "')"
 
@@ -357,7 +392,7 @@ Public Class fm_0400_impresion_etiquetas
 
     End Function
     Private Sub validar_producto()
-        If cm_producto.SelectedIndex = -1 Then
+        If id_item = 0 Then
             verror_requisitos = "S"
             vmensaje_requisitos = "Seleccione un producto."
         End If
@@ -378,11 +413,6 @@ Public Class fm_0400_impresion_etiquetas
     End Sub
 
     Private Sub bt_imprimir_Click(sender As Object, e As EventArgs) Handles bt_imprimir.Click
-        orden_impresion()
-    End Sub
-
-    Private Sub bt_imp_remota_Click(sender As Object, e As EventArgs) Handles bt_imp_remota.Click
-        impresion_remota = "S"
         orden_impresion()
     End Sub
 
@@ -418,12 +448,6 @@ Public Class fm_0400_impresion_etiquetas
         End If
     End Sub
 
-    Private Sub bt_calcular_lote_Click(sender As Object, e As EventArgs) Handles bt_calcular_lote.Click
-        tx_lote.Text = DatePart(DateInterval.DayOfYear, dtp_fecha_produccion.Value) _
-            & DatePart(DateInterval.Month, dtp_fecha_produccion.Value).ToString.PadLeft(2, "0") _
-            & dtp_fecha_produccion.Value.ToString("yy")
-    End Sub
-
     Private Sub tx_id_item_Validating(sender As Object, e As CancelEventArgs) Handles tx_id_item.Validating
         If tx_id_item.Text.Trim = "" Then
             Exit Sub
@@ -432,33 +456,14 @@ Public Class fm_0400_impresion_etiquetas
             MsgBox("El dato no es numerico", MsgBoxStyle.Exclamation, "Error")
             tx_id_item.Text = ""
         End If
-        cm_producto.SelectedValue = tx_id_item.Text
-        If cm_producto.SelectedIndex = -1 Then
-            MsgBox("El codigo no existe", MsgBoxStyle.Exclamation, "Error")
-            tx_id_item.Text = ""
-        Else
-            buscar_info_item(tx_id_item.Text)
-        End If
+        'buscar_info_item(tx_id_item.Text)
 
     End Sub
 
-    Private Sub cm_producto_Validating(sender As Object, e As CancelEventArgs) Handles cm_producto.Validating
-        If cm_producto.Text.Trim = "" Then
-            Exit Sub
-        End If
-        If cm_producto.SelectedIndex = -1 Then
-            MsgBox("El producto no existe", MsgBoxStyle.Exclamation, "Error")
-            cm_producto.Text = ""
-            tx_id_item.Text = ""
-            Exit Sub
-        End If
-        tx_id_item.Text = cm_producto.SelectedValue
-        buscar_info_item(tx_id_item.Text)
-    End Sub
     Private Sub buscar_info_item(ByVal oid_item As Integer)
         'MsgBox(oid_item)
         Dim orow_item As DataRow()
-        orow_item = otb_items.Select("f0300_id_item = '" & cm_producto.SelectedValue & "'")
+        orow_item = otb_items.Select("f0300_id_item = '" & id_item & "'")
         For Each orow As DataRow In orow_item
             If orow("f0300_codigo_cguno") <> "" Then
                 tx_op_ppal.Text = orow("f0300_codigo_cguno")

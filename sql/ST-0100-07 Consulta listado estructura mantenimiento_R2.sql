@@ -10,7 +10,7 @@ WITH estructura_planta AS (
       AND array_length(arr, 1) > 1
 )
 SELECT tb0100_estructura_mantenimiento.f0100_id_estructura AS id,
-    tb0100_estructura_mantenimiento.f0100_nombre AS nombre,
+    tb0100_estructura_mantenimiento.f0100_nombre || ' (' || tb0100_estructura_mantenimiento.f0100_id_estructura || ')' AS nombre,
     replace(replace(tb0100_estructura_mantenimiento.f0100_descripcion::text, chr(10), '.  '::text), chr(13), ''::text) AS descripcion,
     tb0107_tipos_estructura.f0107_tipo_estructura AS tipo,
 	COALESCE(otb_maquina.f0100_nombre, tb0100_estructura_mantenimiento.f0100_nombre) AS elemento_primario,

@@ -42,14 +42,14 @@ Partial Class fm_visor_datos
         '
         'lb_fecha
         '
-        Me.lb_fecha.Margin = New System.Windows.Forms.Padding(6, 0, 6, 0)
-        Me.lb_fecha.Size = New System.Drawing.Size(112, 25)
+        Me.lb_fecha.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
+        Me.lb_fecha.Size = New System.Drawing.Size(91, 20)
         Me.lb_fecha.Text = "2014/02/25"
         '
         'lb_titulo
         '
-        Me.lb_titulo.Margin = New System.Windows.Forms.Padding(6, 0, 6, 0)
-        Me.lb_titulo.Size = New System.Drawing.Size(295, 51)
+        Me.lb_titulo.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
+        Me.lb_titulo.Size = New System.Drawing.Size(246, 42)
         Me.lb_titulo.Text = "Visor de Datos"
         '
         'bt_salir
@@ -59,11 +59,11 @@ Partial Class fm_visor_datos
         'tx_registro_seleccionado
         '
         Me.tx_registro_seleccionado.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.tx_registro_seleccionado.Location = New System.Drawing.Point(18, 582)
-        Me.tx_registro_seleccionado.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
+        Me.tx_registro_seleccionado.Location = New System.Drawing.Point(16, 466)
+        Me.tx_registro_seleccionado.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.tx_registro_seleccionado.Name = "tx_registro_seleccionado"
         Me.tx_registro_seleccionado.ReadOnly = True
-        Me.tx_registro_seleccionado.Size = New System.Drawing.Size(84, 26)
+        Me.tx_registro_seleccionado.Size = New System.Drawing.Size(75, 22)
         Me.tx_registro_seleccionado.TabIndex = 72
         Me.tx_registro_seleccionado.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
@@ -71,10 +71,10 @@ Partial Class fm_visor_datos
         '
         Me.Label2.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(112, 586)
+        Me.Label2.Location = New System.Drawing.Point(100, 469)
         Me.Label2.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(27, 20)
+        Me.Label2.Size = New System.Drawing.Size(23, 16)
         Me.Label2.TabIndex = 71
         Me.Label2.Text = "de"
         '
@@ -82,10 +82,10 @@ Partial Class fm_visor_datos
         '
         Me.lb_total_registros.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.lb_total_registros.AutoSize = True
-        Me.lb_total_registros.Location = New System.Drawing.Point(150, 586)
+        Me.lb_total_registros.Location = New System.Drawing.Point(133, 469)
         Me.lb_total_registros.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.lb_total_registros.Name = "lb_total_registros"
-        Me.lb_total_registros.Size = New System.Drawing.Size(57, 20)
+        Me.lb_total_registros.Size = New System.Drawing.Size(48, 16)
         Me.lb_total_registros.TabIndex = 70
         Me.lb_total_registros.Text = "Label1"
         '
@@ -93,10 +93,10 @@ Partial Class fm_visor_datos
         '
         Me.bt_quitar_filtro.BackgroundImage = Global.camocontrol.My.Resources.Resources.cargarplano
         Me.bt_quitar_filtro.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
-        Me.bt_quitar_filtro.Location = New System.Drawing.Point(888, 94)
-        Me.bt_quitar_filtro.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
+        Me.bt_quitar_filtro.Location = New System.Drawing.Point(789, 75)
+        Me.bt_quitar_filtro.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.bt_quitar_filtro.Name = "bt_quitar_filtro"
-        Me.bt_quitar_filtro.Size = New System.Drawing.Size(68, 58)
+        Me.bt_quitar_filtro.Size = New System.Drawing.Size(60, 46)
         Me.bt_quitar_filtro.TabIndex = 69
         Me.bt_quitar_filtro.UseVisualStyleBackColor = True
         '
@@ -104,10 +104,10 @@ Partial Class fm_visor_datos
         '
         Me.bt_filtrar.BackgroundImage = Global.camocontrol.My.Resources.Resources.icono_lupa
         Me.bt_filtrar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
-        Me.bt_filtrar.Location = New System.Drawing.Point(812, 95)
-        Me.bt_filtrar.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
+        Me.bt_filtrar.Location = New System.Drawing.Point(722, 76)
+        Me.bt_filtrar.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.bt_filtrar.Name = "bt_filtrar"
-        Me.bt_filtrar.Size = New System.Drawing.Size(68, 58)
+        Me.bt_filtrar.Size = New System.Drawing.Size(60, 46)
         Me.bt_filtrar.TabIndex = 68
         Me.bt_filtrar.UseVisualStyleBackColor = True
         '
@@ -115,11 +115,11 @@ Partial Class fm_visor_datos
         '
         Me.tx_valor_campo.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
         Me.tx_valor_campo.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.tx_valor_campo.Location = New System.Drawing.Point(507, 105)
-        Me.tx_valor_campo.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
+        Me.tx_valor_campo.Location = New System.Drawing.Point(451, 84)
+        Me.tx_valor_campo.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.tx_valor_campo.Multiline = True
         Me.tx_valor_campo.Name = "tx_valor_campo"
-        Me.tx_valor_campo.Size = New System.Drawing.Size(284, 35)
+        Me.tx_valor_campo.Size = New System.Drawing.Size(253, 29)
         Me.tx_valor_campo.TabIndex = 67
         '
         'cm_operadores_filtro
@@ -127,21 +127,21 @@ Partial Class fm_visor_datos
         Me.cm_operadores_filtro.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cm_operadores_filtro.FormattingEnabled = True
         Me.cm_operadores_filtro.Items.AddRange(New Object() {"Contenga", "Igual", "Inicie Con", "Diferente", "Menor", "Menor o Igual", "Mayor", "Mayor o Igual"})
-        Me.cm_operadores_filtro.Location = New System.Drawing.Point(318, 105)
-        Me.cm_operadores_filtro.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
+        Me.cm_operadores_filtro.Location = New System.Drawing.Point(283, 84)
+        Me.cm_operadores_filtro.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.cm_operadores_filtro.Name = "cm_operadores_filtro"
-        Me.cm_operadores_filtro.Size = New System.Drawing.Size(180, 33)
+        Me.cm_operadores_filtro.Size = New System.Drawing.Size(160, 28)
         Me.cm_operadores_filtro.TabIndex = 66
         '
         'tx_nombre_campo
         '
         Me.tx_nombre_campo.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.tx_nombre_campo.Location = New System.Drawing.Point(21, 108)
-        Me.tx_nombre_campo.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
+        Me.tx_nombre_campo.Location = New System.Drawing.Point(19, 86)
+        Me.tx_nombre_campo.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.tx_nombre_campo.Multiline = True
         Me.tx_nombre_campo.Name = "tx_nombre_campo"
         Me.tx_nombre_campo.ReadOnly = True
-        Me.tx_nombre_campo.Size = New System.Drawing.Size(284, 32)
+        Me.tx_nombre_campo.Size = New System.Drawing.Size(253, 26)
         Me.tx_nombre_campo.TabIndex = 65
         '
         'dg_datos
@@ -153,22 +153,22 @@ Partial Class fm_visor_datos
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.dg_datos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dg_datos.Location = New System.Drawing.Point(18, 163)
-        Me.dg_datos.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
+        Me.dg_datos.Location = New System.Drawing.Point(16, 130)
+        Me.dg_datos.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.dg_datos.Name = "dg_datos"
         Me.dg_datos.ReadOnly = True
         Me.dg_datos.RowHeadersWidth = 62
-        Me.dg_datos.Size = New System.Drawing.Size(1077, 409)
+        Me.dg_datos.Size = New System.Drawing.Size(957, 327)
         Me.dg_datos.TabIndex = 1
         '
         'bt_recargar_todo
         '
         Me.bt_recargar_todo.BackgroundImage = Global.camocontrol.My.Resources.Resources.actualizar
         Me.bt_recargar_todo.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
-        Me.bt_recargar_todo.Location = New System.Drawing.Point(964, 95)
-        Me.bt_recargar_todo.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
+        Me.bt_recargar_todo.Location = New System.Drawing.Point(857, 76)
+        Me.bt_recargar_todo.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.bt_recargar_todo.Name = "bt_recargar_todo"
-        Me.bt_recargar_todo.Size = New System.Drawing.Size(68, 58)
+        Me.bt_recargar_todo.Size = New System.Drawing.Size(60, 46)
         Me.bt_recargar_todo.TabIndex = 73
         Me.bt_recargar_todo.UseVisualStyleBackColor = True
         '
@@ -177,10 +177,10 @@ Partial Class fm_visor_datos
         Me.bt_nuevo.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.bt_nuevo.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
         Me.bt_nuevo.Image = Global.camocontrol.My.Resources.Resources.nuevo2
-        Me.bt_nuevo.Location = New System.Drawing.Point(579, 628)
-        Me.bt_nuevo.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
+        Me.bt_nuevo.Location = New System.Drawing.Point(515, 502)
+        Me.bt_nuevo.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.bt_nuevo.Name = "bt_nuevo"
-        Me.bt_nuevo.Size = New System.Drawing.Size(74, 58)
+        Me.bt_nuevo.Size = New System.Drawing.Size(66, 46)
         Me.bt_nuevo.TabIndex = 89
         Me.bt_nuevo.UseVisualStyleBackColor = True
         '
@@ -189,10 +189,10 @@ Partial Class fm_visor_datos
         Me.bt_exportar_excel.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.bt_exportar_excel.BackgroundImage = Global.camocontrol.My.Resources.Resources.excel2
         Me.bt_exportar_excel.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
-        Me.bt_exportar_excel.Location = New System.Drawing.Point(676, 628)
-        Me.bt_exportar_excel.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
+        Me.bt_exportar_excel.Location = New System.Drawing.Point(601, 502)
+        Me.bt_exportar_excel.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.bt_exportar_excel.Name = "bt_exportar_excel"
-        Me.bt_exportar_excel.Size = New System.Drawing.Size(70, 55)
+        Me.bt_exportar_excel.Size = New System.Drawing.Size(62, 44)
         Me.bt_exportar_excel.TabIndex = 90
         Me.bt_exportar_excel.UseVisualStyleBackColor = True
         '
@@ -202,20 +202,20 @@ Partial Class fm_visor_datos
         Me.bt_exportar_csv.BackgroundImage = Global.camocontrol.My.Resources.Resources.carpeta2
         Me.bt_exportar_csv.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
         Me.bt_exportar_csv.Image = Global.camocontrol.My.Resources.Resources.formato_csv
-        Me.bt_exportar_csv.Location = New System.Drawing.Point(756, 629)
-        Me.bt_exportar_csv.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
+        Me.bt_exportar_csv.Location = New System.Drawing.Point(672, 503)
+        Me.bt_exportar_csv.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.bt_exportar_csv.Name = "bt_exportar_csv"
-        Me.bt_exportar_csv.Size = New System.Drawing.Size(70, 55)
+        Me.bt_exportar_csv.Size = New System.Drawing.Size(62, 44)
         Me.bt_exportar_csv.TabIndex = 91
         Me.bt_exportar_csv.UseVisualStyleBackColor = True
         '
         'bt_checkbox
         '
         Me.bt_checkbox.Image = Global.camocontrol.My.Resources.Resources.chatarra2
-        Me.bt_checkbox.Location = New System.Drawing.Point(1041, 95)
-        Me.bt_checkbox.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
+        Me.bt_checkbox.Location = New System.Drawing.Point(925, 76)
+        Me.bt_checkbox.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.bt_checkbox.Name = "bt_checkbox"
-        Me.bt_checkbox.Size = New System.Drawing.Size(68, 58)
+        Me.bt_checkbox.Size = New System.Drawing.Size(60, 46)
         Me.bt_checkbox.TabIndex = 92
         Me.bt_checkbox.UseVisualStyleBackColor = True
         '
@@ -223,17 +223,17 @@ Partial Class fm_visor_datos
         '
         Me.Label1.AutoSize = True
         Me.Label1.Font = New System.Drawing.Font("Microsoft Sans Serif", 6.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label1.Location = New System.Drawing.Point(502, 142)
+        Me.Label1.Location = New System.Drawing.Point(446, 114)
         Me.Label1.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(98, 17)
+        Me.Label1.Size = New System.Drawing.Size(84, 15)
         Me.Label1.TabIndex = 93
         Me.Label1.Text = "Buscar: Ctrl+B"
         '
         'fm_visor_datos
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(9.0!, 20.0!)
-        Me.ClientSize = New System.Drawing.Size(1113, 705)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
+        Me.ClientSize = New System.Drawing.Size(989, 564)
         Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.bt_checkbox)
         Me.Controls.Add(Me.bt_exportar_csv)
@@ -250,7 +250,7 @@ Partial Class fm_visor_datos
         Me.Controls.Add(Me.tx_nombre_campo)
         Me.Controls.Add(Me.dg_datos)
         Me.KeyPreview = True
-        Me.Margin = New System.Windows.Forms.Padding(6, 8, 6, 8)
+        Me.Margin = New System.Windows.Forms.Padding(5, 6, 5, 6)
         Me.Name = "fm_visor_datos"
         Me.Text = "Visor de Datos"
         Me.WindowState = System.Windows.Forms.FormWindowState.Maximized

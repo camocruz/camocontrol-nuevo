@@ -184,14 +184,7 @@
             End If
             nuevoNodo.Text += "(IPP-" & dataRowCurrent("f0401_id_ipp").ToString().Trim() & ")   " _
                                 & "   Cantidad Programada: " _
-                                & CDec(dataRowCurrent("f0401_cantidad")).ToString("N1").PadLeft(8, " ") _
-                                & "    << #Baches: " & cantidad_baches.ToString("N2") _
-                                & " de " & unidades_x_bache.ToString("N2") & " >>" _
-                                & "     [  " _
-                                & CDate(dataRowCurrent("f0401_fecha_inicio")).ToString("yyyy/MM/dd HH:mm") _
-                                & " - " _
-                                & CDate(dataRowCurrent("f0401_fecha_final")).ToString("yyyy/MM/dd HH:mm") _
-                                & " ] => PRODUCCION: " & CDec(calcular_produccion_x_id_ipp(dataRowCurrent("f0401_id_ipp"))).ToString("N2")
+                                & CDec(dataRowCurrent("f0401_cantidad")).ToString("N1").PadLeft(8, " ")
 
             nuevoNodo.Tag = dataRowCurrent("f0401_id_item").ToString().Trim()
             nuevoNodo.Name = "IPP-" & dataRowCurrent("f0401_id_ipp").ToString
@@ -287,6 +280,7 @@
             id_rp = orow_reporte_produccion("f0402_id_rp")
             Dim cantidad_producida As Decimal
             cantidad_producida = CDec(orow_reporte_produccion("f0402_cantidad_producida"))
+            Dim lote As String = orow_reporte_produccion("f0402_lote")
             Dim texto_nodo As String = ""
             texto_nodo = ""
             'If orow_reporte_produccion("f0402_estado") = "A" Then
@@ -303,13 +297,12 @@
                     texto_nodo = " {C} "
             End Select
             texto_nodo += " (RP-" & orow_reporte_produccion("f0402_id_rp") & ")" _
-                    & " { Cantidad Producida: " _
-                    & cantidad_producida.ToString("N2") _
-                    & "  [" _
-                    & CDate(orow_reporte_produccion("f0402_fecha_produccion")).ToString("dd/MM/yyyy") _
-                    & " - TURNO: " _
-                    & orow_reporte_produccion("f0402_turno").ToString _
-                    & "  " & orow_reporte_produccion("f0402_clasificador").ToString _
+                    & " { Lote: " _
+                    & lote.ToString() _
+                    & "  } [" _
+                    & CDate(orow_reporte_produccion("f0402_fecha_produccion")).ToString("yyyy/MM/dd") _
+                    & " <=> " _
+                    & CDate(orow_reporte_produccion("f0402_fecha_vence")).ToString("yyyy/MM/dd") _
                     & " ]"
 
             Dim nuevoNodo As New TreeNode
@@ -627,12 +620,24 @@
         id_item_seleccionado_tree = e.Node.Tag
         'MsgBox(id_item_seleccionado_tree)
         item_principal_seleccionado_tree = "N"
-        Try
-            id_ipp_nodo_padre = Split(e.Node.Parent.Name, "-")(1)
-        Catch ex As Exception
-            item_principal_seleccionado_tree = "S"
-        End Try
+        'Try
+        '    id_ipp_nodo_padre = Split(e.Node.Parent.Name, "-")(1)
+        'Catch ex As Exception
+        '    item_principal_seleccionado_tree = "S"
+        'End Try
 
+        If e.Node.Parent Is Nothing Then
+            item_principal_seleccionado_tree = "S"
+            id_ipp_nodo_padre = 0
+        Else
+            Dim parts As String() = e.Node.Parent.Name.Split("-"c)
+            If parts.Length > 1 AndAlso Integer.TryParse(parts(1), Nothing) Then
+                id_ipp_nodo_padre = parts(1)
+            Else
+                ' Manejar formato inesperado
+                id_ipp_nodo_padre = 0
+            End If
+        End If
 
         If item_principal_seleccionado_tree = "S" Then
             id_ipp_nodo_padre = 0
@@ -843,17 +848,19 @@
     Private Sub mi_imprimir_etiqueta_Click(sender As Object, e As EventArgs) Handles mi_imprimir_etiqueta.Click
         'Instanciamos el formulario como un objeto de la clase fm_0100_estructura_mantenimiento
         'Esto es necesario hacerlo cuando antes de mostrar el formulario debemos configurarle valores previos
+        If tx_id_registro.Text = "" Or tipo_registro <> "RP" Then
+            MsgBox("Seleccione un RP")
+            Exit Sub
+        End If
         Dim oform_impresion_etiquetas As New camocontrol.fm_0400_impresion_etiquetas
         'oform_grilla_programacion.ods_hijo = ods
         oform_impresion_etiquetas.vf_oform_padre = Me
         oform_impresion_etiquetas.vg_id_cia = vg_id_cia
         oform_impresion_etiquetas.vg_usuario_autoriza = vg_usuario_autoriza
-        oform_impresion_etiquetas.tx_op_ppal.ReadOnly = True
-        oform_impresion_etiquetas.tx_op_ppal.Text = tx_id_registro.Text
-        oform_impresion_etiquetas.id_item = id_item_seleccionado_tree
-        oform_impresion_etiquetas.cm_producto.Enabled = False
-        oform_impresion_etiquetas.dtp_fecha_produccion.Value = entregar_valor_campo_ipp(tx_id_registro.Text, "f0401_fecha_final")
-        'oform_impresion_etiquetas.dtp_fecha_vence.Value = DateAdd(DateInterval.Year, 1, fecha_op_final)
+        'oform_impresion_etiquetas.tx_op_ppal.Text = tx_id_registro.Text
+        'oform_impresion_etiquetas.id_item = id_item_seleccionado_tree
+        oform_impresion_etiquetas.descripcion_item = lb_producto.Text
+        oform_impresion_etiquetas.id_rp = Split(tx_id_registro.Text, "-")(0)
         oform_impresion_etiquetas.ShowDialog()
     End Sub
 
@@ -1002,7 +1009,7 @@
         End If
         'Instanciamos el formulario como un objeto de la clase fm_0100_estructura_mantenimiento
         'Esto es necesario hacerlo cuando antes de mostrar el formulario debemos configurarle valores previos
-        Dim oform_reporte_produccion As New camocontrol.fm_0400_rp_reporte_produccion
+        Dim oform_reporte_produccion As New camocontrol.fm_0400_rp_reporte_lotes_produccion
         oform_reporte_produccion.vf_oform_padre = Me
         oform_reporte_produccion.vf_elemento_nuevo = "N"
         oform_reporte_produccion.vg_id_cia = vg_id_cia
@@ -1037,7 +1044,7 @@
         Dim nodo_expandir As String = TreeView1.SelectedNode.Name
         'Instanciamos el formulario como un objeto de la clase fm_0100_estructura_mantenimiento
         'Esto es necesario hacerlo cuando antes de mostrar el formulario debemos configurarle valores previos
-        Dim oform_reporte_produccion As New camocontrol.fm_0400_rp_reporte_produccion
+        Dim oform_reporte_produccion As New camocontrol.fm_0400_rp_reporte_lotes_produccion
         oform_reporte_produccion.vf_oform_padre = Me
         oform_reporte_produccion.vg_id_cia = vg_id_cia
         oform_reporte_produccion.vf_var_config_notas = "TN-RPD-001"
