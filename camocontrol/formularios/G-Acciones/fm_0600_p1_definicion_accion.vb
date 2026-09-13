@@ -68,13 +68,13 @@
         If vf_elemento_nuevo = "N" Then
             cargar_informacion_elemento_existente()
         End If
-        otxt_evaluador = cm_evaluador.Text
-        otxt_receptor = cm_responsable.Text
+        otxt_evaluador = UcEvaluador.SelectedText
+        otxt_receptor = UcResponsable.SelectedText
         otxt_modo_falla = tx_modo_efecto_falla.Text.Trim
         otxt_titulo = tx_titulo.Text.Trim
         otxt_tipo_accion = cm_tipo_accion.Text
         otxt_fuente = cm_fuente_accion.Text
-        otxt_tercero_relacionado = cm_razon_social.Text
+        otxt_tercero_relacionado = UcTerceroRel.SelectedText
     End Sub
     Private Sub cargar_informacion_elemento_existente()
         csql = "select * from " & database.obtener_esquema & ".tb0600_acciones where f0600_id_accion = " & id_accion
@@ -97,11 +97,16 @@
                 actividad_cerrada = "S"
             End If
             If orow("f0600_tercero_relacionado").ToString <> "" Then
-                cm_razon_social.SelectedValue = orow("f0600_tercero_relacionado")
+                UcTerceroRel.SelectedID = orow("f0600_tercero_relacionado")
             End If
-            cm_responsable.SelectedValue = orow("f0600_responsable")
-            cm_evaluador.SelectedValue = orow("f0600_evaluador")
-            cm_emisor.SelectedValue = orow("f0600_emisor")
+
+            UcEvaluador.InicializarConSeleccion(otb_info_personal, orow("f0600_evaluador"))
+            UcEmisor.InicializarConSeleccion(otb_info_personal, orow("f0600_emisor"))
+            UcResponsable.InicializarConSeleccion(otb_info_personal, orow("f0600_responsable"))
+
+            UcEvaluador.SelectedID = orow("f0600_evaluador")
+            UcEmisor.SelectedID = orow("f0600_emisor")
+
             usuario_creador = orow("f0600_emisor")
             If usuario_creador = vg_usuario_autoriza Then
                 cm_fuente_accion.Enabled = True
@@ -168,6 +173,8 @@
     End Sub
 
     Private Sub cargar_todos_los_combos_y_formatos()
+
+
         tx_id_accion.Enabled = False
         tx_estructura.ReadOnly = True
         tx_documento_origen.Enabled = False
@@ -256,84 +263,24 @@
             .AutoCompleteSource = AutoCompleteSource.ListItems
         End With
 
-        csql = "select f0200_id_tercero, f0200_apellido1 || ' ' || f0200_apellido2 || ' ' || f0200_nombres as nombre" _
+        csql = "select f0200_id_tercero as id, trim(both ' ' from f0200_apellido1 || ' ' || f0200_apellido2 || ' ' || f0200_nombres) as nombre" _
             & " from " & database.obtener_esquema & ".tb0200_terceros" _
             & " where f0200_id_cia = '" & vg_id_cia & "'" & " and f0200_ind_empleado = 'S'" _
             & " order by nombre"
         otb_info_personal = cl_utilidades_datatables.cargar_informacion_postgres(csql)
-        Dim otb_emisor As DataTable = otb_info_personal.Copy
-        Dim otb_responsable As DataTable = otb_info_personal.Copy
-        Dim otb_evaluador As DataTable = otb_info_personal.Copy
 
-        With cm_responsable
-            'Valor que se muestra al usuario
-            .DisplayMember = "nombre"
-            'Valor interno que almacena el objeto
-            .ValueMember = "f0200_id_tercero"
-            'Origen de Datos del ComboBox
-            .DataSource = otb_responsable
-            .DropDownStyle = ComboBoxStyle.DropDown
-            .AutoCompleteMode = AutoCompleteMode.Suggest
-            .AutoCompleteSource = AutoCompleteSource.ListItems
-            .SelectedIndex = -1
-        End With
-
-        With cm_evaluador
-            'Valor que se muestra al usuario
-            .DisplayMember = "nombre"
-            'Valor interno que almacena el objeto
-            .ValueMember = "f0200_id_tercero"
-            'Origen de Datos del ComboBox
-            .DataSource = otb_evaluador
-            .DropDownStyle = ComboBoxStyle.DropDown
-            .AutoCompleteMode = AutoCompleteMode.Suggest
-            .AutoCompleteSource = AutoCompleteSource.ListItems
-            .SelectedIndex = -1
-        End With
-
-        With cm_emisor
-            'Valor que se muestra al usuario
-            .DisplayMember = "nombre"
-            'Valor interno que almacena el objeto
-            .ValueMember = "f0200_id_tercero"
-            'Origen de Datos del ComboBox
-            .DataSource = otb_emisor
-            .DropDownStyle = ComboBoxStyle.DropDown
-            .AutoCompleteMode = AutoCompleteMode.Suggest
-            .AutoCompleteSource = AutoCompleteSource.ListItems
-            .SelectedValue = vg_usuario_autoriza
-        End With
+        UcEmisor.InicializarConSeleccion(otb_info_personal, vg_usuario_autoriza)
+        UcResponsable.Inicializar(otb_info_personal)
+        UcEvaluador.Inicializar(otb_info_personal)
 
         gb_tercero.Enabled = False
-        csql = "select f0200_id_tercero, f0200_id," _
-            & " trim(both ' ' from f0200_apellido1 || ' ' || f0200_apellido2 || ' ' || f0200_nombres || ' - ' || f0200_id) as tercero" _
+        csql = "select f0200_id_tercero as id," _
+            & " trim(both ' ' from f0200_apellido1 || ' ' || f0200_apellido2 || ' ' || f0200_nombres) as tercero, f0200_id as nit" _
             & " from " & database.obtener_esquema & ".tb0200_terceros" _
             & " order by f0200_nombres"  '& " where f0200_ind_cliente = 'S'" _
         Dim otb_tercero As DataTable = cl_utilidades_datatables.cargar_informacion_postgres(csql)
-        With cm_nit
-            'Valor que se muestra al usuario
-            .DisplayMember = "f0200_id"
-            'Valor interno que almacena el objeto
-            .ValueMember = "f0200_id_tercero"
-            'Origen de Datos del ComboBox
-            .DataSource = otb_tercero
-            .DropDownStyle = ComboBoxStyle.DropDown
-            .AutoCompleteMode = AutoCompleteMode.Suggest
-            .AutoCompleteSource = AutoCompleteSource.ListItems
-            .SelectedIndex = -1
-        End With
-        With cm_razon_social
-            'Valor que se muestra al usuario
-            .DisplayMember = "tercero"
-            'Valor interno que almacena el objeto
-            .ValueMember = "f0200_id_tercero"
-            'Origen de Datos del ComboBox
-            .DataSource = otb_tercero
-            .DropDownStyle = ComboBoxStyle.DropDown
-            .AutoCompleteMode = AutoCompleteMode.Suggest
-            .AutoCompleteSource = AutoCompleteSource.ListItems
-            .SelectedIndex = -1
-        End With
+        UcTerceroRel.Inicializar(otb_tercero)
+
     End Sub
 
     Private Sub bt_criterios_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles bt_criterios.Click
@@ -525,17 +472,17 @@
                 vmensaje_nota += "* Cambio a la fuente de accion de: " & otxt_fuente & " a: " & cm_fuente_accion.Text & vbCrLf & vbCrLf
                 cambio = "S"
             End If
-            If otxt_tercero_relacionado <> cm_razon_social.Text Then
+            If otxt_tercero_relacionado <> UcTerceroRel.SelectedText Then
                 vmensaje_nota += "* Cambio el tercero relacionado de: " & otxt_tercero_relacionado & " a: " _
-                    & cm_razon_social.Text & " NIT: " & cm_nit.Text & vbCrLf & vbCrLf
+                    & UcTerceroRel.SelectedText & " NIT: " & UcTerceroRel.SelectedID & vbCrLf & vbCrLf
                 cambio = "S"
             End If
-            If otxt_evaluador <> cm_evaluador.Text Then
-                vmensaje_nota += "* Cambio al evaluador de: " & otxt_evaluador & " a: " & cm_evaluador.Text & vbCrLf & vbCrLf
+            If otxt_evaluador <> UcEvaluador.SelectedText Then
+                vmensaje_nota += "* Cambio al evaluador de: " & otxt_evaluador & " a: " & UcEvaluador.SelectedText & vbCrLf & vbCrLf
                 cambio = "S"
             End If
-            If otxt_receptor <> cm_responsable.Text Then
-                vmensaje_nota += "* Cambio al responsable de: " & otxt_receptor & " a: " & cm_responsable.Text & vbCrLf & vbCrLf
+            If otxt_receptor <> UcResponsable.SelectedText Then
+                vmensaje_nota += "* Cambio al responsable de: " & otxt_receptor & " a: " & UcResponsable.SelectedText & vbCrLf & vbCrLf
                 cambio = "S"
             End If
             If otxt_modo_falla.Trim <> tx_modo_efecto_falla.Text.Trim Then
@@ -610,14 +557,14 @@
 
         ocmd.Parameters.Add("@f0600_id_tipo_accion", NpgsqlDbType.Varchar).Value = cm_tipo_accion.SelectedValue.ToString
         ocmd.Parameters.Add("@f0600_id_fuente_accion", NpgsqlDbType.Integer).Value = CInt(cm_fuente_accion.SelectedValue.ToString)
-        If cm_razon_social.SelectedIndex = -1 Then
+        If UcTerceroRel.SelectedID Is Nothing OrElse UcTerceroRel.SelectedID.Trim() = "" Then
             ocmd.Parameters.Add("@f0600_tercero_relacionado", NpgsqlDbType.Varchar).Value = ""
         Else
-            ocmd.Parameters.Add("@f0600_tercero_relacionado", NpgsqlDbType.Varchar).Value = cm_razon_social.SelectedValue
+            ocmd.Parameters.Add("@f0600_tercero_relacionado", NpgsqlDbType.Varchar).Value = UcTerceroRel.SelectedID.ToString
         End If
 
-        ocmd.Parameters.Add("@f0600_responsable", NpgsqlDbType.Varchar).Value = cm_responsable.SelectedValue.ToString
-        ocmd.Parameters.Add("@f0600_evaluador", NpgsqlDbType.Varchar).Value = cm_evaluador.SelectedValue.ToString
+        ocmd.Parameters.Add("@f0600_responsable", NpgsqlDbType.Varchar).Value = UcResponsable.SelectedID.ToString
+        ocmd.Parameters.Add("@f0600_evaluador", NpgsqlDbType.Varchar).Value = UcEvaluador.SelectedID.ToString
         ocmd.Parameters.Add("@f0600_usuario_modificar", NpgsqlDbType.Varchar).Value = vg_usuario_autoriza
         ocmd.Parameters.Add("@f0600_fm", NpgsqlDbType.Timestamp).Value = comunes.g_fechahora
     End Sub
@@ -765,16 +712,16 @@
         ocmd.Parameters.Add("@f0600_titulo", NpgsqlDbType.Varchar).Value = UCase(tx_titulo.Text.ToString.Trim)
 
         ocmd.Parameters.Add("@f0600_id_fuente_accion", NpgsqlDbType.Integer).Value = CInt(cm_fuente_accion.SelectedValue)
-        If cm_razon_social.SelectedIndex = -1 Then
+        If UcTerceroRel.SelectedID Is Nothing OrElse UcTerceroRel.SelectedID.Trim() = "" Then
             ocmd.Parameters.Add("@f0600_tercero_relacionado", NpgsqlDbType.Varchar).Value = ""
         Else
-            ocmd.Parameters.Add("@f0600_tercero_relacionado", NpgsqlDbType.Varchar).Value = cm_razon_social.SelectedValue
+            ocmd.Parameters.Add("@f0600_tercero_relacionado", NpgsqlDbType.Varchar).Value = UcTerceroRel.SelectedID.ToString.Trim()
         End If
         ocmd.Parameters.Add("@f0600_id_estado_accion", NpgsqlDbType.Varchar).Value = "02"
         ocmd.Parameters.Add("@f0600_id_tipo_accion", NpgsqlDbType.Varchar).Value = "01"
         ocmd.Parameters.Add("@f0600_emisor", NpgsqlDbType.Varchar).Value = vg_usuario_autoriza
-        ocmd.Parameters.Add("@f0600_responsable", NpgsqlDbType.Varchar).Value = cm_responsable.SelectedValue
-        ocmd.Parameters.Add("@f0600_evaluador", NpgsqlDbType.Varchar).Value = cm_evaluador.SelectedValue
+        ocmd.Parameters.Add("@f0600_responsable", NpgsqlDbType.Varchar).Value = UcResponsable.SelectedID.ToString
+        ocmd.Parameters.Add("@f0600_evaluador", NpgsqlDbType.Varchar).Value = UcEvaluador.SelectedID.ToString
         ocmd.Parameters.Add("@f0600_fecha_ocurrencia_evento", NpgsqlDbType.Timestamp).Value = dtp_fecha_ocurrencia.Value
         ocmd.Parameters.Add("@f0600_unidad_duracion", NpgsqlDbType.Varchar).Value = "00000028"
         ocmd.Parameters.Add("@f0600_usuario_modificar", NpgsqlDbType.Varchar).Value = vg_usuario_autoriza
@@ -860,26 +807,14 @@
         End If
     End Sub
 
-    Private Sub cm_nit_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles cm_nit.Validating
-        If cm_nit.SelectedIndex = -1 Then
-            cm_razon_social.SelectedIndex = -1
-        End If
-    End Sub
-
-    Private Sub cm_razon_social_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles cm_razon_social.Validating
-        If cm_razon_social.SelectedIndex = -1 Then
-            cm_nit.SelectedIndex = -1
-        End If
-    End Sub
-
     Private Sub bt_productos_rel_Click(sender As Object, e As EventArgs) Handles bt_productos_rel.Click
         'Instanciamos el formulario como un objeto de la clase fm_grilla_turnos
         'Esto es necesario hacerlo cuando antes de mostrar el formulario debemos configurarle valores previos
         Dim oform_relacionar_items As New camocontrol.fm_0600_relacionar_items_accion
         oform_relacionar_items.vf_oform_padre = Me
         oform_relacionar_items.id_accion = id_accion
-        oform_relacionar_items.id_tercero = cm_razon_social.SelectedValue
-        oform_relacionar_items.NIT = cm_nit.Text
+        oform_relacionar_items.id_tercero = UcTerceroRel.SelectedID
+        'oform_relacionar_items.NIT = cm_nit.Text
         oform_relacionar_items.emisor_accion = usuario_creador
         oform_relacionar_items.vg_id_cia = vg_id_cia
         oform_relacionar_items.vg_usuario_autoriza = vg_usuario_autoriza

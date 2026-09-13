@@ -36,23 +36,11 @@
         Dispose()
         'Me.Close()
     End Sub
-    Private Sub FM_PLANTILLA_solo_salir_FormClosing(ByVal sender As Object, ByVal e As System.Windows.Forms.FormClosingEventArgs) Handles Me.FormClosing
-        If vcerrar = "N" Then
-            e.Cancel = True
-        Else
-            e.Cancel = False
-        End If
-    End Sub
+
     Private Sub FM_PLANTILLA_solo_salir_KeyPress(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) Handles Me.KeyPress
         If e.KeyChar = vbCr Then
             SendKeys.Send(vbTab)
         End If
     End Sub
 
-    Private Sub FM_PLANTILLA_solo_salir_KeyUp(sender As Object, e As KeyEventArgs) Handles MyBase.KeyUp
-        'Combinacion de teclado para cerrar el formulario
-        If e.Alt + e.KeyCode = Keys.Q Then
-            'Dispose()
-        End If
-    End Sub
 End Class

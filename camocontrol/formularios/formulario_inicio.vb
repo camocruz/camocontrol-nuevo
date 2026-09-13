@@ -528,7 +528,7 @@ Public Class formulario_inicio
         'oform_grilla_programacion.ods_hijo = ods
         'oform_programar_actividad.vf_oform_padre = Me
         oform_programar_actividad.vg_usuario_autoriza = vlogin
-        oform_programar_actividad.cm_emisor.Enabled = False
+        oform_programar_actividad.UcEmisor.SoloLectura = True
         oform_programar_actividad.cm_tipo_accion.Enabled = True
         oform_programar_actividad.dtp_fecha_emision.Enabled = False
         oform_programar_actividad.cm_fuente_accion.Enabled = True
