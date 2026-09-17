@@ -44,6 +44,7 @@
 
     Private orow_info_accion As DataRow
     Private otb_info_personal As DataTable
+    Private otb_tercero As DataTable
     Private otb_estructura_mantenimiento As DataTable
     Private otb_accion As DataTable
     Private otb_acciones_hijos As DataTable
@@ -97,12 +98,15 @@
                 actividad_cerrada = "S"
             End If
             If orow("f0600_tercero_relacionado").ToString <> "" Then
+                UcTerceroRel.InicializarConSeleccion(otb_tercero, orow("f0600_tercero_relacionado"))
                 UcTerceroRel.SelectedID = orow("f0600_tercero_relacionado")
+                txt_nit.Text = UcTerceroRel.SelectedExtra
             End If
 
             UcEvaluador.InicializarConSeleccion(otb_info_personal, orow("f0600_evaluador"))
             UcEmisor.InicializarConSeleccion(otb_info_personal, orow("f0600_emisor"))
             UcResponsable.InicializarConSeleccion(otb_info_personal, orow("f0600_responsable"))
+
 
             UcEvaluador.SelectedID = orow("f0600_evaluador")
             UcEmisor.SelectedID = orow("f0600_emisor")
@@ -268,21 +272,27 @@
             & " where f0200_id_cia = '" & vg_id_cia & "'" & " and f0200_ind_empleado = 'S'" _
             & " order by nombre"
         otb_info_personal = cl_utilidades_datatables.cargar_informacion_postgres(csql)
-
+        UcEmisor.ColumnasVisiblesPopup = New List(Of String) From {"Texto"}
         UcEmisor.InicializarConSeleccion(otb_info_personal, vg_usuario_autoriza)
+        UcResponsable.ColumnasVisiblesPopup = New List(Of String) From {"Texto"}
         UcResponsable.Inicializar(otb_info_personal)
+        UcEvaluador.ColumnasVisiblesPopup = New List(Of String) From {"Texto"}
         UcEvaluador.Inicializar(otb_info_personal)
 
         gb_tercero.Enabled = False
         csql = "select f0200_id_tercero as id," _
             & " trim(both ' ' from f0200_apellido1 || ' ' || f0200_apellido2 || ' ' || f0200_nombres) as tercero, f0200_id as nit" _
             & " from " & database.obtener_esquema & ".tb0200_terceros" _
+            & " where f0200_ind_principal = 'S' and f0200_anulado = 'N'" _
             & " order by f0200_nombres"  '& " where f0200_ind_cliente = 'S'" _
-        Dim otb_tercero As DataTable = cl_utilidades_datatables.cargar_informacion_postgres(csql)
+        otb_tercero = cl_utilidades_datatables.cargar_informacion_postgres(csql)
+        UcTerceroRel.ColumnasVisiblesPopup = New List(Of String) From {"ID", "Texto", "Extra"} 'Para que muestre las 3 columnas en el popup de seleccion
         UcTerceroRel.Inicializar(otb_tercero)
 
     End Sub
-
+    Private Sub UcTerceroRel_SeleccionRealizada(id As String, texto As String, extra As String) Handles UcTerceroRel.SeleccionRealizada
+        txt_nit.Text = extra   ' Aquí SIEMPRE hay un valor válido
+    End Sub
     Private Sub bt_criterios_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles bt_criterios.Click
         If tx_id_accion.Text = "" Then
             MsgBox("Debe grabar primero el proyecto!", MsgBoxStyle.Exclamation, "Error")
@@ -828,5 +838,6 @@
         End If
         cl_informes_comunes.reporte_plan_accion_proyecto(vg_id_cia, tx_id_accion.Text)
     End Sub
+
 
 End Class

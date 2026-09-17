@@ -77,6 +77,7 @@ Partial Class fm_0600_p1_definicion_accion
         Me.lb_fecha_cierre = New System.Windows.Forms.Label()
         Me.Label32 = New System.Windows.Forms.Label()
         Me.gb_tercero = New System.Windows.Forms.GroupBox()
+        Me.txt_nit = New System.Windows.Forms.TextBox()
         Me.UcTerceroRel = New camocontrol.ucSelectorAvanzado()
         Me.bt_activar_tercero = New System.Windows.Forms.Button()
         Me.bt_productos_rel = New System.Windows.Forms.Button()
@@ -91,7 +92,6 @@ Partial Class fm_0600_p1_definicion_accion
         Me.UcResponsable = New camocontrol.ucSelectorAvanzado()
         Me.UcEmisor = New camocontrol.ucSelectorAvanzado()
         Me.UcEvaluador = New camocontrol.ucSelectorAvanzado()
-        Me.txt_nit = New System.Windows.Forms.TextBox()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
@@ -171,7 +171,7 @@ Partial Class fm_0600_p1_definicion_accion
         Me.cm_estado.Margin = New System.Windows.Forms.Padding(4)
         Me.cm_estado.Name = "cm_estado"
         Me.cm_estado.Size = New System.Drawing.Size(465, 28)
-        Me.cm_estado.TabIndex = 85
+        Me.cm_estado.TabIndex = 4
         '
         'Label2
         '
@@ -255,7 +255,7 @@ Partial Class fm_0600_p1_definicion_accion
         Me.cm_fuente_accion.Margin = New System.Windows.Forms.Padding(4)
         Me.cm_fuente_accion.Name = "cm_fuente_accion"
         Me.cm_fuente_accion.Size = New System.Drawing.Size(465, 28)
-        Me.cm_fuente_accion.TabIndex = 95
+        Me.cm_fuente_accion.TabIndex = 0
         '
         'Label8
         '
@@ -278,7 +278,7 @@ Partial Class fm_0600_p1_definicion_accion
         Me.tx_modo_efecto_falla.Name = "tx_modo_efecto_falla"
         Me.tx_modo_efecto_falla.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
         Me.tx_modo_efecto_falla.Size = New System.Drawing.Size(580, 170)
-        Me.tx_modo_efecto_falla.TabIndex = 98
+        Me.tx_modo_efecto_falla.TabIndex = 7
         '
         'Label10
         '
@@ -484,7 +484,7 @@ Partial Class fm_0600_p1_definicion_accion
         Me.bt_cambiar_infraestructura.Margin = New System.Windows.Forms.Padding(4)
         Me.bt_cambiar_infraestructura.Name = "bt_cambiar_infraestructura"
         Me.bt_cambiar_infraestructura.Size = New System.Drawing.Size(28, 27)
-        Me.bt_cambiar_infraestructura.TabIndex = 158
+        Me.bt_cambiar_infraestructura.TabIndex = 5
         Me.bt_cambiar_infraestructura.UseVisualStyleBackColor = True
         '
         'bt_fecha_ocurrencia
@@ -781,6 +781,16 @@ Partial Class fm_0600_p1_definicion_accion
         Me.gb_tercero.TabStop = False
         Me.gb_tercero.Text = "Tercero Relacionado"
         '
+        'txt_nit
+        '
+        Me.txt_nit.Enabled = False
+        Me.txt_nit.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txt_nit.Location = New System.Drawing.Point(273, 16)
+        Me.txt_nit.Margin = New System.Windows.Forms.Padding(4)
+        Me.txt_nit.Name = "txt_nit"
+        Me.txt_nit.Size = New System.Drawing.Size(303, 26)
+        Me.txt_nit.TabIndex = 304
+        '
         'UcTerceroRel
         '
         Me.UcTerceroRel.Location = New System.Drawing.Point(111, 45)
@@ -800,7 +810,7 @@ Partial Class fm_0600_p1_definicion_accion
         Me.bt_activar_tercero.Margin = New System.Windows.Forms.Padding(4)
         Me.bt_activar_tercero.Name = "bt_activar_tercero"
         Me.bt_activar_tercero.Size = New System.Drawing.Size(28, 27)
-        Me.bt_activar_tercero.TabIndex = 291
+        Me.bt_activar_tercero.TabIndex = 1
         Me.bt_activar_tercero.UseVisualStyleBackColor = True
         '
         'bt_productos_rel
@@ -898,7 +908,7 @@ Partial Class fm_0600_p1_definicion_accion
         Me.tx_titulo.Name = "tx_titulo"
         Me.tx_titulo.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
         Me.tx_titulo.Size = New System.Drawing.Size(465, 26)
-        Me.tx_titulo.TabIndex = 300
+        Me.tx_titulo.TabIndex = 6
         '
         'UcResponsable
         '
@@ -909,7 +919,7 @@ Partial Class fm_0600_p1_definicion_accion
         Me.UcResponsable.SelectedText = Nothing
         Me.UcResponsable.Size = New System.Drawing.Size(467, 26)
         Me.UcResponsable.SoloLectura = False
-        Me.UcResponsable.TabIndex = 301
+        Me.UcResponsable.TabIndex = 2
         '
         'UcEmisor
         '
@@ -931,16 +941,7 @@ Partial Class fm_0600_p1_definicion_accion
         Me.UcEvaluador.SelectedText = Nothing
         Me.UcEvaluador.Size = New System.Drawing.Size(467, 26)
         Me.UcEvaluador.SoloLectura = False
-        Me.UcEvaluador.TabIndex = 303
-        '
-        'txt_nit
-        '
-        Me.txt_nit.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txt_nit.Location = New System.Drawing.Point(273, 16)
-        Me.txt_nit.Margin = New System.Windows.Forms.Padding(4)
-        Me.txt_nit.Name = "txt_nit"
-        Me.txt_nit.Size = New System.Drawing.Size(303, 26)
-        Me.txt_nit.TabIndex = 304
+        Me.UcEvaluador.TabIndex = 3
         '
         'fm_0600_p1_definicion_accion
         '

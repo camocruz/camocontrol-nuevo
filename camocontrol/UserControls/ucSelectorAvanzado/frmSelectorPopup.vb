@@ -7,6 +7,17 @@
     Public Property ResultadoTexto As String
     Public Property ResultadoExtra As String
     Public Property TextoInicialBusqueda As String
+    '----------------------------------------
+    Public Property ColumnasVisibles As List(Of String)
+    'Ejemplos de uso: 
+    '{"Texto"}  
+    '{"ID", "Texto"}  
+    '{"Texto", "Extra"}  
+    '{"ID", "Texto", "Extra"} 
+    'Si no lo asignas, el popup usará: {"ID", "Texto", "Extra"}
+    'uso real en fm_0600_p1...:
+    'UcTerceroRel.ColumnasVisiblesPopup = New List(Of String) From {"Texto", "Extra"}
+    'UcTerceroRel.Inicializar(otb_tercero)
 
     Public Sub New()
         InitializeComponent()
@@ -41,63 +52,48 @@
     Private Sub ConfigurarGrid(dt As DataTable)
         dgDatos.Columns.Clear()
 
-        Dim colCount As Integer = dt.Columns.Count
-
-        If colCount = 1 Then
-            dgDatos.Columns.Add(New DataGridViewTextBoxColumn With {
-                .Name = "Texto",
-                .DataPropertyName = "Texto",
-                .HeaderText = dt.Columns(0).ColumnName,
-                .Width = 300
-            })
-            Exit Sub
+        ' Si no se especifica, mostrar todas
+        If ColumnasVisibles Is Nothing OrElse ColumnasVisibles.Count = 0 Then
+            ColumnasVisibles = New List(Of String) From {"ID", "Texto", "Extra"}
         End If
 
-        If colCount = 2 Then
+        ' ID siempre es col0
+        If ColumnasVisibles.Contains("ID") Then
             dgDatos.Columns.Add(New DataGridViewTextBoxColumn With {
-                .Name = "ID",
-                .DataPropertyName = "ID",
-                .HeaderText = dt.Columns(0).ColumnName,
-                .Width = 120
-            })
-
-            dgDatos.Columns.Add(New DataGridViewTextBoxColumn With {
-                .Name = "Texto",
-                .DataPropertyName = "Texto",
-                .HeaderText = dt.Columns(1).ColumnName,
-                .Width = 300
-            })
-
-            Exit Sub
-        End If
-
-        ' 3 columnas → ID, Texto (col1), Extra (col2)
-        dgDatos.Columns.Add(New DataGridViewTextBoxColumn With {
             .Name = "ID",
             .DataPropertyName = "ID",
             .HeaderText = dt.Columns(0).ColumnName,
-            .Width = 120
+            .AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells
         })
+        End If
 
-        dgDatos.Columns.Add(New DataGridViewTextBoxColumn With {
+        ' Texto siempre es col1
+        If ColumnasVisibles.Contains("Texto") Then
+            dgDatos.Columns.Add(New DataGridViewTextBoxColumn With {
             .Name = "Texto",
             .DataPropertyName = "Texto",
             .HeaderText = dt.Columns(1).ColumnName,
+            .AutoSizeMode = DataGridViewAutoSizeColumnMode.None,
             .Width = 300
         })
+        End If
 
-        dgDatos.Columns.Add(New DataGridViewTextBoxColumn With {
+        ' Extra siempre es col2
+        If ColumnasVisibles.Contains("Extra") AndAlso dt.Columns.Count >= 3 Then
+            dgDatos.Columns.Add(New DataGridViewTextBoxColumn With {
             .Name = "Extra",
             .DataPropertyName = "Extra",
             .HeaderText = dt.Columns(2).ColumnName,
-            .Width = 150
+            .AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells
         })
+        End If
 
         dgDatos.SelectionMode = DataGridViewSelectionMode.FullRowSelect
         dgDatos.MultiSelect = False
         dgDatos.ReadOnly = True
         dgDatos.RowHeadersVisible = False
     End Sub
+
 
     ' ============================================================
     '  FILTRAR
@@ -202,17 +198,15 @@
     Private Sub SeleccionarFilaActual()
         If dgDatos.CurrentRow Is Nothing Then Exit Sub
 
-        ResultadoID = dgDatos.CurrentRow.Cells("ID").Value.ToString()
-        ResultadoTexto = dgDatos.CurrentRow.Cells("Texto").Value.ToString()
+        Dim dto As MultiColumnDTO = CType(dgDatos.CurrentRow.DataBoundItem, MultiColumnDTO)
 
-        If dgDatos.Columns.Contains("Extra") Then
-            ResultadoExtra = dgDatos.CurrentRow.Cells("Extra").Value.ToString()
-        Else
-            ResultadoExtra = ""
-        End If
+        ResultadoID = dto.ID
+        ResultadoTexto = dto.Texto
+        ResultadoExtra = dto.Extra
 
         Me.DialogResult = DialogResult.OK
         Me.Close()
     End Sub
+
 
 End Class

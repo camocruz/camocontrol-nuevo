@@ -67,7 +67,7 @@ Partial Class fm_0800_cargar_rm
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.dg_remision_encabezado.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dg_remision_encabezado.Location = New System.Drawing.Point(16, 75)
-        Me.dg_remision_encabezado.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.dg_remision_encabezado.Margin = New System.Windows.Forms.Padding(4)
         Me.dg_remision_encabezado.Name = "dg_remision_encabezado"
         Me.dg_remision_encabezado.RowHeadersWidth = 62
         Me.dg_remision_encabezado.Size = New System.Drawing.Size(958, 337)
@@ -88,7 +88,7 @@ Partial Class fm_0800_cargar_rm
         '
         Me.bt_generar_despacho.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.bt_generar_despacho.Location = New System.Drawing.Point(725, 420)
-        Me.bt_generar_despacho.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.bt_generar_despacho.Margin = New System.Windows.Forms.Padding(4)
         Me.bt_generar_despacho.Name = "bt_generar_despacho"
         Me.bt_generar_despacho.Size = New System.Drawing.Size(117, 76)
         Me.bt_generar_despacho.TabIndex = 65
@@ -152,7 +152,7 @@ Partial Class fm_0800_cargar_rm
         Me.Tx_Nit.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Tx_Nit.Enabled = False
         Me.Tx_Nit.Location = New System.Drawing.Point(20, 447)
-        Me.Tx_Nit.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.Tx_Nit.Margin = New System.Windows.Forms.Padding(4)
         Me.Tx_Nit.Name = "Tx_Nit"
         Me.Tx_Nit.Size = New System.Drawing.Size(116, 22)
         Me.Tx_Nit.TabIndex = 77
@@ -161,7 +161,7 @@ Partial Class fm_0800_cargar_rm
         '
         Me.bt_asignar_sucursal.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.bt_asignar_sucursal.Location = New System.Drawing.Point(857, 420)
-        Me.bt_asignar_sucursal.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.bt_asignar_sucursal.Margin = New System.Windows.Forms.Padding(4)
         Me.bt_asignar_sucursal.Name = "bt_asignar_sucursal"
         Me.bt_asignar_sucursal.Size = New System.Drawing.Size(117, 76)
         Me.bt_asignar_sucursal.TabIndex = 79
@@ -173,7 +173,7 @@ Partial Class fm_0800_cargar_rm
         Me.tx_id_tercero.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.tx_id_tercero.Enabled = False
         Me.tx_id_tercero.Location = New System.Drawing.Point(20, 475)
-        Me.tx_id_tercero.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.tx_id_tercero.Margin = New System.Windows.Forms.Padding(4)
         Me.tx_id_tercero.Name = "tx_id_tercero"
         Me.tx_id_tercero.Size = New System.Drawing.Size(116, 22)
         Me.tx_id_tercero.TabIndex = 67
@@ -184,7 +184,7 @@ Partial Class fm_0800_cargar_rm
         Me.Tx_IdRm.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Tx_IdRm.Enabled = False
         Me.Tx_IdRm.Location = New System.Drawing.Point(142, 447)
-        Me.Tx_IdRm.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.Tx_IdRm.Margin = New System.Windows.Forms.Padding(4)
         Me.Tx_IdRm.Name = "Tx_IdRm"
         Me.Tx_IdRm.Size = New System.Drawing.Size(116, 22)
         Me.Tx_IdRm.TabIndex = 80
@@ -195,7 +195,7 @@ Partial Class fm_0800_cargar_rm
         Me.tx_id_sucursal_unoee.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.tx_id_sucursal_unoee.Enabled = False
         Me.tx_id_sucursal_unoee.Location = New System.Drawing.Point(140, 476)
-        Me.tx_id_sucursal_unoee.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.tx_id_sucursal_unoee.Margin = New System.Windows.Forms.Padding(4)
         Me.tx_id_sucursal_unoee.Name = "tx_id_sucursal_unoee"
         Me.tx_id_sucursal_unoee.Size = New System.Drawing.Size(116, 22)
         Me.tx_id_sucursal_unoee.TabIndex = 81

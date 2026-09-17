@@ -162,7 +162,18 @@ Public Class comunes
         Next
         Return id_tercero
     End Function
+    Public Shared Function ObtenerTerceros() As DataTable
 
+        Dim csql As String =
+            "select f0200_id_tercero as id," &
+            " trim(both ' ' from f0200_apellido1 || ' ' || f0200_apellido2 || ' ' || f0200_nombres) as tercero," &
+            " f0200_id as nit" &
+            " from " & database.obtener_esquema & ".tb0200_terceros" &
+            " order by f0200_nombres"
+
+        Return cl_utilidades_datatables.cargar_informacion_postgres(csql)
+
+    End Function
     Public Shared Function formulario_fecha_hora(ByVal fecha_ini As Date, Optional show_hora As String = "S")
         Dim a As String
         Dim oform_fecha As New camocontrol.fm_gestion_fechas

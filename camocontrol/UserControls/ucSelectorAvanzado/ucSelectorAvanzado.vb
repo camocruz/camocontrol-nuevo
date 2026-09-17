@@ -19,6 +19,7 @@
     Public Property SelectedID As String
     Public Property SelectedText As String
     Public Property SelectedExtra As String
+    Public Property ColumnasVisiblesPopup As List(Of String)
 
     Public Event SeleccionRealizada(id As String, texto As String, extra As String)
 
@@ -106,6 +107,20 @@
     End Sub
 
     ' ============================================================
+    '  TEXTBOX VACIO E INTENTO DE ESCRITURA → ABRIR POPUP
+    ' ============================================================
+    Private Sub txtValor_KeyPress(sender As Object, e As KeyPressEventArgs) Handles txtValor.KeyPress
+        If asignandoValor Then Exit Sub
+
+        If txtValor.Text.Trim() = "" Then
+            e.Handled = True
+            AbrirPopup(e.KeyChar.ToString())
+        End If
+    End Sub
+
+
+
+    ' ============================================================
     '  TEXT CHANGED
     ' ============================================================
     Private Sub txtValor_TextChanged(sender As Object, e As EventArgs) Handles txtValor.TextChanged
@@ -159,6 +174,7 @@
         Dim coincidencias = SelectorHelper.Filtrar(_lista, textoBusqueda, existeExtra)
 
         Dim frm As New frmSelectorPopup
+        frm.ColumnasVisibles = ColumnasVisiblesPopup
         frm.CargarDatos(coincidencias, dtOriginal)
 
         Dim pos = Me.PointToScreen(New Point(0, Me.Height))
@@ -188,6 +204,11 @@
     ' ============================================================
     Private Sub AbrirPopup(textoBusqueda As String)
         Dim frm As New frmSelectorPopup
+
+        ' PASO CLAVE: pasar la búsqueda inicial al popup
+        frm.TextoInicialBusqueda = textoBusqueda
+
+        frm.ColumnasVisibles = ColumnasVisiblesPopup
         frm.CargarDatos(_lista, dtOriginal)
 
         Dim pos = Me.PointToScreen(New Point(0, Me.Height))
@@ -198,11 +219,10 @@
             asignandoValor = True
 
             SelectedID = frm.ResultadoID
-            SelectedText = frm.ResultadoTexto   ' ← SIEMPRE TEXTO (col1)
+            SelectedText = frm.ResultadoTexto
             SelectedExtra = frm.ResultadoExtra
 
             txtValor.Text = SelectedText
-
             valorOriginal = SelectedText
 
             asignandoValor = False
@@ -210,6 +230,7 @@
             RaiseEvent SeleccionRealizada(SelectedID, SelectedText, SelectedExtra)
         End If
     End Sub
+
 
 End Class
 

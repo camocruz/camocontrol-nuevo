@@ -684,4 +684,5 @@ Public Class fm_0100_estructura_mantenimiento
         ' y quieren acceder rápidamente a ellas sin tener que navegar por el árbol.
         cl_utilidades_gestion_acciones.abrir_actividad(value, vg_usuario_autoriza, vg_id_cia)
     End Sub
+
 End Class
