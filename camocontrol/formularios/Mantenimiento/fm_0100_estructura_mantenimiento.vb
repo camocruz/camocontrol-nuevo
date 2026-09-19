@@ -61,35 +61,26 @@ Public Class fm_0100_estructura_mantenimiento
         bt_nuevo.Enabled = False
         bt_generar_informe.Enabled = False
         bt_editar.Enabled = False
-        cargar_combo_compañias()
-        cm_compania.SelectedValue = vg_id_cia
+
+        Dim dto As New VisorDatosConfig()
+        dto.IdSql = "ST-0100-09"
+        dto.IdCia = vg_id_cia
+        dto.Replacements = {vg_id_cia}
+        csql = cl_utilidades_datatables.ConstruirSql(dto)
+        otb_estructura_mantenimiento = cl_utilidades_datatables.cargar_informacion_postgres(csql)
+        UcSelectorEstructura.Inicializar(otb_estructura_mantenimiento)
+
         llenar_arbol()
         If nodo_a_mostrar <> "" Then
             mostrar_nodo(nodo_a_mostrar)
         End If
     End Sub
-    Private Sub cm_compania_Validating(ByVal sender As Object, ByVal e As System.ComponentModel.CancelEventArgs) Handles cm_compania.Validating
-        If cm_compania.Text.ToString = "" Then
-            Exit Sub
-        End If
-        llenar_arbol()
+
+    Private Sub UcSelectorEstructura_SeleccionRealizada(id As String, texto As String, extra As String) Handles UcSelectorEstructura.SeleccionRealizada
+        ruta_critica(id)
+        UcSelectorEstructura.Limpiar()
     End Sub
-    Private Sub cargar_combo_compañias()
-        Dim otb_info_companias As DataTable
-        otb_info_companias = comunes.cargar_informacion_companias
-        With cm_compania
-            'Valor que se muestra al usuario
-            .DisplayMember = "compania"
-            'Valor interno que almacena el objeto
-            .ValueMember = "f0001_id_cia"
-            'Origen de Datos del ComboBox
-            .DataSource = otb_info_companias
-            .DropDownStyle = ComboBoxStyle.DropDown
-            .AutoCompleteMode = AutoCompleteMode.Suggest
-            .AutoCompleteSource = AutoCompleteSource.ListItems
-            .SelectedIndex = -1
-        End With
-    End Sub
+
     Private Sub cargar_otabla_estructura()
         csql = "SELECT estructura.*, tb0107_tipos_estructura.*," _
                     & " estructura.f0100_nombre || ' -- { ' || estructura.f0100_id_estructura || ' } ' || ' -- ' || coalesce(maquina.f0100_nombre,'ND') as descripcion_nombre," _
@@ -333,10 +324,6 @@ Public Class fm_0100_estructura_mantenimiento
         If respuesta = "N" Then
             Exit Sub
         End If
-        If cm_compania.Text.ToString = "" Then
-            MsgBox("Seleccione una compañia", MsgBoxStyle.Exclamation, "Seleccionar")
-            Exit Sub
-        End If
         If tx_elemento_seleccionado.Text = "N/D" Then
             MsgBox("Seleccione el elemento padre", MsgBoxStyle.Exclamation, "Seleccionar")
             Exit Sub
@@ -347,7 +334,7 @@ Public Class fm_0100_estructura_mantenimiento
         'oform_grilla_programacion.ods_hijo = ods
         oform_info_elemento.vf_oform_padre = Me
         oform_info_elemento.lb_titulo.Text = "Nuevo Elemento Estructura Mantenimiento"
-        oform_info_elemento.vg_id_cia = cm_compania.SelectedValue
+        oform_info_elemento.vg_id_cia = vg_id_cia
         oform_info_elemento.vg_usuario_autoriza = vg_usuario_autoriza
         'oform_info_elemento.otb_estructura_mantenimiento = otb_estructura_mantenimiento
         oform_info_elemento.id_estructura_padre = id_estructura
@@ -374,7 +361,7 @@ Public Class fm_0100_estructura_mantenimiento
         Dim oform_info_elemento As New camocontrol.fm_0100_elemento_estructura_mantenimiento
         'oform_grilla_programacion.ods_hijo = ods
         oform_info_elemento.vf_oform_padre = Me
-        oform_info_elemento.vg_id_cia = cm_compania.SelectedValue
+        oform_info_elemento.vg_id_cia = vg_id_cia
         'oform_info_elemento.otb_estructura_mantenimiento = otb_estructura_mantenimiento
         oform_info_elemento.id_estructura = id_estructura
         oform_info_elemento.vg_usuario_autoriza = vg_usuario_autoriza
@@ -503,7 +490,7 @@ Public Class fm_0100_estructura_mantenimiento
         oform_programar_actividad.vf_oform_padre = Me
         oform_programar_actividad.lb_estructura.Text = tx_elemento_seleccionado.Text
         oform_programar_actividad.vg_usuario_autoriza = vg_usuario_autoriza
-        oform_programar_actividad.vg_id_cia = cm_compania.SelectedValue
+        oform_programar_actividad.vg_id_cia = vg_id_cia
         oform_programar_actividad.path_estructura = path_estructura
         oform_programar_actividad.id_estructura = id_estructura
         'oform_programar_actividad.vf_elemento_nuevo = "N"
@@ -545,14 +532,13 @@ Public Class fm_0100_estructura_mantenimiento
         Dim oform_reportar_falla As New camocontrol.fm_0100_reportar_falla_maquina
         'oform_grilla_programacion.ods_hijo = ods
         oform_reportar_falla.vf_oform_padre = Me
-        oform_reportar_falla.vg_id_cia = cm_compania.SelectedValue
+        oform_reportar_falla.vg_id_cia = vg_id_cia
         oform_reportar_falla.id_estructura = id_estructura
         oform_reportar_falla.id_fuente_falla = "00000001"
         oform_reportar_falla.cm_fuente_accion.Enabled = False
         oform_reportar_falla.vg_usuario_autoriza = vg_usuario_autoriza
         oform_reportar_falla.tx_estructura.Text = tx_elemento_seleccionado.Text.Trim
         oform_reportar_falla.ShowDialog()
-
     End Sub
 
     Private Sub bt_imagen_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles bt_imagen.Click
@@ -623,40 +609,6 @@ Public Class fm_0100_estructura_mantenimiento
         Dim campo_rama As String = "f0100_estructura_padre"
         Dim campo_id As String = "f0100_id_estructura"
         cl_utilidades_datatables.copiar_ramal(ocampos, otabla, id_rama, campo_rama, campo_id)
-    End Sub
-    Private Sub ejecutar_modo_busqueda_item()
-        If tx_BuscadorEstructura.Text.Trim() = "" Then
-            MsgBox("Ingrese un criterio de búsqueda", MsgBoxStyle.Exclamation, "Buscar")
-            Exit Sub
-        End If
-
-        Dim filtro As String = comunes.generador_filtro_like("nombre", tx_BuscadorEstructura.Text.Trim())
-
-        Dim otb_items_selected As DataTable = Nothing
-        Dim otb_tablas_array() As DataTable = Nothing
-        otb_tablas_array = cl_utilidades_datatables.visualizar_datos_visor("ST-0100-07", vg_id_cia, vg_usuario_autoriza,
-                                                        "Estructura Mantenimiento",
-                                                        {vg_id_cia},
-                                                            , "Items",,, "S", "id",, "S", "N", filtro)
-
-        If IsNothing(otb_tablas_array(2)) = False Then
-            otb_items_selected = otb_tablas_array(2)
-        Else
-            Exit Sub
-        End If
-        'agrego el tercero seleccionado
-        For Each orow As DataRow In otb_items_selected.Rows
-            'MsgBox("ID seleccionado: " & orow("id"))
-            ruta_critica(orow("id"))
-        Next
-    End Sub
-
-    Private Sub tx_BuscadorEstructura_KeyDown(sender As Object, e As KeyEventArgs) Handles tx_BuscadorEstructura.KeyDown
-        If e.KeyCode = Keys.Enter Then
-            e.SuppressKeyPress = True ' evita el beep o salto de línea
-            ejecutar_modo_busqueda_item()
-        End If
-
     End Sub
 
     Private Sub bt_nueva_no_recurrente_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles bt_nueva_actividad.Click

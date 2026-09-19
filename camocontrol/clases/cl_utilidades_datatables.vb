@@ -369,7 +369,7 @@ Public Class cl_utilidades_datatables
         frm.Dispose()
         Return resultado
     End Function
-    Private Shared Function ConstruirSql(config As VisorDatosConfig) As String
+    Public Shared Function ConstruirSql(config As VisorDatosConfig) As String
         Dim csql = comunes.suministrar_valor_variable_configuracion(config.IdSql, config.IdCia)
 
         If String.IsNullOrWhiteSpace(csql) Then

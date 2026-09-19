@@ -21,8 +21,9 @@ Partial Class frmSelectorPopup
     Private Sub InitializeComponent()
         Me.txtBuscar = New System.Windows.Forms.TextBox()
         Me.dgDatos = New System.Windows.Forms.DataGridView()
-        Me.btnSeleccionar = New System.Windows.Forms.Button()
+        Me.btnLimpiarFiltro = New System.Windows.Forms.Button()
         Me.Label1 = New System.Windows.Forms.Label()
+        Me.lblCantidad = New System.Windows.Forms.Label()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.dgDatos, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
@@ -65,14 +66,15 @@ Partial Class frmSelectorPopup
         Me.dgDatos.Size = New System.Drawing.Size(965, 220)
         Me.dgDatos.TabIndex = 1
         '
-        'btnSeleccionar
+        'btnLimpiarFiltro
         '
-        Me.btnSeleccionar.Location = New System.Drawing.Point(411, 73)
-        Me.btnSeleccionar.Name = "btnSeleccionar"
-        Me.btnSeleccionar.Size = New System.Drawing.Size(95, 55)
-        Me.btnSeleccionar.TabIndex = 65
-        Me.btnSeleccionar.Text = "Buscar"
-        Me.btnSeleccionar.UseVisualStyleBackColor = True
+        Me.btnLimpiarFiltro.BackgroundImage = Global.camocontrol.My.Resources.Resources.EQUIS
+        Me.btnLimpiarFiltro.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None
+        Me.btnLimpiarFiltro.Location = New System.Drawing.Point(411, 89)
+        Me.btnLimpiarFiltro.Name = "btnLimpiarFiltro"
+        Me.btnLimpiarFiltro.Size = New System.Drawing.Size(34, 34)
+        Me.btnLimpiarFiltro.TabIndex = 65
+        Me.btnLimpiarFiltro.UseVisualStyleBackColor = True
         '
         'Label1
         '
@@ -83,12 +85,23 @@ Partial Class frmSelectorPopup
         Me.Label1.TabIndex = 66
         Me.Label1.Text = "Buscar:"
         '
+        'lblCantidad
+        '
+        Me.lblCantidad.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.lblCantidad.AutoSize = True
+        Me.lblCantidad.Location = New System.Drawing.Point(12, 364)
+        Me.lblCantidad.Name = "lblCantidad"
+        Me.lblCantidad.Size = New System.Drawing.Size(75, 16)
+        Me.lblCantidad.TabIndex = 67
+        Me.lblCantidad.Text = "lblCantidad"
+        '
         'frmSelectorPopup
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.ClientSize = New System.Drawing.Size(989, 426)
+        Me.Controls.Add(Me.lblCantidad)
         Me.Controls.Add(Me.Label1)
-        Me.Controls.Add(Me.btnSeleccionar)
+        Me.Controls.Add(Me.btnLimpiarFiltro)
         Me.Controls.Add(Me.dgDatos)
         Me.Controls.Add(Me.txtBuscar)
         Me.Name = "frmSelectorPopup"
@@ -102,8 +115,9 @@ Partial Class frmSelectorPopup
         Me.Controls.SetChildIndex(Me.bt_salir, 0)
         Me.Controls.SetChildIndex(Me.txtBuscar, 0)
         Me.Controls.SetChildIndex(Me.dgDatos, 0)
-        Me.Controls.SetChildIndex(Me.btnSeleccionar, 0)
+        Me.Controls.SetChildIndex(Me.btnLimpiarFiltro, 0)
         Me.Controls.SetChildIndex(Me.Label1, 0)
+        Me.Controls.SetChildIndex(Me.lblCantidad, 0)
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.dgDatos, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
@@ -113,6 +127,7 @@ Partial Class frmSelectorPopup
 
     Friend WithEvents txtBuscar As TextBox
     Friend WithEvents dgDatos As DataGridView
-    Friend WithEvents btnSeleccionar As Button
+    Friend WithEvents btnLimpiarFiltro As Button
     Friend WithEvents Label1 As Label
+    Friend WithEvents lblCantidad As Label
 End Class

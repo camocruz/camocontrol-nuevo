@@ -793,6 +793,7 @@ Partial Class fm_0600_p1_definicion_accion
         '
         'UcTerceroRel
         '
+        Me.UcTerceroRel.ColumnasVisiblesPopup = Nothing
         Me.UcTerceroRel.Location = New System.Drawing.Point(111, 45)
         Me.UcTerceroRel.Name = "UcTerceroRel"
         Me.UcTerceroRel.SelectedExtra = Nothing
@@ -912,6 +913,7 @@ Partial Class fm_0600_p1_definicion_accion
         '
         'UcResponsable
         '
+        Me.UcResponsable.ColumnasVisiblesPopup = Nothing
         Me.UcResponsable.Location = New System.Drawing.Point(130, 281)
         Me.UcResponsable.Name = "UcResponsable"
         Me.UcResponsable.SelectedExtra = Nothing
@@ -923,6 +925,7 @@ Partial Class fm_0600_p1_definicion_accion
         '
         'UcEmisor
         '
+        Me.UcEmisor.ColumnasVisiblesPopup = Nothing
         Me.UcEmisor.Location = New System.Drawing.Point(132, 250)
         Me.UcEmisor.Name = "UcEmisor"
         Me.UcEmisor.SelectedExtra = Nothing
@@ -934,6 +937,7 @@ Partial Class fm_0600_p1_definicion_accion
         '
         'UcEvaluador
         '
+        Me.UcEvaluador.ColumnasVisiblesPopup = Nothing
         Me.UcEvaluador.Location = New System.Drawing.Point(130, 310)
         Me.UcEvaluador.Name = "UcEvaluador"
         Me.UcEvaluador.SelectedExtra = Nothing

@@ -59,27 +59,34 @@ Public Module SelectorHelper
     '  FILTRAR LISTA
     ' ============================================================
     Public Function Filtrar(lista As List(Of MultiColumnDTO),
-                            texto As String,
-                            existeExtra As Boolean) As List(Of MultiColumnDTO)
+                        texto As String,
+                        existeExtra As Boolean) As List(Of MultiColumnDTO)
 
-        Dim tokens = ExtraerTokensSQL(texto.ToLower())
+        If String.IsNullOrWhiteSpace(texto) Then
+            Return lista.ToList()
+        End If
+
+        Dim tokens As List(Of String) =
+            texto.ToLower().Split({" "c}, StringSplitOptions.RemoveEmptyEntries).
+                  Select(Function(t) t.Trim()).ToList()
+
         Dim resultado As New List(Of MultiColumnDTO)
 
         For Each x As MultiColumnDTO In lista
 
             Dim idItem As String = If(x.ID, "").ToLower()
-            Dim extraItem As String = If(x.Extra, "").ToLower()
             Dim textoItem As String = If(x.Texto, "").ToLower()
+            Dim extraItem As String = If(x.Extra, "").ToLower()
 
             Dim coincideTokens As Boolean = True
 
             For Each token As String In tokens
 
                 If existeExtra Then
-                    ' 3 columnas → ID + Extra + Texto
+                    ' 3 columnas → ID + Texto + Extra
                     If Not idItem.Contains(token) AndAlso
-                       Not extraItem.Contains(token) AndAlso
-                       Not textoItem.Contains(token) Then
+                       Not textoItem.Contains(token) AndAlso
+                       Not extraItem.Contains(token) Then
 
                         coincideTokens = False
                         Exit For
@@ -102,5 +109,6 @@ Public Module SelectorHelper
 
         Return resultado
     End Function
+
 
 End Module

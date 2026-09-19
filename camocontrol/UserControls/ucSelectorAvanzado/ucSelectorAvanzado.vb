@@ -23,6 +23,9 @@
 
     Public Event SeleccionRealizada(id As String, texto As String, extra As String)
 
+    Public Event DespuesDeLimpiar()
+
+
     Private Sub AplicarSoloLectura()
         If _soloLectura Then
             txtValor.ReadOnly = True
@@ -34,6 +37,20 @@
             txtValor.Cursor = Cursors.IBeam
         End If
     End Sub
+    Public Sub Limpiar()
+        asignandoValor = True
+
+        SelectedID = ""
+        SelectedText = ""
+        SelectedExtra = ""
+        txtValor.Text = ""
+        valorOriginal = ""
+
+        asignandoValor = False
+
+        RaiseEvent DespuesDeLimpiar()
+    End Sub
+
 
     Private Sub ucSelectorAvanzado_Resize(sender As Object, e As EventArgs) Handles Me.Resize
         AjustarAnchoTextBox()
@@ -111,13 +128,18 @@
     ' ============================================================
     Private Sub txtValor_KeyPress(sender As Object, e As KeyPressEventArgs) Handles txtValor.KeyPress
         If asignandoValor Then Exit Sub
+        If _soloLectura Then Exit Sub
 
+        ' Ignorar teclas de control (Enter, Tab, Ctrl+V, etc.)
+        If Char.IsControl(e.KeyChar) Then Exit Sub
+        If (ModifierKeys And Keys.Control) = Keys.Control Then Exit Sub
+
+        ' Solo abrir popup si el textbox está realmente vacío
         If txtValor.Text.Trim() = "" Then
             e.Handled = True
             AbrirPopup(e.KeyChar.ToString())
         End If
     End Sub
-
 
 
     ' ============================================================
@@ -148,9 +170,11 @@
     End Sub
 
     ' ============================================================
-    '  ENTER → ABRIR POPUP
+    '  ENTER O F4 → ABRIR POPUP
     ' ============================================================
     Private Sub txtValor_KeyDown(sender As Object, e As KeyEventArgs) Handles txtValor.KeyDown
+        If asignandoValor Then Exit Sub
+        'Apertura del popup con ENTER
         If e.KeyCode = Keys.Enter Then
             e.SuppressKeyPress = True
 
@@ -159,6 +183,53 @@
             If SelectedID Is Nothing OrElse SelectedID.Trim() = "" Then
                 AbrirPopupConBusqueda()
             End If
+        End If
+        'Apertura del popup con F4
+        If asignandoValor Then Exit Sub
+
+        If e.KeyCode = Keys.F4 Then
+            e.Handled = True
+            AbrirPopup(txtValor.Text)
+        End If
+
+        ' Detectar pegar texto (Ctrl+V)
+        If e.Control AndAlso e.KeyCode = Keys.V Then
+            ' Esperar a que el texto se pegue
+            Me.BeginInvoke(Sub()
+                               ProcesarTextoPegado()
+                           End Sub)
+        End If
+    End Sub
+    Private Sub ProcesarTextoPegado()
+        Dim textoPegado As String = txtValor.Text.Trim()
+
+        If textoPegado = "" Then Exit Sub
+
+        ' Filtrar la lista original
+        Dim coincidencias = _lista.Where(Function(x) _
+        x.ID.ToUpper().Contains(textoPegado.ToUpper()) OrElse
+        x.Texto.ToUpper().Contains(textoPegado.ToUpper()) OrElse
+        x.Extra.ToUpper().Contains(textoPegado.ToUpper())
+    ).ToList()
+
+        If coincidencias.Count = 1 Then
+            ' Selección automática SIN abrir popup
+            asignandoValor = True
+
+            Dim dto = coincidencias(0)
+            SelectedID = dto.ID
+            SelectedText = dto.Texto
+            SelectedExtra = dto.Extra
+
+            txtValor.Text = SelectedText
+            valorOriginal = SelectedText
+
+            asignandoValor = False
+
+            RaiseEvent SeleccionRealizada(SelectedID, SelectedText, SelectedExtra)
+        Else
+            ' Abrir popup con filtro inicial
+            AbrirPopup(textoPegado)
         End If
     End Sub
 
@@ -205,10 +276,9 @@
     Private Sub AbrirPopup(textoBusqueda As String)
         Dim frm As New frmSelectorPopup
 
-        ' PASO CLAVE: pasar la búsqueda inicial al popup
         frm.TextoInicialBusqueda = textoBusqueda
-
         frm.ColumnasVisibles = ColumnasVisiblesPopup
+
         frm.CargarDatos(_lista, dtOriginal)
 
         Dim pos = Me.PointToScreen(New Point(0, Me.Height))

@@ -44,10 +44,7 @@ Partial Class fm_0100_estructura_mantenimiento
         Me.Button1 = New System.Windows.Forms.Button()
         Me.bt_imagen = New System.Windows.Forms.Button()
         Me.bt_mantenimientos = New System.Windows.Forms.Button()
-        Me.cm_compania = New System.Windows.Forms.ComboBox()
-        Me.Label2 = New System.Windows.Forms.Label()
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
-        Me.tx_BuscadorEstructura = New System.Windows.Forms.TextBox()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.UcSelectorEstructura = New camocontrol.ucSelectorAvanzado()
         Me.GroupBox1.SuspendLayout()
@@ -100,10 +97,10 @@ Partial Class fm_0100_estructura_mantenimiento
         Me.TreeView1.ContextMenuStrip = Me.ContextMenuStrip1
         Me.TreeView1.Indent = 10
         Me.TreeView1.ItemHeight = 17
-        Me.TreeView1.Location = New System.Drawing.Point(370, 110)
+        Me.TreeView1.Location = New System.Drawing.Point(370, 75)
         Me.TreeView1.Margin = New System.Windows.Forms.Padding(4)
         Me.TreeView1.Name = "TreeView1"
-        Me.TreeView1.Size = New System.Drawing.Size(743, 415)
+        Me.TreeView1.Size = New System.Drawing.Size(743, 450)
         Me.TreeView1.TabIndex = 61
         '
         'ContextMenuStrip1
@@ -175,7 +172,7 @@ Partial Class fm_0100_estructura_mantenimiento
         Me.GroupBox2.Controls.Add(Me.Button1)
         Me.GroupBox2.Controls.Add(Me.bt_imagen)
         Me.GroupBox2.Controls.Add(Me.bt_mantenimientos)
-        Me.GroupBox2.Location = New System.Drawing.Point(16, 173)
+        Me.GroupBox2.Location = New System.Drawing.Point(16, 134)
         Me.GroupBox2.Margin = New System.Windows.Forms.Padding(4)
         Me.GroupBox2.Name = "GroupBox2"
         Me.GroupBox2.Padding = New System.Windows.Forms.Padding(4)
@@ -328,44 +325,15 @@ Partial Class fm_0100_estructura_mantenimiento
         Me.bt_mantenimientos.Margin = New System.Windows.Forms.Padding(4)
         Me.bt_mantenimientos.Name = "bt_mantenimientos"
         Me.bt_mantenimientos.Size = New System.Drawing.Size(73, 53)
-        Me.bt_mantenimientos.TabIndex = 80
+        Me.bt_mantenimientos.TabIndex = 0
         Me.bt_mantenimientos.Tag = ""
         Me.bt_mantenimientos.UseVisualStyleBackColor = True
-        '
-        'cm_compania
-        '
-        Me.cm_compania.Enabled = False
-        Me.cm_compania.FormattingEnabled = True
-        Me.cm_compania.Location = New System.Drawing.Point(137, 76)
-        Me.cm_compania.Margin = New System.Windows.Forms.Padding(4)
-        Me.cm_compania.Name = "cm_compania"
-        Me.cm_compania.Size = New System.Drawing.Size(486, 24)
-        Me.cm_compania.TabIndex = 63
-        '
-        'Label2
-        '
-        Me.Label2.AutoSize = True
-        Me.Label2.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label2.Location = New System.Drawing.Point(16, 78)
-        Me.Label2.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
-        Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(108, 25)
-        Me.Label2.TabIndex = 64
-        Me.Label2.Text = "Compañia:"
-        '
-        'tx_BuscadorEstructura
-        '
-        Me.tx_BuscadorEstructura.Location = New System.Drawing.Point(24, 138)
-        Me.tx_BuscadorEstructura.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
-        Me.tx_BuscadorEstructura.Name = "tx_BuscadorEstructura"
-        Me.tx_BuscadorEstructura.Size = New System.Drawing.Size(329, 22)
-        Me.tx_BuscadorEstructura.TabIndex = 89
         '
         'Label1
         '
         Me.Label1.AutoSize = True
         Me.Label1.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label1.Location = New System.Drawing.Point(20, 113)
+        Me.Label1.Location = New System.Drawing.Point(20, 74)
         Me.Label1.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(106, 25)
@@ -375,14 +343,14 @@ Partial Class fm_0100_estructura_mantenimiento
         'UcSelectorEstructura
         '
         Me.UcSelectorEstructura.ColumnasVisiblesPopup = Nothing
-        Me.UcSelectorEstructura.Location = New System.Drawing.Point(678, 76)
+        Me.UcSelectorEstructura.Location = New System.Drawing.Point(22, 102)
         Me.UcSelectorEstructura.Name = "UcSelectorEstructura"
         Me.UcSelectorEstructura.SelectedExtra = Nothing
         Me.UcSelectorEstructura.SelectedID = Nothing
         Me.UcSelectorEstructura.SelectedText = Nothing
-        Me.UcSelectorEstructura.Size = New System.Drawing.Size(351, 26)
+        Me.UcSelectorEstructura.Size = New System.Drawing.Size(341, 26)
         Me.UcSelectorEstructura.SoloLectura = False
-        Me.UcSelectorEstructura.TabIndex = 91
+        Me.UcSelectorEstructura.TabIndex = 0
         '
         'fm_0100_estructura_mantenimiento
         '
@@ -390,9 +358,6 @@ Partial Class fm_0100_estructura_mantenimiento
         Me.ClientSize = New System.Drawing.Size(1124, 624)
         Me.Controls.Add(Me.UcSelectorEstructura)
         Me.Controls.Add(Me.Label1)
-        Me.Controls.Add(Me.tx_BuscadorEstructura)
-        Me.Controls.Add(Me.Label2)
-        Me.Controls.Add(Me.cm_compania)
         Me.Controls.Add(Me.GroupBox2)
         Me.Controls.Add(Me.TreeView1)
         Me.Margin = New System.Windows.Forms.Padding(5, 6, 5, 6)
@@ -407,9 +372,6 @@ Partial Class fm_0100_estructura_mantenimiento
         Me.Controls.SetChildIndex(Me.lb_mi_marca, 0)
         Me.Controls.SetChildIndex(Me.TreeView1, 0)
         Me.Controls.SetChildIndex(Me.GroupBox2, 0)
-        Me.Controls.SetChildIndex(Me.cm_compania, 0)
-        Me.Controls.SetChildIndex(Me.Label2, 0)
-        Me.Controls.SetChildIndex(Me.tx_BuscadorEstructura, 0)
         Me.Controls.SetChildIndex(Me.Label1, 0)
         Me.Controls.SetChildIndex(Me.UcSelectorEstructura, 0)
         Me.GroupBox1.ResumeLayout(False)
@@ -426,8 +388,6 @@ Partial Class fm_0100_estructura_mantenimiento
     Friend WithEvents bt_crear_elemento As System.Windows.Forms.Button
     Friend WithEvents ContextMenuStrip1 As System.Windows.Forms.ContextMenuStrip
     Friend WithEvents mi_expandir_todo As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents cm_compania As System.Windows.Forms.ComboBox
-    Friend WithEvents Label2 As System.Windows.Forms.Label
     Friend WithEvents bt_recalcular_path As System.Windows.Forms.Button
     Friend WithEvents Button1 As System.Windows.Forms.Button
     Friend WithEvents bt_imagen As System.Windows.Forms.Button
@@ -445,7 +405,6 @@ Partial Class fm_0100_estructura_mantenimiento
     Friend WithEvents mi_quitar_filtro_rama As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents bt_comprar As System.Windows.Forms.Button
     Friend WithEvents mi_ruta_estructura As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents tx_BuscadorEstructura As TextBox
     Friend WithEvents Label1 As Label
     Friend WithEvents bt_nueva_actividad As Button
     Friend WithEvents Label3 As Label
