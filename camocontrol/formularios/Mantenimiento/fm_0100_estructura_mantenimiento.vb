@@ -68,7 +68,12 @@ Public Class fm_0100_estructura_mantenimiento
         dto.Replacements = {vg_id_cia}
         csql = cl_utilidades_datatables.ConstruirSql(dto)
         otb_estructura_mantenimiento = cl_utilidades_datatables.cargar_informacion_postgres(csql)
-        UcSelectorEstructura.Inicializar(otb_estructura_mantenimiento)
+        UcSelectorEstructura.Inicializar(
+            dt:=otb_estructura_mantenimiento,
+            columnaID:="id",
+            columnaTexto:="nombre",
+            columnaExtra:="planta"
+        )
 
         llenar_arbol()
         If nodo_a_mostrar <> "" Then

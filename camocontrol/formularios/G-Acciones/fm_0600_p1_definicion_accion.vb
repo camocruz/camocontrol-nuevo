@@ -97,19 +97,17 @@
             If orow("f0600_id_estado_accion").ToString = "08" Then '08 es estado cerrado
                 actividad_cerrada = "S"
             End If
+            'inicializamos el control de seleccion de terceros relacionados con el valor que tiene el registro
             If orow("f0600_tercero_relacionado").ToString <> "" Then
-                UcTerceroRel.InicializarConSeleccion(otb_tercero, orow("f0600_tercero_relacionado"))
-                UcTerceroRel.SelectedID = orow("f0600_tercero_relacionado")
+                UcTerceroRel.SelectedID = orow("f0600_tercero_relacionado").ToString()
                 txt_nit.Text = UcTerceroRel.SelectedExtra
             End If
 
-            UcEvaluador.InicializarConSeleccion(otb_info_personal, orow("f0600_evaluador"))
-            UcEmisor.InicializarConSeleccion(otb_info_personal, orow("f0600_emisor"))
-            UcResponsable.InicializarConSeleccion(otb_info_personal, orow("f0600_responsable"))
+            UcEvaluador.AsignarSeleccionDirecta(orow("f0600_evaluador").ToString())
 
+            UcEmisor.AsignarSeleccionDirecta(orow("f0600_emisor").ToString())
 
-            UcEvaluador.SelectedID = orow("f0600_evaluador")
-            UcEmisor.SelectedID = orow("f0600_emisor")
+            UcResponsable.AsignarSeleccionDirecta(orow("f0600_responsable").ToString())
 
             usuario_creador = orow("f0600_emisor")
             If usuario_creador = vg_usuario_autoriza Then
@@ -272,12 +270,27 @@
             & " where f0200_id_cia = '" & vg_id_cia & "'" & " and f0200_ind_empleado = 'S'" _
             & " order by nombre"
         otb_info_personal = cl_utilidades_datatables.cargar_informacion_postgres(csql)
-        UcEmisor.ColumnasVisiblesPopup = New List(Of String) From {"Texto"}
-        UcEmisor.InicializarConSeleccion(otb_info_personal, vg_usuario_autoriza)
+
         UcResponsable.ColumnasVisiblesPopup = New List(Of String) From {"Texto"}
-        UcResponsable.Inicializar(otb_info_personal)
+        UcResponsable.Inicializar(otb_info_personal,
+            columnaID:="id",
+            columnaTexto:="nombre",
+            columnaExtra:=""
+            )
+
         UcEvaluador.ColumnasVisiblesPopup = New List(Of String) From {"Texto"}
-        UcEvaluador.Inicializar(otb_info_personal)
+        UcEvaluador.Inicializar(otb_info_personal,
+            columnaID:="id",
+            columnaTexto:="nombre",
+            columnaExtra:=""
+            )
+
+        UcEmisor.ColumnasVisiblesPopup = New List(Of String) From {"Texto"}
+        UcEmisor.Inicializar(otb_info_personal,
+            columnaID:="id",
+            columnaTexto:="nombre",
+            columnaExtra:=""
+            )
 
         gb_tercero.Enabled = False
         csql = "select f0200_id_tercero as id," _
@@ -287,7 +300,11 @@
             & " order by f0200_nombres"  '& " where f0200_ind_cliente = 'S'" _
         otb_tercero = cl_utilidades_datatables.cargar_informacion_postgres(csql)
         UcTerceroRel.ColumnasVisiblesPopup = New List(Of String) From {"ID", "Texto", "Extra"} 'Para que muestre las 3 columnas en el popup de seleccion
-        UcTerceroRel.Inicializar(otb_tercero)
+        UcTerceroRel.Inicializar(otb_tercero,
+            columnaID:="id",
+            columnaTexto:="tercero",
+            columnaExtra:="nit"
+            )
 
     End Sub
     Private Sub UcTerceroRel_SeleccionRealizada(id As String, texto As String, extra As String) Handles UcTerceroRel.SeleccionRealizada

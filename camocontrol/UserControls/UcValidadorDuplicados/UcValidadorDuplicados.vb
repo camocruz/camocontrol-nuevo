@@ -1,15 +1,16 @@
 Public Class UcValidadorDuplicados
 
+    ' ============================================
+    ' CAMPOS PRIVADOS
+    ' ============================================
     Private _options As List(Of TextValidationOptionDTO)
     Private _rule As TextValidationOptionDTO
 
-    ' Nombre de la columna o propiedad que se usará como texto
+    ' ============================================
+    ' PROPIEDADES DE CONFIGURACIÓN
+    ' ============================================
     Public Property CampoTexto As String = "Description"
-
-    ' Nombre de la columna o propiedad que se usará como código
     Public Property CampoCodigo As String = "Code"
-
-    ' Nombre de la columna o propiedad que se usará como extra (opcional)
     Public Property CampoExtra As String = "Extra"
 
     Public Property Options As List(Of TextValidationOptionDTO)
@@ -35,7 +36,6 @@ Public Class UcValidadorDuplicados
     ' ABRIR POPUP
     ' ============================================
     Private Sub btnValidador_Click(sender As Object, e As EventArgs) Handles btnValidador.Click
-
         Dim popup As New frmValidadorDuplicados()
 
         popup.CampoTexto = Me.CampoTexto
@@ -48,7 +48,6 @@ Public Class UcValidadorDuplicados
             txtValor.Text = popup.txtEntrada.Text
             ActualizarEstado()
         End If
-
     End Sub
 
 
@@ -56,17 +55,14 @@ Public Class UcValidadorDuplicados
     ' ACTUALIZAR ICONO DE ESTADO
     ' ============================================
     Private Sub ActualizarEstado()
-
         Dim texto As String = txtValor.Text.Trim()
 
-        ' Si está vacío, no mostrar nada
         If texto = "" Then
             picEstado.Image = Nothing
             toolTipEstado.SetToolTip(picEstado, "")
             Exit Sub
         End If
 
-        ' Duplicado exacto
         Dim exacto = DuplicateValidatorService.DetectarExacto(texto, _options)
         If exacto IsNot Nothing Then
             picEstado.Image = My.Resources.icon_error
@@ -74,7 +70,6 @@ Public Class UcValidadorDuplicados
             Exit Sub
         End If
 
-        ' Duplicados parciales / tokens / similitud
         Dim parciales = DuplicateValidatorService.DetectarParcial(texto, _options)
         Dim tokens = DuplicateValidatorService.DetectarTokens(texto, _options)
         Dim similares = DuplicateValidatorService.DetectarSimilaridad(texto, _options)
@@ -85,10 +80,8 @@ Public Class UcValidadorDuplicados
             Exit Sub
         End If
 
-        ' Todo OK
         picEstado.Image = My.Resources.icon_ok
         toolTipEstado.SetToolTip(picEstado, "Texto válido")
-
     End Sub
 
 
@@ -99,7 +92,6 @@ Public Class UcValidadorDuplicados
                                  campoTexto As String,
                                  Optional campoCodigo As String = "",
                                  Optional campoExtra As String = "")
-
         Me.CampoTexto = campoTexto
         Me.CampoCodigo = campoCodigo
         Me.CampoExtra = campoExtra
@@ -107,10 +99,9 @@ Public Class UcValidadorDuplicados
         Dim lista As New List(Of TextValidationOptionDTO)
 
         For Each row As DataRow In dt.Rows
-
-            Dim dto As New TextValidationOptionDTO()
-
-            dto.Description = row(campoTexto).ToString()
+            Dim dto As New TextValidationOptionDTO() With {
+                .Description = row(campoTexto).ToString()
+            }
 
             If campoCodigo <> "" AndAlso dt.Columns.Contains(campoCodigo) Then
                 dto.Code = row(campoCodigo).ToString()
@@ -134,7 +125,6 @@ Public Class UcValidadorDuplicados
                                   campoTexto As String,
                                   Optional campoCodigo As String = "",
                                   Optional campoExtra As String = "")
-
         Me.CampoTexto = campoTexto
         Me.CampoCodigo = campoCodigo
         Me.CampoExtra = campoExtra
@@ -142,10 +132,9 @@ Public Class UcValidadorDuplicados
         Dim lista As New List(Of TextValidationOptionDTO)
 
         For Each obj As T In listaDTO
-
-            Dim dto As New TextValidationOptionDTO()
-
-            dto.Description = ObtenerValorPropiedad(obj, campoTexto)
+            Dim dto As New TextValidationOptionDTO() With {
+                .Description = ObtenerValorPropiedad(obj, campoTexto)
+            }
 
             If campoCodigo <> "" Then
                 dto.Code = ObtenerValorPropiedad(obj, campoCodigo)
@@ -175,6 +164,7 @@ Public Class UcValidadorDuplicados
     End Sub
 
 End Class
+
 
 
 

@@ -4,6 +4,9 @@ Imports System.Windows.Forms
 
 Public Class frmValidadorDuplicados
 
+    ' ============================================
+    ' CAMPOS Y PROPIEDADES
+    ' ============================================
     Public Property Options As List(Of TextValidationOptionDTO)
     Public Property CampoTexto As String
     Public Property CampoCodigo As String
@@ -12,7 +15,6 @@ Public Class frmValidadorDuplicados
     Private _rule As TextValidationOptionDTO
     Private _duplicados As List(Of DuplicateMatchDTO)
     Private _sugerenciasFiltradas As New List(Of TextValidationOptionDTO)
-
     Private WithEvents debounceTimer As New Timer() With {.Interval = 250}
 
     ' Clase interna para evitar problemas con ValueTuple
@@ -38,7 +40,6 @@ Public Class frmValidadorDuplicados
         AplicarFiltro()
         AnalizarDuplicados()
     End Sub
-
 
     Private Function ConstruirTextoRegla(regla As TextValidationOptionDTO) As String
         If regla Is Nothing Then Return ""
@@ -73,11 +74,7 @@ Public Class frmValidadorDuplicados
 
             Dim score As Integer = CalcularScore(opt, tokens, texto)
 
-            ' ============================
-            ' LÓGICA HÍBRIDA:
-            ' 1. Coincidencia literal
-            ' 2. Score alto (>=10)
-            ' ============================
+            ' Lógica híbrida: coincidencia literal o score alto
             Dim coincideLiteral As Boolean = desc.Contains(texto) OrElse code.Contains(texto)
             Dim coincideScore As Boolean = score >= 10
 
@@ -93,22 +90,16 @@ Public Class frmValidadorDuplicados
         ' Limitar a top 20
         Dim maxItems As Integer = Math.Min(20, resultados.Count)
 
-        Dim i As Integer
         For i = 0 To maxItems - 1
             Dim r = resultados(i)
             _sugerenciasFiltradas.Add(r.Opt)
             lstSugerencias.Items.Add($"{r.Opt.Description} ({r.Score})")
         Next
 
-        ' Priorizar selección automática
         PriorizarSeleccionSugerencias()
 
     End Sub
 
-
-    ' ============================================
-    ' SCORE DE COINCIDENCIA
-    ' ============================================
     Private Function CalcularScore(opt As TextValidationOptionDTO,
                                    tokens() As String,
                                    rawText As String) As Integer
@@ -208,6 +199,11 @@ Public Class frmValidadorDuplicados
         End If
         toolTipPopup.SetToolTip(lstSugerencias, tip)
     End Sub
+
+
+    ' ============================================
+    ' NAVEGACIÓN SUGERENCIAS
+    ' ============================================
     Private Sub lstSugerencias_KeyDown(sender As Object, e As KeyEventArgs) Handles lstSugerencias.KeyDown
 
         If lstSugerencias.Items.Count = 0 Then Exit Sub
@@ -272,14 +268,9 @@ Public Class frmValidadorDuplicados
     End Sub
 
 
-
     ' ============================================
-    ' DOBLE‑CLICK EN DUPLICADOS
+    ' NAVEGACIÓN DUPLICADOS
     ' ============================================
-    Private Sub lstDuplicados_DoubleClick(sender As Object, e As EventArgs) Handles lstDuplicados.DoubleClick
-        AceptarDuplicadoSeleccionado()
-    End Sub
-
     Private Sub lstDuplicados_KeyDown(sender As Object, e As KeyEventArgs) Handles lstDuplicados.KeyDown
 
         If lstDuplicados.Items.Count = 0 Then Exit Sub
@@ -304,6 +295,10 @@ Public Class frmValidadorDuplicados
 
         End Select
 
+    End Sub
+
+    Private Sub lstDuplicados_DoubleClick(sender As Object, e As EventArgs) Handles lstDuplicados.DoubleClick
+        AceptarDuplicadoSeleccionado()
     End Sub
 
     Private Sub AceptarDuplicadoSeleccionado()
@@ -339,62 +334,65 @@ Public Class frmValidadorDuplicados
         AplicarFiltro()
         AnalizarDuplicados()
     End Sub
+
+
+    ' ============================================
+    ' ENTER EN txtEntrada
+    ' ============================================
     Private Sub txtEntrada_KeyDown(sender As Object, e As KeyEventArgs) Handles txtEntrada.KeyDown
 
         If e.KeyCode = Keys.Enter Then
 
-            ' Si hay sugerencias y una está seleccionada → aceptarla
             If lstSugerencias.Items.Count > 0 AndAlso lstSugerencias.SelectedIndex >= 0 Then
                 AceptarSugerenciaSeleccionada()
                 e.Handled = True
                 Exit Sub
             End If
 
-            ' Si no hay sugerencias pero hay duplicados seleccionados → aceptarlo
             If lstDuplicados.Items.Count > 0 AndAlso lstDuplicados.SelectedIndex >= 0 Then
                 AceptarDuplicadoSeleccionado()
                 e.Handled = True
                 Exit Sub
             End If
 
-            ' Si no hay nada seleccionado → cerrar popup como OK
             btnAceptar.PerformClick()
             e.Handled = True
 
         End If
 
     End Sub
+
+
+    ' ============================================
+    ' PRIORIDAD DE SELECCIÓN EN SUGERENCIAS
+    ' ============================================
     Private Sub PriorizarSeleccionSugerencias()
 
         If lstSugerencias.Items.Count = 0 Then Exit Sub
 
-        Dim i As Integer
-        Dim opt As TextValidationOptionDTO
+        Dim texto As String = txtEntrada.Text.Trim().ToUpperInvariant()
 
-        ' 1. Buscar coincidencia EXACTA
+        ' 1. Coincidencia exacta
         For i = 0 To _sugerenciasFiltradas.Count - 1
-            opt = _sugerenciasFiltradas(i)
-            If opt.Description.Trim().ToUpperInvariant() = txtEntrada.Text.Trim().ToUpperInvariant() Then
+            Dim opt = _sugerenciasFiltradas(i)
+            If opt.Description.Trim().ToUpperInvariant() = texto Then
                 lstSugerencias.SelectedIndex = i
                 Exit Sub
             End If
         Next
 
-        ' 2. Buscar coincidencia literal (contiene el texto)
-        Dim texto As String = txtEntrada.Text.Trim().ToUpperInvariant()
+        ' 2. Coincidencia literal (contiene el texto)
         For i = 0 To _sugerenciasFiltradas.Count - 1
-            opt = _sugerenciasFiltradas(i)
+            Dim opt = _sugerenciasFiltradas(i)
             If opt.Description.ToUpperInvariant().Contains(texto) Then
                 lstSugerencias.SelectedIndex = i
                 Exit Sub
             End If
         Next
 
-        ' 3. Si no hay coincidencias exactas ni literales → seleccionar la primera
+        ' 3. Si no hay coincidencias → primera
         lstSugerencias.SelectedIndex = 0
 
     End Sub
 
 End Class
-
-

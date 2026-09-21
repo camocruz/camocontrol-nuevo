@@ -23,36 +23,28 @@ Public Module SelectorHelper
     ' ============================================================
     '  CONSTRUIR LISTA DTO
     ' ============================================================
-    Public Function ConstruirLista(dt As DataTable) As List(Of MultiColumnDTO)
+    Public Function ConstruirLista(dt As DataTable,
+                               columnaID As String,
+                               columnaTexto As String,
+                               columnaExtra As String) As List(Of MultiColumnDTO)
+
         Dim lista As New List(Of MultiColumnDTO)
 
         For Each row As DataRow In dt.Rows
-            Dim dto As New MultiColumnDTO()
-
-            Select Case dt.Columns.Count
-
-                Case 1
-                    dto.ID = row(0).ToString()
-                    dto.Texto = row(0).ToString()
-                    dto.Extra = ""
-
-                Case 2
-                    dto.ID = row(0).ToString()
-                    dto.Texto = row(1).ToString()
-                    dto.Extra = ""
-
-                Case Else   ' 3 columnas
-                    dto.ID = row(0).ToString()
-                    dto.Texto = row(1).ToString()   ' ← TEXTO SIEMPRE ES COLUMNA 1
-                    dto.Extra = row(2).ToString()   ' ← EXTRA ES COLUMNA 2
-
-            End Select
+            Dim dto As New MultiColumnDTO With {
+            .ID = row(columnaID).ToString(),
+            .Texto = row(columnaTexto).ToString(),
+            .Extra = If(String.IsNullOrEmpty(columnaExtra), "",
+                        row(columnaExtra).ToString())
+        }
 
             lista.Add(dto)
         Next
 
         Return lista
     End Function
+
+
 
 
     ' ============================================================

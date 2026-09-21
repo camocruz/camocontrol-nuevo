@@ -68,21 +68,42 @@
     ' ============================================================
     '  CARGA NORMAL
     ' ============================================================
-    Public Sub Inicializar(dt As DataTable)
+    Public Sub Inicializar(dt As DataTable,
+                       columnaID As String,
+                       columnaTexto As String,
+                       columnaExtra As String)
+
         dtOriginal = dt
-        _lista = SelectorHelper.ConstruirLista(dt)
+
+        _lista = SelectorHelper.ConstruirLista(dt,
+                                           columnaID,
+                                           columnaTexto,
+                                           columnaExtra)
     End Sub
+
+
 
     ' ============================================================
     '  CARGA CON SELECCIÓN AUTOMÁTICA
     ' ============================================================
-    Public Sub InicializarConSeleccion(dt As DataTable, id As String)
+    Public Sub InicializarConSeleccion(dt As DataTable,
+                                   columnaID As String,
+                                   columnaTexto As String,
+                                   columnaExtra As String,
+                                   id As String)
+
         dtOriginal = dt
-        _lista = SelectorHelper.ConstruirLista(dt)
+
+        _lista = SelectorHelper.ConstruirLista(dt,
+                                           columnaID,
+                                           columnaTexto,
+                                           columnaExtra)
 
         If String.IsNullOrWhiteSpace(id) Then Exit Sub
         AsignarSeleccionDirecta(id)
     End Sub
+
+
 
     ' ============================================================
     '  ASIGNAR SELECCIÓN DIRECTA
