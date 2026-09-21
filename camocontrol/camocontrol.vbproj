@@ -71,7 +71,7 @@
     <OptionStrict>Off</OptionStrict>
   </PropertyGroup>
   <PropertyGroup>
-    <OptionInfer>Off</OptionInfer>
+    <OptionInfer>On</OptionInfer>
   </PropertyGroup>
   <PropertyGroup>
     <ApplicationIcon>camo.ico</ApplicationIcon>
@@ -986,6 +986,26 @@
     <Compile Include="UserControls\ucSelectorAvanzado\ucSelectorAvanzado.vb">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Include="UserControls\UcValidadorDuplicados\Dtos\DuplicateMatchDTO.vb" />
+    <Compile Include="UserControls\UcValidadorDuplicados\Dtos\TextValidatedResultDTO.vb" />
+    <Compile Include="UserControls\UcValidadorDuplicados\Dtos\TextValidationOptionDTO.vb" />
+    <Compile Include="UserControls\UcValidadorDuplicados\DuplicateValidatorService.vb" />
+    <Compile Include="UserControls\UcValidadorDuplicados\frmValidadorDuplicados.Designer.vb">
+      <DependentUpon>frmValidadorDuplicados.vb</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\UcValidadorDuplicados\frmValidadorDuplicados.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UserControls\UcValidadorDuplicados\TextValidatedEventArgs.vb" />
+    <Compile Include="UserControls\UcValidadorDuplicados\UcValidadorDuplicados.Designer.vb">
+      <DependentUpon>UcValidadorDuplicados.vb</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\UcValidadorDuplicados\UcValidadorDuplicados.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\UcValidadorDuplicados\ValidatedTextBox.vb">
+      <SubType>Component</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="clases\cr_0300.rpt">
@@ -1334,6 +1354,12 @@
     <EmbeddedResource Include="UserControls\ucSelectorAvanzado\ucSelectorAvanzado.resx">
       <DependentUpon>ucSelectorAvanzado.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\UcValidadorDuplicados\frmValidadorDuplicados.resx">
+      <DependentUpon>frmValidadorDuplicados.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\UcValidadorDuplicados\UcValidadorDuplicados.resx">
+      <DependentUpon>UcValidadorDuplicados.vb</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config">
@@ -1484,7 +1510,10 @@
     <None Include="Resources\icono-herramientas.gif" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Resources\icon_warning.png" />
     <Content Include="camo.ico" />
+    <Resource Include="Resources\icon_error.png" />
+    <Resource Include="Resources\icon_ok.png" />
     <None Include="Resources\flecha_abajo.png" />
     <None Include="Resources\flecha.png" />
     <None Include="Resources\grupoproducto.png" />

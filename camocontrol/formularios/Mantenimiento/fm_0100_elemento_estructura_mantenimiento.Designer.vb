@@ -101,6 +101,7 @@ Partial Class fm_0100_elemento_estructura_mantenimiento
         Me.Label3 = New System.Windows.Forms.Label()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.TabControl1 = New System.Windows.Forms.TabControl()
+        Me.UcValidadorDuplicadosNombreEstructura = New camocontrol.UcValidadorDuplicados()
         Me.GroupBox1.SuspendLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.tabpage_documentacion.SuspendLayout()
@@ -158,7 +159,7 @@ Partial Class fm_0100_elemento_estructura_mantenimiento
         '
         Me.bt_imagen.Image = Global.camocontrol.My.Resources.Resources.icono_foto_cam
         Me.bt_imagen.Location = New System.Drawing.Point(803, 325)
-        Me.bt_imagen.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.bt_imagen.Margin = New System.Windows.Forms.Padding(4)
         Me.bt_imagen.Name = "bt_imagen"
         Me.bt_imagen.Size = New System.Drawing.Size(78, 58)
         Me.bt_imagen.TabIndex = 119
@@ -177,7 +178,7 @@ Partial Class fm_0100_elemento_estructura_mantenimiento
         Me.tabpage_documentacion.Controls.Add(Me.bt_nuevo_documento)
         Me.tabpage_documentacion.Controls.Add(Me.bt_ver_archivos_asociados)
         Me.tabpage_documentacion.Location = New System.Drawing.Point(4, 25)
-        Me.tabpage_documentacion.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.tabpage_documentacion.Margin = New System.Windows.Forms.Padding(4)
         Me.tabpage_documentacion.Name = "tabpage_documentacion"
         Me.tabpage_documentacion.Size = New System.Drawing.Size(1085, 389)
         Me.tabpage_documentacion.TabIndex = 5
@@ -210,7 +211,7 @@ Partial Class fm_0100_elemento_estructura_mantenimiento
         Me.bt_nuevo_documento.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.bt_nuevo_documento.Image = Global.camocontrol.My.Resources.Resources.carpeta2
         Me.bt_nuevo_documento.Location = New System.Drawing.Point(508, 126)
-        Me.bt_nuevo_documento.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.bt_nuevo_documento.Margin = New System.Windows.Forms.Padding(4)
         Me.bt_nuevo_documento.Name = "bt_nuevo_documento"
         Me.bt_nuevo_documento.Size = New System.Drawing.Size(67, 62)
         Me.bt_nuevo_documento.TabIndex = 85
@@ -221,7 +222,7 @@ Partial Class fm_0100_elemento_estructura_mantenimiento
         Me.bt_ver_archivos_asociados.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.bt_ver_archivos_asociados.Image = Global.camocontrol.My.Resources.Resources.icono_lupa
         Me.bt_ver_archivos_asociados.Location = New System.Drawing.Point(508, 196)
-        Me.bt_ver_archivos_asociados.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.bt_ver_archivos_asociados.Margin = New System.Windows.Forms.Padding(4)
         Me.bt_ver_archivos_asociados.Name = "bt_ver_archivos_asociados"
         Me.bt_ver_archivos_asociados.Size = New System.Drawing.Size(67, 62)
         Me.bt_ver_archivos_asociados.TabIndex = 86
@@ -251,7 +252,7 @@ Partial Class fm_0100_elemento_estructura_mantenimiento
         Me.TabPage5.Controls.Add(Me.Label17)
         Me.TabPage5.Controls.Add(Me.Label16)
         Me.TabPage5.Location = New System.Drawing.Point(4, 25)
-        Me.TabPage5.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.TabPage5.Margin = New System.Windows.Forms.Padding(4)
         Me.TabPage5.Name = "TabPage5"
         Me.TabPage5.Size = New System.Drawing.Size(1085, 389)
         Me.TabPage5.TabIndex = 4
@@ -262,7 +263,7 @@ Partial Class fm_0100_elemento_estructura_mantenimiento
         Me.dtp_fecha_salida_linea.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.dtp_fecha_salida_linea.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
         Me.dtp_fecha_salida_linea.Location = New System.Drawing.Point(219, 293)
-        Me.dtp_fecha_salida_linea.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.dtp_fecha_salida_linea.Margin = New System.Windows.Forms.Padding(4)
         Me.dtp_fecha_salida_linea.MaxDate = New Date(2100, 12, 31, 0, 0, 0, 0)
         Me.dtp_fecha_salida_linea.MinDate = New Date(1990, 1, 1, 0, 0, 0, 0)
         Me.dtp_fecha_salida_linea.Name = "dtp_fecha_salida_linea"
@@ -285,7 +286,7 @@ Partial Class fm_0100_elemento_estructura_mantenimiento
         Me.dtp_fecha_valor_actual.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.dtp_fecha_valor_actual.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
         Me.dtp_fecha_valor_actual.Location = New System.Drawing.Point(219, 258)
-        Me.dtp_fecha_valor_actual.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.dtp_fecha_valor_actual.Margin = New System.Windows.Forms.Padding(4)
         Me.dtp_fecha_valor_actual.MaxDate = New Date(2100, 12, 31, 0, 0, 0, 0)
         Me.dtp_fecha_valor_actual.MinDate = New Date(1990, 1, 1, 0, 0, 0, 0)
         Me.dtp_fecha_valor_actual.Name = "dtp_fecha_valor_actual"
@@ -307,7 +308,7 @@ Partial Class fm_0100_elemento_estructura_mantenimiento
         '
         Me.tx_valor_actual.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.tx_valor_actual.Location = New System.Drawing.Point(123, 224)
-        Me.tx_valor_actual.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.tx_valor_actual.Margin = New System.Windows.Forms.Padding(4)
         Me.tx_valor_actual.Name = "tx_valor_actual"
         Me.tx_valor_actual.Size = New System.Drawing.Size(470, 26)
         Me.tx_valor_actual.TabIndex = 122
@@ -316,7 +317,7 @@ Partial Class fm_0100_elemento_estructura_mantenimiento
         '
         Me.tx_valor_nuevo.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.tx_valor_nuevo.Location = New System.Drawing.Point(123, 190)
-        Me.tx_valor_nuevo.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.tx_valor_nuevo.Margin = New System.Windows.Forms.Padding(4)
         Me.tx_valor_nuevo.Name = "tx_valor_nuevo"
         Me.tx_valor_nuevo.Size = New System.Drawing.Size(470, 26)
         Me.tx_valor_nuevo.TabIndex = 120
@@ -348,7 +349,7 @@ Partial Class fm_0100_elemento_estructura_mantenimiento
         Me.pb_imagen_elemento.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
         Me.pb_imagen_elemento.Image = Global.camocontrol.My.Resources.Resources.actualizar
         Me.pb_imagen_elemento.Location = New System.Drawing.Point(599, 18)
-        Me.pb_imagen_elemento.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.pb_imagen_elemento.Margin = New System.Windows.Forms.Padding(4)
         Me.pb_imagen_elemento.Name = "pb_imagen_elemento"
         Me.pb_imagen_elemento.Size = New System.Drawing.Size(479, 299)
         Me.pb_imagen_elemento.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
@@ -370,7 +371,7 @@ Partial Class fm_0100_elemento_estructura_mantenimiento
         '
         Me.tx_ano_fabricacion.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.tx_ano_fabricacion.Location = New System.Drawing.Point(168, 155)
-        Me.tx_ano_fabricacion.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.tx_ano_fabricacion.Margin = New System.Windows.Forms.Padding(4)
         Me.tx_ano_fabricacion.Name = "tx_ano_fabricacion"
         Me.tx_ano_fabricacion.Size = New System.Drawing.Size(424, 26)
         Me.tx_ano_fabricacion.TabIndex = 116
@@ -379,7 +380,7 @@ Partial Class fm_0100_elemento_estructura_mantenimiento
         '
         Me.tx_serial.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.tx_serial.Location = New System.Drawing.Point(123, 121)
-        Me.tx_serial.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.tx_serial.Margin = New System.Windows.Forms.Padding(4)
         Me.tx_serial.Name = "tx_serial"
         Me.tx_serial.Size = New System.Drawing.Size(470, 26)
         Me.tx_serial.TabIndex = 114
@@ -388,7 +389,7 @@ Partial Class fm_0100_elemento_estructura_mantenimiento
         '
         Me.tx_modelo.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.tx_modelo.Location = New System.Drawing.Point(123, 86)
-        Me.tx_modelo.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.tx_modelo.Margin = New System.Windows.Forms.Padding(4)
         Me.tx_modelo.Name = "tx_modelo"
         Me.tx_modelo.Size = New System.Drawing.Size(470, 26)
         Me.tx_modelo.TabIndex = 112
@@ -397,7 +398,7 @@ Partial Class fm_0100_elemento_estructura_mantenimiento
         '
         Me.tx_marca.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.tx_marca.Location = New System.Drawing.Point(123, 52)
-        Me.tx_marca.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.tx_marca.Margin = New System.Windows.Forms.Padding(4)
         Me.tx_marca.Name = "tx_marca"
         Me.tx_marca.Size = New System.Drawing.Size(470, 26)
         Me.tx_marca.TabIndex = 110
@@ -406,7 +407,7 @@ Partial Class fm_0100_elemento_estructura_mantenimiento
         '
         Me.tx_fabricante.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.tx_fabricante.Location = New System.Drawing.Point(123, 18)
-        Me.tx_fabricante.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.tx_fabricante.Margin = New System.Windows.Forms.Padding(4)
         Me.tx_fabricante.Name = "tx_fabricante"
         Me.tx_fabricante.Size = New System.Drawing.Size(470, 26)
         Me.tx_fabricante.TabIndex = 108
@@ -464,9 +465,9 @@ Partial Class fm_0100_elemento_estructura_mantenimiento
         Me.TabPage2.Controls.Add(Me.tx_consecutivo_actual_hijos)
         Me.TabPage2.Controls.Add(Me.Label24)
         Me.TabPage2.Location = New System.Drawing.Point(4, 25)
-        Me.TabPage2.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.TabPage2.Margin = New System.Windows.Forms.Padding(4)
         Me.TabPage2.Name = "TabPage2"
-        Me.TabPage2.Padding = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.TabPage2.Padding = New System.Windows.Forms.Padding(4)
         Me.TabPage2.Size = New System.Drawing.Size(1085, 389)
         Me.TabPage2.TabIndex = 1
         Me.TabPage2.Text = "Cod. Hijos"
@@ -484,9 +485,9 @@ Partial Class fm_0100_elemento_estructura_mantenimiento
         Me.gb_secuencia_consecutivos.Controls.Add(Me.tx_caracteres_consecutivo_hijos)
         Me.gb_secuencia_consecutivos.Controls.Add(Me.Label10)
         Me.gb_secuencia_consecutivos.Location = New System.Drawing.Point(206, 162)
-        Me.gb_secuencia_consecutivos.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.gb_secuencia_consecutivos.Margin = New System.Windows.Forms.Padding(4)
         Me.gb_secuencia_consecutivos.Name = "gb_secuencia_consecutivos"
-        Me.gb_secuencia_consecutivos.Padding = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.gb_secuencia_consecutivos.Padding = New System.Windows.Forms.Padding(4)
         Me.gb_secuencia_consecutivos.Size = New System.Drawing.Size(663, 182)
         Me.gb_secuencia_consecutivos.TabIndex = 106
         Me.gb_secuencia_consecutivos.TabStop = False
@@ -510,7 +511,7 @@ Partial Class fm_0100_elemento_estructura_mantenimiento
         Me.chk_consecutivo.CheckState = System.Windows.Forms.CheckState.Checked
         Me.chk_consecutivo.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.chk_consecutivo.Location = New System.Drawing.Point(413, 74)
-        Me.chk_consecutivo.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.chk_consecutivo.Margin = New System.Windows.Forms.Padding(4)
         Me.chk_consecutivo.Name = "chk_consecutivo"
         Me.chk_consecutivo.Size = New System.Drawing.Size(123, 24)
         Me.chk_consecutivo.TabIndex = 87
@@ -543,7 +544,7 @@ Partial Class fm_0100_elemento_estructura_mantenimiento
         '
         Me.tx_ejemplo_codigo_hijos.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.25!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.tx_ejemplo_codigo_hijos.Location = New System.Drawing.Point(39, 137)
-        Me.tx_ejemplo_codigo_hijos.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.tx_ejemplo_codigo_hijos.Margin = New System.Windows.Forms.Padding(4)
         Me.tx_ejemplo_codigo_hijos.Name = "tx_ejemplo_codigo_hijos"
         Me.tx_ejemplo_codigo_hijos.Size = New System.Drawing.Size(551, 34)
         Me.tx_ejemplo_codigo_hijos.TabIndex = 93
@@ -563,7 +564,7 @@ Partial Class fm_0100_elemento_estructura_mantenimiento
         '
         Me.tx_texto_elementos_hijo.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.tx_texto_elementos_hijo.Location = New System.Drawing.Point(272, 71)
-        Me.tx_texto_elementos_hijo.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.tx_texto_elementos_hijo.Margin = New System.Windows.Forms.Padding(4)
         Me.tx_texto_elementos_hijo.Name = "tx_texto_elementos_hijo"
         Me.tx_texto_elementos_hijo.Size = New System.Drawing.Size(104, 26)
         Me.tx_texto_elementos_hijo.TabIndex = 84
@@ -576,7 +577,7 @@ Partial Class fm_0100_elemento_estructura_mantenimiento
         Me.chk_codigo_padre.CheckState = System.Windows.Forms.CheckState.Checked
         Me.chk_codigo_padre.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.chk_codigo_padre.Location = New System.Drawing.Point(39, 74)
-        Me.chk_codigo_padre.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.chk_codigo_padre.Margin = New System.Windows.Forms.Padding(4)
         Me.chk_codigo_padre.Name = "chk_codigo_padre"
         Me.chk_codigo_padre.Size = New System.Drawing.Size(162, 24)
         Me.chk_codigo_padre.TabIndex = 90
@@ -587,7 +588,7 @@ Partial Class fm_0100_elemento_estructura_mantenimiento
         '
         Me.tx_caracteres_consecutivo_hijos.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.tx_caracteres_consecutivo_hijos.Location = New System.Drawing.Point(526, 106)
-        Me.tx_caracteres_consecutivo_hijos.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.tx_caracteres_consecutivo_hijos.Margin = New System.Windows.Forms.Padding(4)
         Me.tx_caracteres_consecutivo_hijos.MaxLength = 1
         Me.tx_caracteres_consecutivo_hijos.Name = "tx_caracteres_consecutivo_hijos"
         Me.tx_caracteres_consecutivo_hijos.Size = New System.Drawing.Size(63, 26)
@@ -610,9 +611,9 @@ Partial Class fm_0100_elemento_estructura_mantenimiento
         Me.gb_tipo_codificacion.Controls.Add(Me.rb_secuencia_consecutivos)
         Me.gb_tipo_codificacion.Controls.Add(Me.rb_cod_padre_id)
         Me.gb_tipo_codificacion.Location = New System.Drawing.Point(206, 69)
-        Me.gb_tipo_codificacion.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.gb_tipo_codificacion.Margin = New System.Windows.Forms.Padding(4)
         Me.gb_tipo_codificacion.Name = "gb_tipo_codificacion"
-        Me.gb_tipo_codificacion.Padding = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.gb_tipo_codificacion.Padding = New System.Windows.Forms.Padding(4)
         Me.gb_tipo_codificacion.Size = New System.Drawing.Size(245, 86)
         Me.gb_tipo_codificacion.TabIndex = 105
         Me.gb_tipo_codificacion.TabStop = False
@@ -622,7 +623,7 @@ Partial Class fm_0100_elemento_estructura_mantenimiento
         '
         Me.rb_secuencia_consecutivos.AutoSize = True
         Me.rb_secuencia_consecutivos.Location = New System.Drawing.Point(8, 58)
-        Me.rb_secuencia_consecutivos.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.rb_secuencia_consecutivos.Margin = New System.Windows.Forms.Padding(4)
         Me.rb_secuencia_consecutivos.Name = "rb_secuencia_consecutivos"
         Me.rb_secuencia_consecutivos.Size = New System.Drawing.Size(172, 20)
         Me.rb_secuencia_consecutivos.TabIndex = 107
@@ -634,7 +635,7 @@ Partial Class fm_0100_elemento_estructura_mantenimiento
         '
         Me.rb_cod_padre_id.AutoSize = True
         Me.rb_cod_padre_id.Location = New System.Drawing.Point(8, 23)
-        Me.rb_cod_padre_id.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.rb_cod_padre_id.Margin = New System.Windows.Forms.Padding(4)
         Me.rb_cod_padre_id.Name = "rb_cod_padre_id"
         Me.rb_cod_padre_id.Size = New System.Drawing.Size(134, 20)
         Me.rb_cod_padre_id.TabIndex = 106
@@ -645,7 +646,7 @@ Partial Class fm_0100_elemento_estructura_mantenimiento
         'bt_cambiar_codigo_ramal
         '
         Me.bt_cambiar_codigo_ramal.Location = New System.Drawing.Point(539, 78)
-        Me.bt_cambiar_codigo_ramal.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.bt_cambiar_codigo_ramal.Margin = New System.Windows.Forms.Padding(4)
         Me.bt_cambiar_codigo_ramal.Name = "bt_cambiar_codigo_ramal"
         Me.bt_cambiar_codigo_ramal.Size = New System.Drawing.Size(133, 46)
         Me.bt_cambiar_codigo_ramal.TabIndex = 104
@@ -657,7 +658,7 @@ Partial Class fm_0100_elemento_estructura_mantenimiento
         Me.tx_consecutivo_actual_hijos.Enabled = False
         Me.tx_consecutivo_actual_hijos.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.tx_consecutivo_actual_hijos.Location = New System.Drawing.Point(969, 7)
-        Me.tx_consecutivo_actual_hijos.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.tx_consecutivo_actual_hijos.Margin = New System.Windows.Forms.Padding(4)
         Me.tx_consecutivo_actual_hijos.Name = "tx_consecutivo_actual_hijos"
         Me.tx_consecutivo_actual_hijos.Size = New System.Drawing.Size(104, 26)
         Me.tx_consecutivo_actual_hijos.TabIndex = 102
@@ -677,6 +678,7 @@ Partial Class fm_0100_elemento_estructura_mantenimiento
         'TabPage1
         '
         Me.TabPage1.BackColor = System.Drawing.Color.Thistle
+        Me.TabPage1.Controls.Add(Me.UcValidadorDuplicadosNombreEstructura)
         Me.TabPage1.Controls.Add(Me.bt_catalago_items)
         Me.TabPage1.Controls.Add(Me.bt_listado_general_items)
         Me.TabPage1.Controls.Add(Me.tx_cantidad_item)
@@ -712,9 +714,9 @@ Partial Class fm_0100_elemento_estructura_mantenimiento
         Me.TabPage1.Controls.Add(Me.Label2)
         Me.TabPage1.ForeColor = System.Drawing.SystemColors.WindowText
         Me.TabPage1.Location = New System.Drawing.Point(4, 25)
-        Me.TabPage1.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.TabPage1.Margin = New System.Windows.Forms.Padding(4)
         Me.TabPage1.Name = "TabPage1"
-        Me.TabPage1.Padding = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.TabPage1.Padding = New System.Windows.Forms.Padding(4)
         Me.TabPage1.Size = New System.Drawing.Size(1085, 389)
         Me.TabPage1.TabIndex = 0
         Me.TabPage1.Text = "General"
@@ -726,7 +728,7 @@ Partial Class fm_0100_elemento_estructura_mantenimiento
         Me.bt_catalago_items.Image = Global.camocontrol.My.Resources.Resources.CANCELAR
         Me.bt_catalago_items.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.bt_catalago_items.Location = New System.Drawing.Point(654, 310)
-        Me.bt_catalago_items.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.bt_catalago_items.Margin = New System.Windows.Forms.Padding(4)
         Me.bt_catalago_items.Name = "bt_catalago_items"
         Me.bt_catalago_items.Size = New System.Drawing.Size(156, 68)
         Me.bt_catalago_items.TabIndex = 180
@@ -740,7 +742,7 @@ Partial Class fm_0100_elemento_estructura_mantenimiento
         Me.bt_listado_general_items.BackgroundImage = Global.camocontrol.My.Resources.Resources.icono_lupa
         Me.bt_listado_general_items.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
         Me.bt_listado_general_items.Location = New System.Drawing.Point(596, 310)
-        Me.bt_listado_general_items.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.bt_listado_general_items.Margin = New System.Windows.Forms.Padding(4)
         Me.bt_listado_general_items.Name = "bt_listado_general_items"
         Me.bt_listado_general_items.Size = New System.Drawing.Size(51, 39)
         Me.bt_listado_general_items.TabIndex = 179
@@ -750,7 +752,7 @@ Partial Class fm_0100_elemento_estructura_mantenimiento
         '
         Me.tx_cantidad_item.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.tx_cantidad_item.Location = New System.Drawing.Point(117, 352)
-        Me.tx_cantidad_item.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.tx_cantidad_item.Margin = New System.Windows.Forms.Padding(4)
         Me.tx_cantidad_item.Name = "tx_cantidad_item"
         Me.tx_cantidad_item.Size = New System.Drawing.Size(104, 26)
         Me.tx_cantidad_item.TabIndex = 138
@@ -771,7 +773,7 @@ Partial Class fm_0100_elemento_estructura_mantenimiento
         Me.cm_item.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cm_item.FormattingEnabled = True
         Me.cm_item.Location = New System.Drawing.Point(117, 320)
-        Me.cm_item.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.cm_item.Margin = New System.Windows.Forms.Padding(4)
         Me.cm_item.Name = "cm_item"
         Me.cm_item.Size = New System.Drawing.Size(470, 28)
         Me.cm_item.TabIndex = 135
@@ -780,7 +782,7 @@ Partial Class fm_0100_elemento_estructura_mantenimiento
         '
         Me.tx_id_item.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.tx_id_item.Location = New System.Drawing.Point(117, 290)
-        Me.tx_id_item.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.tx_id_item.Margin = New System.Windows.Forms.Padding(4)
         Me.tx_id_item.Name = "tx_id_item"
         Me.tx_id_item.Size = New System.Drawing.Size(104, 26)
         Me.tx_id_item.TabIndex = 136
@@ -801,7 +803,7 @@ Partial Class fm_0100_elemento_estructura_mantenimiento
         Me.cm_subtipo.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cm_subtipo.FormattingEnabled = True
         Me.cm_subtipo.Location = New System.Drawing.Point(117, 108)
-        Me.cm_subtipo.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.cm_subtipo.Margin = New System.Windows.Forms.Padding(4)
         Me.cm_subtipo.Name = "cm_subtipo"
         Me.cm_subtipo.Size = New System.Drawing.Size(470, 28)
         Me.cm_subtipo.TabIndex = 128
@@ -820,7 +822,7 @@ Partial Class fm_0100_elemento_estructura_mantenimiento
         'tx_descripcion_tipo
         '
         Me.tx_descripcion_tipo.Location = New System.Drawing.Point(117, 39)
-        Me.tx_descripcion_tipo.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.tx_descripcion_tipo.Margin = New System.Windows.Forms.Padding(4)
         Me.tx_descripcion_tipo.Multiline = True
         Me.tx_descripcion_tipo.Name = "tx_descripcion_tipo"
         Me.tx_descripcion_tipo.ReadOnly = True
@@ -842,7 +844,7 @@ Partial Class fm_0100_elemento_estructura_mantenimiento
         '
         Me.tx_id_estructura.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.tx_id_estructura.Location = New System.Drawing.Point(420, 142)
-        Me.tx_id_estructura.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.tx_id_estructura.Margin = New System.Windows.Forms.Padding(4)
         Me.tx_id_estructura.Name = "tx_id_estructura"
         Me.tx_id_estructura.ReadOnly = True
         Me.tx_id_estructura.Size = New System.Drawing.Size(167, 26)
@@ -853,7 +855,7 @@ Partial Class fm_0100_elemento_estructura_mantenimiento
         Me.tx_ubicacion.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
         Me.tx_ubicacion.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.tx_ubicacion.Location = New System.Drawing.Point(722, 75)
-        Me.tx_ubicacion.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.tx_ubicacion.Margin = New System.Windows.Forms.Padding(4)
         Me.tx_ubicacion.Name = "tx_ubicacion"
         Me.tx_ubicacion.Size = New System.Drawing.Size(356, 26)
         Me.tx_ubicacion.TabIndex = 106
@@ -863,7 +865,7 @@ Partial Class fm_0100_elemento_estructura_mantenimiento
         Me.tx_funcion_requerida.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
         Me.tx_funcion_requerida.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.tx_funcion_requerida.Location = New System.Drawing.Point(722, 180)
-        Me.tx_funcion_requerida.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.tx_funcion_requerida.Margin = New System.Windows.Forms.Padding(4)
         Me.tx_funcion_requerida.Multiline = True
         Me.tx_funcion_requerida.Name = "tx_funcion_requerida"
         Me.tx_funcion_requerida.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
@@ -875,7 +877,7 @@ Partial Class fm_0100_elemento_estructura_mantenimiento
         Me.tx_descripcion.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
         Me.tx_descripcion.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.tx_descripcion.Location = New System.Drawing.Point(117, 213)
-        Me.tx_descripcion.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.tx_descripcion.Margin = New System.Windows.Forms.Padding(4)
         Me.tx_descripcion.Multiline = True
         Me.tx_descripcion.Name = "tx_descripcion"
         Me.tx_descripcion.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
@@ -887,7 +889,7 @@ Partial Class fm_0100_elemento_estructura_mantenimiento
         Me.dtp_fecha_inicio_operacion.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.dtp_fecha_inicio_operacion.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
         Me.dtp_fecha_inicio_operacion.Location = New System.Drawing.Point(765, 110)
-        Me.dtp_fecha_inicio_operacion.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.dtp_fecha_inicio_operacion.Margin = New System.Windows.Forms.Padding(4)
         Me.dtp_fecha_inicio_operacion.MaxDate = New Date(2100, 12, 31, 0, 0, 0, 0)
         Me.dtp_fecha_inicio_operacion.MinDate = New Date(1990, 1, 1, 0, 0, 0, 0)
         Me.dtp_fecha_inicio_operacion.Name = "dtp_fecha_inicio_operacion"
@@ -899,7 +901,7 @@ Partial Class fm_0100_elemento_estructura_mantenimiento
         Me.cm_proyectos.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cm_proyectos.FormattingEnabled = True
         Me.cm_proyectos.Location = New System.Drawing.Point(722, 144)
-        Me.cm_proyectos.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.cm_proyectos.Margin = New System.Windows.Forms.Padding(4)
         Me.cm_proyectos.Name = "cm_proyectos"
         Me.cm_proyectos.Size = New System.Drawing.Size(356, 28)
         Me.cm_proyectos.TabIndex = 122
@@ -942,7 +944,7 @@ Partial Class fm_0100_elemento_estructura_mantenimiento
         Me.cm_tipo_estructura.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cm_tipo_estructura.FormattingEnabled = True
         Me.cm_tipo_estructura.Location = New System.Drawing.Point(117, 6)
-        Me.cm_tipo_estructura.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.cm_tipo_estructura.Margin = New System.Windows.Forms.Padding(4)
         Me.cm_tipo_estructura.Name = "cm_tipo_estructura"
         Me.cm_tipo_estructura.Size = New System.Drawing.Size(470, 28)
         Me.cm_tipo_estructura.TabIndex = 105
@@ -996,7 +998,7 @@ Partial Class fm_0100_elemento_estructura_mantenimiento
         Me.cm_nombre_elemento.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cm_nombre_elemento.FormattingEnabled = True
         Me.cm_nombre_elemento.Location = New System.Drawing.Point(117, 178)
-        Me.cm_nombre_elemento.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.cm_nombre_elemento.Margin = New System.Windows.Forms.Padding(4)
         Me.cm_nombre_elemento.Name = "cm_nombre_elemento"
         Me.cm_nombre_elemento.Size = New System.Drawing.Size(470, 28)
         Me.cm_nombre_elemento.TabIndex = 95
@@ -1007,7 +1009,7 @@ Partial Class fm_0100_elemento_estructura_mantenimiento
         Me.cm_nombre_e_padre.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cm_nombre_e_padre.FormattingEnabled = True
         Me.cm_nombre_e_padre.Location = New System.Drawing.Point(722, 42)
-        Me.cm_nombre_e_padre.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.cm_nombre_e_padre.Margin = New System.Windows.Forms.Padding(4)
         Me.cm_nombre_e_padre.Name = "cm_nombre_e_padre"
         Me.cm_nombre_e_padre.Size = New System.Drawing.Size(356, 28)
         Me.cm_nombre_e_padre.TabIndex = 93
@@ -1028,7 +1030,7 @@ Partial Class fm_0100_elemento_estructura_mantenimiento
         Me.cm_codigo.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cm_codigo.FormattingEnabled = True
         Me.cm_codigo.Location = New System.Drawing.Point(117, 142)
-        Me.cm_codigo.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.cm_codigo.Margin = New System.Windows.Forms.Padding(4)
         Me.cm_codigo.Name = "cm_codigo"
         Me.cm_codigo.Size = New System.Drawing.Size(241, 28)
         Me.cm_codigo.TabIndex = 90
@@ -1084,11 +1086,22 @@ Partial Class fm_0100_elemento_estructura_mantenimiento
         Me.TabControl1.Controls.Add(Me.TabPage5)
         Me.TabControl1.Controls.Add(Me.tabpage_documentacion)
         Me.TabControl1.Location = New System.Drawing.Point(18, 84)
-        Me.TabControl1.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.TabControl1.Margin = New System.Windows.Forms.Padding(4)
         Me.TabControl1.Name = "TabControl1"
         Me.TabControl1.SelectedIndex = 0
         Me.TabControl1.Size = New System.Drawing.Size(1093, 418)
         Me.TabControl1.TabIndex = 61
+        '
+        'UcValidadorDuplicadosNombreEstructura
+        '
+        Me.UcValidadorDuplicadosNombreEstructura.CampoCodigo = "Code"
+        Me.UcValidadorDuplicadosNombreEstructura.CampoExtra = "Extra"
+        Me.UcValidadorDuplicadosNombreEstructura.CampoTexto = "Description"
+        Me.UcValidadorDuplicadosNombreEstructura.Location = New System.Drawing.Point(684, 7)
+        Me.UcValidadorDuplicadosNombreEstructura.Name = "UcValidadorDuplicadosNombreEstructura"
+        Me.UcValidadorDuplicadosNombreEstructura.Options = Nothing
+        Me.UcValidadorDuplicadosNombreEstructura.Size = New System.Drawing.Size(245, 26)
+        Me.UcValidadorDuplicadosNombreEstructura.TabIndex = 181
         '
         'fm_0100_elemento_estructura_mantenimiento
         '
@@ -1207,4 +1220,5 @@ Partial Class fm_0100_elemento_estructura_mantenimiento
     Friend WithEvents gb_secuencia_consecutivos As GroupBox
     Friend WithEvents bt_listado_general_items As Button
     Friend WithEvents bt_catalago_items As Button
+    Friend WithEvents UcValidadorDuplicadosNombreEstructura As UcValidadorDuplicados
 End Class

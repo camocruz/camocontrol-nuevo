@@ -39,9 +39,10 @@ Partial Class FM_PLANTILLA_solo_salir
         Me.lb_mi_marca.BackColor = System.Drawing.Color.AliceBlue
         Me.lb_mi_marca.Font = New System.Drawing.Font("Arial Rounded MT Bold", 15.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lb_mi_marca.ForeColor = System.Drawing.Color.Red
-        Me.lb_mi_marca.Location = New System.Drawing.Point(663, 9)
+        Me.lb_mi_marca.Location = New System.Drawing.Point(884, 11)
+        Me.lb_mi_marca.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.lb_mi_marca.Name = "lb_mi_marca"
-        Me.lb_mi_marca.Size = New System.Drawing.Size(75, 24)
+        Me.lb_mi_marca.Size = New System.Drawing.Size(96, 32)
         Me.lb_mi_marca.TabIndex = 60
         Me.lb_mi_marca.Text = "CAMO"
         '
@@ -52,9 +53,10 @@ Partial Class FM_PLANTILLA_solo_salir
         Me.lb_fecha.BackColor = System.Drawing.Color.Thistle
         Me.lb_fecha.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lb_fecha.ForeColor = System.Drawing.Color.Red
-        Me.lb_fecha.Location = New System.Drawing.Point(664, 36)
+        Me.lb_fecha.Location = New System.Drawing.Point(885, 44)
+        Me.lb_fecha.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.lb_fecha.Name = "lb_fecha"
-        Me.lb_fecha.Size = New System.Drawing.Size(41, 16)
+        Me.lb_fecha.Size = New System.Drawing.Size(50, 20)
         Me.lb_fecha.TabIndex = 59
         Me.lb_fecha.Text = "fecha"
         '
@@ -66,9 +68,10 @@ Partial Class FM_PLANTILLA_solo_salir
         Me.ll_linea1.BackColor = System.Drawing.Color.Black
         Me.ll_linea1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
         Me.ll_linea1.LinkColor = System.Drawing.Color.Black
-        Me.ll_linea1.Location = New System.Drawing.Point(85, 52)
+        Me.ll_linea1.Location = New System.Drawing.Point(113, 64)
+        Me.ll_linea1.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.ll_linea1.Name = "ll_linea1"
-        Me.ll_linea1.Size = New System.Drawing.Size(573, 6)
+        Me.ll_linea1.Size = New System.Drawing.Size(764, 7)
         Me.ll_linea1.TabIndex = 58
         Me.ll_linea1.TabStop = True
         Me.ll_linea1.Text = "" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10)
@@ -78,18 +81,20 @@ Partial Class FM_PLANTILLA_solo_salir
         Me.lb_titulo.AutoSize = True
         Me.lb_titulo.Font = New System.Drawing.Font("Times New Roman", 21.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lb_titulo.ForeColor = System.Drawing.Color.Red
-        Me.lb_titulo.Location = New System.Drawing.Point(82, 9)
+        Me.lb_titulo.Location = New System.Drawing.Point(109, 11)
+        Me.lb_titulo.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.lb_titulo.Name = "lb_titulo"
-        Me.lb_titulo.Size = New System.Drawing.Size(234, 32)
+        Me.lb_titulo.Size = New System.Drawing.Size(301, 42)
         Me.lb_titulo.TabIndex = 57
         Me.lb_titulo.Text = "Titulo de la forma"
         '
         'PictureBox1
         '
         Me.PictureBox1.Image = Global.camocontrol.My.Resources.Resources.macdulces2
-        Me.PictureBox1.Location = New System.Drawing.Point(4, 3)
+        Me.PictureBox1.Location = New System.Drawing.Point(5, 4)
+        Me.PictureBox1.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.PictureBox1.Name = "PictureBox1"
-        Me.PictureBox1.Size = New System.Drawing.Size(72, 46)
+        Me.PictureBox1.Size = New System.Drawing.Size(96, 57)
         Me.PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
         Me.PictureBox1.TabIndex = 61
         Me.PictureBox1.TabStop = False
@@ -100,9 +105,10 @@ Partial Class FM_PLANTILLA_solo_salir
         Me.lb_diseñador_programa.Dock = System.Windows.Forms.DockStyle.Bottom
         Me.lb_diseñador_programa.Font = New System.Drawing.Font("Arial", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lb_diseñador_programa.ForeColor = System.Drawing.Color.Black
-        Me.lb_diseñador_programa.Location = New System.Drawing.Point(0, 444)
+        Me.lb_diseñador_programa.Location = New System.Drawing.Point(0, 548)
+        Me.lb_diseñador_programa.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.lb_diseñador_programa.Name = "lb_diseñador_programa"
-        Me.lb_diseñador_programa.Size = New System.Drawing.Size(189, 14)
+        Me.lb_diseñador_programa.Size = New System.Drawing.Size(246, 16)
         Me.lb_diseñador_programa.TabIndex = 62
         Me.lb_diseñador_programa.Text = "Diseño: Ing. Carlos Andres Mosquera."
         '
@@ -111,18 +117,19 @@ Partial Class FM_PLANTILLA_solo_salir
         Me.bt_salir.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.bt_salir.BackgroundImage = Global.camocontrol.My.Resources.Resources.salida2
         Me.bt_salir.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
-        Me.bt_salir.Location = New System.Drawing.Point(331, 408)
+        Me.bt_salir.Location = New System.Drawing.Point(441, 502)
+        Me.bt_salir.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.bt_salir.Name = "bt_salir"
-        Me.bt_salir.Size = New System.Drawing.Size(49, 38)
+        Me.bt_salir.Size = New System.Drawing.Size(65, 47)
         Me.bt_salir.TabIndex = 57
         Me.bt_salir.UseVisualStyleBackColor = True
         '
         'FM_PLANTILLA_solo_salir
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.Thistle
-        Me.ClientSize = New System.Drawing.Size(742, 458)
+        Me.ClientSize = New System.Drawing.Size(989, 564)
         Me.Controls.Add(Me.bt_salir)
         Me.Controls.Add(Me.lb_diseñador_programa)
         Me.Controls.Add(Me.PictureBox1)
@@ -130,6 +137,7 @@ Partial Class FM_PLANTILLA_solo_salir
         Me.Controls.Add(Me.lb_fecha)
         Me.Controls.Add(Me.ll_linea1)
         Me.Controls.Add(Me.lb_titulo)
+        Me.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.Name = "FM_PLANTILLA_solo_salir"
         Me.Text = "FM_PLANTILLA_SIN_CONTROLES"
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()

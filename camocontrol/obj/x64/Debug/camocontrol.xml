@@ -147,6 +147,21 @@ camocontrol
   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
 </summary>
 </member>
+<member name="P:camocontrol.My.Resources.Resources.icon_error">
+<summary>
+  Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:camocontrol.My.Resources.Resources.icon_ok">
+<summary>
+  Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:camocontrol.My.Resources.Resources.icon_warning">
+<summary>
+  Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+</summary>
+</member>
 <member name="P:camocontrol.My.Resources.Resources.icono_agenda_electronica">
 <summary>
   Busca un recurso adaptado de tipo System.Drawing.Bitmap.

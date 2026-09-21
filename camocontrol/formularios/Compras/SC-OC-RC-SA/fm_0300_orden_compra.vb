@@ -657,8 +657,8 @@ Public Class fm_0300_orden_compra
             & " f0305_costo_total_planificado as costo_total," _
             & " case when f0305_cantidad_aprobada = 0 then f0305_cantidad end as cantidad_aprobada," _
             & " f0305_id_solicitud_compra as id_solic," _
-            & " COALESCE(otb_estructura_madre.f0100_codigo || ' -- { ' || otb_estructura_madre.f0100_nombre || ' }'," _
-                    & " otb_estructura_referida.f0100_codigo || ' -- { ' || otb_estructura_referida.f0100_nombre || ' }')" _
+            & " COALESCE(otb_estructura_madre.f0100_id_estructura || ' -- { ' || otb_estructura_madre.f0100_nombre || ' }'," _
+                    & " otb_estructura_referida.f0100_id_estructura || ' -- { ' || otb_estructura_referida.f0100_nombre || ' }')" _
                     & " as descripcion_codigo," _
             & " f0305_id_accion," _
             & " coalesce(f0600_id_accion_principal,0) as acc_raiz" _

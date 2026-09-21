@@ -61,6 +61,19 @@
         '**********************
         cm_subtipo.Enabled = False
 
+
+        Dim dto As New VisorDatosConfig()
+        dto.IdSql = "ST-0100-09"
+        dto.IdCia = vg_id_cia
+        dto.Replacements = {vg_id_cia}
+        csql = cl_utilidades_datatables.ConstruirSql(dto)
+        Dim dt As DataTable = cl_utilidades_datatables.cargar_informacion_postgres(csql)
+        Dim lista As List(Of TextValidationOptionDTO) = ConvertirDataTable(dt)
+
+        UcValidadorDuplicadosNombreEstructura.Options = lista
+
+
+
         cargar_otabla_estructura()
         cargar_combos_estructura()
         cargar_combos_estructura_padre()
@@ -87,6 +100,19 @@
         'Genera el codigo de los elementos hijo.
         generar_codigo_hijos()
     End Sub
+    Private Function ConvertirDataTable(dt As DataTable) As List(Of TextValidationOptionDTO)
+        Dim lista As New List(Of TextValidationOptionDTO)
+
+        For Each row As DataRow In dt.Rows
+            lista.Add(New TextValidationOptionDTO With {
+            .Code = row("id").ToString(),
+            .Description = row("nombre").ToString(),
+            .Extra = row("codigo").ToString()
+        })
+        Next
+
+        Return lista
+    End Function
     Private Sub cargar_otabla_estructura()
         csql = "SELECT estructura.*, tb0107_tipos_estructura.*," _
                     & " estructura.f0100_nombre || ' -- { ' || estructura.f0100_codigo || ' } ' || ' -- ' || coalesce(maquina.f0100_nombre,'ND') as descripcion_nombre," _
