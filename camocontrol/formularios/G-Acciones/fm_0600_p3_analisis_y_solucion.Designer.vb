@@ -60,46 +60,54 @@ Partial Class fm_0600_p3_analisis_y_solucion
         '
         'lb_mi_marca
         '
-        Me.lb_mi_marca.Location = New System.Drawing.Point(936, 9)
+        Me.lb_mi_marca.Location = New System.Drawing.Point(1248, 11)
+        Me.lb_mi_marca.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
         '
         'lb_fecha
         '
-        Me.lb_fecha.Location = New System.Drawing.Point(937, 36)
-        Me.lb_fecha.Size = New System.Drawing.Size(72, 16)
+        Me.lb_fecha.Location = New System.Drawing.Point(1249, 44)
+        Me.lb_fecha.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
+        Me.lb_fecha.Size = New System.Drawing.Size(91, 20)
         Me.lb_fecha.Text = "2014/05/04"
         '
         'll_linea1
         '
-        Me.ll_linea1.Size = New System.Drawing.Size(846, 6)
+        Me.ll_linea1.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
+        Me.ll_linea1.Size = New System.Drawing.Size(1128, 7)
         '
         'lb_titulo
         '
-        Me.lb_titulo.Size = New System.Drawing.Size(406, 32)
+        Me.lb_titulo.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
+        Me.lb_titulo.Size = New System.Drawing.Size(521, 42)
         Me.lb_titulo.Text = "Analisis y solucion del problema"
         '
         'lb_diseñador_programa
         '
-        Me.lb_diseñador_programa.Location = New System.Drawing.Point(0, 512)
+        Me.lb_diseñador_programa.Location = New System.Drawing.Point(0, 631)
+        Me.lb_diseñador_programa.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
         '
         'bt_salir
         '
-        Me.bt_salir.Location = New System.Drawing.Point(331, 476)
+        Me.bt_salir.Location = New System.Drawing.Point(441, 586)
+        Me.bt_salir.Margin = New System.Windows.Forms.Padding(5)
         '
         'tx_id_accion
         '
         Me.tx_id_accion.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.tx_id_accion.Location = New System.Drawing.Point(588, 13)
+        Me.tx_id_accion.Location = New System.Drawing.Point(784, 16)
+        Me.tx_id_accion.Margin = New System.Windows.Forms.Padding(4)
         Me.tx_id_accion.Name = "tx_id_accion"
-        Me.tx_id_accion.Size = New System.Drawing.Size(79, 22)
+        Me.tx_id_accion.Size = New System.Drawing.Size(104, 26)
         Me.tx_id_accion.TabIndex = 85
         '
         'Label5
         '
         Me.Label5.AutoSize = True
         Me.Label5.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label5.Location = New System.Drawing.Point(520, 19)
+        Me.Label5.Location = New System.Drawing.Point(693, 23)
+        Me.Label5.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(62, 16)
+        Me.Label5.Size = New System.Drawing.Size(79, 20)
         Me.Label5.TabIndex = 84
         Me.Label5.Text = "# Accion:"
         '
@@ -110,9 +118,11 @@ Partial Class fm_0600_p3_analisis_y_solucion
         Me.GroupBox1.Controls.Add(Me.bt_nuevo)
         Me.GroupBox1.Controls.Add(Me.rb_tarea)
         Me.GroupBox1.Controls.Add(Me.rb_porque)
-        Me.GroupBox1.Location = New System.Drawing.Point(167, 123)
+        Me.GroupBox1.Location = New System.Drawing.Point(223, 151)
+        Me.GroupBox1.Margin = New System.Windows.Forms.Padding(4)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(161, 81)
+        Me.GroupBox1.Padding = New System.Windows.Forms.Padding(4)
+        Me.GroupBox1.Size = New System.Drawing.Size(215, 100)
         Me.GroupBox1.TabIndex = 86
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "Nuevo:"
@@ -121,9 +131,10 @@ Partial Class fm_0600_p3_analisis_y_solucion
         '
         Me.Label2.AutoSize = True
         Me.Label2.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label2.Location = New System.Drawing.Point(15, 16)
+        Me.Label2.Location = New System.Drawing.Point(20, 20)
+        Me.Label2.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(54, 16)
+        Me.Label2.Size = New System.Drawing.Size(67, 20)
         Me.Label2.TabIndex = 150
         Me.Label2.Text = "Hijo de:"
         '
@@ -131,18 +142,20 @@ Partial Class fm_0600_p3_analisis_y_solucion
         '
         Me.tx_id_seleccionado.Enabled = False
         Me.tx_id_seleccionado.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.tx_id_seleccionado.Location = New System.Drawing.Point(100, 13)
+        Me.tx_id_seleccionado.Location = New System.Drawing.Point(133, 16)
+        Me.tx_id_seleccionado.Margin = New System.Windows.Forms.Padding(4)
         Me.tx_id_seleccionado.Name = "tx_id_seleccionado"
-        Me.tx_id_seleccionado.Size = New System.Drawing.Size(49, 21)
+        Me.tx_id_seleccionado.Size = New System.Drawing.Size(64, 24)
         Me.tx_id_seleccionado.TabIndex = 89
         '
         'bt_nuevo
         '
         Me.bt_nuevo.BackgroundImage = Global.camocontrol.My.Resources.Resources.nuevo2
         Me.bt_nuevo.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
-        Me.bt_nuevo.Location = New System.Drawing.Point(100, 38)
+        Me.bt_nuevo.Location = New System.Drawing.Point(133, 47)
+        Me.bt_nuevo.Margin = New System.Windows.Forms.Padding(4)
         Me.bt_nuevo.Name = "bt_nuevo"
-        Me.bt_nuevo.Size = New System.Drawing.Size(49, 38)
+        Me.bt_nuevo.Size = New System.Drawing.Size(65, 47)
         Me.bt_nuevo.TabIndex = 88
         Me.bt_nuevo.UseVisualStyleBackColor = True
         '
@@ -150,9 +163,10 @@ Partial Class fm_0600_p3_analisis_y_solucion
         '
         Me.rb_tarea.AutoSize = True
         Me.rb_tarea.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.rb_tarea.Location = New System.Drawing.Point(18, 56)
+        Me.rb_tarea.Location = New System.Drawing.Point(24, 69)
+        Me.rb_tarea.Margin = New System.Windows.Forms.Padding(4)
         Me.rb_tarea.Name = "rb_tarea"
-        Me.rb_tarea.Size = New System.Drawing.Size(82, 20)
+        Me.rb_tarea.Size = New System.Drawing.Size(98, 24)
         Me.rb_tarea.TabIndex = 1
         Me.rb_tarea.TabStop = True
         Me.rb_tarea.Text = "Actividad"
@@ -162,9 +176,10 @@ Partial Class fm_0600_p3_analisis_y_solucion
         '
         Me.rb_porque.AutoSize = True
         Me.rb_porque.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.rb_porque.Location = New System.Drawing.Point(18, 33)
+        Me.rb_porque.Location = New System.Drawing.Point(24, 41)
+        Me.rb_porque.Margin = New System.Windows.Forms.Padding(4)
         Me.rb_porque.Name = "rb_porque"
-        Me.rb_porque.Size = New System.Drawing.Size(70, 20)
+        Me.rb_porque.Size = New System.Drawing.Size(83, 24)
         Me.rb_porque.TabIndex = 0
         Me.rb_porque.TabStop = True
         Me.rb_porque.Text = "Porque"
@@ -177,36 +192,43 @@ Partial Class fm_0600_p3_analisis_y_solucion
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.dg_analisis.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dg_analisis.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.dgocell_id, Me.dgocell_responsable, Me.dgocell_estado, Me.dgocell_nivel_cumplimiento, Me.dgocell_fecha_inicio, Me.dgocell_fecha_fin, Me.dgocell_descripcion, Me.dgocell_estructura})
-        Me.dg_analisis.Location = New System.Drawing.Point(14, 210)
+        Me.dg_analisis.Location = New System.Drawing.Point(19, 258)
+        Me.dg_analisis.Margin = New System.Windows.Forms.Padding(4)
         Me.dg_analisis.Name = "dg_analisis"
-        Me.dg_analisis.Size = New System.Drawing.Size(989, 260)
+        Me.dg_analisis.RowHeadersWidth = 51
+        Me.dg_analisis.Size = New System.Drawing.Size(1319, 320)
         Me.dg_analisis.TabIndex = 89
         '
         'dgocell_id
         '
         Me.dgocell_id.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCellsExceptHeader
         Me.dgocell_id.HeaderText = "id"
+        Me.dgocell_id.MinimumWidth = 6
         Me.dgocell_id.Name = "dgocell_id"
         Me.dgocell_id.ReadOnly = True
-        Me.dgocell_id.Width = 21
+        Me.dgocell_id.Width = 24
         '
         'dgocell_responsable
         '
         Me.dgocell_responsable.HeaderText = "Responsable"
+        Me.dgocell_responsable.MinimumWidth = 6
         Me.dgocell_responsable.Name = "dgocell_responsable"
         Me.dgocell_responsable.ReadOnly = True
+        Me.dgocell_responsable.Width = 125
         '
         'dgocell_estado
         '
         Me.dgocell_estado.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCellsExceptHeader
         Me.dgocell_estado.HeaderText = "Estado"
+        Me.dgocell_estado.MinimumWidth = 6
         Me.dgocell_estado.Name = "dgocell_estado"
         Me.dgocell_estado.ReadOnly = True
-        Me.dgocell_estado.Width = 21
+        Me.dgocell_estado.Width = 24
         '
         'dgocell_nivel_cumplimiento
         '
         Me.dgocell_nivel_cumplimiento.HeaderText = "% Cump."
+        Me.dgocell_nivel_cumplimiento.MinimumWidth = 6
         Me.dgocell_nivel_cumplimiento.Name = "dgocell_nivel_cumplimiento"
         Me.dgocell_nivel_cumplimiento.ReadOnly = True
         Me.dgocell_nivel_cumplimiento.Width = 50
@@ -214,6 +236,7 @@ Partial Class fm_0600_p3_analisis_y_solucion
         'dgocell_fecha_inicio
         '
         Me.dgocell_fecha_inicio.HeaderText = "Inicia"
+        Me.dgocell_fecha_inicio.MinimumWidth = 6
         Me.dgocell_fecha_inicio.Name = "dgocell_fecha_inicio"
         Me.dgocell_fecha_inicio.ReadOnly = True
         Me.dgocell_fecha_inicio.Width = 75
@@ -221,6 +244,7 @@ Partial Class fm_0600_p3_analisis_y_solucion
         'dgocell_fecha_fin
         '
         Me.dgocell_fecha_fin.HeaderText = "Fin"
+        Me.dgocell_fecha_fin.MinimumWidth = 6
         Me.dgocell_fecha_fin.Name = "dgocell_fecha_fin"
         Me.dgocell_fecha_fin.ReadOnly = True
         Me.dgocell_fecha_fin.Width = 75
@@ -228,6 +252,7 @@ Partial Class fm_0600_p3_analisis_y_solucion
         'dgocell_descripcion
         '
         Me.dgocell_descripcion.HeaderText = "Descripcion"
+        Me.dgocell_descripcion.MinimumWidth = 6
         Me.dgocell_descripcion.Name = "dgocell_descripcion"
         Me.dgocell_descripcion.ReadOnly = True
         Me.dgocell_descripcion.Width = 500
@@ -236,25 +261,28 @@ Partial Class fm_0600_p3_analisis_y_solucion
         '
         Me.dgocell_estructura.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
         Me.dgocell_estructura.HeaderText = "Estructura"
+        Me.dgocell_estructura.MinimumWidth = 6
         Me.dgocell_estructura.Name = "dgocell_estructura"
-        Me.dgocell_estructura.Width = 80
+        Me.dgocell_estructura.Width = 95
         '
         'tx_cumplimiento
         '
         Me.tx_cumplimiento.Enabled = False
         Me.tx_cumplimiento.Font = New System.Drawing.Font("Microsoft Sans Serif", 15.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.tx_cumplimiento.Location = New System.Drawing.Point(887, 133)
+        Me.tx_cumplimiento.Location = New System.Drawing.Point(1183, 164)
+        Me.tx_cumplimiento.Margin = New System.Windows.Forms.Padding(4)
         Me.tx_cumplimiento.Name = "tx_cumplimiento"
-        Me.tx_cumplimiento.Size = New System.Drawing.Size(79, 31)
+        Me.tx_cumplimiento.Size = New System.Drawing.Size(104, 37)
         Me.tx_cumplimiento.TabIndex = 149
         '
         'Label13
         '
         Me.Label13.AutoSize = True
         Me.Label13.Font = New System.Drawing.Font("Microsoft Sans Serif", 15.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label13.Location = New System.Drawing.Point(698, 136)
+        Me.Label13.Location = New System.Drawing.Point(931, 167)
+        Me.Label13.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label13.Name = "Label13"
-        Me.Label13.Size = New System.Drawing.Size(188, 25)
+        Me.Label13.Size = New System.Drawing.Size(233, 31)
         Me.Label13.TabIndex = 148
         Me.Label13.Text = "% Cumplimiento:"
         '
@@ -262,9 +290,10 @@ Partial Class fm_0600_p3_analisis_y_solucion
         '
         Me.bt_trasladar_ramal.BackgroundImage = Global.camocontrol.My.Resources.Resources.icono_cortar_2
         Me.bt_trasladar_ramal.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
-        Me.bt_trasladar_ramal.Location = New System.Drawing.Point(331, 130)
+        Me.bt_trasladar_ramal.Location = New System.Drawing.Point(441, 160)
+        Me.bt_trasladar_ramal.Margin = New System.Windows.Forms.Padding(4)
         Me.bt_trasladar_ramal.Name = "bt_trasladar_ramal"
-        Me.bt_trasladar_ramal.Size = New System.Drawing.Size(45, 34)
+        Me.bt_trasladar_ramal.Size = New System.Drawing.Size(60, 42)
         Me.bt_trasladar_ramal.TabIndex = 150
         Me.bt_trasladar_ramal.UseVisualStyleBackColor = True
         '
@@ -272,18 +301,20 @@ Partial Class fm_0600_p3_analisis_y_solucion
         '
         Me.Label3.AutoSize = True
         Me.Label3.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label3.Location = New System.Drawing.Point(11, 102)
+        Me.Label3.Location = New System.Drawing.Point(15, 126)
+        Me.Label3.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(150, 16)
+        Me.Label3.Size = New System.Drawing.Size(186, 20)
         Me.Label3.TabIndex = 152
         Me.Label3.Text = "Modo o Efecto de Falla:"
         '
         'bt_mef
         '
         Me.bt_mef.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.bt_mef.Location = New System.Drawing.Point(940, 70)
+        Me.bt_mef.Location = New System.Drawing.Point(1253, 86)
+        Me.bt_mef.Margin = New System.Windows.Forms.Padding(4)
         Me.bt_mef.Name = "bt_mef"
-        Me.bt_mef.Size = New System.Drawing.Size(63, 48)
+        Me.bt_mef.Size = New System.Drawing.Size(84, 59)
         Me.bt_mef.TabIndex = 154
         Me.bt_mef.Text = "CAT. MEF"
         Me.bt_mef.UseVisualStyleBackColor = True
@@ -292,26 +323,29 @@ Partial Class fm_0600_p3_analisis_y_solucion
         '
         Me.cm_mef.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cm_mef.FormattingEnabled = True
-        Me.cm_mef.Location = New System.Drawing.Point(223, 99)
+        Me.cm_mef.Location = New System.Drawing.Point(297, 122)
+        Me.cm_mef.Margin = New System.Windows.Forms.Padding(4)
         Me.cm_mef.Name = "cm_mef"
-        Me.cm_mef.Size = New System.Drawing.Size(711, 24)
+        Me.cm_mef.Size = New System.Drawing.Size(947, 28)
         Me.cm_mef.TabIndex = 155
         '
         'dtp_limite
         '
         Me.dtp_limite.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.dtp_limite.Location = New System.Drawing.Point(800, 176)
+        Me.dtp_limite.Location = New System.Drawing.Point(1067, 217)
+        Me.dtp_limite.Margin = New System.Windows.Forms.Padding(4)
         Me.dtp_limite.Name = "dtp_limite"
-        Me.dtp_limite.Size = New System.Drawing.Size(178, 22)
+        Me.dtp_limite.Size = New System.Drawing.Size(236, 26)
         Me.dtp_limite.TabIndex = 157
         '
         'Label4
         '
         Me.Label4.AutoSize = True
         Me.Label4.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label4.Location = New System.Drawing.Point(707, 182)
+        Me.Label4.Location = New System.Drawing.Point(943, 224)
+        Me.Label4.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(87, 16)
+        Me.Label4.Size = New System.Drawing.Size(111, 20)
         Me.Label4.TabIndex = 156
         Me.Label4.Text = "Fecha Limite:"
         '
@@ -319,9 +353,10 @@ Partial Class fm_0600_p3_analisis_y_solucion
         '
         Me.bt_fecha_limite.BackgroundImage = Global.camocontrol.My.Resources.Resources.icono_calendario
         Me.bt_fecha_limite.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
-        Me.bt_fecha_limite.Location = New System.Drawing.Point(981, 176)
+        Me.bt_fecha_limite.Location = New System.Drawing.Point(1308, 217)
+        Me.bt_fecha_limite.Margin = New System.Windows.Forms.Padding(4)
         Me.bt_fecha_limite.Name = "bt_fecha_limite"
-        Me.bt_fecha_limite.Size = New System.Drawing.Size(23, 23)
+        Me.bt_fecha_limite.Size = New System.Drawing.Size(31, 28)
         Me.bt_fecha_limite.TabIndex = 161
         Me.bt_fecha_limite.UseVisualStyleBackColor = True
         '
@@ -329,9 +364,10 @@ Partial Class fm_0600_p3_analisis_y_solucion
         '
         Me.bt_seguimientos.BackgroundImage = Global.camocontrol.My.Resources.Resources.libreria
         Me.bt_seguimientos.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
-        Me.bt_seguimientos.Location = New System.Drawing.Point(969, 133)
+        Me.bt_seguimientos.Location = New System.Drawing.Point(1292, 164)
+        Me.bt_seguimientos.Margin = New System.Windows.Forms.Padding(4)
         Me.bt_seguimientos.Name = "bt_seguimientos"
-        Me.bt_seguimientos.Size = New System.Drawing.Size(34, 31)
+        Me.bt_seguimientos.Size = New System.Drawing.Size(45, 38)
         Me.bt_seguimientos.TabIndex = 162
         Me.bt_seguimientos.UseVisualStyleBackColor = True
         '
@@ -339,69 +375,76 @@ Partial Class fm_0600_p3_analisis_y_solucion
         '
         Me.Label1.AutoSize = True
         Me.Label1.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label1.Location = New System.Drawing.Point(11, 129)
+        Me.Label1.Location = New System.Drawing.Point(15, 159)
+        Me.Label1.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(103, 16)
+        Me.Label1.Size = New System.Drawing.Size(128, 20)
         Me.Label1.TabIndex = 163
         Me.Label1.Text = "Origen de Falla:"
         '
         'tx_MEF
         '
         Me.tx_MEF.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.tx_MEF.Location = New System.Drawing.Point(167, 100)
+        Me.tx_MEF.Location = New System.Drawing.Point(223, 123)
+        Me.tx_MEF.Margin = New System.Windows.Forms.Padding(4)
         Me.tx_MEF.Name = "tx_MEF"
-        Me.tx_MEF.Size = New System.Drawing.Size(50, 22)
+        Me.tx_MEF.Size = New System.Drawing.Size(65, 26)
         Me.tx_MEF.TabIndex = 167
         '
         'Label6
         '
         Me.Label6.AutoSize = True
         Me.Label6.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label6.Location = New System.Drawing.Point(435, 141)
+        Me.Label6.Location = New System.Drawing.Point(580, 174)
+        Me.Label6.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label6.Name = "Label6"
-        Me.Label6.Size = New System.Drawing.Size(107, 16)
+        Me.Label6.Size = New System.Drawing.Size(138, 20)
         Me.Label6.TabIndex = 165
         Me.Label6.Text = "Buscar # Accion:"
         '
         'tx_buscar
         '
         Me.tx_buscar.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.tx_buscar.Location = New System.Drawing.Point(438, 161)
+        Me.tx_buscar.Location = New System.Drawing.Point(584, 198)
+        Me.tx_buscar.Margin = New System.Windows.Forms.Padding(4)
         Me.tx_buscar.Name = "tx_buscar"
-        Me.tx_buscar.Size = New System.Drawing.Size(79, 22)
+        Me.tx_buscar.Size = New System.Drawing.Size(104, 26)
         Me.tx_buscar.TabIndex = 166
         '
         'tx_subfuente
         '
         Me.tx_subfuente.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.tx_subfuente.Location = New System.Drawing.Point(167, 73)
+        Me.tx_subfuente.Location = New System.Drawing.Point(223, 90)
+        Me.tx_subfuente.Margin = New System.Windows.Forms.Padding(4)
         Me.tx_subfuente.Name = "tx_subfuente"
-        Me.tx_subfuente.Size = New System.Drawing.Size(50, 22)
+        Me.tx_subfuente.Size = New System.Drawing.Size(65, 26)
         Me.tx_subfuente.TabIndex = 171
         '
         'cm_subfuente
         '
         Me.cm_subfuente.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cm_subfuente.FormattingEnabled = True
-        Me.cm_subfuente.Location = New System.Drawing.Point(223, 72)
+        Me.cm_subfuente.Location = New System.Drawing.Point(297, 89)
+        Me.cm_subfuente.Margin = New System.Windows.Forms.Padding(4)
         Me.cm_subfuente.Name = "cm_subfuente"
-        Me.cm_subfuente.Size = New System.Drawing.Size(711, 24)
+        Me.cm_subfuente.Size = New System.Drawing.Size(947, 28)
         Me.cm_subfuente.TabIndex = 170
         '
         'Label7
         '
         Me.Label7.AutoSize = True
         Me.Label7.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label7.Location = New System.Drawing.Point(11, 75)
+        Me.Label7.Location = New System.Drawing.Point(15, 92)
+        Me.Label7.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label7.Name = "Label7"
-        Me.Label7.Size = New System.Drawing.Size(79, 16)
+        Me.Label7.Size = New System.Drawing.Size(99, 20)
         Me.Label7.TabIndex = 169
         Me.Label7.Text = "Sub Fuente:"
         '
         'fm_0600_p3_analisis_y_solucion
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
-        Me.ClientSize = New System.Drawing.Size(1015, 526)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
+        Me.ClientSize = New System.Drawing.Size(1353, 647)
         Me.Controls.Add(Me.tx_subfuente)
         Me.Controls.Add(Me.cm_subfuente)
         Me.Controls.Add(Me.Label7)
@@ -423,6 +466,7 @@ Partial Class fm_0600_p3_analisis_y_solucion
         Me.Controls.Add(Me.GroupBox1)
         Me.Controls.Add(Me.tx_id_accion)
         Me.Controls.Add(Me.Label5)
+        Me.Margin = New System.Windows.Forms.Padding(5)
         Me.Name = "fm_0600_p3_analisis_y_solucion"
         Me.Text = "Analisis y Solucion del Problema"
         Me.Controls.SetChildIndex(Me.Label5, 0)

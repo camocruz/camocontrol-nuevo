@@ -16,7 +16,7 @@ Imports System.Reflection
 <Assembly: System.Reflection.AssemblyCompanyAttribute("Updater"),  _
  Assembly: System.Reflection.AssemblyConfigurationAttribute("Debug"),  _
  Assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0"),  _
- Assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ddb311eb33ddf762602ec47b445957405f339ccd"),  _
+ Assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+86ff687cf22dbe0a8fbeace2f51522f2c0605d5a"),  _
  Assembly: System.Reflection.AssemblyProductAttribute("Updater"),  _
  Assembly: System.Reflection.AssemblyTitleAttribute("Updater"),  _
  Assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")> 

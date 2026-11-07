@@ -94,26 +94,32 @@ Partial Class fm_0300_formulacion
         '
         'll_linea1
         '
-        Me.ll_linea1.Size = New System.Drawing.Size(836, 6)
+        Me.ll_linea1.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
+        Me.ll_linea1.Size = New System.Drawing.Size(1115, 7)
         '
         'lb_mi_marca
         '
-        Me.lb_mi_marca.Location = New System.Drawing.Point(934, 9)
+        Me.lb_mi_marca.Location = New System.Drawing.Point(1245, 11)
+        Me.lb_mi_marca.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
         '
         'lb_fecha
         '
-        Me.lb_fecha.Location = New System.Drawing.Point(935, 36)
-        Me.lb_fecha.Size = New System.Drawing.Size(72, 16)
+        Me.lb_fecha.Location = New System.Drawing.Point(1247, 44)
+        Me.lb_fecha.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
+        Me.lb_fecha.Size = New System.Drawing.Size(91, 20)
         Me.lb_fecha.Text = "2015/08/20"
         '
         'lb_titulo
         '
-        Me.lb_titulo.Size = New System.Drawing.Size(301, 32)
+        Me.lb_titulo.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
+        Me.lb_titulo.Size = New System.Drawing.Size(386, 42)
         Me.lb_titulo.Text = "Plantilla de Produccion"
         '
         'GroupBox1
         '
-        Me.GroupBox1.Location = New System.Drawing.Point(210, 512)
+        Me.GroupBox1.Location = New System.Drawing.Point(280, 630)
+        Me.GroupBox1.Margin = New System.Windows.Forms.Padding(5)
+        Me.GroupBox1.Padding = New System.Windows.Forms.Padding(5)
         '
         'bt_grabar
         '
@@ -126,7 +132,8 @@ Partial Class fm_0300_formulacion
         '
         'lb_diseñador_programa
         '
-        Me.lb_diseñador_programa.Location = New System.Drawing.Point(0, 572)
+        Me.lb_diseñador_programa.Location = New System.Drawing.Point(0, 705)
+        Me.lb_diseñador_programa.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
         '
         'bt_g_notas
         '
@@ -135,9 +142,10 @@ Partial Class fm_0300_formulacion
         '
         Me.Label1.AutoSize = True
         Me.Label1.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label1.Location = New System.Drawing.Point(12, 137)
+        Me.Label1.Location = New System.Drawing.Point(16, 169)
+        Me.Label1.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(83, 16)
+        Me.Label1.Size = New System.Drawing.Size(104, 20)
         Me.Label1.TabIndex = 156
         Me.Label1.Text = "Descripcion:"
         '
@@ -151,74 +159,92 @@ Partial Class fm_0300_formulacion
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.dg_items.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dg_items.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.dgocell_id_elemento, Me.dgocell_id_item, Me.dgocell_descripcion_item, Me.dgocell_unid_medida, Me.dgocell_cantidad, Me.dgocell_cost_total, Me.dgocell_cost_unit})
-        Me.dg_items.Location = New System.Drawing.Point(12, 229)
+        Me.dg_items.Location = New System.Drawing.Point(16, 282)
+        Me.dg_items.Margin = New System.Windows.Forms.Padding(4)
         Me.dg_items.Name = "dg_items"
         Me.dg_items.ReadOnly = True
-        Me.dg_items.Size = New System.Drawing.Size(644, 156)
+        Me.dg_items.RowHeadersWidth = 51
+        Me.dg_items.Size = New System.Drawing.Size(859, 192)
         Me.dg_items.TabIndex = 158
         '
         'dgocell_id_elemento
         '
         Me.dgocell_id_elemento.HeaderText = "id_lmto"
+        Me.dgocell_id_elemento.MinimumWidth = 6
         Me.dgocell_id_elemento.Name = "dgocell_id_elemento"
         Me.dgocell_id_elemento.ReadOnly = True
+        Me.dgocell_id_elemento.Width = 125
         '
         'dgocell_id_item
         '
         Me.dgocell_id_item.ContextMenuStrip = Me.cmi_dg_items
         Me.dgocell_id_item.HeaderText = "id_item"
+        Me.dgocell_id_item.MinimumWidth = 6
         Me.dgocell_id_item.Name = "dgocell_id_item"
         Me.dgocell_id_item.ReadOnly = True
+        Me.dgocell_id_item.Width = 125
         '
         'cmi_dg_items
         '
+        Me.cmi_dg_items.ImageScalingSize = New System.Drawing.Size(20, 20)
         Me.cmi_dg_items.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mi_nuevo_item_alterno})
         Me.cmi_dg_items.Name = "cmi_dg_items"
-        Me.cmi_dg_items.Size = New System.Drawing.Size(195, 26)
+        Me.cmi_dg_items.Size = New System.Drawing.Size(231, 28)
         '
         'mi_nuevo_item_alterno
         '
         Me.mi_nuevo_item_alterno.Name = "mi_nuevo_item_alterno"
-        Me.mi_nuevo_item_alterno.Size = New System.Drawing.Size(194, 22)
+        Me.mi_nuevo_item_alterno.Size = New System.Drawing.Size(230, 24)
         Me.mi_nuevo_item_alterno.Text = "Agregar Item Opcional"
         '
         'dgocell_descripcion_item
         '
         Me.dgocell_descripcion_item.HeaderText = "Item"
+        Me.dgocell_descripcion_item.MinimumWidth = 6
         Me.dgocell_descripcion_item.Name = "dgocell_descripcion_item"
         Me.dgocell_descripcion_item.ReadOnly = True
+        Me.dgocell_descripcion_item.Width = 125
         '
         'dgocell_unid_medida
         '
         Me.dgocell_unid_medida.HeaderText = "Unid"
+        Me.dgocell_unid_medida.MinimumWidth = 6
         Me.dgocell_unid_medida.Name = "dgocell_unid_medida"
         Me.dgocell_unid_medida.ReadOnly = True
+        Me.dgocell_unid_medida.Width = 125
         '
         'dgocell_cantidad
         '
         Me.dgocell_cantidad.HeaderText = "Cantidad"
+        Me.dgocell_cantidad.MinimumWidth = 6
         Me.dgocell_cantidad.Name = "dgocell_cantidad"
         Me.dgocell_cantidad.ReadOnly = True
+        Me.dgocell_cantidad.Width = 125
         '
         'dgocell_cost_total
         '
         Me.dgocell_cost_total.HeaderText = "cost_total"
+        Me.dgocell_cost_total.MinimumWidth = 6
         Me.dgocell_cost_total.Name = "dgocell_cost_total"
         Me.dgocell_cost_total.ReadOnly = True
+        Me.dgocell_cost_total.Width = 125
         '
         'dgocell_cost_unit
         '
         Me.dgocell_cost_unit.HeaderText = "Cost_Unit"
+        Me.dgocell_cost_unit.MinimumWidth = 6
         Me.dgocell_cost_unit.Name = "dgocell_cost_unit"
         Me.dgocell_cost_unit.ReadOnly = True
+        Me.dgocell_cost_unit.Width = 125
         '
         'Label2
         '
         Me.Label2.AutoSize = True
         Me.Label2.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label2.Location = New System.Drawing.Point(12, 211)
+        Me.Label2.Location = New System.Drawing.Point(16, 260)
+        Me.Label2.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(43, 16)
+        Me.Label2.Size = New System.Drawing.Size(55, 20)
         Me.Label2.TabIndex = 159
         Me.Label2.Text = "Items:"
         '
@@ -226,45 +252,50 @@ Partial Class fm_0300_formulacion
         '
         Me.tx_descripcion.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
         Me.tx_descripcion.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.tx_descripcion.Location = New System.Drawing.Point(107, 134)
+        Me.tx_descripcion.Location = New System.Drawing.Point(143, 165)
+        Me.tx_descripcion.Margin = New System.Windows.Forms.Padding(4)
         Me.tx_descripcion.Name = "tx_descripcion"
-        Me.tx_descripcion.Size = New System.Drawing.Size(598, 22)
+        Me.tx_descripcion.Size = New System.Drawing.Size(796, 26)
         Me.tx_descripcion.TabIndex = 160
         '
         'tx_cantidad_x_bache
         '
         Me.tx_cantidad_x_bache.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.tx_cantidad_x_bache.Location = New System.Drawing.Point(107, 86)
+        Me.tx_cantidad_x_bache.Location = New System.Drawing.Point(143, 106)
+        Me.tx_cantidad_x_bache.Margin = New System.Windows.Forms.Padding(4)
         Me.tx_cantidad_x_bache.Name = "tx_cantidad_x_bache"
-        Me.tx_cantidad_x_bache.Size = New System.Drawing.Size(106, 22)
+        Me.tx_cantidad_x_bache.Size = New System.Drawing.Size(140, 26)
         Me.tx_cantidad_x_bache.TabIndex = 162
         '
         'Label3
         '
         Me.Label3.AutoSize = True
         Me.Label3.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label3.Location = New System.Drawing.Point(12, 89)
+        Me.Label3.Location = New System.Drawing.Point(16, 110)
+        Me.Label3.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(89, 16)
+        Me.Label3.Size = New System.Drawing.Size(115, 20)
         Me.Label3.TabIndex = 161
         Me.Label3.Text = "Cant x Bache:"
         '
         'tx_id_exmtp
         '
         Me.tx_id_exmtp.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.tx_id_exmtp.Location = New System.Drawing.Point(107, 61)
+        Me.tx_id_exmtp.Location = New System.Drawing.Point(143, 75)
+        Me.tx_id_exmtp.Margin = New System.Windows.Forms.Padding(4)
         Me.tx_id_exmtp.Name = "tx_id_exmtp"
         Me.tx_id_exmtp.ReadOnly = True
-        Me.tx_id_exmtp.Size = New System.Drawing.Size(106, 22)
+        Me.tx_id_exmtp.Size = New System.Drawing.Size(140, 26)
         Me.tx_id_exmtp.TabIndex = 164
         '
         'Label4
         '
         Me.Label4.AutoSize = True
         Me.Label4.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label4.Location = New System.Drawing.Point(12, 64)
+        Me.Label4.Location = New System.Drawing.Point(16, 79)
+        Me.Label4.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(65, 16)
+        Me.Label4.Size = New System.Drawing.Size(81, 20)
         Me.Label4.TabIndex = 163
         Me.Label4.Text = "id_exmtp:"
         '
@@ -272,9 +303,10 @@ Partial Class fm_0300_formulacion
         '
         Me.lb_unidad_medicion.AutoSize = True
         Me.lb_unidad_medicion.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lb_unidad_medicion.Location = New System.Drawing.Point(216, 92)
+        Me.lb_unidad_medicion.Location = New System.Drawing.Point(288, 113)
+        Me.lb_unidad_medicion.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.lb_unidad_medicion.Name = "lb_unidad_medicion"
-        Me.lb_unidad_medicion.Size = New System.Drawing.Size(85, 16)
+        Me.lb_unidad_medicion.Size = New System.Drawing.Size(102, 20)
         Me.lb_unidad_medicion.TabIndex = 165
         Me.lb_unidad_medicion.Text = "Unid Medida"
         '
@@ -282,10 +314,11 @@ Partial Class fm_0300_formulacion
         '
         Me.tx_id_lmnto.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.tx_id_lmnto.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.tx_id_lmnto.Location = New System.Drawing.Point(771, 466)
+        Me.tx_id_lmnto.Location = New System.Drawing.Point(1028, 574)
+        Me.tx_id_lmnto.Margin = New System.Windows.Forms.Padding(4)
         Me.tx_id_lmnto.Name = "tx_id_lmnto"
         Me.tx_id_lmnto.ReadOnly = True
-        Me.tx_id_lmnto.Size = New System.Drawing.Size(89, 22)
+        Me.tx_id_lmnto.Size = New System.Drawing.Size(117, 26)
         Me.tx_id_lmnto.TabIndex = 168
         '
         'Label5
@@ -293,28 +326,31 @@ Partial Class fm_0300_formulacion
         Me.Label5.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Label5.AutoSize = True
         Me.Label5.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label5.Location = New System.Drawing.Point(711, 469)
+        Me.Label5.Location = New System.Drawing.Point(948, 577)
+        Me.Label5.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(54, 16)
+        Me.Label5.Size = New System.Drawing.Size(68, 20)
         Me.Label5.TabIndex = 167
         Me.Label5.Text = "Id_lmto:"
         '
         'tx_costo_unitario
         '
         Me.tx_costo_unitario.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.tx_costo_unitario.Location = New System.Drawing.Point(107, 158)
+        Me.tx_costo_unitario.Location = New System.Drawing.Point(143, 194)
+        Me.tx_costo_unitario.Margin = New System.Windows.Forms.Padding(4)
         Me.tx_costo_unitario.Name = "tx_costo_unitario"
         Me.tx_costo_unitario.ReadOnly = True
-        Me.tx_costo_unitario.Size = New System.Drawing.Size(106, 22)
+        Me.tx_costo_unitario.Size = New System.Drawing.Size(140, 26)
         Me.tx_costo_unitario.TabIndex = 170
         '
         'Label6
         '
         Me.Label6.AutoSize = True
         Me.Label6.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label6.Location = New System.Drawing.Point(12, 161)
+        Me.Label6.Location = New System.Drawing.Point(16, 198)
+        Me.Label6.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label6.Name = "Label6"
-        Me.Label6.Size = New System.Drawing.Size(95, 16)
+        Me.Label6.Size = New System.Drawing.Size(121, 20)
         Me.Label6.TabIndex = 169
         Me.Label6.Text = "Costo Unitario:"
         '
@@ -322,36 +358,40 @@ Partial Class fm_0300_formulacion
         '
         Me.lb_unid_cost_unit.AutoSize = True
         Me.lb_unid_cost_unit.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lb_unid_cost_unit.Location = New System.Drawing.Point(219, 161)
+        Me.lb_unid_cost_unit.Location = New System.Drawing.Point(292, 198)
+        Me.lb_unid_cost_unit.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.lb_unid_cost_unit.Name = "lb_unid_cost_unit"
-        Me.lb_unid_cost_unit.Size = New System.Drawing.Size(85, 16)
+        Me.lb_unid_cost_unit.Size = New System.Drawing.Size(102, 20)
         Me.lb_unid_cost_unit.TabIndex = 171
         Me.lb_unid_cost_unit.Text = "Unid Medida"
         '
         'tx_costo_bache
         '
         Me.tx_costo_bache.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.tx_costo_bache.Location = New System.Drawing.Point(584, 158)
+        Me.tx_costo_bache.Location = New System.Drawing.Point(779, 194)
+        Me.tx_costo_bache.Margin = New System.Windows.Forms.Padding(4)
         Me.tx_costo_bache.Name = "tx_costo_bache"
         Me.tx_costo_bache.ReadOnly = True
-        Me.tx_costo_bache.Size = New System.Drawing.Size(120, 22)
+        Me.tx_costo_bache.Size = New System.Drawing.Size(159, 26)
         Me.tx_costo_bache.TabIndex = 173
         '
         'Label7
         '
         Me.Label7.AutoSize = True
         Me.Label7.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label7.Location = New System.Drawing.Point(489, 161)
+        Me.Label7.Location = New System.Drawing.Point(652, 198)
+        Me.Label7.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label7.Name = "Label7"
-        Me.Label7.Size = New System.Drawing.Size(88, 16)
+        Me.Label7.Size = New System.Drawing.Size(111, 20)
         Me.Label7.TabIndex = 172
         Me.Label7.Text = "Costo Bache:"
         '
         'bt_calcular_costo
         '
-        Me.bt_calcular_costo.Location = New System.Drawing.Point(310, 184)
+        Me.bt_calcular_costo.Location = New System.Drawing.Point(413, 226)
+        Me.bt_calcular_costo.Margin = New System.Windows.Forms.Padding(4)
         Me.bt_calcular_costo.Name = "bt_calcular_costo"
-        Me.bt_calcular_costo.Size = New System.Drawing.Size(120, 23)
+        Me.bt_calcular_costo.Size = New System.Drawing.Size(160, 28)
         Me.bt_calcular_costo.TabIndex = 174
         Me.bt_calcular_costo.Text = "Calc. Costo"
         Me.bt_calcular_costo.UseVisualStyleBackColor = True
@@ -359,92 +399,102 @@ Partial Class fm_0300_formulacion
         'tx_h_operario
         '
         Me.tx_h_operario.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.tx_h_operario.Location = New System.Drawing.Point(887, 85)
+        Me.tx_h_operario.Location = New System.Drawing.Point(1183, 105)
+        Me.tx_h_operario.Margin = New System.Windows.Forms.Padding(4)
         Me.tx_h_operario.Name = "tx_h_operario"
-        Me.tx_h_operario.Size = New System.Drawing.Size(80, 22)
+        Me.tx_h_operario.Size = New System.Drawing.Size(105, 26)
         Me.tx_h_operario.TabIndex = 176
         '
         'Label8
         '
         Me.Label8.AutoSize = True
         Me.Label8.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label8.Location = New System.Drawing.Point(792, 88)
+        Me.Label8.Location = New System.Drawing.Point(1056, 108)
+        Me.Label8.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label8.Name = "Label8"
-        Me.Label8.Size = New System.Drawing.Size(81, 16)
+        Me.Label8.Size = New System.Drawing.Size(102, 20)
         Me.Label8.TabIndex = 175
         Me.Label8.Text = "$h Operario:"
         '
         'tx_h_operario_lider
         '
         Me.tx_h_operario_lider.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.tx_h_operario_lider.Location = New System.Drawing.Point(887, 113)
+        Me.tx_h_operario_lider.Location = New System.Drawing.Point(1183, 139)
+        Me.tx_h_operario_lider.Margin = New System.Windows.Forms.Padding(4)
         Me.tx_h_operario_lider.Name = "tx_h_operario_lider"
-        Me.tx_h_operario_lider.Size = New System.Drawing.Size(80, 22)
+        Me.tx_h_operario_lider.Size = New System.Drawing.Size(105, 26)
         Me.tx_h_operario_lider.TabIndex = 178
         '
         'Label9
         '
         Me.Label9.AutoSize = True
         Me.Label9.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label9.Location = New System.Drawing.Point(792, 116)
+        Me.Label9.Location = New System.Drawing.Point(1056, 143)
+        Me.Label9.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label9.Name = "Label9"
-        Me.Label9.Size = New System.Drawing.Size(91, 16)
+        Me.Label9.Size = New System.Drawing.Size(117, 20)
         Me.Label9.TabIndex = 177
         Me.Label9.Text = "$h Operario L:"
         '
         'tx_h_supervisor
         '
         Me.tx_h_supervisor.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.tx_h_supervisor.Location = New System.Drawing.Point(887, 141)
+        Me.tx_h_supervisor.Location = New System.Drawing.Point(1183, 174)
+        Me.tx_h_supervisor.Margin = New System.Windows.Forms.Padding(4)
         Me.tx_h_supervisor.Name = "tx_h_supervisor"
-        Me.tx_h_supervisor.Size = New System.Drawing.Size(80, 22)
+        Me.tx_h_supervisor.Size = New System.Drawing.Size(105, 26)
         Me.tx_h_supervisor.TabIndex = 180
         '
         'Label10
         '
         Me.Label10.AutoSize = True
         Me.Label10.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label10.Location = New System.Drawing.Point(792, 144)
+        Me.Label10.Location = New System.Drawing.Point(1056, 177)
+        Me.Label10.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label10.Name = "Label10"
-        Me.Label10.Size = New System.Drawing.Size(93, 16)
+        Me.Label10.Size = New System.Drawing.Size(117, 20)
         Me.Label10.TabIndex = 179
         Me.Label10.Text = "$h Supervisor:"
         '
         'tx_costo_unitario_iva
         '
         Me.tx_costo_unitario_iva.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.tx_costo_unitario_iva.Location = New System.Drawing.Point(107, 181)
+        Me.tx_costo_unitario_iva.Location = New System.Drawing.Point(143, 223)
+        Me.tx_costo_unitario_iva.Margin = New System.Windows.Forms.Padding(4)
         Me.tx_costo_unitario_iva.Name = "tx_costo_unitario_iva"
         Me.tx_costo_unitario_iva.ReadOnly = True
-        Me.tx_costo_unitario_iva.Size = New System.Drawing.Size(106, 22)
+        Me.tx_costo_unitario_iva.Size = New System.Drawing.Size(140, 26)
         Me.tx_costo_unitario_iva.TabIndex = 182
         '
         'Label11
         '
         Me.Label11.AutoSize = True
         Me.Label11.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label11.Location = New System.Drawing.Point(59, 184)
+        Me.Label11.Location = New System.Drawing.Point(79, 226)
+        Me.Label11.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label11.Name = "Label11"
-        Me.Label11.Size = New System.Drawing.Size(42, 16)
+        Me.Label11.Size = New System.Drawing.Size(55, 20)
         Me.Label11.TabIndex = 181
         Me.Label11.Text = "+ IVA:"
         '
         'tx_costo_bache_iva
         '
         Me.tx_costo_bache_iva.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.tx_costo_bache_iva.Location = New System.Drawing.Point(584, 181)
+        Me.tx_costo_bache_iva.Location = New System.Drawing.Point(779, 223)
+        Me.tx_costo_bache_iva.Margin = New System.Windows.Forms.Padding(4)
         Me.tx_costo_bache_iva.Name = "tx_costo_bache_iva"
         Me.tx_costo_bache_iva.ReadOnly = True
-        Me.tx_costo_bache_iva.Size = New System.Drawing.Size(120, 22)
+        Me.tx_costo_bache_iva.Size = New System.Drawing.Size(159, 26)
         Me.tx_costo_bache_iva.TabIndex = 184
         '
         'Label12
         '
         Me.Label12.AutoSize = True
         Me.Label12.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label12.Location = New System.Drawing.Point(536, 184)
+        Me.Label12.Location = New System.Drawing.Point(715, 226)
+        Me.Label12.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label12.Name = "Label12"
-        Me.Label12.Size = New System.Drawing.Size(42, 16)
+        Me.Label12.Size = New System.Drawing.Size(55, 20)
         Me.Label12.TabIndex = 183
         Me.Label12.Text = "+ IVA:"
         '
@@ -453,9 +503,10 @@ Partial Class fm_0300_formulacion
         Me.bt_historico_compras.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.bt_historico_compras.BackgroundImage = Global.camocontrol.My.Resources.Resources.nuevo2
         Me.bt_historico_compras.Image = Global.camocontrol.My.Resources.Resources.icono_estadisticas
-        Me.bt_historico_compras.Location = New System.Drawing.Point(866, 483)
+        Me.bt_historico_compras.Location = New System.Drawing.Point(1155, 594)
+        Me.bt_historico_compras.Margin = New System.Windows.Forms.Padding(4)
         Me.bt_historico_compras.Name = "bt_historico_compras"
-        Me.bt_historico_compras.Size = New System.Drawing.Size(32, 34)
+        Me.bt_historico_compras.Size = New System.Drawing.Size(43, 42)
         Me.bt_historico_compras.TabIndex = 200
         Me.bt_historico_compras.UseVisualStyleBackColor = True
         '
@@ -463,10 +514,11 @@ Partial Class fm_0300_formulacion
         '
         Me.tx_id_item.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.tx_id_item.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.tx_id_item.Location = New System.Drawing.Point(771, 490)
+        Me.tx_id_item.Location = New System.Drawing.Point(1028, 603)
+        Me.tx_id_item.Margin = New System.Windows.Forms.Padding(4)
         Me.tx_id_item.Name = "tx_id_item"
         Me.tx_id_item.ReadOnly = True
-        Me.tx_id_item.Size = New System.Drawing.Size(89, 22)
+        Me.tx_id_item.Size = New System.Drawing.Size(117, 26)
         Me.tx_id_item.TabIndex = 202
         '
         'Label13
@@ -474,9 +526,10 @@ Partial Class fm_0300_formulacion
         Me.Label13.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Label13.AutoSize = True
         Me.Label13.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label13.Location = New System.Drawing.Point(711, 493)
+        Me.Label13.Location = New System.Drawing.Point(948, 607)
+        Me.Label13.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label13.Name = "Label13"
-        Me.Label13.Size = New System.Drawing.Size(54, 16)
+        Me.Label13.Size = New System.Drawing.Size(68, 20)
         Me.Label13.TabIndex = 201
         Me.Label13.Text = "Id_ltem:"
         '
@@ -488,43 +541,49 @@ Partial Class fm_0300_formulacion
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.dg_var_costos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dg_var_costos.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.dgocell_varcost_id_item, Me.dgocell_varcost_costo, Me.dgocell_varcost_item})
-        Me.dg_var_costos.Location = New System.Drawing.Point(662, 229)
+        Me.dg_var_costos.Location = New System.Drawing.Point(883, 282)
+        Me.dg_var_costos.Margin = New System.Windows.Forms.Padding(4)
         Me.dg_var_costos.Name = "dg_var_costos"
-        Me.dg_var_costos.Size = New System.Drawing.Size(354, 228)
+        Me.dg_var_costos.RowHeadersWidth = 51
+        Me.dg_var_costos.Size = New System.Drawing.Size(472, 281)
         Me.dg_var_costos.TabIndex = 203
         '
         'dgocell_varcost_id_item
         '
         Me.dgocell_varcost_id_item.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
         Me.dgocell_varcost_id_item.HeaderText = "id_item"
+        Me.dgocell_varcost_id_item.MinimumWidth = 6
         Me.dgocell_varcost_id_item.Name = "dgocell_varcost_id_item"
         Me.dgocell_varcost_id_item.ReadOnly = True
         Me.dgocell_varcost_id_item.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgocell_varcost_id_item.Width = 65
+        Me.dgocell_varcost_id_item.Width = 79
         '
         'dgocell_varcost_costo
         '
         Me.dgocell_varcost_costo.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
         Me.dgocell_varcost_costo.HeaderText = "Costo($)"
+        Me.dgocell_varcost_costo.MinimumWidth = 6
         Me.dgocell_varcost_costo.Name = "dgocell_varcost_costo"
-        Me.dgocell_varcost_costo.Width = 71
+        Me.dgocell_varcost_costo.Width = 86
         '
         'dgocell_varcost_item
         '
         Me.dgocell_varcost_item.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
         Me.dgocell_varcost_item.HeaderText = "Item"
+        Me.dgocell_varcost_item.MinimumWidth = 6
         Me.dgocell_varcost_item.Name = "dgocell_varcost_item"
         Me.dgocell_varcost_item.ReadOnly = True
-        Me.dgocell_varcost_item.Width = 52
+        Me.dgocell_varcost_item.Width = 61
         '
         'Label14
         '
         Me.Label14.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Label14.AutoSize = True
         Me.Label14.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label14.Location = New System.Drawing.Point(662, 210)
+        Me.Label14.Location = New System.Drawing.Point(883, 258)
+        Me.Label14.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label14.Name = "Label14"
-        Me.Label14.Size = New System.Drawing.Size(180, 16)
+        Me.Label14.Size = New System.Drawing.Size(225, 20)
         Me.Label14.TabIndex = 204
         Me.Label14.Text = "Variacion de costos insumos"
         '
@@ -532,9 +591,10 @@ Partial Class fm_0300_formulacion
         '
         Me.bt_exportar_formula.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.bt_exportar_formula.Image = Global.camocontrol.My.Resources.Resources.articles
-        Me.bt_exportar_formula.Location = New System.Drawing.Point(904, 472)
+        Me.bt_exportar_formula.Location = New System.Drawing.Point(1205, 581)
+        Me.bt_exportar_formula.Margin = New System.Windows.Forms.Padding(4)
         Me.bt_exportar_formula.Name = "bt_exportar_formula"
-        Me.bt_exportar_formula.Size = New System.Drawing.Size(45, 45)
+        Me.bt_exportar_formula.Size = New System.Drawing.Size(60, 55)
         Me.bt_exportar_formula.TabIndex = 205
         Me.bt_exportar_formula.UseVisualStyleBackColor = True
         '
@@ -543,9 +603,10 @@ Partial Class fm_0300_formulacion
         Me.bt_calculadora_costos.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.bt_calculadora_costos.BackgroundImage = Global.camocontrol.My.Resources.Resources.nuevo2
         Me.bt_calculadora_costos.Image = Global.camocontrol.My.Resources.Resources.dinero01
-        Me.bt_calculadora_costos.Location = New System.Drawing.Point(984, 187)
+        Me.bt_calculadora_costos.Location = New System.Drawing.Point(1312, 230)
+        Me.bt_calculadora_costos.Margin = New System.Windows.Forms.Padding(4)
         Me.bt_calculadora_costos.Name = "bt_calculadora_costos"
-        Me.bt_calculadora_costos.Size = New System.Drawing.Size(32, 34)
+        Me.bt_calculadora_costos.Size = New System.Drawing.Size(43, 42)
         Me.bt_calculadora_costos.TabIndex = 206
         Me.bt_calculadora_costos.UseVisualStyleBackColor = True
         '
@@ -553,17 +614,19 @@ Partial Class fm_0300_formulacion
         '
         Me.bt_recargar_costos_personal.BackgroundImage = Global.camocontrol.My.Resources.Resources.actualizar
         Me.bt_recargar_costos_personal.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
-        Me.bt_recargar_costos_personal.Location = New System.Drawing.Point(749, 107)
+        Me.bt_recargar_costos_personal.Location = New System.Drawing.Point(999, 132)
+        Me.bt_recargar_costos_personal.Margin = New System.Windows.Forms.Padding(4)
         Me.bt_recargar_costos_personal.Name = "bt_recargar_costos_personal"
-        Me.bt_recargar_costos_personal.Size = New System.Drawing.Size(37, 34)
+        Me.bt_recargar_costos_personal.Size = New System.Drawing.Size(49, 42)
         Me.bt_recargar_costos_personal.TabIndex = 208
         Me.bt_recargar_costos_personal.UseVisualStyleBackColor = True
         '
         'bt_activar_plantilla
         '
-        Me.bt_activar_plantilla.Location = New System.Drawing.Point(222, 61)
+        Me.bt_activar_plantilla.Location = New System.Drawing.Point(296, 75)
+        Me.bt_activar_plantilla.Margin = New System.Windows.Forms.Padding(4)
         Me.bt_activar_plantilla.Name = "bt_activar_plantilla"
-        Me.bt_activar_plantilla.Size = New System.Drawing.Size(108, 22)
+        Me.bt_activar_plantilla.Size = New System.Drawing.Size(144, 27)
         Me.bt_activar_plantilla.TabIndex = 209
         Me.bt_activar_plantilla.Text = "Activar Plantilla"
         Me.bt_activar_plantilla.UseVisualStyleBackColor = True
@@ -571,36 +634,40 @@ Partial Class fm_0300_formulacion
         'tx_h_prod_x_bache
         '
         Me.tx_h_prod_x_bache.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.tx_h_prod_x_bache.Location = New System.Drawing.Point(345, 110)
+        Me.tx_h_prod_x_bache.Location = New System.Drawing.Point(460, 135)
+        Me.tx_h_prod_x_bache.Margin = New System.Windows.Forms.Padding(4)
         Me.tx_h_prod_x_bache.Name = "tx_h_prod_x_bache"
-        Me.tx_h_prod_x_bache.Size = New System.Drawing.Size(106, 22)
+        Me.tx_h_prod_x_bache.Size = New System.Drawing.Size(140, 26)
         Me.tx_h_prod_x_bache.TabIndex = 211
         '
         'Label15
         '
         Me.Label15.AutoSize = True
         Me.Label15.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label15.Location = New System.Drawing.Point(219, 113)
+        Me.Label15.Location = New System.Drawing.Point(292, 139)
+        Me.Label15.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label15.Name = "Label15"
-        Me.Label15.Size = New System.Drawing.Size(115, 16)
+        Me.Label15.Size = New System.Drawing.Size(148, 20)
         Me.Label15.TabIndex = 210
         Me.Label15.Text = "H. maquina (H/M):"
         '
         'tx_hh_bache
         '
         Me.tx_hh_bache.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.tx_hh_bache.Location = New System.Drawing.Point(107, 110)
+        Me.tx_hh_bache.Location = New System.Drawing.Point(143, 135)
+        Me.tx_hh_bache.Margin = New System.Windows.Forms.Padding(4)
         Me.tx_hh_bache.Name = "tx_hh_bache"
-        Me.tx_hh_bache.Size = New System.Drawing.Size(106, 22)
+        Me.tx_hh_bache.Size = New System.Drawing.Size(140, 26)
         Me.tx_hh_bache.TabIndex = 213
         '
         'Label16
         '
         Me.Label16.AutoSize = True
         Me.Label16.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label16.Location = New System.Drawing.Point(12, 113)
+        Me.Label16.Location = New System.Drawing.Point(16, 139)
+        Me.Label16.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label16.Name = "Label16"
-        Me.Label16.Size = New System.Drawing.Size(76, 16)
+        Me.Label16.Size = New System.Drawing.Size(95, 20)
         Me.Label16.TabIndex = 212
         Me.Label16.Text = "H/H bache:"
         '
@@ -613,82 +680,100 @@ Partial Class fm_0300_formulacion
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.dg_items_opcionales.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dg_items_opcionales.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.DataGridViewTextBoxColumn1, Me.dgocell_dgopcional_id_item, Me.DataGridViewTextBoxColumn3, Me.DataGridViewTextBoxColumn4, Me.DataGridViewTextBoxColumn5, Me.DataGridViewTextBoxColumn6, Me.DataGridViewTextBoxColumn7})
-        Me.dg_items_opcionales.Location = New System.Drawing.Point(12, 407)
+        Me.dg_items_opcionales.Location = New System.Drawing.Point(16, 501)
+        Me.dg_items_opcionales.Margin = New System.Windows.Forms.Padding(4)
         Me.dg_items_opcionales.Name = "dg_items_opcionales"
         Me.dg_items_opcionales.ReadOnly = True
-        Me.dg_items_opcionales.Size = New System.Drawing.Size(644, 105)
+        Me.dg_items_opcionales.RowHeadersWidth = 51
+        Me.dg_items_opcionales.Size = New System.Drawing.Size(859, 129)
         Me.dg_items_opcionales.TabIndex = 214
         '
         'DataGridViewTextBoxColumn1
         '
         Me.DataGridViewTextBoxColumn1.HeaderText = "id_lmto"
+        Me.DataGridViewTextBoxColumn1.MinimumWidth = 6
         Me.DataGridViewTextBoxColumn1.Name = "DataGridViewTextBoxColumn1"
         Me.DataGridViewTextBoxColumn1.ReadOnly = True
+        Me.DataGridViewTextBoxColumn1.Width = 125
         '
         'dgocell_dgopcional_id_item
         '
         Me.dgocell_dgopcional_id_item.ContextMenuStrip = Me.cms_dg_items_opcionales
         Me.dgocell_dgopcional_id_item.HeaderText = "id_item"
+        Me.dgocell_dgopcional_id_item.MinimumWidth = 6
         Me.dgocell_dgopcional_id_item.Name = "dgocell_dgopcional_id_item"
         Me.dgocell_dgopcional_id_item.ReadOnly = True
+        Me.dgocell_dgopcional_id_item.Width = 125
         '
         'cms_dg_items_opcionales
         '
+        Me.cms_dg_items_opcionales.ImageScalingSize = New System.Drawing.Size(20, 20)
         Me.cms_dg_items_opcionales.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mi_eliminar_item_opcional})
         Me.cms_dg_items_opcionales.Name = "cms_dg_items_opcionales"
-        Me.cms_dg_items_opcionales.Size = New System.Drawing.Size(196, 26)
+        Me.cms_dg_items_opcionales.Size = New System.Drawing.Size(231, 28)
         '
         'mi_eliminar_item_opcional
         '
         Me.mi_eliminar_item_opcional.Name = "mi_eliminar_item_opcional"
-        Me.mi_eliminar_item_opcional.Size = New System.Drawing.Size(195, 22)
+        Me.mi_eliminar_item_opcional.Size = New System.Drawing.Size(230, 24)
         Me.mi_eliminar_item_opcional.Text = "Eliminar Item Opcional"
         '
         'DataGridViewTextBoxColumn3
         '
         Me.DataGridViewTextBoxColumn3.HeaderText = "Item"
+        Me.DataGridViewTextBoxColumn3.MinimumWidth = 6
         Me.DataGridViewTextBoxColumn3.Name = "DataGridViewTextBoxColumn3"
         Me.DataGridViewTextBoxColumn3.ReadOnly = True
+        Me.DataGridViewTextBoxColumn3.Width = 125
         '
         'DataGridViewTextBoxColumn4
         '
         Me.DataGridViewTextBoxColumn4.HeaderText = "Unid"
+        Me.DataGridViewTextBoxColumn4.MinimumWidth = 6
         Me.DataGridViewTextBoxColumn4.Name = "DataGridViewTextBoxColumn4"
         Me.DataGridViewTextBoxColumn4.ReadOnly = True
+        Me.DataGridViewTextBoxColumn4.Width = 125
         '
         'DataGridViewTextBoxColumn5
         '
         Me.DataGridViewTextBoxColumn5.HeaderText = "Cantidad"
+        Me.DataGridViewTextBoxColumn5.MinimumWidth = 6
         Me.DataGridViewTextBoxColumn5.Name = "DataGridViewTextBoxColumn5"
         Me.DataGridViewTextBoxColumn5.ReadOnly = True
+        Me.DataGridViewTextBoxColumn5.Width = 125
         '
         'DataGridViewTextBoxColumn6
         '
         Me.DataGridViewTextBoxColumn6.HeaderText = "cost_total"
+        Me.DataGridViewTextBoxColumn6.MinimumWidth = 6
         Me.DataGridViewTextBoxColumn6.Name = "DataGridViewTextBoxColumn6"
         Me.DataGridViewTextBoxColumn6.ReadOnly = True
+        Me.DataGridViewTextBoxColumn6.Width = 125
         '
         'DataGridViewTextBoxColumn7
         '
         Me.DataGridViewTextBoxColumn7.HeaderText = "Cost_Unit"
+        Me.DataGridViewTextBoxColumn7.MinimumWidth = 6
         Me.DataGridViewTextBoxColumn7.Name = "DataGridViewTextBoxColumn7"
         Me.DataGridViewTextBoxColumn7.ReadOnly = True
+        Me.DataGridViewTextBoxColumn7.Width = 125
         '
         'Label17
         '
         Me.Label17.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Label17.AutoSize = True
         Me.Label17.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label17.Location = New System.Drawing.Point(12, 388)
+        Me.Label17.Location = New System.Drawing.Point(16, 478)
+        Me.Label17.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label17.Name = "Label17"
-        Me.Label17.Size = New System.Drawing.Size(203, 16)
+        Me.Label17.Size = New System.Drawing.Size(254, 20)
         Me.Label17.TabIndex = 215
         Me.Label17.Text = "Items Opcionales / Equivalentes:"
         '
         'fm_0300_formulacion
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
-        Me.ClientSize = New System.Drawing.Size(1021, 586)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
+        Me.ClientSize = New System.Drawing.Size(1361, 721)
         Me.Controls.Add(Me.Label17)
         Me.Controls.Add(Me.dg_items_opcionales)
         Me.Controls.Add(Me.tx_hh_bache)
@@ -731,6 +816,7 @@ Partial Class fm_0300_formulacion
         Me.Controls.Add(Me.Label2)
         Me.Controls.Add(Me.dg_items)
         Me.Controls.Add(Me.Label1)
+        Me.Margin = New System.Windows.Forms.Padding(5)
         Me.Name = "fm_0300_formulacion"
         Me.Text = "Plantilla de Produccion"
         Me.Controls.SetChildIndex(Me.lb_titulo, 0)

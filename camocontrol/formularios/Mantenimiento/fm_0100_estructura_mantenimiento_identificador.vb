@@ -47,16 +47,31 @@
         '**********************
 
         id_estructura_anterior = id_estructura
+
+        Dim dto As New VisorDatosConfig()
+        dto.IdSql = "ST-0100-09"
+        dto.IdCia = vg_id_cia
+        dto.Replacements = {vg_id_cia}
+        csql = cl_utilidades_datatables.ConstruirSql(dto)
+        otb_estructura_mantenimiento = cl_utilidades_datatables.cargar_informacion_postgres(csql)
+        UcSelectorEstructura.Inicializar(
+            dt:=otb_estructura_mantenimiento,
+            columnaID:="id",
+            columnaTexto:="nombre",
+            columnaExtra:="planta"
+        )
+
+        UcSelectorEstructura.SelectedID = id_estructura
+
         llenar_arbol()
-        cm_elementos.SelectedValue = id_estructura
         If id_estructura <> 0 Then
             mostrar_nodo(id_estructura.ToString)
         End If
     End Sub
     Private Sub cargar_otabla_estructura()
         csql = "SELECT estructura.*, tb0107_tipos_estructura.*," _
-                    & " estructura.f0100_nombre || ' -- { ' || estructura.f0100_codigo || ' } ' || ' -- ' || coalesce(maquina.f0100_nombre,'ND') as descripcion_nombre," _
-                    & " estructura.f0100_codigo || ' -- { ' || estructura.f0100_nombre || ' } ' || ' -- ' || coalesce(maquina.f0100_nombre,'ND') as descripcion_codigo" _
+                    & " estructura.f0100_nombre || ' -- { ' || estructura.f0100_id_estructura || ' } ' || ' -- ' || coalesce(maquina.f0100_nombre,'ND') as descripcion_nombre," _
+                    & " estructura.f0100_id_estructura || ' -- { ' || estructura.f0100_nombre || ' } ' || ' -- ' || coalesce(maquina.f0100_nombre,'ND') as descripcion_codigo" _
                     & " FROM " & database.obtener_esquema & ".tb0100_estructura_mantenimiento as estructura" _
                         & " join " & database.obtener_esquema & ".tb0107_tipos_estructura" _
                             & " on f0100_id_tipo_estructura = f0107_id_tipo_estructura" _
@@ -169,7 +184,8 @@
         id_estructura = e.Node.Tag.ToString.Trim
         nodo_hijo_tag = nodo_padre_tag
         nodo_padre_tag = e.Node.Tag.ToString.Trim
-        cm_elementos.SelectedValue = e.Node.Tag.ToString.Trim
+        UcSelectorEstructura.SelectedID = e.Node.Tag.ToString.Trim
+        'cm_elementos.SelectedValue = e.Node.Tag.ToString.Trim
         'Identificamos informacion de la estructura seleccionada.
         Dim rowprod As DataRow() = otb_estructura_mantenimiento.Select("f0100_id_estructura ='" & id_estructura & "'")
         For Each orow As DataRow In rowprod
@@ -286,14 +302,22 @@
         'vf_oform_padre.cambiar_estructura = "S"
         Me.Hide()
     End Sub
-    Private Sub cm_elementos_Validating(ByVal sender As Object, ByVal e As System.ComponentModel.CancelEventArgs) Handles cm_elementos.Validating
 
-        If cm_elementos.SelectedIndex = -1 Then
+    Private Sub UcSelectorEstructura_Validated(sender As Object, e As EventArgs) Handles UcSelectorEstructura.Validated
+        If UcSelectorEstructura.SelectedID Is Nothing OrElse UcSelectorEstructura.SelectedID.Trim() = "" Then
             Exit Sub
         End If
-
-        mostrar_nodo(cm_elementos.SelectedValue)
+        mostrar_nodo(UcSelectorEstructura.SelectedID)
     End Sub
+
+    'Private Sub cm_elementos_Validating(ByVal sender As Object, ByVal e As System.ComponentModel.CancelEventArgs)
+
+    '    If cm_elementos.SelectedIndex = -1 Then
+    '        Exit Sub
+    '    End If
+
+    '    mostrar_nodo(cm_elementos.SelectedValue)
+    'End Sub
     Private Function CrearNodossecuenciales(ByVal odatatable As DataTable, ByVal id_nuevo_nodo As String, ByVal nodePadre As TreeNode)
         Dim dataViewNodo As New DataView
         'codigo_padre de quien dependo
@@ -332,32 +356,33 @@
         End If
     End Sub
     Private Sub llenar_combo_elementos_codigo()
-        With cm_elementos
-            'Valor que se muestra al usuario
-            .DisplayMember = "descripcion_codigo"
-            'Valor interno que almacena el objeto
-            .ValueMember = "f0100_id_estructura"
-            'Origen de Datos del ComboBox
-            .DataSource = otb_estructura_mantenimiento
-            .DropDownStyle = ComboBoxStyle.DropDown
-            .AutoCompleteMode = AutoCompleteMode.Suggest
-            .AutoCompleteSource = AutoCompleteSource.ListItems
-            .SelectedIndex = -1
-        End With
+        'UcSelectorEstructura.SelectedID = Nothing
+        'With cm_elementos
+        '    'Valor que se muestra al usuario
+        '    .DisplayMember = "descripcion_codigo"
+        '    'Valor interno que almacena el objeto
+        '    .ValueMember = "f0100_id_estructura"
+        '    'Origen de Datos del ComboBox
+        '    .DataSource = otb_estructura_mantenimiento
+        '    .DropDownStyle = ComboBoxStyle.DropDown
+        '    .AutoCompleteMode = AutoCompleteMode.Suggest
+        '    .AutoCompleteSource = AutoCompleteSource.ListItems
+        '    .SelectedIndex = -1
+        'End With
     End Sub
     Private Sub llenar_combo_elementos_nombre()
-        With cm_elementos
-            'Valor que se muestra al usuario
-            .DisplayMember = "descripcion_nombre"
-            'Valor interno que almacena el objeto
-            .ValueMember = "f0100_id_estructura"
-            'Origen de Datos del ComboBox
-            .DataSource = otb_estructura_mantenimiento
-            .DropDownStyle = ComboBoxStyle.DropDown
-            .AutoCompleteMode = AutoCompleteMode.Suggest
-            .AutoCompleteSource = AutoCompleteSource.ListItems
-            .SelectedIndex = -1
-        End With
+        'With cm_elementos
+        '    'Valor que se muestra al usuario
+        '    .DisplayMember = "descripcion_nombre"
+        '    'Valor interno que almacena el objeto
+        '    .ValueMember = "f0100_id_estructura"
+        '    'Origen de Datos del ComboBox
+        '    .DataSource = otb_estructura_mantenimiento
+        '    .DropDownStyle = ComboBoxStyle.DropDown
+        '    .AutoCompleteMode = AutoCompleteMode.Suggest
+        '    .AutoCompleteSource = AutoCompleteSource.ListItems
+        '    .SelectedIndex = -1
+        'End With
     End Sub
 
     Private Sub bt_salir_Click(sender As Object, e As EventArgs) Handles bt_salir.Click
@@ -386,4 +411,6 @@
         oform_estructura_manto.ShowDialog()
         Dispose()
     End Sub
+
+
 End Class

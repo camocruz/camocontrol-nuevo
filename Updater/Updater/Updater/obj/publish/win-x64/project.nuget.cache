@@ -1,0 +1,14 @@
+{
+  "version": 2,
+  "dgSpecHash": "dVJhkxi4UrU=",
+  "success": true,
+  "projectFilePath": "C:\\Repos\\camocontrol\\Updater\\Updater\\Updater\\Updater.vbproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\camoc\\.nuget\\packages\\microsoft.net.illink.tasks\\8.0.30\\microsoft.net.illink.tasks.8.0.30.nupkg.sha512",
+    "C:\\Users\\camoc\\.nuget\\packages\\microsoft.netcore.app.runtime.win-x64\\8.0.30\\microsoft.netcore.app.runtime.win-x64.8.0.30.nupkg.sha512",
+    "C:\\Users\\camoc\\.nuget\\packages\\microsoft.windowsdesktop.app.runtime.win-x64\\8.0.30\\microsoft.windowsdesktop.app.runtime.win-x64.8.0.30.nupkg.sha512",
+    "C:\\Users\\camoc\\.nuget\\packages\\microsoft.aspnetcore.app.runtime.win-x64\\8.0.30\\microsoft.aspnetcore.app.runtime.win-x64.8.0.30.nupkg.sha512",
+    "C:\\Users\\camoc\\.nuget\\packages\\microsoft.netcore.app.crossgen2.win-x64\\8.0.30\\microsoft.netcore.app.crossgen2.win-x64.8.0.30.nupkg.sha512"
+  ],
+  "logs": []
+}

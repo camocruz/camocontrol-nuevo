@@ -62,7 +62,7 @@
         oform_programar_actividad.vf_oform_padre = Me
         oform_programar_actividad.vg_id_cia = vg_id_cia
         oform_programar_actividad.vg_usuario_autoriza = vg_usuario_autoriza
-        oform_programar_actividad.cm_emisor.Enabled = False
+        oform_programar_actividad.UcEmisor.Enabled = False
         oform_programar_actividad.id_estructura = id_estructura
         oform_programar_actividad.vf_elemento_nuevo = "S"
         oform_programar_actividad.ShowDialog()

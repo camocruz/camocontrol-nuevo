@@ -1,0 +1,2 @@
+C:\Repos\camocontrol\Updater\PublicarUpdater\Updater.pdb
+C:\Repos\camocontrol\Updater\PublicarUpdater\Updater.exe

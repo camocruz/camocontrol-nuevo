@@ -507,7 +507,7 @@ Public Class formulario_inicio
         oform_programar_actividad.vf_oform_padre = Me
         oform_programar_actividad.vg_id_cia = vg_id_cia
         oform_programar_actividad.vg_usuario_autoriza = vlogin
-        oform_programar_actividad.cm_emisor.Enabled = False
+        oform_programar_actividad.UcEmisor.Enabled = False
         oform_programar_actividad.grb_tipo_tarea.Enabled = False
         oform_programar_actividad.id_estructura = 0
         oform_programar_actividad.vf_elemento_nuevo = "S"

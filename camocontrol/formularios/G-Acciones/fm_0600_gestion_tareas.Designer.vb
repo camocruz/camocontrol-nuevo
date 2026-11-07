@@ -26,7 +26,6 @@ Partial Class fm_0600_gestion_tareas
         Me.Label6 = New System.Windows.Forms.Label()
         Me.cm_estado = New System.Windows.Forms.ComboBox()
         Me.Label2 = New System.Windows.Forms.Label()
-        Me.cm_responsable = New System.Windows.Forms.ComboBox()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.tx_id_tarea = New System.Windows.Forms.TextBox()
         Me.Label8 = New System.Windows.Forms.Label()
@@ -34,9 +33,7 @@ Partial Class fm_0600_gestion_tareas
         Me.Label9 = New System.Windows.Forms.Label()
         Me.dtp_fecha_fin_prog = New System.Windows.Forms.DateTimePicker()
         Me.Label11 = New System.Windows.Forms.Label()
-        Me.cm_emisor = New System.Windows.Forms.ComboBox()
         Me.Label12 = New System.Windows.Forms.Label()
-        Me.cm_evaluador = New System.Windows.Forms.ComboBox()
         Me.Label3 = New System.Windows.Forms.Label()
         Me.dtp_fecha_cierre_real = New System.Windows.Forms.DateTimePicker()
         Me.Label4 = New System.Windows.Forms.Label()
@@ -79,6 +76,9 @@ Partial Class fm_0600_gestion_tareas
         Me.bt_seg_estandar = New System.Windows.Forms.Button()
         Me.bt_CargarImagenClipboard = New System.Windows.Forms.Button()
         Me.PictureBox2 = New System.Windows.Forms.PictureBox()
+        Me.UcResponsable = New camocontrol.ucSelectorAvanzado()
+        Me.UcEvaluador = New camocontrol.ucSelectorAvanzado()
+        Me.UcEmisor = New camocontrol.ucSelectorAvanzado()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.grb_tipo_tarea.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
@@ -123,7 +123,7 @@ Partial Class fm_0600_gestion_tareas
         Me.bt_informe.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
         Me.bt_informe.Image = Global.camocontrol.My.Resources.Resources.articles
         Me.bt_informe.Location = New System.Drawing.Point(524, 518)
-        Me.bt_informe.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.bt_informe.Margin = New System.Windows.Forms.Padding(4)
         Me.bt_informe.Name = "bt_informe"
         Me.bt_informe.Size = New System.Drawing.Size(66, 46)
         Me.bt_informe.TabIndex = 124
@@ -134,7 +134,7 @@ Partial Class fm_0600_gestion_tareas
         Me.cm_tipo_accion.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cm_tipo_accion.FormattingEnabled = True
         Me.cm_tipo_accion.Location = New System.Drawing.Point(800, 169)
-        Me.cm_tipo_accion.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.cm_tipo_accion.Margin = New System.Windows.Forms.Padding(4)
         Me.cm_tipo_accion.Name = "cm_tipo_accion"
         Me.cm_tipo_accion.Size = New System.Drawing.Size(244, 28)
         Me.cm_tipo_accion.TabIndex = 121
@@ -155,7 +155,7 @@ Partial Class fm_0600_gestion_tareas
         Me.dtp_fecha_inicio_prog.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.dtp_fecha_inicio_prog.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
         Me.dtp_fecha_inicio_prog.Location = New System.Drawing.Point(800, 230)
-        Me.dtp_fecha_inicio_prog.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.dtp_fecha_inicio_prog.Margin = New System.Windows.Forms.Padding(4)
         Me.dtp_fecha_inicio_prog.Name = "dtp_fecha_inicio_prog"
         Me.dtp_fecha_inicio_prog.Size = New System.Drawing.Size(244, 26)
         Me.dtp_fecha_inicio_prog.TabIndex = 119
@@ -176,7 +176,7 @@ Partial Class fm_0600_gestion_tareas
         Me.cm_estado.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cm_estado.FormattingEnabled = True
         Me.cm_estado.Location = New System.Drawing.Point(800, 137)
-        Me.cm_estado.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.cm_estado.Margin = New System.Windows.Forms.Padding(4)
         Me.cm_estado.Name = "cm_estado"
         Me.cm_estado.Size = New System.Drawing.Size(244, 28)
         Me.cm_estado.TabIndex = 113
@@ -191,16 +191,6 @@ Partial Class fm_0600_gestion_tareas
         Me.Label2.Size = New System.Drawing.Size(66, 20)
         Me.Label2.TabIndex = 112
         Me.Label2.Text = "Estado:"
-        '
-        'cm_responsable
-        '
-        Me.cm_responsable.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.cm_responsable.FormattingEnabled = True
-        Me.cm_responsable.Location = New System.Drawing.Point(800, 354)
-        Me.cm_responsable.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
-        Me.cm_responsable.Name = "cm_responsable"
-        Me.cm_responsable.Size = New System.Drawing.Size(407, 28)
-        Me.cm_responsable.TabIndex = 109
         '
         'Label1
         '
@@ -217,7 +207,7 @@ Partial Class fm_0600_gestion_tareas
         '
         Me.tx_id_tarea.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.tx_id_tarea.Location = New System.Drawing.Point(121, 139)
-        Me.tx_id_tarea.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.tx_id_tarea.Margin = New System.Windows.Forms.Padding(4)
         Me.tx_id_tarea.Name = "tx_id_tarea"
         Me.tx_id_tarea.Size = New System.Drawing.Size(72, 26)
         Me.tx_id_tarea.TabIndex = 128
@@ -237,7 +227,7 @@ Partial Class fm_0600_gestion_tareas
         '
         Me.tx_duracion.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.tx_duracion.Location = New System.Drawing.Point(800, 201)
-        Me.tx_duracion.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.tx_duracion.Margin = New System.Windows.Forms.Padding(4)
         Me.tx_duracion.Name = "tx_duracion"
         Me.tx_duracion.Size = New System.Drawing.Size(82, 26)
         Me.tx_duracion.TabIndex = 130
@@ -258,7 +248,7 @@ Partial Class fm_0600_gestion_tareas
         Me.dtp_fecha_fin_prog.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.dtp_fecha_fin_prog.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
         Me.dtp_fecha_fin_prog.Location = New System.Drawing.Point(800, 260)
-        Me.dtp_fecha_fin_prog.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.dtp_fecha_fin_prog.Margin = New System.Windows.Forms.Padding(4)
         Me.dtp_fecha_fin_prog.Name = "dtp_fecha_fin_prog"
         Me.dtp_fecha_fin_prog.Size = New System.Drawing.Size(244, 26)
         Me.dtp_fecha_fin_prog.TabIndex = 132
@@ -274,16 +264,6 @@ Partial Class fm_0600_gestion_tareas
         Me.Label11.TabIndex = 131
         Me.Label11.Text = "Fecha Fin Prog.:"
         '
-        'cm_emisor
-        '
-        Me.cm_emisor.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.cm_emisor.FormattingEnabled = True
-        Me.cm_emisor.Location = New System.Drawing.Point(800, 418)
-        Me.cm_emisor.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
-        Me.cm_emisor.Name = "cm_emisor"
-        Me.cm_emisor.Size = New System.Drawing.Size(407, 28)
-        Me.cm_emisor.TabIndex = 134
-        '
         'Label12
         '
         Me.Label12.AutoSize = True
@@ -294,16 +274,6 @@ Partial Class fm_0600_gestion_tareas
         Me.Label12.Size = New System.Drawing.Size(67, 20)
         Me.Label12.TabIndex = 133
         Me.Label12.Text = "Emisor:"
-        '
-        'cm_evaluador
-        '
-        Me.cm_evaluador.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.cm_evaluador.FormattingEnabled = True
-        Me.cm_evaluador.Location = New System.Drawing.Point(800, 386)
-        Me.cm_evaluador.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
-        Me.cm_evaluador.Name = "cm_evaluador"
-        Me.cm_evaluador.Size = New System.Drawing.Size(407, 28)
-        Me.cm_evaluador.TabIndex = 136
         '
         'Label3
         '
@@ -321,7 +291,7 @@ Partial Class fm_0600_gestion_tareas
         Me.dtp_fecha_cierre_real.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.dtp_fecha_cierre_real.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
         Me.dtp_fecha_cierre_real.Location = New System.Drawing.Point(800, 450)
-        Me.dtp_fecha_cierre_real.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.dtp_fecha_cierre_real.Margin = New System.Windows.Forms.Padding(4)
         Me.dtp_fecha_cierre_real.Name = "dtp_fecha_cierre_real"
         Me.dtp_fecha_cierre_real.Size = New System.Drawing.Size(244, 26)
         Me.dtp_fecha_cierre_real.TabIndex = 138
@@ -342,7 +312,7 @@ Partial Class fm_0600_gestion_tareas
         Me.tx_texto_tarea.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
         Me.tx_texto_tarea.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.tx_texto_tarea.Location = New System.Drawing.Point(20, 318)
-        Me.tx_texto_tarea.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.tx_texto_tarea.Margin = New System.Windows.Forms.Padding(4)
         Me.tx_texto_tarea.Multiline = True
         Me.tx_texto_tarea.Name = "tx_texto_tarea"
         Me.tx_texto_tarea.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
@@ -354,7 +324,7 @@ Partial Class fm_0600_gestion_tareas
         Me.cm_unidad_duracion.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cm_unidad_duracion.FormattingEnabled = True
         Me.cm_unidad_duracion.Location = New System.Drawing.Point(888, 199)
-        Me.cm_unidad_duracion.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.cm_unidad_duracion.Margin = New System.Windows.Forms.Padding(4)
         Me.cm_unidad_duracion.Name = "cm_unidad_duracion"
         Me.cm_unidad_duracion.Size = New System.Drawing.Size(156, 28)
         Me.cm_unidad_duracion.TabIndex = 140
@@ -364,7 +334,7 @@ Partial Class fm_0600_gestion_tareas
         Me.bt_recursos.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
         Me.bt_recursos.Image = Global.camocontrol.My.Resources.Resources.icono_herramientas_32x32
         Me.bt_recursos.Location = New System.Drawing.Point(597, 518)
-        Me.bt_recursos.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.bt_recursos.Margin = New System.Windows.Forms.Padding(4)
         Me.bt_recursos.Name = "bt_recursos"
         Me.bt_recursos.Size = New System.Drawing.Size(66, 46)
         Me.bt_recursos.TabIndex = 141
@@ -375,7 +345,7 @@ Partial Class fm_0600_gestion_tareas
         Me.bt_seguimientos.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
         Me.bt_seguimientos.Image = Global.camocontrol.My.Resources.Resources.libreria
         Me.bt_seguimientos.Location = New System.Drawing.Point(744, 518)
-        Me.bt_seguimientos.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.bt_seguimientos.Margin = New System.Windows.Forms.Padding(4)
         Me.bt_seguimientos.Name = "bt_seguimientos"
         Me.bt_seguimientos.Size = New System.Drawing.Size(66, 46)
         Me.bt_seguimientos.TabIndex = 142
@@ -386,7 +356,7 @@ Partial Class fm_0600_gestion_tareas
         Me.bt_grabar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
         Me.bt_grabar.Image = Global.camocontrol.My.Resources.Resources.GRABAR2
         Me.bt_grabar.Location = New System.Drawing.Point(632, 571)
-        Me.bt_grabar.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.bt_grabar.Margin = New System.Windows.Forms.Padding(4)
         Me.bt_grabar.Name = "bt_grabar"
         Me.bt_grabar.Size = New System.Drawing.Size(66, 46)
         Me.bt_grabar.TabIndex = 143
@@ -408,7 +378,7 @@ Partial Class fm_0600_gestion_tareas
         Me.tx_titulo.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
         Me.tx_titulo.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.tx_titulo.Location = New System.Drawing.Point(85, 260)
-        Me.tx_titulo.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.tx_titulo.Margin = New System.Windows.Forms.Padding(4)
         Me.tx_titulo.Multiline = True
         Me.tx_titulo.Name = "tx_titulo"
         Me.tx_titulo.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
@@ -420,7 +390,7 @@ Partial Class fm_0600_gestion_tareas
         Me.tx_cumplimiento.Enabled = False
         Me.tx_cumplimiento.Font = New System.Drawing.Font("Microsoft Sans Serif", 15.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.tx_cumplimiento.Location = New System.Drawing.Point(940, 75)
-        Me.tx_cumplimiento.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.tx_cumplimiento.Margin = New System.Windows.Forms.Padding(4)
         Me.tx_cumplimiento.Name = "tx_cumplimiento"
         Me.tx_cumplimiento.Size = New System.Drawing.Size(104, 37)
         Me.tx_cumplimiento.TabIndex = 147
@@ -441,7 +411,7 @@ Partial Class fm_0600_gestion_tareas
         Me.bt_cambiar_infraestructura.BackgroundImage = Global.camocontrol.My.Resources.Resources.cargarplano
         Me.bt_cambiar_infraestructura.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
         Me.bt_cambiar_infraestructura.Location = New System.Drawing.Point(603, 170)
-        Me.bt_cambiar_infraestructura.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.bt_cambiar_infraestructura.Margin = New System.Windows.Forms.Padding(4)
         Me.bt_cambiar_infraestructura.Name = "bt_cambiar_infraestructura"
         Me.bt_cambiar_infraestructura.Size = New System.Drawing.Size(28, 27)
         Me.bt_cambiar_infraestructura.TabIndex = 159
@@ -463,7 +433,7 @@ Partial Class fm_0600_gestion_tareas
         Me.tx_estructura.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
         Me.tx_estructura.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.tx_estructura.Location = New System.Drawing.Point(85, 170)
-        Me.tx_estructura.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.tx_estructura.Margin = New System.Windows.Forms.Padding(4)
         Me.tx_estructura.Multiline = True
         Me.tx_estructura.Name = "tx_estructura"
         Me.tx_estructura.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
@@ -473,7 +443,7 @@ Partial Class fm_0600_gestion_tareas
         'tx_periodo
         '
         Me.tx_periodo.Location = New System.Drawing.Point(800, 320)
-        Me.tx_periodo.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.tx_periodo.Margin = New System.Windows.Forms.Padding(4)
         Me.tx_periodo.Name = "tx_periodo"
         Me.tx_periodo.Size = New System.Drawing.Size(89, 22)
         Me.tx_periodo.TabIndex = 166
@@ -493,7 +463,7 @@ Partial Class fm_0600_gestion_tareas
         '
         Me.chk_permanente.AutoSize = True
         Me.chk_permanente.Location = New System.Drawing.Point(900, 295)
-        Me.chk_permanente.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.chk_permanente.Margin = New System.Windows.Forms.Padding(4)
         Me.chk_permanente.Name = "chk_permanente"
         Me.chk_permanente.Size = New System.Drawing.Size(102, 20)
         Me.chk_permanente.TabIndex = 164
@@ -503,7 +473,7 @@ Partial Class fm_0600_gestion_tareas
         'tx_repeticiones
         '
         Me.tx_repeticiones.Location = New System.Drawing.Point(800, 292)
-        Me.tx_repeticiones.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.tx_repeticiones.Margin = New System.Windows.Forms.Padding(4)
         Me.tx_repeticiones.Name = "tx_repeticiones"
         Me.tx_repeticiones.Size = New System.Drawing.Size(89, 22)
         Me.tx_repeticiones.TabIndex = 163
@@ -525,9 +495,9 @@ Partial Class fm_0600_gestion_tareas
         Me.grb_tipo_tarea.Controls.Add(Me.rb_simple)
         Me.grb_tipo_tarea.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.grb_tipo_tarea.Location = New System.Drawing.Point(18, 71)
-        Me.grb_tipo_tarea.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.grb_tipo_tarea.Margin = New System.Windows.Forms.Padding(4)
         Me.grb_tipo_tarea.Name = "grb_tipo_tarea"
-        Me.grb_tipo_tarea.Padding = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.grb_tipo_tarea.Padding = New System.Windows.Forms.Padding(4)
         Me.grb_tipo_tarea.Size = New System.Drawing.Size(311, 55)
         Me.grb_tipo_tarea.TabIndex = 168
         Me.grb_tipo_tarea.TabStop = False
@@ -538,7 +508,7 @@ Partial Class fm_0600_gestion_tareas
         Me.rb_repetitiva.AutoSize = True
         Me.rb_repetitiva.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.rb_repetitiva.Location = New System.Drawing.Point(168, 21)
-        Me.rb_repetitiva.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.rb_repetitiva.Margin = New System.Windows.Forms.Padding(4)
         Me.rb_repetitiva.Name = "rb_repetitiva"
         Me.rb_repetitiva.Size = New System.Drawing.Size(104, 24)
         Me.rb_repetitiva.TabIndex = 1
@@ -550,7 +520,7 @@ Partial Class fm_0600_gestion_tareas
         Me.rb_simple.AutoSize = True
         Me.rb_simple.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.rb_simple.Location = New System.Drawing.Point(9, 21)
-        Me.rb_simple.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.rb_simple.Margin = New System.Windows.Forms.Padding(4)
         Me.rb_simple.Name = "rb_simple"
         Me.rb_simple.Size = New System.Drawing.Size(81, 24)
         Me.rb_simple.TabIndex = 0
@@ -562,7 +532,7 @@ Partial Class fm_0600_gestion_tareas
         Me.bt_actividades_hijo.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
         Me.bt_actividades_hijo.Image = Global.camocontrol.My.Resources.Resources.espina_pescado
         Me.bt_actividades_hijo.Location = New System.Drawing.Point(818, 518)
-        Me.bt_actividades_hijo.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.bt_actividades_hijo.Margin = New System.Windows.Forms.Padding(4)
         Me.bt_actividades_hijo.Name = "bt_actividades_hijo"
         Me.bt_actividades_hijo.Size = New System.Drawing.Size(66, 46)
         Me.bt_actividades_hijo.TabIndex = 169
@@ -573,7 +543,7 @@ Partial Class fm_0600_gestion_tareas
         Me.bt_nuevo_soporte.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.bt_nuevo_soporte.Image = Global.camocontrol.My.Resources.Resources.carpeta2
         Me.bt_nuevo_soporte.Location = New System.Drawing.Point(8, 23)
-        Me.bt_nuevo_soporte.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.bt_nuevo_soporte.Margin = New System.Windows.Forms.Padding(4)
         Me.bt_nuevo_soporte.Name = "bt_nuevo_soporte"
         Me.bt_nuevo_soporte.Size = New System.Drawing.Size(67, 62)
         Me.bt_nuevo_soporte.TabIndex = 170
@@ -584,7 +554,7 @@ Partial Class fm_0600_gestion_tareas
         Me.bt_ver_archivos_asociados.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.bt_ver_archivos_asociados.Image = Global.camocontrol.My.Resources.Resources.icono_lupa
         Me.bt_ver_archivos_asociados.Location = New System.Drawing.Point(83, 23)
-        Me.bt_ver_archivos_asociados.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.bt_ver_archivos_asociados.Margin = New System.Windows.Forms.Padding(4)
         Me.bt_ver_archivos_asociados.Name = "bt_ver_archivos_asociados"
         Me.bt_ver_archivos_asociados.Size = New System.Drawing.Size(67, 62)
         Me.bt_ver_archivos_asociados.TabIndex = 171
@@ -631,9 +601,9 @@ Partial Class fm_0600_gestion_tareas
         Me.GroupBox1.Controls.Add(Me.Label19)
         Me.GroupBox1.Controls.Add(Me.Label18)
         Me.GroupBox1.Location = New System.Drawing.Point(20, 503)
-        Me.GroupBox1.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.GroupBox1.Margin = New System.Windows.Forms.Padding(4)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Padding = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.GroupBox1.Padding = New System.Windows.Forms.Padding(4)
         Me.GroupBox1.Size = New System.Drawing.Size(331, 94)
         Me.GroupBox1.TabIndex = 175
         Me.GroupBox1.TabStop = False
@@ -641,11 +611,10 @@ Partial Class fm_0600_gestion_tareas
         '
         'cm_fuente_accion
         '
-        Me.cm_fuente_accion.Enabled = False
         Me.cm_fuente_accion.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cm_fuente_accion.FormattingEnabled = True
         Me.cm_fuente_accion.Location = New System.Drawing.Point(85, 226)
-        Me.cm_fuente_accion.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.cm_fuente_accion.Margin = New System.Windows.Forms.Padding(4)
         Me.cm_fuente_accion.Name = "cm_fuente_accion"
         Me.cm_fuente_accion.Size = New System.Drawing.Size(508, 28)
         Me.cm_fuente_accion.TabIndex = 177
@@ -677,7 +646,7 @@ Partial Class fm_0600_gestion_tareas
         Me.cm_path.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cm_path.FormattingEnabled = True
         Me.cm_path.Location = New System.Drawing.Point(203, 139)
-        Me.cm_path.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.cm_path.Margin = New System.Windows.Forms.Padding(4)
         Me.cm_path.Name = "cm_path"
         Me.cm_path.Size = New System.Drawing.Size(391, 28)
         Me.cm_path.TabIndex = 181
@@ -687,7 +656,7 @@ Partial Class fm_0600_gestion_tareas
         Me.bt_anular.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
         Me.bt_anular.Image = Global.camocontrol.My.Resources.Resources.eliminar
         Me.bt_anular.Location = New System.Drawing.Point(359, 508)
-        Me.bt_anular.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.bt_anular.Margin = New System.Windows.Forms.Padding(4)
         Me.bt_anular.Name = "bt_anular"
         Me.bt_anular.Size = New System.Drawing.Size(64, 66)
         Me.bt_anular.TabIndex = 182
@@ -698,7 +667,7 @@ Partial Class fm_0600_gestion_tareas
         Me.bt_cierre_rrapido.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
         Me.bt_cierre_rrapido.Image = Global.camocontrol.My.Resources.Resources.OK
         Me.bt_cierre_rrapido.Location = New System.Drawing.Point(926, 485)
-        Me.bt_cierre_rrapido.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.bt_cierre_rrapido.Margin = New System.Windows.Forms.Padding(4)
         Me.bt_cierre_rrapido.Name = "bt_cierre_rrapido"
         Me.bt_cierre_rrapido.Size = New System.Drawing.Size(119, 46)
         Me.bt_cierre_rrapido.TabIndex = 183
@@ -711,7 +680,7 @@ Partial Class fm_0600_gestion_tareas
         Me.bt_solicitud_almacen.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
         Me.bt_solicitud_almacen.Image = Global.camocontrol.My.Resources.Resources.chatarra2
         Me.bt_solicitud_almacen.Location = New System.Drawing.Point(670, 518)
-        Me.bt_solicitud_almacen.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.bt_solicitud_almacen.Margin = New System.Windows.Forms.Padding(4)
         Me.bt_solicitud_almacen.Name = "bt_solicitud_almacen"
         Me.bt_solicitud_almacen.Size = New System.Drawing.Size(66, 46)
         Me.bt_solicitud_almacen.TabIndex = 184
@@ -721,7 +690,7 @@ Partial Class fm_0600_gestion_tareas
         '
         Me.bt_sol_almacen.Image = Global.camocontrol.My.Resources.Resources.Full_shopping_cart_Icon_32
         Me.bt_sol_almacen.Location = New System.Drawing.Point(451, 518)
-        Me.bt_sol_almacen.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.bt_sol_almacen.Margin = New System.Windows.Forms.Padding(4)
         Me.bt_sol_almacen.Name = "bt_sol_almacen"
         Me.bt_sol_almacen.Size = New System.Drawing.Size(66, 46)
         Me.bt_sol_almacen.TabIndex = 185
@@ -731,7 +700,7 @@ Partial Class fm_0600_gestion_tareas
         '
         Me.bt_seg_reporte_act.Image = Global.camocontrol.My.Resources.Resources.conductor
         Me.bt_seg_reporte_act.Location = New System.Drawing.Point(744, 571)
-        Me.bt_seg_reporte_act.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.bt_seg_reporte_act.Margin = New System.Windows.Forms.Padding(4)
         Me.bt_seg_reporte_act.Name = "bt_seg_reporte_act"
         Me.bt_seg_reporte_act.Size = New System.Drawing.Size(66, 46)
         Me.bt_seg_reporte_act.TabIndex = 186
@@ -741,7 +710,7 @@ Partial Class fm_0600_gestion_tareas
         '
         Me.bt_seg_estandar.Image = Global.camocontrol.My.Resources.Resources.icono_agenda_electronica
         Me.bt_seg_estandar.Location = New System.Drawing.Point(819, 572)
-        Me.bt_seg_estandar.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.bt_seg_estandar.Margin = New System.Windows.Forms.Padding(4)
         Me.bt_seg_estandar.Name = "bt_seg_estandar"
         Me.bt_seg_estandar.Size = New System.Drawing.Size(66, 46)
         Me.bt_seg_estandar.TabIndex = 187
@@ -750,7 +719,7 @@ Partial Class fm_0600_gestion_tareas
         'bt_CargarImagenClipboard
         '
         Me.bt_CargarImagenClipboard.Location = New System.Drawing.Point(951, 558)
-        Me.bt_CargarImagenClipboard.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.bt_CargarImagenClipboard.Margin = New System.Windows.Forms.Padding(4)
         Me.bt_CargarImagenClipboard.Name = "bt_CargarImagenClipboard"
         Me.bt_CargarImagenClipboard.Size = New System.Drawing.Size(94, 58)
         Me.bt_CargarImagenClipboard.TabIndex = 188
@@ -760,17 +729,56 @@ Partial Class fm_0600_gestion_tareas
         'PictureBox2
         '
         Me.PictureBox2.Location = New System.Drawing.Point(1053, 450)
-        Me.PictureBox2.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.PictureBox2.Margin = New System.Windows.Forms.Padding(4)
         Me.PictureBox2.Name = "PictureBox2"
         Me.PictureBox2.Size = New System.Drawing.Size(155, 166)
         Me.PictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
         Me.PictureBox2.TabIndex = 189
         Me.PictureBox2.TabStop = False
         '
+        'UcResponsable
+        '
+        Me.UcResponsable.ColumnasVisiblesPopup = Nothing
+        Me.UcResponsable.Location = New System.Drawing.Point(796, 353)
+        Me.UcResponsable.Name = "UcResponsable"
+        Me.UcResponsable.SelectedExtra = Nothing
+        Me.UcResponsable.SelectedID = Nothing
+        Me.UcResponsable.SelectedText = Nothing
+        Me.UcResponsable.Size = New System.Drawing.Size(412, 26)
+        Me.UcResponsable.SoloLectura = False
+        Me.UcResponsable.TabIndex = 190
+        '
+        'UcEvaluador
+        '
+        Me.UcEvaluador.ColumnasVisiblesPopup = Nothing
+        Me.UcEvaluador.Location = New System.Drawing.Point(796, 385)
+        Me.UcEvaluador.Name = "UcEvaluador"
+        Me.UcEvaluador.SelectedExtra = Nothing
+        Me.UcEvaluador.SelectedID = Nothing
+        Me.UcEvaluador.SelectedText = Nothing
+        Me.UcEvaluador.Size = New System.Drawing.Size(412, 26)
+        Me.UcEvaluador.SoloLectura = False
+        Me.UcEvaluador.TabIndex = 191
+        '
+        'UcEmisor
+        '
+        Me.UcEmisor.ColumnasVisiblesPopup = Nothing
+        Me.UcEmisor.Location = New System.Drawing.Point(796, 417)
+        Me.UcEmisor.Name = "UcEmisor"
+        Me.UcEmisor.SelectedExtra = Nothing
+        Me.UcEmisor.SelectedID = Nothing
+        Me.UcEmisor.SelectedText = Nothing
+        Me.UcEmisor.Size = New System.Drawing.Size(412, 26)
+        Me.UcEmisor.SoloLectura = False
+        Me.UcEmisor.TabIndex = 192
+        '
         'fm_0600_gestion_tareas
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.ClientSize = New System.Drawing.Size(1218, 633)
+        Me.Controls.Add(Me.UcEmisor)
+        Me.Controls.Add(Me.UcEvaluador)
+        Me.Controls.Add(Me.UcResponsable)
         Me.Controls.Add(Me.PictureBox2)
         Me.Controls.Add(Me.bt_CargarImagenClipboard)
         Me.Controls.Add(Me.bt_seg_estandar)
@@ -805,9 +813,7 @@ Partial Class fm_0600_gestion_tareas
         Me.Controls.Add(Me.tx_texto_tarea)
         Me.Controls.Add(Me.dtp_fecha_cierre_real)
         Me.Controls.Add(Me.Label4)
-        Me.Controls.Add(Me.cm_evaluador)
         Me.Controls.Add(Me.Label3)
-        Me.Controls.Add(Me.cm_emisor)
         Me.Controls.Add(Me.Label12)
         Me.Controls.Add(Me.dtp_fecha_fin_prog)
         Me.Controls.Add(Me.Label11)
@@ -822,13 +828,11 @@ Partial Class fm_0600_gestion_tareas
         Me.Controls.Add(Me.Label6)
         Me.Controls.Add(Me.cm_estado)
         Me.Controls.Add(Me.Label2)
-        Me.Controls.Add(Me.cm_responsable)
         Me.Controls.Add(Me.Label1)
         Me.Margin = New System.Windows.Forms.Padding(5, 6, 5, 6)
         Me.Name = "fm_0600_gestion_tareas"
         Me.Text = "Definicion de una Accion"
         Me.Controls.SetChildIndex(Me.Label1, 0)
-        Me.Controls.SetChildIndex(Me.cm_responsable, 0)
         Me.Controls.SetChildIndex(Me.Label2, 0)
         Me.Controls.SetChildIndex(Me.cm_estado, 0)
         Me.Controls.SetChildIndex(Me.Label6, 0)
@@ -843,9 +847,7 @@ Partial Class fm_0600_gestion_tareas
         Me.Controls.SetChildIndex(Me.Label11, 0)
         Me.Controls.SetChildIndex(Me.dtp_fecha_fin_prog, 0)
         Me.Controls.SetChildIndex(Me.Label12, 0)
-        Me.Controls.SetChildIndex(Me.cm_emisor, 0)
         Me.Controls.SetChildIndex(Me.Label3, 0)
-        Me.Controls.SetChildIndex(Me.cm_evaluador, 0)
         Me.Controls.SetChildIndex(Me.Label4, 0)
         Me.Controls.SetChildIndex(Me.dtp_fecha_cierre_real, 0)
         Me.Controls.SetChildIndex(Me.tx_texto_tarea, 0)
@@ -887,6 +889,9 @@ Partial Class fm_0600_gestion_tareas
         Me.Controls.SetChildIndex(Me.bt_seg_estandar, 0)
         Me.Controls.SetChildIndex(Me.bt_CargarImagenClipboard, 0)
         Me.Controls.SetChildIndex(Me.PictureBox2, 0)
+        Me.Controls.SetChildIndex(Me.UcResponsable, 0)
+        Me.Controls.SetChildIndex(Me.UcEvaluador, 0)
+        Me.Controls.SetChildIndex(Me.UcEmisor, 0)
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.grb_tipo_tarea.ResumeLayout(False)
         Me.grb_tipo_tarea.PerformLayout()
@@ -904,7 +909,6 @@ Partial Class fm_0600_gestion_tareas
     Friend WithEvents Label6 As System.Windows.Forms.Label
     Friend WithEvents cm_estado As System.Windows.Forms.ComboBox
     Friend WithEvents Label2 As System.Windows.Forms.Label
-    Friend WithEvents cm_responsable As System.Windows.Forms.ComboBox
     Friend WithEvents Label1 As System.Windows.Forms.Label
     Friend WithEvents tx_id_tarea As System.Windows.Forms.TextBox
     Friend WithEvents Label8 As System.Windows.Forms.Label
@@ -912,9 +916,7 @@ Partial Class fm_0600_gestion_tareas
     Friend WithEvents Label9 As System.Windows.Forms.Label
     Friend WithEvents dtp_fecha_fin_prog As System.Windows.Forms.DateTimePicker
     Friend WithEvents Label11 As System.Windows.Forms.Label
-    Friend WithEvents cm_emisor As System.Windows.Forms.ComboBox
     Friend WithEvents Label12 As System.Windows.Forms.Label
-    Friend WithEvents cm_evaluador As System.Windows.Forms.ComboBox
     Friend WithEvents Label3 As System.Windows.Forms.Label
     Friend WithEvents dtp_fecha_cierre_real As System.Windows.Forms.DateTimePicker
     Friend WithEvents Label4 As System.Windows.Forms.Label
@@ -957,4 +959,7 @@ Partial Class fm_0600_gestion_tareas
     Friend WithEvents bt_seg_estandar As Button
     Friend WithEvents bt_CargarImagenClipboard As Button
     Friend WithEvents PictureBox2 As PictureBox
+    Friend WithEvents UcResponsable As ucSelectorAvanzado
+    Friend WithEvents UcEvaluador As ucSelectorAvanzado
+    Friend WithEvents UcEmisor As ucSelectorAvanzado
 End Class

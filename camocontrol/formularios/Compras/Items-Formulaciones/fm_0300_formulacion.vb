@@ -412,9 +412,9 @@ Public Class fm_0300_formulacion
         ocmd.Parameters.Add("@f0350_id_cia", NpgsqlDbType.Varchar).Value = vg_id_cia
         ocmd.Parameters.Add("@f0350_id_item", NpgsqlDbType.Integer).Value = id_item_padre
         ocmd.Parameters.Add("@f0350_descripcion", NpgsqlDbType.Varchar).Value = UCase(tx_descripcion.Text)
-        ocmd.Parameters.Add("@f0350_produccion_x_bache", NpgsqlDbType.Numeric).Value = tx_cantidad_x_bache.Text
-        ocmd.Parameters.Add("@f0350_t_prod_bache", NpgsqlDbType.Numeric).Value = tx_h_prod_x_bache.Text
-        ocmd.Parameters.Add("@f0350_hh_prod_bache", NpgsqlDbType.Numeric).Value = tx_hh_bache.Text
+        ocmd.Parameters.Add("@f0350_produccion_x_bache", NpgsqlDbType.Numeric).Value = CDec(tx_cantidad_x_bache.Text)
+        ocmd.Parameters.Add("@f0350_t_prod_bache", NpgsqlDbType.Numeric).Value = CDec(tx_h_prod_x_bache.Text)
+        ocmd.Parameters.Add("@f0350_hh_prod_bache", NpgsqlDbType.Numeric).Value = CDec(tx_hh_bache.Text)
         ocmd.Parameters.Add("@f0350_usuario_modificar", NpgsqlDbType.Varchar).Value = vg_usuario_autoriza
         ocmd.Parameters.Add("@f0350_usuario_crear", NpgsqlDbType.Varchar).Value = vg_usuario_autoriza
         ocmd.Parameters.Add("@f0350_fm", NpgsqlDbType.Timestamp).Value = comunes.g_fechahora

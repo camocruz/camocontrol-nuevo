@@ -339,7 +339,7 @@ Public Class fm_0600_p3_analisis_y_solucion
             oform_programar_actividad.bt_actividades_hijo.Visible = False
             oform_programar_actividad.vg_id_cia = vg_id_cia
             oform_programar_actividad.vg_usuario_autoriza = vg_usuario_autoriza
-            oform_programar_actividad.cm_emisor.Enabled = False
+            oform_programar_actividad.UcEmisor.Enabled = False
             oform_programar_actividad.id_accion_padre = id_accion_padre
             oform_programar_actividad.fuente_padre = fuente_padre
             If orow_info_accion("f0600_id_accion_principal").ToString = "" Then

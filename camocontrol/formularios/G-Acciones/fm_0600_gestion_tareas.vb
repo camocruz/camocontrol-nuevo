@@ -109,9 +109,6 @@ Public Class fm_0600_gestion_tareas
             cm_estado.SelectedIndex = 1
             cm_tipo_accion.SelectedIndex = 2
             cm_unidad_duracion.SelectedIndex = 0
-            cm_responsable.SelectedIndex = -1
-            cm_evaluador.SelectedIndex = -1
-            cm_emisor.SelectedIndex = -1
             tx_periodo.Enabled = False
             tx_repeticiones.Enabled = False
             chk_permanente.Enabled = False
@@ -210,14 +207,18 @@ Public Class fm_0600_gestion_tareas
             dtp_fecha_inicio_prog.Value = orow("f0600_fecha_inicio")
             dtp_fecha_fin_prog.Value = orow("f0600_fecha_limite")
             fecha_fin_antigua = orow("f0600_fecha_limite")
-            cm_responsable.SelectedValue = orow("f0600_responsable")
-            cm_evaluador.SelectedValue = orow("f0600_evaluador")
+
+            UcResponsable.AsignarSeleccionDirecta(orow("f0600_responsable").ToString())
+
+            UcEvaluador.AsignarSeleccionDirecta(orow("f0600_evaluador").ToString())
+
+            UcEmisor.AsignarSeleccionDirecta(orow("f0600_emisor").ToString())
+
             If orow("f0600_evaluador") = vg_usuario_autoriza Or admin_act_manto = "S" Or vg_usuario_autoriza = "00000001" Then
                 bt_cierre_rrapido.Enabled = True
             Else
                 bt_cierre_rrapido.Enabled = False
             End If
-            cm_emisor.SelectedValue = orow("f0600_emisor")
             usuario_creador = orow("f0600_emisor")
             usuario_evaluador = orow("f0600_evaluador")
             If orow("f0600_fecha_cierre").ToString = "" Then
@@ -304,8 +305,10 @@ Public Class fm_0600_gestion_tareas
             tx_duracion.ReadOnly = True
             cm_unidad_duracion.Enabled = False
             dtp_fecha_inicio_prog.Enabled = False
-            cm_responsable.Enabled = False
-            cm_evaluador.Enabled = False
+
+            UcResponsable.Enabled = False
+
+            UcEvaluador.Enabled = False
         Else
             bt_cambiar_infraestructura.Enabled = True
             cm_fuente_accion.Enabled = True
@@ -314,8 +317,10 @@ Public Class fm_0600_gestion_tareas
             cm_tipo_accion.Enabled = True
             tx_duracion.ReadOnly = False
             dtp_fecha_inicio_prog.Enabled = True
-            cm_responsable.Enabled = True
-            cm_evaluador.Enabled = True
+
+            UcResponsable.Enabled = True
+
+            UcEvaluador.Enabled = True
         End If
 
     End Sub
@@ -454,50 +459,33 @@ Public Class fm_0600_gestion_tareas
             .AutoCompleteSource = AutoCompleteSource.ListItems
         End With
 
-        csql = "select f0200_id_tercero, f0200_apellido1 || ' ' || f0200_apellido2 || ' ' || f0200_nombres as nombre" _
+        csql = "select f0200_id_tercero as id, trim(both ' ' from f0200_apellido1 || ' ' || f0200_apellido2 || ' ' || f0200_nombres) as nombre" _
             & " from " & database.obtener_esquema & ".tb0200_terceros" _
             & " where f0200_id_cia = '" & vg_id_cia & "'" & " and f0200_ind_empleado = 'S'" _
             & " order by nombre"
         otb_info_personal = cl_utilidades_datatables.cargar_informacion_postgres(csql)
-        Dim otb_emisor As DataTable = otb_info_personal.Copy
-        Dim otb_responsable As DataTable = otb_info_personal.Copy
-        Dim otb_evaluador As DataTable = otb_info_personal.Copy
 
-        With cm_responsable
-            'Valor que se muestra al usuario
-            .DisplayMember = "nombre"
-            'Valor interno que almacena el objeto
-            .ValueMember = "f0200_id_tercero"
-            'Origen de Datos del ComboBox
-            .DataSource = otb_responsable
-            .DropDownStyle = ComboBoxStyle.DropDown
-            .AutoCompleteMode = AutoCompleteMode.Suggest
-            .AutoCompleteSource = AutoCompleteSource.ListItems
-        End With
+        UcResponsable.ColumnasVisiblesPopup = New List(Of String) From {"Texto"}
+        UcResponsable.Inicializar(otb_info_personal,
+            columnaID:="id",
+            columnaTexto:="nombre",
+            columnaExtra:=""
+            )
 
-        With cm_evaluador
-            'Valor que se muestra al usuario
-            .DisplayMember = "nombre"
-            'Valor interno que almacena el objeto
-            .ValueMember = "f0200_id_tercero"
-            'Origen de Datos del ComboBox
-            .DataSource = otb_evaluador
-            .DropDownStyle = ComboBoxStyle.DropDown
-            .AutoCompleteMode = AutoCompleteMode.Suggest
-            .AutoCompleteSource = AutoCompleteSource.ListItems
-        End With
+        UcEvaluador.ColumnasVisiblesPopup = New List(Of String) From {"Texto"}
+        UcEvaluador.Inicializar(otb_info_personal,
+            columnaID:="id",
+            columnaTexto:="nombre",
+            columnaExtra:=""
+            )
 
-        With cm_emisor
-            'Valor que se muestra al usuario
-            .DisplayMember = "nombre"
-            'Valor interno que almacena el objeto
-            .ValueMember = "f0200_id_tercero"
-            'Origen de Datos del ComboBox
-            .DataSource = otb_emisor
-            .DropDownStyle = ComboBoxStyle.DropDown
-            .AutoCompleteMode = AutoCompleteMode.Suggest
-            .AutoCompleteSource = AutoCompleteSource.ListItems
-        End With
+        UcEmisor.ColumnasVisiblesPopup = New List(Of String) From {"Texto"}
+        UcEmisor.Inicializar(otb_info_personal,
+            columnaID:="id",
+            columnaTexto:="nombre",
+            columnaExtra:=""
+            )
+
 
     End Sub
     Private Sub validar_que()
@@ -522,13 +510,13 @@ Public Class fm_0600_gestion_tareas
         End If
     End Sub
     Private Sub validar_receptor()
-        If cm_responsable.SelectedIndex = -1 Then
+        If UcResponsable.SelectedID Is Nothing OrElse UcResponsable.SelectedID.Trim() = "" Then
             vmensaje_requisitos = "Debe seleccionar Quien realizara la Actividad."
             verror_requisitos = "S"
         End If
     End Sub
     Private Sub validar_evaluador()
-        If cm_evaluador.SelectedIndex = -1 Then
+        If UcEvaluador.SelectedID Is Nothing OrElse UcEvaluador.SelectedID.Trim() = "" Then
             vmensaje_requisitos = "Debe seleccionar Evaluador para la Actividad."
             verror_requisitos = "S"
         End If
@@ -936,8 +924,8 @@ Public Class fm_0600_gestion_tareas
             ocmd.Parameters.Add("@f0600_repetitiva", NpgsqlDbType.Varchar).Value = "S"
             ocmd.Parameters.Add("@f0600_repeticiones_ejecutadas", NpgsqlDbType.Integer).Value = cl_db_helpers.SafeIntZero(1)
         End If
-        ocmd.Parameters.Add("@f0600_responsable", NpgsqlDbType.Varchar).Value = cm_responsable.SelectedValue.ToString
-        ocmd.Parameters.Add("@f0600_evaluador", NpgsqlDbType.Varchar).Value = cm_evaluador.SelectedValue.ToString
+        ocmd.Parameters.Add("@f0600_responsable", NpgsqlDbType.Varchar).Value = UcResponsable.SelectedID.ToString
+        ocmd.Parameters.Add("@f0600_evaluador", NpgsqlDbType.Varchar).Value = UcEvaluador.SelectedID.ToString
         ocmd.Parameters.Add("@f0600_emisor", NpgsqlDbType.Varchar).Value = vg_usuario_autoriza
         ocmd.Parameters.Add("@f0600_fecha_inicio", NpgsqlDbType.Timestamp).Value = dtp_fecha_inicio_prog.Value
         ocmd.Parameters.Add("@f0600_usuario_modificar", NpgsqlDbType.Varchar).Value = vg_usuario_autoriza

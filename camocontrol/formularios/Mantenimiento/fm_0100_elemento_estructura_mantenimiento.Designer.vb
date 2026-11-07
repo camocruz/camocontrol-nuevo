@@ -67,6 +67,7 @@ Partial Class fm_0100_elemento_estructura_mantenimiento
         Me.tx_consecutivo_actual_hijos = New System.Windows.Forms.TextBox()
         Me.Label24 = New System.Windows.Forms.Label()
         Me.TabPage1 = New System.Windows.Forms.TabPage()
+        Me.UcValidadorDuplicadosNombreEstructura = New camocontrol.UcValidadorDuplicados()
         Me.bt_catalago_items = New System.Windows.Forms.Button()
         Me.bt_listado_general_items = New System.Windows.Forms.Button()
         Me.tx_cantidad_item = New System.Windows.Forms.TextBox()
@@ -101,7 +102,6 @@ Partial Class fm_0100_elemento_estructura_mantenimiento
         Me.Label3 = New System.Windows.Forms.Label()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.TabControl1 = New System.Windows.Forms.TabControl()
-        Me.UcValidadorDuplicadosNombreEstructura = New camocontrol.UcValidadorDuplicados()
         Me.GroupBox1.SuspendLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.tabpage_documentacion.SuspendLayout()
@@ -721,6 +721,18 @@ Partial Class fm_0100_elemento_estructura_mantenimiento
         Me.TabPage1.TabIndex = 0
         Me.TabPage1.Text = "General"
         '
+        'UcValidadorDuplicadosNombreEstructura
+        '
+        Me.UcValidadorDuplicadosNombreEstructura.CampoCodigo = "Code"
+        Me.UcValidadorDuplicadosNombreEstructura.CampoExtra = "Extra"
+        Me.UcValidadorDuplicadosNombreEstructura.CampoTexto = "Description"
+        Me.UcValidadorDuplicadosNombreEstructura.Location = New System.Drawing.Point(684, 7)
+        Me.UcValidadorDuplicadosNombreEstructura.Name = "UcValidadorDuplicadosNombreEstructura"
+        Me.UcValidadorDuplicadosNombreEstructura.Options = Nothing
+        Me.UcValidadorDuplicadosNombreEstructura.Rule = Nothing
+        Me.UcValidadorDuplicadosNombreEstructura.Size = New System.Drawing.Size(245, 26)
+        Me.UcValidadorDuplicadosNombreEstructura.TabIndex = 181
+        '
         'bt_catalago_items
         '
         Me.bt_catalago_items.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
@@ -1091,17 +1103,6 @@ Partial Class fm_0100_elemento_estructura_mantenimiento
         Me.TabControl1.SelectedIndex = 0
         Me.TabControl1.Size = New System.Drawing.Size(1093, 418)
         Me.TabControl1.TabIndex = 61
-        '
-        'UcValidadorDuplicadosNombreEstructura
-        '
-        Me.UcValidadorDuplicadosNombreEstructura.CampoCodigo = "Code"
-        Me.UcValidadorDuplicadosNombreEstructura.CampoExtra = "Extra"
-        Me.UcValidadorDuplicadosNombreEstructura.CampoTexto = "Description"
-        Me.UcValidadorDuplicadosNombreEstructura.Location = New System.Drawing.Point(684, 7)
-        Me.UcValidadorDuplicadosNombreEstructura.Name = "UcValidadorDuplicadosNombreEstructura"
-        Me.UcValidadorDuplicadosNombreEstructura.Options = Nothing
-        Me.UcValidadorDuplicadosNombreEstructura.Size = New System.Drawing.Size(245, 26)
-        Me.UcValidadorDuplicadosNombreEstructura.TabIndex = 181
         '
         'fm_0100_elemento_estructura_mantenimiento
         '
