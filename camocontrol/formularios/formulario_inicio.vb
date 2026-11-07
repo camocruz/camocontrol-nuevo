@@ -2668,6 +2668,25 @@ reinicio:
         MsgBox("Actualizado")
     End Sub
 
+    Private Sub PruebaToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles PruebaToolStripMenuItem.Click
+        'Este es el formulario de pruebas para el modulo de produccion, se puede usar para probar funciones y procedimientos almacenados
+        'Debido a fallo en seguridad revalido permiso para uso del menu.
+        Dim permitir As String = "N"
+        permitir = verificar_permisos_menu(sender)
+        If permitir = "N" Then
+            MsgBox("Fallo en permisos de uso menu", MsgBoxStyle.Information, "Info")
+            Exit Sub
+        End If
+        'Instanciamos el formulario como un objeto de la clase fm_0100_estructura_mantenimiento
+        'Esto es necesario hacerlo cuando antes de mostrar el formulario debemos configurarle valores previos
+        Dim oform_gestion_documento As New camocontrol.fm_laboratorioPruebas
+        'oform_grilla_programacion.ods_hijo = ods
+        'oform_gestion_documento.vf_oform_padre = Me
+        'oform_gestion_documento.vg_id_cia = vg_id_cia
+        'oform_gestion_documento.vg_usuario_autoriza = vlogin
+        oform_gestion_documento.ShowDialog()
+    End Sub
+
 
 
 

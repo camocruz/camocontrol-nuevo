@@ -326,6 +326,12 @@
     <Compile Include="formularios\Compras\SC-OC-RC-SA\fm_0300_recepcion_compras.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="formularios\fm_laboratorioPruebas.Designer.vb">
+      <DependentUpon>fm_laboratorioPruebas.vb</DependentUpon>
+    </Compile>
+    <Compile Include="formularios\fm_laboratorioPruebas.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="formularios\Logistica\fm_0800_cargar_faltantes_cotizaciones.Designer.vb">
       <DependentUpon>fm_0800_cargar_faltantes_cotizaciones.vb</DependentUpon>
     </Compile>
@@ -1024,6 +1030,9 @@
     <EmbeddedResource Include="formularios\Compras\SC-OC-RC-SA\fm_0300_recepcion_compras.resx">
       <DependentUpon>fm_0300_recepcion_compras.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="formularios\fm_laboratorioPruebas.resx">
+      <DependentUpon>fm_laboratorioPruebas.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="formularios\Logistica\fm_0800_cargar_faltantes_cotizaciones.resx">
       <DependentUpon>fm_0800_cargar_faltantes_cotizaciones.vb</DependentUpon>
     </EmbeddedResource>
@@ -1599,6 +1608,7 @@
     <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="ServiciosCS\" />
     <Folder Include="tools\" />
   </ItemGroup>
   <ItemGroup>

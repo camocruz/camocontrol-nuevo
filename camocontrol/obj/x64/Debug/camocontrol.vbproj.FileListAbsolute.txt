@@ -172,4 +172,5 @@ C:\Repos\camocontrol\camocontrol\obj\x64\Debug\camocont.270CA531.Up2Date
 C:\Repos\camocontrol\camocontrol\obj\x64\Debug\camocontrol.exe
 C:\Repos\camocontrol\camocontrol\obj\x64\Debug\camocontrol.xml
 C:\Repos\camocontrol\camocontrol\obj\x64\Debug\camocontrol.pdb
+C:\Repos\camocontrol\camocontrol\obj\x64\Debug\camocontrol.fm_laboratorioPruebas.resources
 C:\Repos\camocontrol\camocontrol\obj\x64\Debug\camocontrol.exe.config

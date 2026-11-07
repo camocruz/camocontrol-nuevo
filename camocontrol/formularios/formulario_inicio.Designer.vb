@@ -175,6 +175,7 @@ Partial Class formulario_inicio
         Me.StatusStrip = New System.Windows.Forms.StatusStrip()
         Me.ToolStripStatusLabel = New System.Windows.Forms.ToolStripStatusLabel()
         Me.ToolTip = New System.Windows.Forms.ToolTip(Me.components)
+        Me.PruebaToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.MenuStrip.SuspendLayout()
         Me.StatusStrip.SuspendLayout()
         Me.SuspendLayout()
@@ -193,7 +194,7 @@ Partial Class formulario_inicio
         '
         'mi_catalogos
         '
-        Me.mi_catalogos.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mi_gestion_terceros, Me.mi_gestion_usuarios, Me.mi_unidad_medicion, Me.mi_gestion_items})
+        Me.mi_catalogos.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mi_gestion_terceros, Me.mi_gestion_usuarios, Me.mi_unidad_medicion, Me.mi_gestion_items, Me.PruebaToolStripMenuItem})
         Me.mi_catalogos.Image = Global.camocontrol.My.Resources.Resources.articles
         Me.mi_catalogos.Name = "mi_catalogos"
         Me.mi_catalogos.Size = New System.Drawing.Size(131, 28)
@@ -1268,6 +1269,12 @@ Partial Class formulario_inicio
         Me.ToolStripStatusLabel.Size = New System.Drawing.Size(52, 17)
         Me.ToolStripStatusLabel.Text = "Estado"
         '
+        'PruebaToolStripMenuItem
+        '
+        Me.PruebaToolStripMenuItem.Name = "PruebaToolStripMenuItem"
+        Me.PruebaToolStripMenuItem.Size = New System.Drawing.Size(288, 30)
+        Me.PruebaToolStripMenuItem.Text = "Prueba"
+        '
         'formulario_inicio
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
@@ -1278,7 +1285,7 @@ Partial Class formulario_inicio
         Me.IsMdiContainer = True
         Me.KeyPreview = True
         Me.MainMenuStrip = Me.MenuStrip
-        Me.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.Margin = New System.Windows.Forms.Padding(4)
         Me.Name = "formulario_inicio"
         Me.Text = "CAMO CONTROL"
         Me.WindowState = System.Windows.Forms.FormWindowState.Maximized
@@ -1441,4 +1448,5 @@ Partial Class formulario_inicio
     Friend WithEvents mi_CargarInfoComprasSIESA As ToolStripMenuItem
     Friend WithEvents mi_Paso1BorrarDatos As ToolStripMenuItem
     Friend WithEvents mi_Paso2CargarArchivos As ToolStripMenuItem
+    Friend WithEvents PruebaToolStripMenuItem As ToolStripMenuItem
 End Class
