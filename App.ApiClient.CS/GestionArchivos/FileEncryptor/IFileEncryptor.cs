@@ -2,12 +2,15 @@
 
 namespace App.ApiClient.CS.GestionArchivos.FileEncryptor
 {
-    /// <summary>
-    /// Contrato para el motor de encriptación de archivos.
-    /// </summary>
     public interface IFileEncryptor
     {
-        EncryptResult EncryptFile(
+        string EncryptText(
+            string plainText);
+
+        string DecryptText(
+            string encryptedText);
+
+        FileEncryptionResult EncryptFile(
             string sourceFile,
             string targetFile);
 

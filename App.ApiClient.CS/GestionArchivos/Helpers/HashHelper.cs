@@ -1,4 +1,6 @@
-﻿using System.Security.Cryptography;
+﻿using System;
+using System.IO;
+using System.Security.Cryptography;
 using System.Text;
 
 namespace App.ApiClient.CS.GestionArchivos.Helpers
@@ -27,5 +29,17 @@ namespace App.ApiClient.CS.GestionArchivos.Helpers
                 return sb.ToString();
             }
         }
+        /// <summary>
+        /// Calcula el SHA256 de un archivo.
+        /// </summary>
+        public static string CalculateSha256FromFile(
+            string filePath)
+        {
+            byte[] data = File.ReadAllBytes(filePath);
+
+            return CalculateSha256(data);
+        }
     }
+
+
 }

@@ -51,8 +51,22 @@ namespace App.ApiClient.CS.GestionArchivos.FileEncryptor
                     new EncryptionKeyInfo();
 
                 keyInfo.KeyVersion = version;
-                keyInfo.Key = SecurityHelper.FromBase64(keyValue);
-                keyInfo.IV = SecurityHelper.FromBase64(ivValue);
+                try
+                {
+                    keyInfo.Key =
+                        SecurityHelper.FromBase64(keyValue);
+
+                    keyInfo.IV =
+                        SecurityHelper.FromBase64(ivValue);
+                }
+                catch (Exception ex)
+                {
+                    throw new InvalidOperationException(
+                        string.Format(
+                            "Error al cargar la clave AES versión {0}.",
+                            version),
+                        ex);
+                }
                 keyInfo.IsActiveForNewEncryptions =
                     version == activeVersion;
 
