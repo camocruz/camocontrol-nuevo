@@ -1,8 +1,11 @@
-﻿Imports App.ApiClient.CS.GestionArchivos
+﻿Imports System.Configuration
+Imports System.Web.Services.Description
+Imports App.ApiClient.CS
+Imports App.ApiClient.CS.GestionArchivos
 Imports App.ApiClient.CS.GestionArchivos.FileEncryptor
 Imports App.ApiClient.CS.GestionArchivos.Helpers
 Imports App.ApiClient.CS.GestionArchivos.Models
-Imports System.Configuration
+Imports App.ApiClient.CS.GestionArchivos.Services
 Public Class fm_laboratorioPruebas
     Private Sub btnGenerarClave_Click(
     sender As Object,
@@ -258,4 +261,191 @@ Public Class fm_laboratorioPruebas
 
     End Sub
 
+    Private Sub btnProbarValidacionArchivo_Click(sender As Object, e As EventArgs) Handles btnProbarValidacionArchivo.Click
+        Dim config As New ConfiguracionSoporteDigitalDto()
+
+        config.TamanoMaximoKb = 10240
+
+        config.ExtensionesPermitidas =
+            "pdf;jpg;png"
+
+        Dim resultado =
+            FileValidationHelper.ValidateFile(
+                "C:\Temp\GestionArchivosTest\Entrada\prueba.txt",
+                config)
+
+        txtResultado.Text =
+            resultado.EsValido.ToString() &
+            Environment.NewLine &
+            resultado.Mensaje
+    End Sub
+
+    Private Sub btnPrepararSoporte_Click(sender As Object, e As EventArgs) Handles btnPrepararSoporte.Click
+        Dim config As New ConfiguracionSoporteDigitalDto()
+
+        config.NombreConfiguracion = "FACTURAS"
+
+        config.DirectorioBase = "C:\Temp\GestionArchivosTest"
+
+        config.UsarCarpetasPorFecha = True
+
+        config.ExtensionesPermitidas = "pdf;jpg;png;txt"
+
+        config.DescripcionPorDefecto = "Soporte de prueba"
+
+        Dim service As New SoporteDigitalService()
+
+        Dim soporte =
+            service.PrepararSoporte(
+                "C:\Temp\GestionArchivosTest\Entrada\prueba.txt",
+                config,
+                "FACTURA",
+                1001,
+                "FCC",
+                345,
+                3,
+                "CARLOS")
+
+        txtResultado.Clear()
+
+        txtResultado.AppendText(soporte.NombreArchivo)
+
+        txtResultado.AppendText(Environment.NewLine)
+
+        txtResultado.AppendText(soporte.RutaArchivo)
+
+        txtResultado.AppendText(Environment.NewLine)
+
+        txtResultado.AppendText(soporte.UsuarioCarga)
+    End Sub
+
+    Private Sub btnGuardarSoporteResult_Click(sender As Object, e As EventArgs) Handles btnGuardarSoporteResult.Click
+
+        Dim config As New ConfiguracionSoporteDigitalDto()
+
+        config.NombreConfiguracion = "FACTURAS"
+
+        config.DirectorioBase =
+    "C:\Temp\GestionArchivosTest"
+
+        config.UsarCarpetasPorFecha = True
+
+        config.ExtensionesPermitidas =
+    "pdf;jpg;png;txt"
+
+        config.DescripcionPorDefecto =
+    "Soporte de prueba"
+
+        Dim service As New SoporteDigitalService()
+
+        Try
+
+            Dim resultado =
+        service.GuardarSoporte(
+            "C:\Temp\GestionArchivosTest\Entrada\prueba.txt",
+            config,
+            "FACTURA",
+            1001,
+            "FCC",
+            345,
+            3,
+            "CARLOS")
+
+            txtResultado.Text =
+                "ArchivoFisico: " &
+                Environment.NewLine &
+                resultado.ArchivoFisico &
+                Environment.NewLine &
+                Environment.NewLine &
+                IO.File.Exists(
+                    resultado.ArchivoFisico).ToString() &
+                Environment.NewLine &
+                Environment.NewLine &
+                "Prueba de Exiatencia de archivo origen: " &
+                IO.File.Exists(
+                    "C:\Temp\GestionArchivosTest\Entrada\prueba.txt"
+                    ).ToString()
+
+        Catch ex As Exception
+
+            txtResultado.Text =
+        ex.ToString()
+
+        End Try
+    End Sub
+    Private Sub btnProbarEncryptFile_Click(
+    sender As Object,
+    e As EventArgs) _
+    Handles btnProbarEncryptFile.Click
+
+        Try
+
+            Dim encryptor As IFileEncryptor =
+                New FileEncryptor()
+
+            Dim result =
+                encryptor.EncryptFile(
+                    "C:\Temp\GestionArchivosTest\Entrada\prueba.txt",
+                    "C:\Temp\GestionArchivosTest\Salida\prueba.enc")
+
+            txtResultado.Clear()
+
+            txtResultado.AppendText(
+                "Hash: " &
+                result.HashSHA256)
+
+            txtResultado.AppendText(
+                Environment.NewLine)
+
+            txtResultado.AppendText(
+                "KeyVersion: " &
+                result.KeyVersion.ToString())
+
+            txtResultado.AppendText(
+                Environment.NewLine)
+
+            txtResultado.AppendText(
+                "Archivo: " &
+                result.EncryptedFilePath)
+
+        Catch ex As Exception
+
+            txtResultado.Text =
+                ex.ToString()
+
+        End Try
+
+    End Sub
+    Private Sub btnProbarDecryptFile_Click(
+    sender As Object,
+    e As EventArgs) _
+    Handles btnProbarDecryptFile.Click
+
+        Try
+
+            Dim encryptor As IFileEncryptor =
+                New FileEncryptor()
+
+            Dim result =
+                encryptor.EncryptFile(
+                    "C:\Temp\GestionArchivosTest\Entrada\prueba.txt",
+                    "C:\Temp\GestionArchivosTest\Salida\prueba.enc")
+
+            encryptor.DecryptFile(
+                "C:\Temp\GestionArchivosTest\Salida\prueba.enc",
+                "C:\Temp\GestionArchivosTest\Temporal\prueba_recuperada.txt",
+                result.KeyVersion,
+                result.HashSHA256)
+
+            txtResultado.Text =
+                "Archivo recuperado correctamente."
+
+        Catch ex As Exception
+
+            txtResultado.Text =
+                ex.ToString()
+
+        End Try
+
+    End Sub
 End Class
