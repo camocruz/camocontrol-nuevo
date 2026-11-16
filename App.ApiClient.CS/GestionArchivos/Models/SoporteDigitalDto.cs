@@ -29,6 +29,8 @@ namespace App.ApiClient.CS.GestionArchivos.Models
 
         public string RutaArchivo { get; set; }
 
+        public string RutaOrigen { get; set; }
+
         public string HashSHA256 { get; set; }
 
         public int KeyVersion { get; set; }
@@ -54,6 +56,7 @@ namespace App.ApiClient.CS.GestionArchivos.Models
             NombreArchivo = string.Empty;
             ExtensionArchivo = string.Empty;
             RutaArchivo = string.Empty;
+            RutaOrigen = string.Empty;
             HashSHA256 = string.Empty;
             UsuarioCarga = string.Empty;
             Descripcion = string.Empty;

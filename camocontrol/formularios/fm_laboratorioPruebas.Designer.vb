@@ -35,6 +35,8 @@ Partial Class fm_laboratorioPruebas
         Me.btnGuardarSoporteResult = New System.Windows.Forms.Button()
         Me.btnProbarEncryptFile = New System.Windows.Forms.Button()
         Me.btnProbarDecryptFile = New System.Windows.Forms.Button()
+        Me.btnProbarSoporteDigitalAccesoDto = New System.Windows.Forms.Button()
+        Me.btnProbarSoporteAuditService = New System.Windows.Forms.Button()
         Me.SuspendLayout()
         '
         'btnGenerarClave
@@ -56,7 +58,7 @@ Partial Class fm_laboratorioPruebas
         '
         'btnProbarAES
         '
-        Me.btnProbarAES.Location = New System.Drawing.Point(438, 12)
+        Me.btnProbarAES.Location = New System.Drawing.Point(377, 12)
         Me.btnProbarAES.Name = "btnProbarAES"
         Me.btnProbarAES.Size = New System.Drawing.Size(230, 35)
         Me.btnProbarAES.TabIndex = 2
@@ -65,7 +67,7 @@ Partial Class fm_laboratorioPruebas
         '
         'btnProbarArchivo
         '
-        Me.btnProbarArchivo.Location = New System.Drawing.Point(438, 46)
+        Me.btnProbarArchivo.Location = New System.Drawing.Point(377, 46)
         Me.btnProbarArchivo.Name = "btnProbarArchivo"
         Me.btnProbarArchivo.Size = New System.Drawing.Size(230, 35)
         Me.btnProbarArchivo.TabIndex = 3
@@ -74,7 +76,7 @@ Partial Class fm_laboratorioPruebas
         '
         'btnVerificarClaves
         '
-        Me.btnVerificarClaves.Location = New System.Drawing.Point(438, 82)
+        Me.btnVerificarClaves.Location = New System.Drawing.Point(377, 82)
         Me.btnVerificarClaves.Name = "btnVerificarClaves"
         Me.btnVerificarClaves.Size = New System.Drawing.Size(230, 35)
         Me.btnVerificarClaves.TabIndex = 4
@@ -83,7 +85,7 @@ Partial Class fm_laboratorioPruebas
         '
         'btnGenerarNombre
         '
-        Me.btnGenerarNombre.Location = New System.Drawing.Point(438, 117)
+        Me.btnGenerarNombre.Location = New System.Drawing.Point(377, 117)
         Me.btnGenerarNombre.Name = "btnGenerarNombre"
         Me.btnGenerarNombre.Size = New System.Drawing.Size(230, 35)
         Me.btnGenerarNombre.TabIndex = 5
@@ -92,7 +94,7 @@ Partial Class fm_laboratorioPruebas
         '
         'btnGenerarRutaArchivo
         '
-        Me.btnGenerarRutaArchivo.Location = New System.Drawing.Point(438, 153)
+        Me.btnGenerarRutaArchivo.Location = New System.Drawing.Point(377, 153)
         Me.btnGenerarRutaArchivo.Name = "btnGenerarRutaArchivo"
         Me.btnGenerarRutaArchivo.Size = New System.Drawing.Size(230, 35)
         Me.btnGenerarRutaArchivo.TabIndex = 6
@@ -101,7 +103,7 @@ Partial Class fm_laboratorioPruebas
         '
         'btnProbarConfiguracion
         '
-        Me.btnProbarConfiguracion.Location = New System.Drawing.Point(438, 188)
+        Me.btnProbarConfiguracion.Location = New System.Drawing.Point(377, 188)
         Me.btnProbarConfiguracion.Name = "btnProbarConfiguracion"
         Me.btnProbarConfiguracion.Size = New System.Drawing.Size(230, 35)
         Me.btnProbarConfiguracion.TabIndex = 7
@@ -110,7 +112,7 @@ Partial Class fm_laboratorioPruebas
         '
         'btnProbarValidacionArchivo
         '
-        Me.btnProbarValidacionArchivo.Location = New System.Drawing.Point(438, 222)
+        Me.btnProbarValidacionArchivo.Location = New System.Drawing.Point(377, 222)
         Me.btnProbarValidacionArchivo.Name = "btnProbarValidacionArchivo"
         Me.btnProbarValidacionArchivo.Size = New System.Drawing.Size(230, 35)
         Me.btnProbarValidacionArchivo.TabIndex = 8
@@ -119,7 +121,7 @@ Partial Class fm_laboratorioPruebas
         '
         'btnPrepararSoporte
         '
-        Me.btnPrepararSoporte.Location = New System.Drawing.Point(438, 256)
+        Me.btnPrepararSoporte.Location = New System.Drawing.Point(377, 256)
         Me.btnPrepararSoporte.Name = "btnPrepararSoporte"
         Me.btnPrepararSoporte.Size = New System.Drawing.Size(230, 35)
         Me.btnPrepararSoporte.TabIndex = 9
@@ -128,7 +130,7 @@ Partial Class fm_laboratorioPruebas
         '
         'btnGuardarSoporteResult
         '
-        Me.btnGuardarSoporteResult.Location = New System.Drawing.Point(438, 290)
+        Me.btnGuardarSoporteResult.Location = New System.Drawing.Point(377, 290)
         Me.btnGuardarSoporteResult.Name = "btnGuardarSoporteResult"
         Me.btnGuardarSoporteResult.Size = New System.Drawing.Size(230, 35)
         Me.btnGuardarSoporteResult.TabIndex = 10
@@ -137,7 +139,7 @@ Partial Class fm_laboratorioPruebas
         '
         'btnProbarEncryptFile
         '
-        Me.btnProbarEncryptFile.Location = New System.Drawing.Point(438, 325)
+        Me.btnProbarEncryptFile.Location = New System.Drawing.Point(377, 325)
         Me.btnProbarEncryptFile.Name = "btnProbarEncryptFile"
         Me.btnProbarEncryptFile.Size = New System.Drawing.Size(230, 35)
         Me.btnProbarEncryptFile.TabIndex = 11
@@ -146,18 +148,38 @@ Partial Class fm_laboratorioPruebas
         '
         'btnProbarDecryptFile
         '
-        Me.btnProbarDecryptFile.Location = New System.Drawing.Point(438, 360)
+        Me.btnProbarDecryptFile.Location = New System.Drawing.Point(377, 360)
         Me.btnProbarDecryptFile.Name = "btnProbarDecryptFile"
         Me.btnProbarDecryptFile.Size = New System.Drawing.Size(230, 35)
         Me.btnProbarDecryptFile.TabIndex = 12
         Me.btnProbarDecryptFile.Text = "Probar decrypter file"
         Me.btnProbarDecryptFile.UseVisualStyleBackColor = True
         '
+        'btnProbarSoporteDigitalAccesoDto
+        '
+        Me.btnProbarSoporteDigitalAccesoDto.Location = New System.Drawing.Point(377, 395)
+        Me.btnProbarSoporteDigitalAccesoDto.Name = "btnProbarSoporteDigitalAccesoDto"
+        Me.btnProbarSoporteDigitalAccesoDto.Size = New System.Drawing.Size(230, 35)
+        Me.btnProbarSoporteDigitalAccesoDto.TabIndex = 13
+        Me.btnProbarSoporteDigitalAccesoDto.Text = "Probar SoporteDigitalAccesoDto"
+        Me.btnProbarSoporteDigitalAccesoDto.UseVisualStyleBackColor = True
+        '
+        'btnProbarSoporteAuditService
+        '
+        Me.btnProbarSoporteAuditService.Location = New System.Drawing.Point(613, 12)
+        Me.btnProbarSoporteAuditService.Name = "btnProbarSoporteAuditService"
+        Me.btnProbarSoporteAuditService.Size = New System.Drawing.Size(230, 35)
+        Me.btnProbarSoporteAuditService.TabIndex = 14
+        Me.btnProbarSoporteAuditService.Text = "Probar SoporteAuditService"
+        Me.btnProbarSoporteAuditService.UseVisualStyleBackColor = True
+        '
         'fm_laboratorioPruebas
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(969, 450)
+        Me.Controls.Add(Me.btnProbarSoporteAuditService)
+        Me.Controls.Add(Me.btnProbarSoporteDigitalAccesoDto)
         Me.Controls.Add(Me.btnProbarDecryptFile)
         Me.Controls.Add(Me.btnProbarEncryptFile)
         Me.Controls.Add(Me.btnGuardarSoporteResult)
@@ -191,4 +213,6 @@ Partial Class fm_laboratorioPruebas
     Friend WithEvents btnGuardarSoporteResult As Button
     Friend WithEvents btnProbarEncryptFile As Button
     Friend WithEvents btnProbarDecryptFile As Button
+    Friend WithEvents btnProbarSoporteDigitalAccesoDto As Button
+    Friend WithEvents btnProbarSoporteAuditService As Button
 End Class

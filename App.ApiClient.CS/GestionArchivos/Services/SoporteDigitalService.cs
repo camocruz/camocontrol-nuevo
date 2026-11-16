@@ -1,13 +1,17 @@
-﻿using System;
-using System.IO;
-
+﻿using App.ApiClient.CS.GestionArchivos.FileEncryptor;
 using App.ApiClient.CS.GestionArchivos.Helpers;
 using App.ApiClient.CS.GestionArchivos.Models;
+using App.ApiClient.CS.GestionArchivos.Audit;
+using System;
+using System.Collections.Generic;
+using System.IO;
 
 namespace App.ApiClient.CS.GestionArchivos.Services
 {
     public sealed class SoporteDigitalService
     {
+        private readonly IFileEncryptor _fileEncryptor;
+        private readonly ISoporteAuditService _auditService;
         public PreparacionArchivoResult PrepararArchivo(
             ConfiguracionSoporteDigitalDto configuracion,
             string tipoDocumento,
@@ -180,6 +184,72 @@ namespace App.ApiClient.CS.GestionArchivos.Services
 
             return result;
         }
+        public RecuperacionSoporteResult RecuperarSoporte(
+            SoporteDigitalDto soporte,
+            string usuario,
+            string moduloOrigen)
+        {
+            if (soporte == null)
+            {
+                throw new ArgumentNullException(
+                    nameof(soporte));
+            }
+
+            _auditService.RegistrarVisualizacion(
+                soporte.IdSoporte,
+                usuario,
+                moduloOrigen);
+
+            string extension =
+                soporte.ExtensionArchivo;
+
+            string archivoTemporal =
+                Path.Combine(
+                    Path.GetTempPath(),
+                    Guid.NewGuid().ToString() +
+                    "." +
+                    extension);
+
+            _fileEncryptor.DecryptFile(
+                soporte.RutaArchivo,
+                archivoTemporal,
+                soporte.KeyVersion,
+                soporte.HashSHA256);
+
+            RecuperacionSoporteResult result =
+                new RecuperacionSoporteResult();
+
+            result.ArchivoTemporal =
+                archivoTemporal;
+
+            result.RecuperadoCorrectamente =
+                true;
+
+            result.Mensaje =
+                "Archivo recuperado correctamente.";
+
+            return result;
+        }
+        public SoporteDigitalService()
+        {
+            _fileEncryptor =
+                new App.ApiClient.CS.GestionArchivos.FileEncryptor.AesFileEncryptor();
+
+            _auditService =
+                new SoporteAuditService();
+        }
+        private string ObtenerRutaFisicaFinal(
+            SoporteDigitalDto soporte,
+            bool encriptado)
+        {
+            if (!encriptado)
+            {
+                return soporte.RutaArchivo;
+            }
+
+            return soporte.RutaArchivo + ".enc";
+        }
+        
 
 
     }

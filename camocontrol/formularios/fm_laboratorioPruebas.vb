@@ -6,6 +6,7 @@ Imports App.ApiClient.CS.GestionArchivos.FileEncryptor
 Imports App.ApiClient.CS.GestionArchivos.Helpers
 Imports App.ApiClient.CS.GestionArchivos.Models
 Imports App.ApiClient.CS.GestionArchivos.Services
+Imports App.ApiClient.CS.GestionArchivos.Audit
 Public Class fm_laboratorioPruebas
     Private Sub btnGenerarClave_Click(
     sender As Object,
@@ -37,7 +38,7 @@ Public Class fm_laboratorioPruebas
         txtResultado.Clear()
 
         Dim encryptor As IFileEncryptor =
-        New FileEncryptor()
+        New AesFileEncryptor()
 
         Dim textoOriginal As String =
         "Carlos Architect"
@@ -76,7 +77,7 @@ Public Class fm_laboratorioPruebas
     Handles btnProbarArchivo.Click
 
         Dim encryptor As IFileEncryptor =
-            New FileEncryptor()
+            New AesFileEncryptor()
 
         Dim archivoOrigen As String =
             "C:\Temp\GestionArchivosTest\Entrada\prueba.txt"
@@ -381,7 +382,7 @@ Public Class fm_laboratorioPruebas
         Try
 
             Dim encryptor As IFileEncryptor =
-                New FileEncryptor()
+                New AesFileEncryptor()
 
             Dim result =
                 encryptor.EncryptFile(
@@ -424,7 +425,7 @@ Public Class fm_laboratorioPruebas
         Try
 
             Dim encryptor As IFileEncryptor =
-                New FileEncryptor()
+                New AesFileEncryptor()
 
             Dim result =
                 encryptor.EncryptFile(
@@ -447,5 +448,62 @@ Public Class fm_laboratorioPruebas
 
         End Try
 
+    End Sub
+
+    Private Sub btnProbarSoporteDigitalAccesoDto_Click(sender As Object, e As EventArgs) Handles btnProbarSoporteDigitalAccesoDto.Click
+        Dim acceso As New SoporteDigitalAccesoDto()
+
+        acceso.IdSoporte = 1001
+
+        acceso.Usuario = "CARLOS"
+
+        acceso.ModuloOrigen = "FACTURAS"
+
+        acceso.TipoAcceso = "VISUALIZACION"
+
+        acceso.Autorizado = True
+
+        txtResultado.Text =
+            acceso.Usuario &
+            Environment.NewLine &
+            acceso.ModuloOrigen
+    End Sub
+
+    Private Sub btnProbarSoporteAuditService_Click(sender As Object, e As EventArgs) Handles btnProbarSoporteAuditService.Click
+        Try
+
+            Dim service As New SoporteDigitalService()
+
+            Dim soporte As New SoporteDigitalDto()
+
+            soporte.IdSoporte = 1
+            soporte.ExtensionArchivo = "txt"
+
+            soporte.RutaArchivo =
+                "C:\Temp\GestionArchivosTest\Salida\prueba.enc"
+
+            soporte.KeyVersion = 1
+
+            soporte.HashSHA256 =
+                "ca49d48f6fca4a845e68afab5416508b53551c4e2c848207ae321c00718833fa"
+
+            Dim resultado =
+                service.RecuperarSoporte(
+                    soporte,
+                    "CARLOS",
+                    "FACTURAS")
+
+            System.Diagnostics.Process.Start(
+                 resultado.ArchivoTemporal)
+
+            txtResultado.Text =
+                resultado.ArchivoTemporal
+
+        Catch ex As Exception
+
+            txtResultado.Text =
+                ex.ToString()
+
+        End Try
     End Sub
 End Class

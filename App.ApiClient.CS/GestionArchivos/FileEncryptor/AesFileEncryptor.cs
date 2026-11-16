@@ -14,7 +14,7 @@ namespace App.ApiClient.CS.GestionArchivos.FileEncryptor
     /// Implementación del motor AES-256 utilizado para
     /// proteger soportes digitales y archivos del sistema.
     /// </summary>
-    public sealed class FileEncryptor : IFileEncryptor
+    public sealed class AesFileEncryptor : IFileEncryptor
     {
         private readonly List<EncryptionKeyInfo> _keys;
 
@@ -23,7 +23,7 @@ namespace App.ApiClient.CS.GestionArchivos.FileEncryptor
         /// <summary>
         /// Constructor.
         /// </summary>
-        public FileEncryptor()
+        public AesFileEncryptor()
         {
             _keys = EncryptionKeyLoader.LoadKeys();
 
