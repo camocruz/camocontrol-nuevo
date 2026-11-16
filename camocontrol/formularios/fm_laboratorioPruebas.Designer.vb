@@ -37,6 +37,8 @@ Partial Class fm_laboratorioPruebas
         Me.btnProbarDecryptFile = New System.Windows.Forms.Button()
         Me.btnProbarSoporteDigitalAccesoDto = New System.Windows.Forms.Button()
         Me.btnProbarSoporteAuditService = New System.Windows.Forms.Button()
+        Me.btnTemporaryFileCleanupService = New System.Windows.Forms.Button()
+        Me.btnSoporteDigitalService = New System.Windows.Forms.Button()
         Me.SuspendLayout()
         '
         'btnGenerarClave
@@ -173,11 +175,31 @@ Partial Class fm_laboratorioPruebas
         Me.btnProbarSoporteAuditService.Text = "Probar SoporteAuditService"
         Me.btnProbarSoporteAuditService.UseVisualStyleBackColor = True
         '
+        'btnTemporaryFileCleanupService
+        '
+        Me.btnTemporaryFileCleanupService.Location = New System.Drawing.Point(613, 46)
+        Me.btnTemporaryFileCleanupService.Name = "btnTemporaryFileCleanupService"
+        Me.btnTemporaryFileCleanupService.Size = New System.Drawing.Size(230, 35)
+        Me.btnTemporaryFileCleanupService.TabIndex = 15
+        Me.btnTemporaryFileCleanupService.Text = "TemporaryFileCleanupService"
+        Me.btnTemporaryFileCleanupService.UseVisualStyleBackColor = True
+        '
+        'btnSoporteDigitalService
+        '
+        Me.btnSoporteDigitalService.Location = New System.Drawing.Point(613, 82)
+        Me.btnSoporteDigitalService.Name = "btnSoporteDigitalService"
+        Me.btnSoporteDigitalService.Size = New System.Drawing.Size(230, 35)
+        Me.btnSoporteDigitalService.TabIndex = 16
+        Me.btnSoporteDigitalService.Text = "SoporteDigitalService"
+        Me.btnSoporteDigitalService.UseVisualStyleBackColor = True
+        '
         'fm_laboratorioPruebas
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(969, 450)
+        Me.Controls.Add(Me.btnSoporteDigitalService)
+        Me.Controls.Add(Me.btnTemporaryFileCleanupService)
         Me.Controls.Add(Me.btnProbarSoporteAuditService)
         Me.Controls.Add(Me.btnProbarSoporteDigitalAccesoDto)
         Me.Controls.Add(Me.btnProbarDecryptFile)
@@ -215,4 +237,6 @@ Partial Class fm_laboratorioPruebas
     Friend WithEvents btnProbarDecryptFile As Button
     Friend WithEvents btnProbarSoporteDigitalAccesoDto As Button
     Friend WithEvents btnProbarSoporteAuditService As Button
+    Friend WithEvents btnTemporaryFileCleanupService As Button
+    Friend WithEvents btnSoporteDigitalService As Button
 End Class

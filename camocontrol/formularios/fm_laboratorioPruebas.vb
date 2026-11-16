@@ -2,11 +2,13 @@
 Imports System.Web.Services.Description
 Imports App.ApiClient.CS
 Imports App.ApiClient.CS.GestionArchivos
+Imports App.ApiClient.CS.GestionArchivos.Audit
+Imports App.ApiClient.CS.GestionArchivos.Cleanup
 Imports App.ApiClient.CS.GestionArchivos.FileEncryptor
 Imports App.ApiClient.CS.GestionArchivos.Helpers
 Imports App.ApiClient.CS.GestionArchivos.Models
+Imports App.ApiClient.CS.GestionArchivos.Repositories
 Imports App.ApiClient.CS.GestionArchivos.Services
-Imports App.ApiClient.CS.GestionArchivos.Audit
 Public Class fm_laboratorioPruebas
     Private Sub btnGenerarClave_Click(
     sender As Object,
@@ -504,6 +506,42 @@ Public Class fm_laboratorioPruebas
             txtResultado.Text =
                 ex.ToString()
 
+        End Try
+    End Sub
+
+    Private Sub btnTemporaryFileCleanupService_Click(sender As Object, e As EventArgs) Handles btnTemporaryFileCleanupService.Click
+        Try
+            Dim cleanup As New TemporaryFileCleanupService()
+
+            Dim eliminados =
+                cleanup.LimpiarTemporales(
+                    TimeSpan.FromHours(1))
+
+            txtResultado.Text =
+                "Archivos eliminados: " &
+                eliminados.ToString()
+        Catch ex As Exception
+            txtResultado.Text =
+                ex.ToString()
+        End Try
+    End Sub
+
+    Private Sub btnSoporteDigitalService_Click(sender As Object, e As EventArgs) Handles btnSoporteDigitalService.Click
+        Try
+            Dim repo As New SoporteDigitalRepository()
+
+            Dim soporte As New SoporteDigitalDto()
+
+            ' llenar datos mínimos
+
+            Dim id =
+                repo.Insertar(soporte)
+
+            txtResultado.Text =
+                id.ToString()
+        Catch ex As Exception
+            txtResultado.Text =
+                ex.ToString()
         End Try
     End Sub
 End Class

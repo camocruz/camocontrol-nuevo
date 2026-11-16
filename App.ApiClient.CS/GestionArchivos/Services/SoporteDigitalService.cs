@@ -203,9 +203,23 @@ namespace App.ApiClient.CS.GestionArchivos.Services
             string extension =
                 soporte.ExtensionArchivo;
 
+            //string archivoTemporal =
+            //    Path.Combine(
+            //        Path.GetTempPath(),
+            //        Guid.NewGuid().ToString() +
+            //        "." +
+            //        extension);
+			string tempFolder =
+	            Path.Combine(
+		        Path.GetTempPath(),
+		        "CamoControl");
+
+            Directory.CreateDirectory(
+                tempFolder);
+
             string archivoTemporal =
                 Path.Combine(
-                    Path.GetTempPath(),
+                    tempFolder,
                     Guid.NewGuid().ToString() +
                     "." +
                     extension);
@@ -249,7 +263,7 @@ namespace App.ApiClient.CS.GestionArchivos.Services
 
             return soporte.RutaArchivo + ".enc";
         }
-        
+
 
 
     }
