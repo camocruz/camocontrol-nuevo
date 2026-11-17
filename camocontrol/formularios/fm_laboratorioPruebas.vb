@@ -544,4 +544,82 @@ Public Class fm_laboratorioPruebas
                 ex.ToString()
         End Try
     End Sub
+
+    Private Sub btnGuardarSoporte_Click(sender As Object, e As EventArgs) Handles btnGuardarSoporte.Click
+        Try
+            Dim soporteService As New SoporteDigitalService()
+
+            Dim config As New ConfiguracionSoporteDigitalDto()
+
+            config.NombreConfiguracion = "FACTURAS"
+
+            config.DirectorioBase =
+                "C:\Temp\GestionArchivosTest"
+
+            config.UsarCarpetasPorFecha = True
+
+            config.ExtensionesPermitidas =
+                "pdf;jpg;png;txt"
+
+            config.EncriptarArchivos = True
+
+            Dim resultado =
+                soporteService.GuardarSoporte(
+                "C:\Temp\GestionArchivosTest\Entrada\prueba.txt",
+                config,
+                "FACTURA",
+                1001,
+                "FCC",
+                345,
+                3,
+                "CARLOS")
+
+            txtResultado.Clear()
+
+            txtResultado.AppendText(
+                "IdSoporte: " &
+                resultado.IdSoporte)
+
+            txtResultado.AppendText(
+                Environment.NewLine)
+
+            txtResultado.AppendText(
+                "Hash: " &
+                resultado.HashSHA256)
+
+            txtResultado.AppendText(
+                Environment.NewLine)
+
+            txtResultado.AppendText(
+                "KeyVersion: " &
+                resultado.KeyVersion)
+
+            txtResultado.AppendText(
+                Environment.NewLine)
+
+            txtResultado.AppendText(
+                "Archivo: " &
+                resultado.ArchivoFisico)
+        Catch ex As Exception
+            txtResultado.Text =
+                ex.ToString()
+        End Try
+    End Sub
+
+    Private Sub btnSoporteDigitalRepository_Click(sender As Object, e As EventArgs) Handles btnSoporteDigitalRepository.Click
+        Try
+            Dim repo As New SoporteDigitalRepository()
+
+            Dim soporte =
+                repo.ObtenerPorId(2)
+
+            txtResultado.Text =
+                soporte.NombreArchivo &
+                Environment.NewLine &
+                soporte.RutaArchivo
+        Catch ex As Exception
+            txtResultado.Text =
+                ex.ToString()
+        End Try
+    End Sub
 End Class

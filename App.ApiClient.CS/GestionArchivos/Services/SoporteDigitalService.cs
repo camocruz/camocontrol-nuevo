@@ -2,6 +2,7 @@
 using App.ApiClient.CS.GestionArchivos.Helpers;
 using App.ApiClient.CS.GestionArchivos.Models;
 using App.ApiClient.CS.GestionArchivos.Audit;
+using App.ApiClient.CS.GestionArchivos.Repositories;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -12,6 +13,7 @@ namespace App.ApiClient.CS.GestionArchivos.Services
     {
         private readonly IFileEncryptor _fileEncryptor;
         private readonly ISoporteAuditService _auditService;
+        private readonly ISoporteDigitalRepository _repository;
         public PreparacionArchivoResult PrepararArchivo(
             ConfiguracionSoporteDigitalDto configuracion,
             string tipoDocumento,
@@ -140,14 +142,14 @@ namespace App.ApiClient.CS.GestionArchivos.Services
             return soporte;
         }
         public GuardarSoporteResult GuardarSoporte(
-            string archivoOrigen,
-            ConfiguracionSoporteDigitalDto configuracion,
-            string tipoEntidad,
-            long idEntidad,
-            string tipoDocumento,
-            long codigoDocumento,
-            int consecutivo,
-            string usuario)
+    string archivoOrigen,
+    ConfiguracionSoporteDigitalDto configuracion,
+    string tipoEntidad,
+    long idEntidad,
+    string tipoDocumento,
+    long codigoDocumento,
+    int consecutivo,
+    string usuario)
         {
             SoporteDigitalDto soporte =
                 PrepararSoporte(
@@ -160,18 +162,38 @@ namespace App.ApiClient.CS.GestionArchivos.Services
                     consecutivo,
                     usuario);
 
-            File.Copy(
-                archivoOrigen,
-                soporte.RutaArchivo,
-                true);
-            if (!File.Exists(soporte.RutaArchivo))
-            {
-                throw new Exception(
-                    "El archivo no fue copiado.");
-            }
+            string rutaEncriptada =
+                soporte.RutaArchivo + ".enc";
+
+            FileEncryptionResult encryptionResult =
+                _fileEncryptor.EncryptFile(
+                    archivoOrigen,
+                    rutaEncriptada);
+
+            soporte.RutaArchivo =
+                encryptionResult.EncryptedFilePath;
+
+            soporte.HashSHA256 =
+                encryptionResult.HashSHA256;
+
+            soporte.KeyVersion =
+                encryptionResult.KeyVersion;
+
+            soporte.EsEncriptado =
+                true;
+
+            long idSoporte =
+                _repository.Insertar(
+                    soporte);
+
+            soporte.IdSoporte =
+                idSoporte;
 
             GuardarSoporteResult result =
                 new GuardarSoporteResult();
+
+            result.IdSoporte =
+                idSoporte;
 
             result.Soporte =
                 soporte;
@@ -180,7 +202,13 @@ namespace App.ApiClient.CS.GestionArchivos.Services
                 soporte.RutaArchivo;
 
             result.ArchivoEncriptado =
-                false;
+                true;
+
+            result.HashSHA256 =
+                soporte.HashSHA256;
+
+            result.KeyVersion =
+                soporte.KeyVersion;
 
             return result;
         }
@@ -209,10 +237,10 @@ namespace App.ApiClient.CS.GestionArchivos.Services
             //        Guid.NewGuid().ToString() +
             //        "." +
             //        extension);
-			string tempFolder =
-	            Path.Combine(
-		        Path.GetTempPath(),
-		        "CamoControl");
+            string tempFolder =
+                Path.Combine(
+                Path.GetTempPath(),
+                "CamoControl");
 
             Directory.CreateDirectory(
                 tempFolder);
@@ -247,10 +275,13 @@ namespace App.ApiClient.CS.GestionArchivos.Services
         public SoporteDigitalService()
         {
             _fileEncryptor =
-                new App.ApiClient.CS.GestionArchivos.FileEncryptor.AesFileEncryptor();
+                new AesFileEncryptor();
 
             _auditService =
                 new SoporteAuditService();
+
+            _repository =
+                new SoporteDigitalRepository();
         }
         private string ObtenerRutaFisicaFinal(
             SoporteDigitalDto soporte,

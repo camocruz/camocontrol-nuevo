@@ -5,6 +5,8 @@
     /// </summary>
     public sealed class ProcesamientoSoporteResult
     {
+        public long IdSoporte { get; set; }
+
         public SoporteDigitalDto Soporte { get; set; }
 
         public string ArchivoEncriptado { get; set; }

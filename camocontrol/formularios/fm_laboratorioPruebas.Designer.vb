@@ -39,6 +39,8 @@ Partial Class fm_laboratorioPruebas
         Me.btnProbarSoporteAuditService = New System.Windows.Forms.Button()
         Me.btnTemporaryFileCleanupService = New System.Windows.Forms.Button()
         Me.btnSoporteDigitalService = New System.Windows.Forms.Button()
+        Me.btnGuardarSoporte = New System.Windows.Forms.Button()
+        Me.btnSoporteDigitalRepository = New System.Windows.Forms.Button()
         Me.SuspendLayout()
         '
         'btnGenerarClave
@@ -193,11 +195,31 @@ Partial Class fm_laboratorioPruebas
         Me.btnSoporteDigitalService.Text = "SoporteDigitalService"
         Me.btnSoporteDigitalService.UseVisualStyleBackColor = True
         '
+        'btnGuardarSoporte
+        '
+        Me.btnGuardarSoporte.Location = New System.Drawing.Point(613, 117)
+        Me.btnGuardarSoporte.Name = "btnGuardarSoporte"
+        Me.btnGuardarSoporte.Size = New System.Drawing.Size(230, 35)
+        Me.btnGuardarSoporte.TabIndex = 17
+        Me.btnGuardarSoporte.Text = "GuardarSoporte"
+        Me.btnGuardarSoporte.UseVisualStyleBackColor = True
+        '
+        'btnSoporteDigitalRepository
+        '
+        Me.btnSoporteDigitalRepository.Location = New System.Drawing.Point(613, 153)
+        Me.btnSoporteDigitalRepository.Name = "btnSoporteDigitalRepository"
+        Me.btnSoporteDigitalRepository.Size = New System.Drawing.Size(230, 35)
+        Me.btnSoporteDigitalRepository.TabIndex = 18
+        Me.btnSoporteDigitalRepository.Text = "SoporteDigitalRepository"
+        Me.btnSoporteDigitalRepository.UseVisualStyleBackColor = True
+        '
         'fm_laboratorioPruebas
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(969, 450)
+        Me.Controls.Add(Me.btnSoporteDigitalRepository)
+        Me.Controls.Add(Me.btnGuardarSoporte)
         Me.Controls.Add(Me.btnSoporteDigitalService)
         Me.Controls.Add(Me.btnTemporaryFileCleanupService)
         Me.Controls.Add(Me.btnProbarSoporteAuditService)
@@ -239,4 +261,6 @@ Partial Class fm_laboratorioPruebas
     Friend WithEvents btnProbarSoporteAuditService As Button
     Friend WithEvents btnTemporaryFileCleanupService As Button
     Friend WithEvents btnSoporteDigitalService As Button
+    Friend WithEvents btnGuardarSoporte As Button
+    Friend WithEvents btnSoporteDigitalRepository As Button
 End Class
